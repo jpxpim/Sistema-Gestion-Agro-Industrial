@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class VariedadDAO {
     
-    public static List<entVariedad> Listar() throws Exception
+    public static List<entVariedad> Listar(boolean activo) throws Exception
     {
         List<entVariedad> lista = null;
         Connection conn =null;
@@ -30,8 +30,10 @@ public class VariedadDAO {
         try {
             String sql="select V.id_variedad,V.nombre,V.descripcion,V.estado,V.usuario_responsable,V.fecha_modificacion,"
                     + "C.id_cultivo,C.nombre,C.descripcion,C.estado,C.usuario_responsable,C.fecha_modificacion"
-                    + "from variedad V join cultivo C on V.id_cultivo=C.id_cultivo"
-                    + "where V.estado=1";
+                    + "from variedad V join cultivo C on V.id_cultivo=C.id_cultivo";
+            if(activo)
+                        sql+=" where V.estado=1"; 
+                    
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

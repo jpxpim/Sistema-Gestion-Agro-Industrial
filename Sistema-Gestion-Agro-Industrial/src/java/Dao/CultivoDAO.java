@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class CultivoDAO 
 {
-    public static List<entCultivo> Listar() throws Exception
+    public static List<entCultivo> Listar(boolean activo) throws Exception
     {
         List<entCultivo> lista = null;
         Connection conn =null;
@@ -28,7 +28,9 @@ public class CultivoDAO
         ResultSet dr = null;
         try {
             String sql="select id_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from cultivo where estado=1";
+                    + "from cultivo ";
+            if(activo)
+                        sql+=" where estado=1"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
