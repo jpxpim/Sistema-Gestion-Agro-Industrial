@@ -97,6 +97,37 @@ public class CultivoDAO
             }
         }
         return rpta;
-    }    
+    } 
+    
+    public static boolean actualizar(entCultivo entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+             String sql="UPDATE cultivo SET nombre = ?,descripcion= ?,estado= ?,"
+                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_cultivo = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);             
+            stmt.setString(1, entidad.getNombre());
+            stmt.setString(2, entidad.getDescripcion());
+            stmt.setBoolean(3, entidad.getEstado());
+            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setInt(5,entidad.getId_cultivo());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }
     
 }
