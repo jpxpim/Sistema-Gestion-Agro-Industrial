@@ -62,5 +62,41 @@ public class CultivoDAO
         }
         return lista;
     }
+
+    public  static int insertar(entCultivo entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+            
+           String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modifiacion)"
+                   + "VALUES(?,?,?,?,GETDATE(),0);";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            stmt.setString(1, entidad.getNombre());
+            stmt.setString(2, entidad.getDescripcion());
+            stmt.setBoolean(3, entidad.getEstado());
+            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+           
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }    
     
 }
