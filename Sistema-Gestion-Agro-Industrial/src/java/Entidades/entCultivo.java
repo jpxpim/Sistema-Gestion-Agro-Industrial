@@ -6,7 +6,9 @@
 
 package Entidades;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+
+
 
 /**
  *
@@ -25,6 +27,9 @@ public class entCultivo {
     public entCultivo(int id_cultivo) {
         this.id_cultivo = id_cultivo;
     } 
+
+    public entCultivo() {        
+    }
     
     public int getId_cultivo() {
         return id_cultivo;
