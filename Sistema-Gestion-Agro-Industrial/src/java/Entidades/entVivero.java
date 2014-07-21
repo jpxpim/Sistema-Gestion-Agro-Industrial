@@ -21,6 +21,8 @@ public class entVivero {
     private String usuario_responsable;
     private Timestamp fecha_modificacion;
 
+    public entVivero(){}
+    
     public int getId_vivero() {
         return id_vivero;
     }

@@ -20,6 +20,8 @@ public class entPatron {
     private String usuario_responsable;
     private Timestamp fecha_modificacion;
 
+    public entPatron(){}
+    
     public int getId_patron() {
         return id_patron;
     }

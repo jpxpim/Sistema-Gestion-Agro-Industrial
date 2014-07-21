@@ -20,6 +20,8 @@ public class entSector {
     private String usuario_responsable;
     private Timestamp fecha_modificacion;
 
+    public entSector(){}
+    
     public int getId_sector() {
         return id_sector;
     }

@@ -21,6 +21,8 @@ public class entTipoCultivo
     private String usuario_responsable;
     private Timestamp fecha_modificacion;
 
+    public entTipoCultivo(){}
+    
     public int getId_tipo_cultivo() {
         return id_tipo_cultivo;
     }

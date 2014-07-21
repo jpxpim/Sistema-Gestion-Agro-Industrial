@@ -21,6 +21,10 @@ public class entSubSector {
     private String usuario_responsable;
     private Timestamp fecha_modificacion;
     
+    public entSubSector()
+    {
+        
+    }
     public int getId_sub_sector() {
         return id_sub_sector;
     }
