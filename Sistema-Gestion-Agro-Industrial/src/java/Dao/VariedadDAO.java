@@ -7,6 +7,7 @@
 package Dao;
 
 import Entidades.entCultivo;
+import Entidades.entVariedad;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,17 +19,19 @@ import java.util.List;
  *
  * @author rosemary
  */
-public class CultivoDAO 
-{
-    public static List<entCultivo> Listar() throws Exception
+public class VariedadDAO {
+    
+    public static List<entVariedad> Listar() throws Exception
     {
-        List<entCultivo> lista = null;
+        List<entVariedad> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from cultivo where estado=1";
+            String sql="select V.id_variedad,V.nombre,V.descripcion,V.estado,V.usuario_responsable,V.fecha_modificacion,"
+                    + "C.id_cultivo,C.nombre,C.descripcion,C.estado,C.usuario_responsable,C.fecha_modificacion"
+                    + "from variedad V join cultivo C on V.id_cultivo=C.id_cultivo"
+                    + "where V.estado=1";
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -37,15 +40,25 @@ public class CultivoDAO
             while(dr.next())
             {
                 if(lista==null)
-                    lista= new ArrayList<entCultivo>();
+                    lista= new ArrayList<entVariedad>();
                 
-                    entCultivo entidad = new entCultivo();
-                    entidad.setId_cultivo(dr.getInt(1));
+                    entVariedad entidad = new entVariedad();
+                    entidad.setId_variedad(dr.getInt(1));
                     entidad.setNombre(dr.getString(2)); 
                     entidad.setDescripcion(dr.getString(3)); 
                     entidad.setEstado(dr.getBoolean(4)); 
                     entidad.setUsuario_responsable(dr.getString(5)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    
+                    entCultivo cultivo = new entCultivo();
+                    cultivo.setId_cultivo(dr.getInt(7));
+                    cultivo.setNombre(dr.getString(8)); 
+                    cultivo.setDescripcion(dr.getString(9)); 
+                    cultivo.setEstado(dr.getBoolean(10)); 
+                    cultivo.setUsuario_responsable(dr.getString(11)); 
+                    cultivo.setFecha_modificacion(dr.getTimestamp(12)); 
+                    
+                    entidad.setObjCultivo(cultivo);
                     lista.add(entidad);
             }
 
@@ -63,22 +76,23 @@ public class CultivoDAO
         return lista;
     }
 
-    public  static int insertar(entCultivo entidad) throws Exception
+    public  static int insertar(entVariedad entidad) throws Exception
     {
         int rpta = 0;
         Connection conn =null;
         CallableStatement stmt = null;
         try {
             
-           String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modifiacion)"
-                   + "VALUES(?,?,?,?,GETDATE(),0);";
+           String sql="INSERT INTO variedad(id_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modifiacion)"
+                   + "VALUES(?,?,?,?,?,GETDATE(),0);";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
-            stmt.setString(1, entidad.getNombre());
-            stmt.setString(2, entidad.getDescripcion());
-            stmt.setBoolean(3, entidad.getEstado());
-            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setInt(1, entidad.getObjCultivo().getId_cultivo());
+            stmt.setString(2, entidad.getNombre());
+            stmt.setString(3, entidad.getDescripcion());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
             stmt.executeUpdate();
            
             ResultSet rs = stmt.getGeneratedKeys();
@@ -97,24 +111,25 @@ public class CultivoDAO
             }
         }
         return rpta;
-    } 
+    }     
     
-    public static boolean actualizar(entCultivo entidad) throws Exception
+    public static boolean actualizar(entVariedad entidad) throws Exception
     {
         boolean rpta = false;
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE cultivo SET nombre = ?,descripcion= ?,estado= ?,"
-                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_cultivo = ?;";
+             String sql="UPDATE variedad SET id_cultivo = ?,nombre = ?,descripcion= ?,estado= ?,"
+                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_variedad = ?;";
              
             conn = ConexionDAO.getConnection();
-            stmt = conn.prepareCall(sql);             
-            stmt.setString(1, entidad.getNombre());
-            stmt.setString(2, entidad.getDescripcion());
-            stmt.setBoolean(3, entidad.getEstado());
-            stmt.setString(4, entidad.getUsuario_responsable());
-            stmt.setInt(5,entidad.getId_cultivo());
+            stmt = conn.prepareCall(sql);  
+            stmt.setInt(1, entidad.getObjCultivo().getId_cultivo());
+            stmt.setString(2, entidad.getNombre());
+            stmt.setString(3, entidad.getDescripcion());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setInt(6,entidad.getId_variedad());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {
@@ -128,6 +143,5 @@ public class CultivoDAO
             }
         }
         return rpta;
-    }
-    
+    }    
 }
