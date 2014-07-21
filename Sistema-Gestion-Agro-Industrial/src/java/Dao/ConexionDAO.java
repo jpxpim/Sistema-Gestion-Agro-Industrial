@@ -20,7 +20,7 @@ public class ConexionDAO {
             cnn=DriverManager.getConnection(url,usuario,clave);
             System.out.println("conexion establecida");
         } catch (ClassNotFoundException | SQLException e) {
-             System.out.println("no se pùdo establecer la conexion");
+             System.out.println("No se pudo establecer la conexion");
         }
              return cnn;
     }
