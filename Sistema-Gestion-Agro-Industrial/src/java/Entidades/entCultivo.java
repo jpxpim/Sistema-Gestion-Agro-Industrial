@@ -6,7 +6,11 @@
 
 package Entidades;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
+
+
+
 
 
 
@@ -21,7 +25,7 @@ public class entCultivo {
     private String descripcion;
     private boolean estado;
     private String usuario_responsable;
-    private Timestamp fecha_modificacion;
+    private Date fecha_modificacion;
     
     
     public entCultivo(int id_cultivo) {
@@ -71,12 +75,14 @@ public class entCultivo {
         this.usuario_responsable = usuario_responsable;
     }
 
-    public Timestamp getFecha_modificacion() {
+    public Date getFecha_modificacion() {
         return fecha_modificacion;
     }
 
-    public void setFecha_modificacion(Timestamp fecha_modificacion) {
+    public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
     }
+
+
     
 }
