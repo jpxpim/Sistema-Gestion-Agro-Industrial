@@ -21,10 +21,19 @@ public class entSubSector {
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
+    private String grower_senasa;
     
     public entSubSector()
     {
         
+    }
+
+    public String getGrower_senasa() {
+        return grower_senasa;
+    }
+
+    public void setGrower_senasa(String grower_senasa) {
+        this.grower_senasa = grower_senasa;
     }
     public int getId_sub_sector() {
         return id_sub_sector;

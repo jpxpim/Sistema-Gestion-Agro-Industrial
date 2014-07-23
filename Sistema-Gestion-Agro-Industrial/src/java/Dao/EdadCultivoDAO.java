@@ -9,8 +9,10 @@ package Dao;
 import Entidades.entEdadCultivo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,21 +71,21 @@ public class EdadCultivoDAO {
     {
         int rpta = 0;
         Connection conn =null;
-        CallableStatement stmt = null;
+        PreparedStatement stmt = null;
         try {
             
-           String sql="INSERT INTO edad_cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modifiacion)"
-                   + "VALUES(?,?,?,?,GETDATE(),0);";
+           String sql="INSERT INTO edad_cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
-            stmt = conn.prepareCall(sql);
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, entidad.getNombre());
             stmt.setString(2, entidad.getDescripcion());
             stmt.setBoolean(3, entidad.getEstado());
             stmt.setString(4, entidad.getUsuario_responsable());
             stmt.executeUpdate();
-           
             ResultSet rs = stmt.getGeneratedKeys();
+            
             if (rs.next()){
                 rpta=rs.getInt(1);
             }

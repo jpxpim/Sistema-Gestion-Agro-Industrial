@@ -12,10 +12,10 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>SOPEP - Sistema Optimizado Para Entrega de Productos</title>
-        <meta name="author" content="Eder Martin Haro Araujo">
-        <meta name="description" content="SOPEP - Sistema Optimizado Para Entrega de Productos DEMO">
-        <meta name="keywords" content="Sistema by EdHam">
+        <title>Sistema Gestión Agrícola</title>
+        <meta name="author" content="">
+        <meta name="description" content="Sistema Gestión Agrícola">
+        <meta name="keywords" content="Sistema Agricola">
     
         <!-- Bootstrap framework -->
             <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
@@ -73,7 +73,7 @@
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>
                                 <li>
-                                  Agregar Puntos de Reparto
+                                  Agregar Cultivo
                                 </li>
                             </ul>
                         </div>
@@ -81,7 +81,7 @@
                 
                     <div class="row-fluid">
 						<div class="span12">
-							<h3 class="heading">Agregar Punto de Reparto</h3>
+							<h3 class="heading">Agregar Cultivo</h3>
 							<div class="row-fluid">
 								<div class="span4">
 									<div class="row-fluid" id="g-map-top">

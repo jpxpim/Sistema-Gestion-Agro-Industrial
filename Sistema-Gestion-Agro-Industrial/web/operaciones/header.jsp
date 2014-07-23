@@ -3,7 +3,7 @@
                 <div class="navbar navbar-fixed-top">
                     <div class="navbar-inner">
                         <div class="container-fluid">
-                            <a class="brand" href="intranet.jsp"><i class="icon-home icon-white"></i> SOPEP ADMIN</a>
+                            <a class="brand" href="intranet.jsp"><i class="icon-home icon-white"></i>   Inicio</a>
                             <ul class="nav user_menu pull-right">
                                 <li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix">

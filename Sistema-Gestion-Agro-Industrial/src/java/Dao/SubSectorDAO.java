@@ -10,8 +10,10 @@ import Entidades.entSector;
 import Entidades.entSubSector;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,19 +84,20 @@ public class SubSectorDAO
     {
         int rpta = 0;
         Connection conn =null;
-        CallableStatement stmt = null;
+        PreparedStatement stmt = null;
         try {
             
-           String sql="INSERT INTO sub_sector(id_sector,nombre,descripcion,estado,usuario_responsable,fecha_modifiacion)"
-                   + "VALUES(?,?,?,?,?,GETDATE(),0);";
+           String sql="INSERT INTO sub_sector(id_sector,nombre,descripcion,grower_senasa,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
-            stmt = conn.prepareCall(sql);
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjSector().getId_sector());
             stmt.setString(2, entidad.getNombre());
             stmt.setString(3, entidad.getDescripcion());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setString(4, entidad.getGrower_senasa());
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
             stmt.executeUpdate();
            
             ResultSet rs = stmt.getGeneratedKeys();
