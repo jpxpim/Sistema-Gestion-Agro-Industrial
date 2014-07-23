@@ -30,7 +30,7 @@ public class SubSectorDAO
         try {
             String sql="select SS.id_sub_sector,SS.nombre,SS.descripcion,SS.estado,SS.usuario_responsable,SS.fecha_modificacion,"
                     + "S.id_sector,S.nombre,S.descripcion,S.estado,S.usuario_responsable,S.fecha_modificacion"
-                    + "from sub_sector SS join sector S on SS.id_sector=S.id_sector";
+                    + " from sub_sector SS join sector S on SS.id_sector=S.id_sector";
             if(activo)
                         sql+=" where SS.estado=1"; 
                     
@@ -114,6 +114,7 @@ public class SubSectorDAO
         }
         return rpta;
     }     
+    
     
     public static boolean actualizar(entSubSector entidad) throws Exception
     {

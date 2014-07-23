@@ -166,7 +166,7 @@
 		.sidebar_hidden {background: #fff}
 		
 		.sidebar_hidden #maincontainer {background: #fff}
-		.sidebar_info {width:180px;position:relative;left:30px;bottom:10px}
+		.sidebar_info {width:180px;position:relative;left:5px;bottom:10px}
 		.sidebar_info ul {padding:5px 10px;margin:0;font-size:11px;background:#fafafa;border:1px solid #e5e5e5;-webkit-border-radius: 6px;-moz-border-radius: 6px;-ms-border-radius: 6px;border-radius: 6px}
         .sidebar_info ul li {line-height:26px;overflow:hidden;border-bottom:1px dashed #ccc}
         .sidebar_info ul li:last-child {border:none}
@@ -649,29 +649,7 @@
 		.ptrn_d .main_content {background-image: url(../img/bg_d.png)}
 		.ptrn_e .main_content {background-image: url(../img/bg_e.png)}
 
-	/* Style switcher */
-		.ssw_trigger{position:fixed;top:62px;right:-1px;z-index:1001;text-decoration: none;font-size: 12px;color:#fff;width:15px;padding: 2px 3px;background:#333;display: block;-webkit-border-top-left-radius: 8px;-webkit-border-bottom-left-radius: 8px;-moz-border-radius-topleft: 8px;-moz-border-radius-bottomleft: 8px;border-top-left-radius: 8px;border-bottom-left-radius: 8px;border:1px solid transparent}
-		.ssw_trigger.active {border-color:#555}
-		.style_switcher {font-size:12px;z-index:1000;position:fixed;top:54px;right:0;display:none;background:#000;background: rgba(0,0,0,.8);border:1px solid #111;-moz-border-radius-topright: 12px;-webkit-border-top-right-radius: 12px;-moz-border-radius-bottomright: 12px;-webkit-border-bottom-right-radius: 12px;width: 180px;height: auto;padding: 30px 30px 30px 50px;color:#f5f5f5}
-		.style_switcher p {margin:0 0 6px;font-weight:700}
-		.style_item {display:block;margin-right:6px;height:20px;width:20px;border:2px solid #fff;float:left;text-indent:-9999px}
-		.style_switcher .ptrn_def {background: #fff }
-		
-		.style_switcher .ssw_ptrn_a {background: #fff url(../img/bg_a.png)}
-		.style_switcher .ssw_ptrn_b {background: #fff url(../img/bg_b.png)}
-		.style_switcher .ssw_ptrn_c {background: #fff url(../img/bg_c.png)}
-		.style_switcher .ssw_ptrn_d {background: #fff url(../img/bg_d.png)}
-		.style_switcher .ssw_ptrn_e {background: #fff url(../img/bg_e.png)}
-		
-		.style_switcher .dark_theme {background:#000}
-		.style_switcher .blue_theme {background:#067ead}
-		.style_switcher .brown_theme {background:#b47f44}
-		.style_switcher .green_theme {background:#8da452}
-		.style_switcher .eastern_blue_theme {background:#1294af}
-		.style_switcher .tamarillo_theme {background:#af2c36}
-		.style_active {border-color:#6fd05b}
-		.style_switcher label {color:#fff}
-		
+	
 		
 	/* media queries */
 

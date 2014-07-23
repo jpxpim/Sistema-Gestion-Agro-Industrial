@@ -27,7 +27,7 @@ public class Tipo_CultivoDAO {
         ResultSet dr = null;
         try {
             String sql="select id_tipo_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from tipo_cultivo ";
+                    + " from tipo_cultivo ";
             if(activo)
                         sql+=" where estado=1"; 
 

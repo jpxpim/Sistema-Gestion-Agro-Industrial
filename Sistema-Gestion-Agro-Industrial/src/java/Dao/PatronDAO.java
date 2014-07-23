@@ -27,7 +27,7 @@ public class PatronDAO {
         ResultSet dr = null;
         try {
             String sql="select id_patron,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from patron ";
+                    + " from patron ";
             if(activo)
                         sql+=" where estado=1"; 
 

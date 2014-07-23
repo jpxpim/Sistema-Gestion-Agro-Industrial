@@ -9,7 +9,7 @@ public class ConexionDAO {
     public static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     public static String url = "jdbc:sqlserver://localhost\\MSSQL:1433;databaseName=PLANTA";
     public static String usuario = "sa";
-    public static String clave = "123456";
+    public static String clave = "123";
     
     public ConexionDAO() {
     }

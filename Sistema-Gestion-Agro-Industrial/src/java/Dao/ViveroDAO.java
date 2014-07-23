@@ -28,7 +28,7 @@ public class ViveroDAO {
         ResultSet dr = null;
         try {
             String sql="select id_vivero,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from vivero ";
+                    + " from vivero ";
             if(activo)
                         sql+=" where estado=1"; 
 

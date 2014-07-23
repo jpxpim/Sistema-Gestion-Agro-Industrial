@@ -9,8 +9,10 @@ package Dao;
 import Entidades.entCultivo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class CultivoDAO
         ResultSet dr = null;
         try {
             String sql="select id_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from cultivo ";
+                    + " from cultivo ";
             if(activo)
                         sql+=" where estado=1"; 
 
@@ -64,26 +66,55 @@ public class CultivoDAO
         }
         return lista;
     }
-
-    public  static int insertar(entCultivo entidad) throws Exception
+       public static int insertar(entCultivo entidad) throws Exception
     {
         int rpta = 0;
         Connection conn =null;
-        CallableStatement stmt = null;
+        Statement stmt = null;
+        try {
+
+             String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES('"+entidad.getNombre()+"','"+entidad.getDescripcion()+"','"+entidad.getEstado()+"','"+entidad.getUsuario_responsable()+"',GETDATE());";
+           conn = ConexionDAO.getConnection();
+           stmt = conn.createStatement();
+           stmt.execute(sql, Statement.RETURN_GENERATED_KEYS);                
+            ResultSet resulset = stmt.getGeneratedKeys();
+            if (resulset.next()) {
+                rpta = resulset.getInt(1);
+            }
+        } catch (Exception e) {
+            throw new Exception("Registrar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+        return rpta;
+    }
+       
+    
+         public  static int insertar1(entCultivo entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modifiacion)"
-                   + "VALUES(?,?,?,?,GETDATE(),0);";
+           String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
-            stmt = conn.prepareCall(sql);
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, entidad.getNombre());
             stmt.setString(2, entidad.getDescripcion());
             stmt.setBoolean(3, entidad.getEstado());
             stmt.setString(4, entidad.getUsuario_responsable());
             stmt.executeUpdate();
-           
             ResultSet rs = stmt.getGeneratedKeys();
+            
             if (rs.next()){
                 rpta=rs.getInt(1);
             }
@@ -100,7 +131,41 @@ public class CultivoDAO
         }
         return rpta;
     } 
-    
+       public  static int insertar2(entCultivo entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+            
+           String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,GETDATE());SELECT @@IDENTITY";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            stmt.setString(1, entidad.getNombre());
+            stmt.setString(2, entidad.getDescripcion());
+            stmt.setBoolean(3, entidad.getEstado());
+            stmt.setString(4, entidad.getUsuario_responsable());
+           stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
     public static boolean actualizar(entCultivo entidad) throws Exception
     {
         boolean rpta = false;

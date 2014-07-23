@@ -30,7 +30,7 @@ public class VariedadDAO {
         try {
             String sql="select V.id_variedad,V.nombre,V.descripcion,V.estado,V.usuario_responsable,V.fecha_modificacion,"
                     + "C.id_cultivo,C.nombre,C.descripcion,C.estado,C.usuario_responsable,C.fecha_modificacion"
-                    + "from variedad V join cultivo C on V.id_cultivo=C.id_cultivo";
+                    + " from variedad V join cultivo C on V.id_cultivo=C.id_cultivo";
             if(activo)
                         sql+=" where V.estado=1"; 
                     

@@ -28,7 +28,7 @@ public class EdadCultivoDAO {
         ResultSet dr = null;
         try {
             String sql="select id_edad_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from edad_cultivo ";
+                    + " from edad_cultivo ";
             if(activo)
                         sql+=" where estado=1"; 
 

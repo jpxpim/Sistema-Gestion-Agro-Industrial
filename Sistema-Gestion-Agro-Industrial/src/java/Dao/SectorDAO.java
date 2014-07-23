@@ -27,7 +27,7 @@ public class SectorDAO {
         ResultSet dr = null;
         try {
             String sql="select id_sector,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
-                    + "from sector ";
+                    + " from sector ";
             if(activo)
                         sql+=" where estado=1"; 
 
