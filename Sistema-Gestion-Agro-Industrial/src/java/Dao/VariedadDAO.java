@@ -125,7 +125,6 @@ public class VariedadDAO {
         try {
              String sql="UPDATE variedad SET id_cultivo = ?,nombre = ?,descripcion= ?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_variedad = ?;";
-             
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);  
             stmt.setInt(1, entidad.getObjCultivo().getId_cultivo());
