@@ -170,7 +170,7 @@
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                        <script src="lib/datatables/jquery.dataTables.min.js"></script>
+                        
 	
 			<script>
 function tabla()
@@ -214,10 +214,7 @@ function tabla()
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
 
-                                        $('#table').dataTable({
-                                        "sDom": "<'row'<'span6'<'dt_actions'>l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-                                        "sPaginationType": "bootstrap"
-                                        });
+                                       
                                         
                                         
                                       $('#reg_form').validate({
