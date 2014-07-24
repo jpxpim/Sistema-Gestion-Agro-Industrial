@@ -75,7 +75,7 @@ public class CultivoDAO
         try {
             
            String sql="INSERT INTO cultivo(nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
-                   + "VALUES(?,?,?,?,GETDATE());";
+                   + " VALUES(?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
