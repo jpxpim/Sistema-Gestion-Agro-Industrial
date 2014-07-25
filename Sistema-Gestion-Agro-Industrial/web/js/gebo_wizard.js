@@ -14,14 +14,14 @@
                    
 			$('#simple_wizard').stepy({
 				titleClick	: true,
-				nextLabel:      'Next <i class="icon-chevron-right icon-white"></i>',
-				backLabel:      '<i class="icon-chevron-left"></i> Back'
+				nextLabel:      'Siquiente <i class="icon-chevron-right icon-white"></i>',
+				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atraz'
 			});
 		},
 		validation: function(){
 			$('#validate_wizard').stepy({
-				nextLabel:      'Forward <i class="icon-chevron-right icon-white"></i>',
-				backLabel:      '<i class="icon-chevron-left"></i> Backward',
+				nextLabel:      'Siguiente <i class="icon-chevron-right icon-white"></i>',
+				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atraz',
 				block		: true,
 				errorImage	: true,
 				titleClick	: true,
@@ -44,23 +44,90 @@
 						thisStep.removeClass('error-image');
 					};
 				},
+                                submitHandler: function() {       
+                                           
+                                                    var url = "../operaciones/usuario/insert.jsp"; 
+
+                                                    $.ajax({
+                                                           type: "POST",
+                                                           url: url,
+                                                           data: $("#validate_wizard").serialize(), 
+                                                           success: function(data)
+                                                           {
+                                                             
+                                                               if(data==-1)
+                                                                 $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
+                                                                else if(data==0)
+                                                                {
+                                                                    clear_form();
+                                                                    tabla();
+                                                                   $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
+                                                                    
+                                                               }
+                                                                else if(data>0)
+                                                                {
+                                                                   clear_form();                                                                  
+                                                                   tabla();
+                                                                   $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
+                                                                   
+                                                                }
+                                                           }
+                                                         });    
+                                            },
 				rules: {
-					'v_username'	: {
+					'txtNombres'	: {
 						required	: true,
 						minlength	: 3
 					},
-					'v_email'		: 'email',
-					'v_newsletter'	: 'required',
-					'v_password'	: 'required',
-					'v_city'		: 'required',
-					'v_country'		: 'required'
+                                        'txtApellidos'	: {
+						required	: true,
+						minlength	: 3
+					},
+                                        txtTelefono: { 
+                                            required: true,
+                                            digits:true,
+                                            rangelength:[9, 9] 
+                                        },
+                                        txtCelular: { 
+                                            required: true,
+                                            digits:true,
+                                            rangelength:[9, 9] 
+                                        },
+					'txtEmail'	: 'email required',
+					'txtFNacimiento': 'required',
+                                        'rbEstado'	: 'required',
+                                        'txtCodigoERP'	: 'required',
+                                        'txtLogin'	: 'required',
+                                         txtFoto: { 
+                                            required: true,
+                                            minlength	: 3
+                                        },
+                                        txtResponsable: { 
+                                            required: true,
+                                            minlength	: 3
+                                        },
+                                        txtContrasena: { 
+                                             required: true, 
+                                             minlength:6 
+                                         },
+                                        txtRContrasena: { 
+                                             required: true, 
+                                             equalTo: "#txtContrasena"
+                                         }
 				}, messages: {
-					'v_username'	: { required:  'Username field is required!' },
-					'v_email'		: { email	:  'Invalid e-mail!' },
-					'v_newsletter'	: { required:  'Newsletter field is required!' },
-					'v_password'	: { required:  'Password field is requerid!' },
-					'v_city'		: { required:  'City field is requerid!' },
-					'v_country'		: { required:  'Country field is requerid!' }
+                                        'txtNombres'	: { required:  'Se requiere el campo Nombres!' },
+                                        'txtContrasena'	: { required:  'Se requiere el campo Contraseña!' },
+                                        'txtRContrasena': { required:  'Se requiere el campo Repita Contraseña!' },
+                                        'txtApellidos'	: { required:  'Se requiere el campo Apellidos!' },
+                                        'txtTelefono'	: { required:  'Se requiere el campo Telefono!' },
+                                        'txtResponsable': { required:  'Se requiere el campo Responsable!' },
+                                        'txtLogin'	: { required:  'Se requiere el campo Login!' },
+                                        'txtCodigoERP'	: { required:  'Se requiere el campo Código ERP!' },
+                                        'txtCelular'	: { required:  'Se requiere el campo Celular!' },
+                                        'txtFoto'	: { required:  'Se requiere selecionar una Imagen!' },
+                                        'rbEstado'	: { required:  'Se requiere selecionar un Estado!' },
+					'txtFNacimiento': { required:  'Se requiere el campo Fecha de Nacimiento!' },
+					'txtEmail'	: { email	:  'Correo Electronico invalido!' },
 				},
 				ignore				: ':hidden'
 			});

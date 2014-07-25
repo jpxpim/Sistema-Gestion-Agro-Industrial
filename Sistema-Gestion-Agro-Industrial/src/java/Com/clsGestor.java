@@ -87,4 +87,102 @@ public class clsGestor {
     }
     
 // </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entUsuario">
+    public static List<entUsuario> ListarUsuario(boolean activo) throws Exception
+    {
+        return UsuarioDAO.Listar(activo);
+    }
+    
+    public  static int insertarUsuario(entUsuario entidad) throws Exception
+    {
+        return UsuarioDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarUsuario(entUsuario entidad) throws Exception
+    {
+        return UsuarioDAO.actualizar(entidad);
+    }
+    public static byte[] getFotoUsuario(int IdUsuario) throws Exception
+    {
+        return UsuarioDAO.getFoto(IdUsuario);
+    }
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entTipoCultivo">
+    public static List<entTipoCultivo> ListarTipoCultivo(boolean activo) throws Exception
+    {
+        return Tipo_CultivoDAO.Listar(activo);
+    }
+    
+    public  static int insertarTipoCultivo(entTipoCultivo entidad) throws Exception
+    {
+        return Tipo_CultivoDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarTipoCultivo(entTipoCultivo entidad) throws Exception
+    {
+        return Tipo_CultivoDAO.actualizar(entidad);
+    }
+
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entSector">
+    public static List<entSector> ListarSector(boolean activo) throws Exception
+    {
+        return SectorDAO.Listar(activo);
+    }
+    
+    public  static int insertarSector(entSector entidad) throws Exception
+    {
+        return SectorDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarSector(entSector entidad) throws Exception
+    {
+        return SectorDAO.actualizar(entidad);
+    }
+
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entSubSector">
+    public static List<entSubSector> ListarSubSector(boolean activo) throws Exception
+    {
+        return SubSectorDAO.Listar(activo);
+    }
+    
+    public  static int insertarSubSector(entSubSector entidad) throws Exception
+    {
+        return SubSectorDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarSubSector(entSubSector entidad) throws Exception
+    {
+        return SubSectorDAO.actualizar(entidad);
+    }
+
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entPatron">
+    public static List<entPatron> ListarPatron(boolean activo) throws Exception
+    {
+        return PatronDAO.Listar(activo);
+    }
+    
+    public  static int insertarPatron(entPatron entidad) throws Exception
+    {
+        return PatronDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarPatron(entPatron entidad) throws Exception
+    {
+        return PatronDAO.actualizar(entidad);
+    }
+
+    
+// </editor-fold>
 }

@@ -22,6 +22,10 @@ public class entSector {
     private Date fecha_modificacion;
 
     public entSector(){}
+
+    public entSector(int id_sector) {
+        this.id_sector = id_sector;
+    }
     
     public int getId_sector() {
         return id_sector;

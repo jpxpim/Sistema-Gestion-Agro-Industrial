@@ -25,7 +25,7 @@ public class entUsuario
     private String telefono;
     private String celular;
     private Date fecha_nacimiento;
-    private String foto;
+    private byte[] foto;
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
@@ -115,13 +115,15 @@ public class entUsuario
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
+
+   
 
     public boolean getEstado() {
         return estado;

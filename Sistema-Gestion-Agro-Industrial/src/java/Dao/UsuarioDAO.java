@@ -58,7 +58,7 @@ public class UsuarioDAO {
                     entidad.setTelefono(dr.getString(8));
                     entidad.setCelular(dr.getString(9));
                     entidad.setFecha_nacimiento(dr.getDate(10));
-                    entidad.setFoto(dr.getString(11));
+                    entidad.setFoto(dr.getBytes(11));
                     entidad.setEstado(dr.getBoolean(12));
                     entidad.setUsuario_responsable(dr.getString(13));
                     entidad.setFecha_modificacion(dr.getTimestamp(14));
@@ -77,6 +77,38 @@ public class UsuarioDAO {
             }
         }
         return lista;
+    }
+    
+    public static byte[] getFoto(int IdUsuario) throws Exception
+    {
+        byte[] foto = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select foto from usuario where id_usuario="+IdUsuario; 
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                   foto=dr.getBytes(1);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return foto;
     }
     
     public  static int insertar(entUsuario entidad) throws Exception
@@ -102,7 +134,7 @@ public class UsuarioDAO {
             stmt.setString(7, entidad.getTelefono());
             stmt.setString(8, entidad.getCelular());
             stmt.setDate(9, new java.sql.Date(entidad.getFecha_nacimiento().getTime()));
-            stmt.setString(10, entidad.getFoto());
+            stmt.setBytes(10, entidad.getFoto());
             stmt.setBoolean(11, entidad.getEstado());
             stmt.setString(12, entidad.getUsuario_responsable());
             stmt.executeUpdate();
@@ -147,7 +179,7 @@ public class UsuarioDAO {
             stmt.setString(7, entidad.getTelefono());
             stmt.setString(8, entidad.getCelular());
             stmt.setDate(9, (Date) entidad.getFecha_nacimiento());
-            stmt.setString(10, entidad.getFoto());
+            stmt.setBytes(10, entidad.getFoto());
             stmt.setBoolean(11, entidad.getEstado());
             stmt.setString(12, entidad.getUsuario_responsable());
             stmt.setInt(13,entidad.getId_usuario());  

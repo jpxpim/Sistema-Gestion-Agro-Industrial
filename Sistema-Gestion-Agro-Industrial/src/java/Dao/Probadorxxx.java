@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -32,40 +33,40 @@ public class Probadorxxx {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        
-        
-        entFormularioUsuario obj = new entFormularioUsuario();
-        
-        entFormulario objFormulario = new entFormulario();
-        objFormulario.setId_formulario(1);            
-        objFormulario.setUrl("asasas");           
-        objFormulario.setEtiqueta("aseeeasas");
-        objFormulario.setPadre(0);
-        objFormulario.setUsuario_responsable("asasas");
-        objFormulario.setEstado(true);
-        //Usuario
-        DateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
-        entUsuario objUsuario = new entUsuario();
-        objUsuario.setId_usuario(1);
-        objUsuario.setLogin("dwwdwd");
-        objUsuario.setContrasena("dwwdwd");
-        objUsuario.setCodigo_erp("dwwdwd");
-        objUsuario.setNombre("dwwdwd");
-        objUsuario.setApellido("dwwdwd");
-        objUsuario.setEmail("dwwdwd");
-        objUsuario.setTelefono("dwwdwd");
-        objUsuario.setCelular("dwwdwd");
-        objUsuario.setFecha_nacimiento(formato_fecha.parse("01/01/1989"));
-        objUsuario.setFoto("dwwdwd");
-        objUsuario.setEstado(true);
-        objUsuario.setUsuario_responsable("dwwdwd");
-        
-        
-        obj.setId_formulario_usuario(1);
-        obj.setObjFormulario(objFormulario);
-        obj.setObjUSuario(objUsuario);
-        obj.setUsuario_responsable("dwdwd");
-        System.out.print(""+FormularioUsuarioDAO.insertar(obj));
+        BASE64Encoder e = new BASE64Encoder();
+//        
+//        entFormularioUsuario obj = new entFormularioUsuario();
+//        
+//        entFormulario objFormulario = new entFormulario();
+//        objFormulario.setId_formulario(1);            
+//        objFormulario.setUrl("asasas");           
+//        objFormulario.setEtiqueta("aseeeasas");
+//        objFormulario.setPadre(0);
+//        objFormulario.setUsuario_responsable("asasas");
+//        objFormulario.setEstado(true);
+//        //Usuario
+//        DateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
+//        entUsuario objUsuario = new entUsuario();
+//        objUsuario.setId_usuario(1);
+//        objUsuario.setLogin("dwwdwd");
+//        objUsuario.setContrasena("dwwdwd");
+//        objUsuario.setCodigo_erp("dwwdwd");
+//        objUsuario.setNombre("dwwdwd");
+//        objUsuario.setApellido("dwwdwd");
+//        objUsuario.setEmail("dwwdwd");
+//        objUsuario.setTelefono("dwwdwd");
+//        objUsuario.setCelular("dwwdwd");
+//        objUsuario.setFecha_nacimiento(formato_fecha.parse("01/01/1989"));
+////        objUsuario.setFoto("dwwdwd");
+//        objUsuario.setEstado(true);
+//        objUsuario.setUsuario_responsable("dwwdwd");
+//        
+//        
+//        obj.setId_formulario_usuario(1);
+//        obj.setObjFormulario(objFormulario);
+//        obj.setObjUSuario(objUsuario);
+//        obj.setUsuario_responsable("dwdwd");
+        System.out.print(""+e.encodeBuffer(UsuarioDAO.getFoto(6)));
         //List<entFormularioUsuario> list=FormularioUsuarioDAO.Listar();
         
         /*

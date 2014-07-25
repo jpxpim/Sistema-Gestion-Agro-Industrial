@@ -86,77 +86,126 @@
 						<div class="span12">
 							<h3 class="heading">Wizard with validation</h3>
 							<div class="row-fluid">
-								<div class="span2"></div>
-								<div class="span8">
+								<div class="span3"></div>
+								<div class="span6">
 									<form id="validate_wizard" class="stepy-wizzard form-horizontal">
-										<fieldset title="Personal info">
-											<legend class="hide">Lorem ipsum dolor&hellip;</legend>
+                                                                            
+										<fieldset title="Información Personal">
+											<legend class="hide">Datos de personales del usario.</legend>
 											<div class="formSep control-group">
-												<label for="v_username" class="control-label">Username:</label>
+												<label for="txtNombres" class="control-label">Nombres:</label>
 												<div class="controls">
-													<input type="text" name="v_username" id="v_username" />
+													<input type="text" name="txtNombres" id="txtNombres" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtApellidos" class="control-label">Apellidos:</label>
+												<div class="controls">
+													<input type="text" name="txtApellidos" id="txtApellidos" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtEmail" class="control-label">Correo Electronico:</label>
+												<div class="controls">
+													<input type="text" name="txtEmail" id="txtEmail" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtTelefono" class="control-label">Telefono:</label>
+												<div class="controls">
+													<input type="text" name="txtTelefono" id="txtTelefono" />
 												</div>
 											</div>
 											<div class="formSep control-group">
-												<label for="v_password" class="control-label">Password:</label>
+												<label for="txtCelular" class="control-label">Celular:</label>
 												<div class="controls">
-													<input type="password" name="v_password" id="v_password" />
+													<input type="text" name="txtCelular" id="txtCelular" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtFNacimiento" class="control-label">Fecha Nacimiento:</label>
+												<div class="controls">
+													<input type="text" name="txtFNacimiento" id="txtFNacimiento" />
 												</div>
 											</div>
 											<div class="control-group">
-												<label for="v_email" class="control-label">E-mail:</label>
-												<div class="controls">
-													<input type="text" name="v_email" id="v_email" />
-												</div>
+												<label for="txtFoto" class="control-label">Imagen: </label>
+                                                                                                   
+                                                                                                <div class="controls">                                                                                                    
+                                                                                                    <div id="foto"></div>    
+                                                                                                    <span class="btn btn-file"><span class="fileupload-new">Seleccionar</span><input type="file" name="archivo" id="archivo" /></span>
+                                                                                                    <a id="Remover" data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remover</a>
+                                                                                                </div>
 											</div>
+                                                                                        <div class="control-group">
+												<div class="controls">
+                                                                                                    <input type="text" name="txtFoto" id="txtFoto"/> 
+                                                                                                </div>
+											</div>
+                                                                                        
 										</fieldset>
-										<fieldset title="Contact info">
-											<legend class="hide">Lorem ipsum dolor&hellip;</legend>
+                                                                                
+                                                                                <fieldset title="Información Empresarial">
+											<legend class="hide">Datos importantes para el registro.</legend>
 											<div class="formSep control-group">
-												<label for="v_street" class="control-label">Street Address:</label>
+												<label for="txtLogin" class="control-label">Usuario:</label>
 												<div class="controls">
-													<input type="text" name="v_street" id="v_street" />
+                                                                                                        <input type="text" name="txtLogin" id="txtLogin" />
 												</div>
 											</div>
-											<div class="formSep control-group">
-												<label for="v_city" class="control-label">City:</label>
+                                                                                        <div class="formSep control-group">
+												<label for="txtCodigoERP" class="control-label">Código ERP:</label>
 												<div class="controls">
-													<input type="text" name="v_city" id="v_city" />
+													 <input type="text" name="txtCodigoERP" id="txtCodigoERP" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtResponsable" class="control-label">Responsable:</label>
+												<div class="controls">
+													 <input type="text" name="txtResponsable" id="txtResponsable" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtContrasena" class="control-label">Contraseña:</label>
+												<div class="controls">
+													 <input type="password" name="txtContrasena" id="txtContrasena" />
+												</div>
+											</div>
+                                                                                        <div class="formSep control-group">
+												<label for="txtRContrasena" class="control-label">Repita Contraseña:</label>
+												<div class="controls">
+													 <input type="password" name="txtRContrasena" id="txtRContrasena" />
 												</div>
 											</div>
 											<div class="control-group">
-												<label for="v_country" class="control-label">Country:</label>
+												<label class="control-label">Estado:</label>
 												<div class="controls">
-													<input type="text" name="v_country" id="v_country" />
-												</div>
-											</div>
-										</fieldset>
-										<fieldset title="Additional info">
-											<legend class="hide">Lorem ipsum dolor&hellip;</legend>
-											<div class="formSep control-group">
-												<label for="v_message" class="control-label">Your Message:</label>
-												<div class="controls">
-													<textarea name="v_message" id="v_message" rows="3"></textarea>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Newsletter:</label>
-												<div class="controls">
-													<label class="radio inline" for="newsletter_yes">
-														<input type="radio" value="yes" id="newsletter_yes" name="v_newsletter"> Yes
+													<label class="radio inline" for="rbEstado_Activado">
+														<input type="radio" value="1" id="newsletter_yes" id="rbEstado" name="rbEstado"> Activado
 													</label>
-													<label class="radio inline" for="newsletter_no">
-														<input type="radio" value="no" id="newsletter_no" name="v_newsletter"> No
+													<label class="radio inline" for="rbEstado_Desactivado">
+														<input type="radio" value="0" id="newsletter_no" id="rbEstado" name="rbEstado"> Desactivado
 													</label>
 												</div>
 											</div>
 										</fieldset>
-										<button type="button" class="finish btn btn-primary"><i class="icon-ok icon-white"></i> Send registration</button>
+                                                                                 <input type="hidden" id="idUsuario"  name="idUsuario" value="0" />
+										<button type="button" class="finish btn btn-primary"><i class="icon-ok icon-white"></i> Aceptar</button>
 									</form>
+                                                                        <button class="btn btn-success" onclick="clear_form()" type="button">Limpiar</button>
 								</div>
 							</div>
 						</div>
 					</div>
+                    
+                    
+                    <div class="row-fluid">
+                        
+                        <div class="span12">
+                            <div id="tabla"></div>
+                        </div>
+                        
+                    </div>
                         
                 </div>
             </div>
@@ -201,7 +250,7 @@
 function tabla()
 {
      $.ajax({
-        url: 'operaciones/vivero/list_tabla.jsp',
+        url: 'operaciones/usuario/list_tabla.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -213,8 +262,46 @@ function tabla()
                               
                           
                             
-				$(document).ready(function() {
-					//* show all elements & remove preloader
+$(document).ready(function() {
+ $( "#Remover" ).hide();
+ $( "#txtFoto" ).hide();
+ 
+ $('#archivo').change(function (e) {
+    var input=e.target,fr=new FileReader(),
+	tipos=/^image\/jpg|image\/jpeg|image\/png|image\/gif$/i;
+	if(input.files.length===0)return;
+	if(!tipos.test(input.files[0].type)){alert("El archivo selecionado es inválido");return;}
+	fr.onload=function(evt){
+		var im=evt.target.result;
+		redimensionar(im,150,150);
+	}
+    fr.readAsDataURL(input.files[0]);
+});
+$( "#Remover" ).click(function() {
+    $("#foto").html('<div id="foto"></div>');
+    $('#txtFoto').val("");
+    $( "#Remover" ).hide();
+});
+
+function redimensionar(im,maxWidth,maxHeight){
+	var i=new Image();
+	i.onload=function(){
+		var w=this.width,
+		h=this.height,
+		scale=Math.min(maxWidth/w,maxHeight/h),
+		canvas=document.createElement('canvas'),
+		ctx=canvas.getContext('2d');
+		canvas.width=w*scale;
+		canvas.height=h*scale;
+		ctx.drawImage(i,0,0,w*scale,h*scale);
+                $("#foto").html('<img class="fileupload-preview thumbnail" src="'+canvas.toDataURL()+'">');
+		$('#txtFoto').val(canvas.toDataURL());
+                 $( "#Remover" ).show()();
+		
+	}
+	i.src=im;
+}
+
                                        $.ajax({
                                             url: 'operaciones/header.jsp',
                                             type: 'POST',
@@ -240,88 +327,68 @@ function tabla()
                                         setTimeout('$("html").removeClass("js")',1000);
 
                                      
-                                         $('#v_username').datepicker({
+                                         $('#txtFNacimiento').datepicker({
                                              language: 'es'
                                          });
+          
+});
+function clear_form() {
+   $('input:radio[name=rbEstado]').attr('checked',false);
+    $('#txtNombres').val("");
+    $('#txtApellidos').val("");
+    $('#txtEmail').val("");
+    $('#txtTelefono').val("");
+    $('#txtCelular').val("");
+    $('#txtFNacimiento').val("");
+    $('#txtLogin').val("");
+    $('#txtCodigoERP').val("");
+    $('#txtResponsable').val("");
+    $('#txtContrasena').val("");
+    $('#txtRContrasena').val("");
+    $("#foto").html('<div id="foto"></div>');
+    $('#txtFoto').val("");
+    $( "#Remover" ).hide();
+    $("#idUsuario").val("0");  
+    $("#atraz").trigger("click");
 
-                                      $('#reg_form').validate({
-                                        lang: 'es',
-					onkeyup: false,
-					errorClass: 'error',
-					validClass: 'valid',
-                                            submitHandler: function() {       
-                                           
-                                                    var url = "operaciones/vivero/insert.jsp"; 
 
-                                                    $.ajax({
-                                                           type: "POST",
-                                                           url: url,
-                                                           data: $("#reg_form").serialize(), 
-                                                           success: function(data)
-                                                           {
-                                                               if(data==-1)
-                                                                 $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
-                                                                else if(data==0)
-                                                                {
-                                                                    tabla();
-                                                                    clear_form();
-                                                                   $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
-                                                                    
-                                                               }
-                                                                else if(data>0)
-                                                                {
-                                                                   tabla();
-                                                                   clear_form();
-                                                                   $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
-                                                                   
-                                                                }
-                                                           }
-                                                         });    
-                                            },
-					rules: {
-						txtNombre: { required: true, minlength: 3 },
-                                                txtDescripcion: { required: true, minlength: 3 },
-                                                txtResponsable: { required: true, minlength: 3 },
-                                                rbEstado: { required: true }
-					},
-					highlight: function(element) {
-						$(element).closest('div').addClass("f_error");
-					},
-					unhighlight: function(element) {
-						$(element).closest('div').removeClass("f_error");
-					},
-					errorPlacement: function(error, element) {
-						$(element).closest('div').append(error);
-					}
-				});
-                          
-                                   
-                                        
-				});
-                                    function clear_form() {
-                                           $('input:radio[name=rbEstado]').attr('checked',false);
-                                          $('#txtNombre').val("");
-                                            $('#txtDescripcion').val("");
-                                            $('#txtResponsable').val("");
-                                        
-                                          $("#IdVivero").val("0");  
-                                     
-                                           
-                                      };
-                                       function edit_form(id,nombre,descripcion,responsable,estado) {
-                                            $('#txtNombre').val(nombre);
-                                            $('#txtDescripcion').val(descripcion);
-                                            $('#txtResponsable').val(responsable);
-                                            $('#IdVivero').val(id);
-                                            if(estado.toLowerCase()=="true")
-                                             $('input:radio[name=rbEstado]')[0].checked = true;
-                                            else
-                                              $('input:radio[name=rbEstado]')[1].checked = true;
-                                          
+};
+function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,responsable,contrasena,estado) {
+    
+    $('#txtNombres').val(nombres);
+    $('#txtApellidos').val(apellidos);
+    $('#txtEmail').val(email);
+    $('#txtTelefono').val(telefono);
+    $('#txtCelular').val(celular);
+    $('#txtFNacimiento').val(nacimiento);
+    $('#txtLogin').val(login);
+    $('#txtCodigoERP').val(codigo);
+    $('#txtResponsable').val(responsable);
+    $('#txtContrasena').val(contrasena);
+    $('#txtRContrasena').val(contrasena);
+    $( "#Remover" ).show();
+    $("#idUsuario").val(id);
+    if(estado.toLowerCase()=="true")
+     $('input:radio[name=rbEstado]')[0].checked = true;
+    else
+      $('input:radio[name=rbEstado]')[1].checked = true;
+      $.ajax({
+        url: 'operaciones/usuario/get_foto.jsp?id='+id,
+        type: 'POST',
+        success: function (data) {     
+                 $("#foto").html('<img class="fileupload-preview thumbnail" src="'+data+'">');
+                 $('#txtFoto').val(data);
+        },
+        contentType: false,
+        processData: false
+    });
 
-                                      };
-                                  
-                                       tabla();
+   
+    $('html,body').animate({ scrollTop: $('.main_content').offset().top - 100 }, 'fast');
+    $("#atraz").trigger("click");
+};
+
+tabla();
                                        
 
                                        

@@ -60,7 +60,7 @@ public class FormularioUsuarioDAO
                     objUsuario.setTelefono(dr.getString(11));
                     objUsuario.setCelular(dr.getString(12));
                     objUsuario.setFecha_nacimiento(dr.getDate(13));
-                    objUsuario.setFoto(dr.getString(14));
+                    objUsuario.setFoto(dr.getBytes(14));
                     objUsuario.setEstado(dr.getBoolean(15));
                     objUsuario.setUsuario_responsable(dr.getString(16));
                     objUsuario.setFecha_modificacion(dr.getTimestamp(17));

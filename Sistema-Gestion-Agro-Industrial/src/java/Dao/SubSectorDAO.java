@@ -31,7 +31,7 @@ public class SubSectorDAO
         ResultSet dr = null;
         try {
             String sql="select SS.id_sub_sector,SS.nombre,SS.descripcion,SS.estado,SS.usuario_responsable,SS.fecha_modificacion,"
-                    + "S.id_sector,S.nombre,S.descripcion,S.estado,S.usuario_responsable,S.fecha_modificacion"
+                    + "S.id_sector,S.nombre,S.descripcion,S.estado,S.usuario_responsable,S.fecha_modificacion,SS.grower_senasa"
                     + " from sub_sector SS join sector S on SS.id_sector=S.id_sector";
             if(activo)
                         sql+=" where SS.estado=1"; 
@@ -53,6 +53,7 @@ public class SubSectorDAO
                     entidad.setEstado(dr.getBoolean(4)); 
                     entidad.setUsuario_responsable(dr.getString(5)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    entidad.setGrower_senasa(dr.getString(13));
                     
                     entSector sector = new entSector();
                     sector.setId_sector(dr.getInt(7));
