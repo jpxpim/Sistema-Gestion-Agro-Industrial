@@ -68,12 +68,12 @@
                 <div class="main_content">
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
-                            <ul>
-                               <li>
-                                    <a href="intranet.jsp"><i class="icon-home"></i></a>
-                                </li>
+                              <ul>
                                 <li>
-                                  Agregar Cultivo
+                                    <a href="#"><i class="icon-home"></i></a>
+                                </li>                                
+                                <li>
+                                   Gestión Vivero
                                 </li>
                             </ul>
                         </div>
@@ -81,7 +81,7 @@
                 
                     <div class="row-fluid">
 						<div class="span12">
-							<h3 class="heading">Agregar Cultivo</h3>
+							<h3 class="heading">Agregar Vivero</h3>
 							<div class="row-fluid">
 								<div class="span4">
 									<div class="row-fluid" id="g-map-top">
@@ -100,7 +100,13 @@
                                                                                                         <div class="input-prepend">
 													<label>Responsable</label>
 													<input type="text" class="span10" id="txtResponsable"  name="txtResponsable" />
-                                                                                                         </div>                                                                                                      
+                                                                                                         </div>   
+                                                                                                        <div class="input-prepend">
+													<label>Cultivo</label>
+													<select id="cbCultivo" name="cbCultivo" title="Por favor selecione un Cultivo!" required>
+                                                                                                            <option value="">Selecione una Opción</option>
+                                                                                                        </select>
+                                                                                                         </div>   
                                                                                                          <div class="input-prepend">
 													<label>Estado</label>
 													<label class="radio inline">
@@ -112,7 +118,7 @@
                                                                                                                 Desactivado
                                                                                                         </label>
                                                                                                          </div>
-                                                                                                    <input type="hidden" id="IdCultivo"  name="IdCultivo" value="0" />
+                                                                                                    <input type="hidden" id="IdVariedad"  name="IdVariedad" value="0" />
                                                                                                         
 												</div>
                                                                                                 <button class="btn btn-invert" type="submit">Grabar</button>
@@ -176,7 +182,7 @@
 function tabla()
 {
      $.ajax({
-        url: 'operaciones/list_tabla.jsp',
+        url: 'operaciones/variedad/list_tabla.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -185,9 +191,20 @@ function tabla()
         processData: false
     });          
  };
+ function comboCultivo()
+{
+     $.ajax({
+        url: 'operaciones/cultivo/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbCultivo').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
                               
-                          
-                            
+                         
 				$(document).ready(function() {
 					//* show all elements & remove preloader
                                        $.ajax({
@@ -224,7 +241,7 @@ function tabla()
 					validClass: 'valid',
                                             submitHandler: function() {       
                                            
-                                                    var url = "operaciones/insert.jsp"; 
+                                                    var url = "operaciones/variedad/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -271,30 +288,59 @@ function tabla()
                                    
                                         
 				});
+                                    var comboId=0;
                                     function clear_form() {
-                                           $('input:radio[name=rbEstado]').attr('checked',false);
-                                          $('#txtNombre').val("");
+                                            $('input:radio[name=rbEstado]').attr('checked',false);
+                                            $('#txtNombre').val("");
                                             $('#txtDescripcion').val("");
                                             $('#txtResponsable').val("");
-                                        
-                                          $("#IdCultivo").val("0");  
-                                     
+                                            $("select#cbCultivo").val('0'); 
+                                            if(comboId>0)
+                                              $("#cbCultivo option[value='"+comboId+"']").remove();
+                                           $("select#cbCultivo").val(0);    
+                                            $("#IdVariedad").val("0");  
                                            
                                       };
-                                       function edit_form(id,nombre,descripcion,responsable,estado) {
+                                       function edit_form(id,nombre,descripcion,responsable,estado,idCultivo,mCultivo) {
+                                            
+                                            if(comboId>0)
+                                              $("#cbCultivo option[value='"+comboId+"']").remove();
+                                            
                                             $('#txtNombre').val(nombre);
                                             $('#txtDescripcion').val(descripcion);
                                             $('#txtResponsable').val(responsable);
-                                            $('#IdCultivo').val(id);
+                                            $('#IdVariedad').val(id);                                            
+                                             
+                                             
                                             if(estado.toLowerCase()=="true")
                                              $('input:radio[name=rbEstado]')[0].checked = true;
                                             else
                                               $('input:radio[name=rbEstado]')[1].checked = true;
-                                          
-
+                                            if(buscaCombo(idCultivo))
+                                               $("select#cbCultivo").val(idCultivo); 
+                                            else
+                                            {
+                                                comboId=idCultivo;
+                                                $("#cbCultivo").append('<option value='+idCultivo+'>'+mCultivo+'</option>');
+                                                $("select#cbCultivo").val(idCultivo); 
+                                            }
+                                                
                                       };
-                                  
+                                      
+                                       function buscaCombo(valor) {
+                                           var estado=false;
+                                            $("#cbCultivo option").each(function(){
+                                                if($(this).attr('value')==valor)
+                                                {
+                                                    estado=true;
+                                                }
+                                                    
+                                             });
+                                             return estado;
+                                       };
+                                     
                                        tabla();
+                                       comboCultivo();
 			</script>
 		
 		</div>

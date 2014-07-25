@@ -25,7 +25,7 @@ public class entVariedad
     public entVariedad()
     {
     }
-    
+
     public int getId_variedad() {
         return id_variedad;
     }

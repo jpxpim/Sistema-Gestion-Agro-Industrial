@@ -11,6 +11,7 @@
 
 	gebo_wizard = {
 		simple: function(){
+                   
 			$('#simple_wizard').stepy({
 				titleClick	: true,
 				nextLabel:      'Next <i class="icon-chevron-right icon-white"></i>',
