@@ -28,7 +28,7 @@ public class SectorDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_sector,nombre,descripcion,estado,usuario_responsable,fecha_modificacion"
+            String sql="select id_sector,nombre,descripcion,codigo_control,estado,usuario_responsable,fecha_modificacion"
                     + " from sector ";
             if(activo)
                         sql+=" where estado=1"; 
@@ -46,9 +46,10 @@ public class SectorDAO {
                     entidad.setId_sector(dr.getInt(1));
                     entidad.setNombre(dr.getString(2)); 
                     entidad.setDescripcion(dr.getString(3)); 
-                    entidad.setEstado(dr.getBoolean(4)); 
-                    entidad.setUsuario_responsable(dr.getString(5)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    entidad.setCodigo_control(dr.getString(4)); 
+                    entidad.setEstado(dr.getBoolean(5)); 
+                    entidad.setUsuario_responsable(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
                     lista.add(entidad);
             }
 
@@ -73,15 +74,16 @@ public class SectorDAO {
         PreparedStatement stmt = null;
         try {
             
-           String sql="INSERT INTO sector(nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
-                   + "VALUES(?,?,?,?,GETDATE());";
+           String sql="INSERT INTO sector(nombre,descripcion,codigo_control,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, entidad.getNombre());
             stmt.setString(2, entidad.getDescripcion());
-            stmt.setBoolean(3, entidad.getEstado());
-            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setString(3, entidad.getCodigo_control());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             
@@ -108,16 +110,17 @@ public class SectorDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE sector SET nombre = ?,descripcion= ?,estado= ?,"
+             String sql="UPDATE sector SET nombre = ?,descripcion= ?,codigo_control=?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_sector = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
             stmt.setString(1, entidad.getNombre());
             stmt.setString(2, entidad.getDescripcion());
-            stmt.setBoolean(3, entidad.getEstado());
-            stmt.setString(4, entidad.getUsuario_responsable());
-            stmt.setInt(5,entidad.getId_sector());
+            stmt.setString(3, entidad.getCodigo_control());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setInt(6,entidad.getId_sector());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

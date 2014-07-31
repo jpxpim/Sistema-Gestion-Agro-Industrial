@@ -30,8 +30,8 @@ public class SubSectorDAO
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select SS.id_sub_sector,SS.nombre,SS.descripcion,SS.estado,SS.usuario_responsable,SS.fecha_modificacion,"
-                    + "S.id_sector,S.nombre,S.descripcion,S.estado,S.usuario_responsable,S.fecha_modificacion,SS.grower_senasa"
+            String sql="select SS.id_sub_sector,SS.nombre,SS.descripcion,SS.codigo_control,SS.estado,SS.usuario_responsable,SS.fecha_modificacion,"
+                    + "S.id_sector,S.nombre,S.descripcion,S.codigo_control,S.estado,S.usuario_responsable,S.fecha_modificacion,SS.grower_senasa"
                     + " from sub_sector SS join sector S on SS.id_sector=S.id_sector";
             if(activo)
                         sql+=" where SS.estado=1"; 
@@ -50,19 +50,20 @@ public class SubSectorDAO
                     entidad.setId_sub_sector(dr.getInt(1));
                     entidad.setNombre(dr.getString(2)); 
                     entidad.setDescripcion(dr.getString(3)); 
-                    entidad.setEstado(dr.getBoolean(4)); 
-                    entidad.setUsuario_responsable(dr.getString(5)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
-                    entidad.setGrower_senasa(dr.getString(13));
+                    entidad.setCodigo_control(dr.getString(4)); 
+                    entidad.setEstado(dr.getBoolean(5)); 
+                    entidad.setUsuario_responsable(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setGrower_senasa(dr.getString(15));
                     
                     entSector sector = new entSector();
-                    sector.setId_sector(dr.getInt(7));
-                    sector.setNombre(dr.getString(8)); 
-                    sector.setDescripcion(dr.getString(9)); 
-                    sector.setEstado(dr.getBoolean(10)); 
-                    sector.setUsuario_responsable(dr.getString(11)); 
-                    sector.setFecha_modificacion(dr.getTimestamp(12)); 
-                    
+                    sector.setId_sector(dr.getInt(8));
+                    sector.setNombre(dr.getString(9)); 
+                    sector.setDescripcion(dr.getString(10)); 
+                    sector.setCodigo_control(dr.getString(11)); 
+                    sector.setEstado(dr.getBoolean(12)); 
+                    sector.setUsuario_responsable(dr.getString(13)); 
+                    sector.setFecha_modificacion(dr.getTimestamp(14)); 
                     entidad.setObjSector(sector);
                     lista.add(entidad);
             }
@@ -88,17 +89,18 @@ public class SubSectorDAO
         PreparedStatement stmt = null;
         try {
             
-           String sql="INSERT INTO sub_sector(id_sector,nombre,descripcion,grower_senasa,estado,usuario_responsable,fecha_modificacion)"
-                   + "VALUES(?,?,?,?,?,?,GETDATE());";
+           String sql="INSERT INTO sub_sector(id_sector,nombre,descripcion,codigo_control,grower_senasa,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjSector().getId_sector());
             stmt.setString(2, entidad.getNombre());
             stmt.setString(3, entidad.getDescripcion());
-            stmt.setString(4, entidad.getGrower_senasa());
-            stmt.setBoolean(5, entidad.getEstado());
-            stmt.setString(6, entidad.getUsuario_responsable());
+            stmt.setString(4, entidad.getCodigo_control());
+            stmt.setString(5, entidad.getGrower_senasa());
+            stmt.setBoolean(6, entidad.getEstado());
+            stmt.setString(7, entidad.getUsuario_responsable());
             stmt.executeUpdate();
            
             ResultSet rs = stmt.getGeneratedKeys();
@@ -126,7 +128,7 @@ public class SubSectorDAO
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE sub_sector SET id_sector = ?,nombre = ?,descripcion= ?,estado= ?,"
+             String sql="UPDATE sub_sector SET id_sector = ?,nombre = ?,descripcion= ?,codigo_control=?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_sub_sector = ?;";
              
             conn = ConexionDAO.getConnection();
@@ -134,9 +136,10 @@ public class SubSectorDAO
             stmt.setInt(1, entidad.getObjSector().getId_sector());
             stmt.setString(2, entidad.getNombre());
             stmt.setString(3, entidad.getDescripcion());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
-            stmt.setInt(6,entidad.getId_sub_sector());
+            stmt.setString(4, entidad.getCodigo_control());
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
+            stmt.setInt(7,entidad.getId_sub_sector());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

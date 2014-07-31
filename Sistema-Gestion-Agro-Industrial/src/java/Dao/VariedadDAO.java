@@ -31,7 +31,8 @@ public class VariedadDAO {
         ResultSet dr = null;
         try {
             String sql="select V.id_variedad,V.nombre,V.descripcion,V.estado,V.usuario_responsable,V.fecha_modificacion,"
-                    + "C.id_cultivo,C.nombre,C.descripcion,C.estado,C.usuario_responsable,C.fecha_modificacion"
+                    + "C.id_cultivo,C.nombre,C.descripcion,C.estado,C.usuario_responsable,C.fecha_modificacion,"
+                    + " V.codigo_control,C.codigo_control"
                     + " from variedad V join cultivo C on V.id_cultivo=C.id_cultivo";
             if(activo)
                         sql+=" where V.estado=1"; 
@@ -52,7 +53,8 @@ public class VariedadDAO {
                     entidad.setDescripcion(dr.getString(3)); 
                     entidad.setEstado(dr.getBoolean(4)); 
                     entidad.setUsuario_responsable(dr.getString(5)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(6));
+                    entidad.setCodigo_control(dr.getString(13)); 
                     
                     entCultivo cultivo = new entCultivo();
                     cultivo.setId_cultivo(dr.getInt(7));
@@ -61,7 +63,7 @@ public class VariedadDAO {
                     cultivo.setEstado(dr.getBoolean(10)); 
                     cultivo.setUsuario_responsable(dr.getString(11)); 
                     cultivo.setFecha_modificacion(dr.getTimestamp(12)); 
-                    
+                    cultivo.setCodigo_control(dr.getString(14));
                     entidad.setObjCultivo(cultivo);
                     lista.add(entidad);
             }
@@ -87,16 +89,17 @@ public class VariedadDAO {
         PreparedStatement stmt = null;
         try {
             
-           String sql="INSERT INTO variedad(id_cultivo,nombre,descripcion,estado,usuario_responsable,fecha_modificacion)"
-                   + "VALUES(?,?,?,?,?,GETDATE());";
+           String sql="INSERT INTO variedad(id_cultivo,nombre,descripcion,codigo_control,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjCultivo().getId_cultivo());
             stmt.setString(2, entidad.getNombre());
             stmt.setString(3, entidad.getDescripcion());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setString(4, entidad.getCodigo_control());
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
             stmt.executeUpdate();
            
             ResultSet rs = stmt.getGeneratedKeys();
@@ -123,16 +126,17 @@ public class VariedadDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE variedad SET id_cultivo = ?,nombre = ?,descripcion= ?,estado= ?,"
+             String sql="UPDATE variedad SET id_cultivo = ?,nombre = ?,descripcion= ?,codigo_control=?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_variedad = ?;";
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);  
             stmt.setInt(1, entidad.getObjCultivo().getId_cultivo());
             stmt.setString(2, entidad.getNombre());
             stmt.setString(3, entidad.getDescripcion());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
-            stmt.setInt(6,entidad.getId_variedad());
+            stmt.setString(4, entidad.getCodigo_control());
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
+            stmt.setInt(7,entidad.getId_variedad());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

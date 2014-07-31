@@ -12,44 +12,25 @@ import java.util.Date;
  *
  * @author rosemary
  */
-public class entFormulario {
+public class entModulo {
     
-    private int id_formulario;
-    private entModulo objModulo;
-    private String url;
+    private int id_modulo;
     private String etiqueta;
-    private int padre;
-    private boolean estado;
+    private int estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
     
-    public entFormulario ()
+    public entModulo()
     {
         
     }
 
-    public entModulo getObjModulo() {
-        return objModulo;
+    public int getId_modulo() {
+        return id_modulo;
     }
 
-    public void setObjModulo(entModulo modulo) {
-        this.objModulo = modulo;
-    }
-
-    public int getId_formulario() {
-        return id_formulario;
-    }
-
-    public void setId_formulario(int id_formulario) {
-        this.id_formulario = id_formulario;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setId_modulo(int id_modulo) {
+        this.id_modulo = id_modulo;
     }
 
     public String getEtiqueta() {
@@ -60,19 +41,11 @@ public class entFormulario {
         this.etiqueta = etiqueta;
     }
 
-    public int getPadre() {
-        return padre;
-    }
-
-    public void setPadre(int padre) {
-        this.padre = padre;
-    }
-
-    public boolean getEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 

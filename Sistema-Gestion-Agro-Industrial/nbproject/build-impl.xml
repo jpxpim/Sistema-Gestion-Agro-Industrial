@@ -933,7 +933,22 @@ exists or setup the property manually. For example like this:
     <target depends="compile" if="jsp.includes" name="-do-compile-single-jsp">
         <fail unless="javac.jsp.includes">Must select some files in the IDE or set javac.jsp.includes</fail>
         <mkdir dir="${build.generated.dir}/src"/>
-    
+        <java classname="org.netbeans.modules.web.project.ant.JspCSingle" failonerror="true" fork="true">
+            <arg value="-uriroot"/>
+            <arg file="${basedir}/${build.web.dir}"/>
+            <arg value="-d"/>
+            <arg file="${basedir}/${build.generated.dir}/src"/>
+            <arg value="-die1"/>
+            <arg value="-schemas ${jspc.schemas}"/>
+            <arg value="-dtds ${jspc.dtds}"/>
+            <arg value="-sysClasspath ${libs.jsp-compilation-syscp.classpath}"/>
+            <arg value="-jspc.files"/>
+            <arg path="${jsp.includes}"/>
+            <arg value="-compilerSourceVM ${javac.source}"/>
+            <arg value="-compilerTargetVM ${javac.target}"/>
+            <arg value="-javaEncoding ${source.encoding}"/>
+            <classpath path="${java.home}/../lib/tools.jar:${libs.jsp-compiler.classpath}:${libs.jsp-compilation.classpath}"/>
+        </java>
         <mkdir dir="${build.generated.dir}/classes"/>
         <webproject2:javac classpath="${build.classes.dir}:${libs.jsp-compilation.classpath}:${javac.classpath}:${j2ee.platform.classpath}" destdir="${build.generated.dir}/classes" srcdir="${build.generated.dir}/src">
             <customize>

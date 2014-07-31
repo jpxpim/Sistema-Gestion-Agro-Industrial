@@ -18,6 +18,7 @@ public class entTipoCultivo
     private int id_tipo_cultivo;
     private String nombre;
     private String descripcion;
+    private String codigo_control;    
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
@@ -46,6 +47,14 @@ public class entTipoCultivo
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getCodigo_control() {
+        return codigo_control;
+    }
+
+    public void setCodigo_control(String codigo_control) {
+        this.codigo_control = codigo_control;
     }
 
     public boolean getEstado() {

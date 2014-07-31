@@ -6,6 +6,7 @@
 
 package Dao;
 import Entidades.entFormulario;
+import Entidades.entModulo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,8 +29,11 @@ public class FormularioDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_formulario,url,etiqueta,padre,estado,usuario_responsable,fecha_modificacion"
-                    + " from formulario where id_formulario="+id;
+            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,"
+                    + " M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion "
+                    + " from formulario F "
+                    + " join modulo M on F.id_modulo=M.id_modulo "
+                    + " where id_formulario="+id;
             
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -40,6 +44,13 @@ public class FormularioDAO {
                 if(lista==null)
                     lista= new ArrayList<entFormulario>();
                 
+                    entModulo modulo = new entModulo();
+                    modulo.setId_modulo(dr.getInt(8));
+                    modulo.setEtiqueta(dr.getString(9)); 
+                    modulo.setEstado(dr.getInt(10)); 
+                    modulo.setUsuario_responsable(dr.getString(11)); 
+                    modulo.setFecha_modificacion(dr.getTimestamp(12)); 
+                
                     entFormulario entidad = new entFormulario();
                     entidad.setId_formulario(dr.getInt(1));
                     entidad.setUrl(dr.getString(2)); 
@@ -48,7 +59,11 @@ public class FormularioDAO {
                     entidad.setEstado(dr.getBoolean(5)); 
                     entidad.setUsuario_responsable(dr.getString(6)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setObjModulo(modulo);
                     lista.add(entidad);
+                    
+                    
+                    
             }
 
         } catch (Exception e) {
@@ -72,8 +87,10 @@ public class FormularioDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_formulario,url,etiqueta,padre,estado,usuario_responsable,fecha_modificacion"
-                    + " from formulario ";
+            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,"
+                    + " M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion "
+                    + " from formulario F "
+                    + " join modulo M on F.id_modulo=M.id_modulo ";
             if(activo || padre)
                         sql+=" where "; 
             if (activo)
@@ -93,6 +110,13 @@ public class FormularioDAO {
                 if(lista==null)
                     lista= new ArrayList<entFormulario>();
                 
+                    entModulo modulo = new entModulo();
+                    modulo.setId_modulo(dr.getInt(8));
+                    modulo.setEtiqueta(dr.getString(9)); 
+                    modulo.setEstado(dr.getInt(10)); 
+                    modulo.setUsuario_responsable(dr.getString(11)); 
+                    modulo.setFecha_modificacion(dr.getTimestamp(12)); 
+                
                     entFormulario entidad = new entFormulario();
                     entidad.setId_formulario(dr.getInt(1));
                     entidad.setUrl(dr.getString(2)); 
@@ -101,6 +125,7 @@ public class FormularioDAO {
                     entidad.setEstado(dr.getBoolean(5)); 
                     entidad.setUsuario_responsable(dr.getString(6)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setObjModulo(modulo);
                     lista.add(entidad);
             }
 
@@ -125,16 +150,17 @@ public class FormularioDAO {
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO formulario(url,etiqueta,padre,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,GETDATE());";
+           String sql="INSERT INTO formulario(id_modulo,url,etiqueta,padre,estado,usuario_responsable,fecha_modificacion)"
+                   + " VALUES(?,?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, entidad.getUrl());
-            stmt.setString(2, entidad.getEtiqueta());
-            stmt.setInt(3, entidad.getPadre());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setInt(1, entidad.getObjModulo().getId_modulo());
+            stmt.setString(2, entidad.getUrl());
+            stmt.setString(3, entidad.getEtiqueta());
+            stmt.setInt(4, entidad.getPadre());
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             
@@ -161,17 +187,18 @@ public class FormularioDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE formulario SET url = ?,etiqueta= ?,padre=?,estado= ?,"
+             String sql="UPDATE formulario SET id_modulo=?,url = ?,etiqueta= ?,padre=?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_formulario = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
-            stmt.setString(1, entidad.getUrl());
-            stmt.setString(2, entidad.getEtiqueta());
-            stmt.setInt(3, entidad.getPadre());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
-            stmt.setInt(6,entidad.getId_formulario());
+            stmt.setInt(1, entidad.getObjModulo().getId_modulo());
+            stmt.setString(2, entidad.getUrl());
+            stmt.setString(3, entidad.getEtiqueta());
+            stmt.setInt(4, entidad.getPadre());
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
+            stmt.setInt(7,entidad.getId_formulario());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {
