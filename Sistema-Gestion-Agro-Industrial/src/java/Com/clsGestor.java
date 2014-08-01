@@ -107,6 +107,10 @@ public class clsGestor {
     {
         return UsuarioDAO.getFoto(IdUsuario);
     }
+    public static entUsuario loginUsuario(String login,String contrasena) throws Exception
+    {
+        return UsuarioDAO.login(login, contrasena);
+    }
     
 // </editor-fold>
     
@@ -182,6 +186,17 @@ public class clsGestor {
     {
         return PatronDAO.actualizar(entidad);
     }
+
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entModulo">
+      public static List<entModulo> ListarUsuarioModulo(int idUsuario) throws Exception
+    {
+        return ModuloDAO.ListarUsuario(idUsuario);
+    }
+    
+   
 
     
 // </editor-fold>

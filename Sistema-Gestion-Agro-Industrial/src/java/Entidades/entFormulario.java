@@ -16,12 +16,14 @@ public class entFormulario {
     
     private int id_formulario;
     private entModulo objModulo;
+    private int id_modulo;
     private String url;
     private String etiqueta;
     private int padre;
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
+    
     
     public entFormulario ()
     {
@@ -90,6 +92,14 @@ public class entFormulario {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public int getId_modulo() {
+        return id_modulo;
+    }
+
+    public void setId_modulo(int id_modulo) {
+        this.id_modulo = id_modulo;
     }
     
 }

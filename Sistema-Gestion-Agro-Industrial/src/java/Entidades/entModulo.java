@@ -7,6 +7,7 @@
 package Entidades;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,7 @@ public class entModulo {
     private int estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
+    private List<entFormulario> list;
     
     public entModulo()
     {
@@ -33,6 +35,7 @@ public class entModulo {
         this.id_modulo = id_modulo;
     }
 
+  
     public String getEtiqueta() {
         return etiqueta;
     }
@@ -63,6 +66,14 @@ public class entModulo {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public List<entFormulario> getList() {
+        return list;
+    }
+
+    public void setList(List<entFormulario> list) {
+        this.list = list;
     }
     
 }

@@ -238,7 +238,8 @@
 			<script src="js/gebo_common.js"></script>
 			  <!-- datepicker -->
                         <script src="lib/datepicker/bootstrap-datepicker.min.js"></script>
-
+                        <!-- sticky messages -->
+			<script src="lib/sticky/sticky.min.js"></script>
 			<!-- validation -->
 			<script src="lib/validation/jquery.validate.min.js"></script>
 			<!-- wizard -->

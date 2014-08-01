@@ -1,4 +1,12 @@
-
+<%@page import="Entidades.entFormulario"%>
+<%@page import="Entidades.entModulo"%>
+<%@page import="java.util.List"%>
+<%@page import="Entidades.entSesion"%>
+<%   
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{     
+%>
 <header>
                 <div class="navbar navbar-fixed-top">
                     <div class="navbar-inner">
@@ -27,15 +35,30 @@
                             <nav>
                                 <div class="nav-collapse">
                                     <ul class="nav">
-                                        <li class="dropdown">
-                                            <a href="#"><i class="icon-list-alt icon-white"></i> XD 1</a>
-                                          
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#"><i class="icon-th icon-white"></i> XD 2 </a>
-                                          
-                                        </li>
-
+                                 <%
+                                    List<entModulo> list=objSession.getListModulos();
+                                    if(list!=null)
+                                    {
+                                        List<entFormulario> listFormulario=objSession.getListModulos().get(objSession.getPosicion()).getList();
+                                        if(listFormulario!=null)
+                                        for(entFormulario padre : listFormulario)
+                                        {
+                                            if(padre.getPadre()==0)
+                                            {                                              
+                                                out.print("<li class='dropdown'>");
+                                                out.print("<a data-toggle='dropdown' class='dropdown-toggle' href='"+padre.getUrl()+"'><i class='icon-list-alt icon-white'></i> "+padre.getEtiqueta()+" <b class='caret'></b></a>");
+                                                out.print("<ul class='dropdown-menu'>");
+                                                for(entFormulario hijo : listFormulario)
+                                                    if(hijo.getPadre()==padre.getId_formulario())
+                                                        out.print("<li><a href='"+hijo.getUrl()+"'>"+hijo.getEtiqueta()+"</a></li>");
+                                                out.print("</ul>");
+                                                out.print("</li>");
+                                            }
+                                        }
+                                    }
+                                %>
+                                        
+                                  
                                        
                                     </ul>
                                 </div>
@@ -162,3 +185,4 @@
         }
 </script>
 
+<%}%>     

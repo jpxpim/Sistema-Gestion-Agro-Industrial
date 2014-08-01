@@ -22,6 +22,50 @@ import java.util.List;
  */
 public class ModuloDAO 
 {
+      public static List<entModulo> ListarUsuario(int idUsuario) throws Exception
+    {
+        List<entModulo> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select distinct M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion "
+                    + "from modulo M inner join FORMULARIO F on M.ID_MODULO=F.ID_MODULO inner join FORMULARIO_USUARIO "
+                    + "FU on FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.ID_USUARIO="+idUsuario;
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entModulo>();
+                
+                    entModulo entidad = new entModulo();
+                    entidad.setId_modulo(dr.getInt(1));
+                    entidad.setEtiqueta(dr.getString(2)); 
+                    entidad.setEstado(dr.getInt(3)); 
+                    entidad.setUsuario_responsable(dr.getString(4)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(5)); 
+                    entidad.setList(FormularioDAO.ListarModuloUsuario(idUsuario,entidad.getId_modulo()));
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+      
     public static List<entModulo> Listar(boolean activo) throws Exception
     {
         List<entModulo> lista = null;

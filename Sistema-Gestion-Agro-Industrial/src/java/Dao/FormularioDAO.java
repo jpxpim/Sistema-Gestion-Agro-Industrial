@@ -22,18 +22,17 @@ import java.util.List;
  */
 public class FormularioDAO {
     
-    public static List<entFormulario> BuscarPorId(int id) throws Exception
+    public static List<entFormulario> ListarModuloUsuario(int idUsuario ,int idModulo) throws Exception
     {
         List<entFormulario> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,"
-                    + " M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion "
-                    + " from formulario F "
-                    + " join modulo M on F.id_modulo=M.id_modulo "
-                    + " where id_formulario="+id;
+            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion "
+                    + "from formulario F join modulo M on F.id_modulo=M.id_modulo inner join FORMULARIO_USUARIO FU on "
+                    + "FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.ID_USUARIO="+idUsuario+" and F.ID_MODULO="+idModulo
+                    +" order by F.padre asc,F.etiqueta asc";
             
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -44,13 +43,6 @@ public class FormularioDAO {
                 if(lista==null)
                     lista= new ArrayList<entFormulario>();
                 
-                    entModulo modulo = new entModulo();
-                    modulo.setId_modulo(dr.getInt(8));
-                    modulo.setEtiqueta(dr.getString(9)); 
-                    modulo.setEstado(dr.getInt(10)); 
-                    modulo.setUsuario_responsable(dr.getString(11)); 
-                    modulo.setFecha_modificacion(dr.getTimestamp(12)); 
-                
                     entFormulario entidad = new entFormulario();
                     entidad.setId_formulario(dr.getInt(1));
                     entidad.setUrl(dr.getString(2)); 
@@ -59,11 +51,7 @@ public class FormularioDAO {
                     entidad.setEstado(dr.getBoolean(5)); 
                     entidad.setUsuario_responsable(dr.getString(6)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(7)); 
-                    entidad.setObjModulo(modulo);
                     lista.add(entidad);
-                    
-                    
-                    
             }
 
         } catch (Exception e) {
@@ -78,6 +66,58 @@ public class FormularioDAO {
             }
         }
         return lista;
+    }
+    
+    public static entFormulario BuscarPorId(int id) throws Exception
+    {
+        entFormulario entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,"
+                    + " M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion "
+                    + " from formulario F "
+                    + " join modulo M on F.id_modulo=M.id_modulo "
+                    + " where id_formulario="+id;
+            
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                
+                    entModulo modulo = new entModulo();
+                    modulo.setId_modulo(dr.getInt(8));
+                    modulo.setEtiqueta(dr.getString(9)); 
+                    modulo.setEstado(dr.getInt(10)); 
+                    modulo.setUsuario_responsable(dr.getString(11)); 
+                    modulo.setFecha_modificacion(dr.getTimestamp(12)); 
+                
+                    entidad = new entFormulario();
+                    entidad.setId_formulario(dr.getInt(1));
+                    entidad.setUrl(dr.getString(2)); 
+                    entidad.setEtiqueta(dr.getString(3)); 
+                    entidad.setPadre(dr.getInt(4)); 
+                    entidad.setEstado(dr.getBoolean(5)); 
+                    entidad.setUsuario_responsable(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setObjModulo(modulo);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
     }
     
     public static List<entFormulario> Listar(boolean activo,boolean padre) throws Exception

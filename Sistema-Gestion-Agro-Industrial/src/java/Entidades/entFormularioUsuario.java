@@ -16,6 +16,7 @@ public class entFormularioUsuario
 {
     private int id_formulario_usuario;
     private entUsuario objUSuario;
+    private int id_usuario;
     private entFormulario objFormulario;
     private String usuario_responsable;
     private Date fecha_modificacion;
@@ -63,6 +64,14 @@ public class entFormularioUsuario
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
     
     

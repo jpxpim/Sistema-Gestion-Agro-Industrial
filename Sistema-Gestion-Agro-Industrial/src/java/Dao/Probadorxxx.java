@@ -10,6 +10,7 @@ import Entidades.entCultivo;
 import Entidades.entEdadCultivo;
 import Entidades.entFormulario;
 import Entidades.entFormularioUsuario;
+import Entidades.entModulo;
 import Entidades.entPatron;
 import Entidades.entSector;
 import Entidades.entSubSector;
@@ -66,7 +67,8 @@ public class Probadorxxx {
 //        obj.setObjFormulario(objFormulario);
 //        obj.setObjUSuario(objUsuario);
 //        obj.setUsuario_responsable("dwdwd");
-        System.out.print(""+e.encodeBuffer(UsuarioDAO.getFoto(6)));
+        List<entModulo> list=ModuloDAO.ListarUsuario(1);
+        System.out.print(""+list.size());
         //List<entFormularioUsuario> list=FormularioUsuarioDAO.Listar();
         
         /*

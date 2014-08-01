@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,52 @@ import java.util.List;
  */
 public class UsuarioDAO {
     
+    public static entUsuario login(String login,String contrasena) throws Exception
+    {
+        entUsuario entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select id_usuario,login,contrasena,codigo_erp,nombre,apellido,email,telefono,celular,fecha_nacimiento,"
+                    + " foto,estado,usuario_responsable,fecha_modificacion from usuario where login like '"+login+"' and contrasena like '"+contrasena+"'"; 
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                    entidad = new entUsuario();
+                    entidad.setId_usuario(dr.getInt(1));
+                    entidad.setLogin(dr.getString(2));
+                    entidad.setContrasena(dr.getString(3));
+                    entidad.setCodigo_erp(dr.getString(4));
+                    entidad.setNombre(dr.getString(5));
+                    entidad.setApellido(dr.getString(6));
+                    entidad.setEmail(dr.getString(7));
+                    entidad.setTelefono(dr.getString(8));
+                    entidad.setCelular(dr.getString(9));
+                    entidad.setFecha_nacimiento(dr.getDate(10));
+                    entidad.setFoto(dr.getBytes(11));
+                    entidad.setEstado(dr.getBoolean(12));
+                    entidad.setUsuario_responsable(dr.getString(13));
+                    entidad.setFecha_modificacion(dr.getTimestamp(14));
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
+    }    
     public static List<entUsuario> Listar(boolean activo) throws Exception
     {
         List<entUsuario> lista = null;
@@ -178,7 +225,7 @@ public class UsuarioDAO {
             stmt.setString(6, entidad.getEmail());
             stmt.setString(7, entidad.getTelefono());
             stmt.setString(8, entidad.getCelular());
-            stmt.setDate(9, (Date) entidad.getFecha_nacimiento());
+            stmt.setTimestamp(9, new Timestamp(entidad.getFecha_nacimiento().getTime()));
             stmt.setBytes(10, entidad.getFoto());
             stmt.setBoolean(11, entidad.getEstado());
             stmt.setString(12, entidad.getUsuario_responsable());

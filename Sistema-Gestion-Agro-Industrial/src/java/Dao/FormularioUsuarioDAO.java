@@ -97,7 +97,6 @@ public class FormularioUsuarioDAO
         }
         return lista;
     }
-
     
     public  static int insertar(entFormularioUsuario entidad) throws Exception
     {
