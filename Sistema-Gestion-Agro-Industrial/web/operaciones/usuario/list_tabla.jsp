@@ -1,9 +1,14 @@
- <%@page import="java.text.SimpleDateFormat"%>
+ <%@page import="Entidades.entSesion"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sun.misc.BASE64Encoder"%>
 <%@page import="Entidades.entUsuario"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
 <%
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{   
+    
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
 List<entUsuario> list=clsGestor.ListarUsuario(false);
 BASE64Encoder e = new BASE64Encoder();
@@ -54,7 +59,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href='javascript:void(0)' onclick='edit_form(<%=entidad.getId_usuario()%>,"<%=entidad.getNombre()%>","<%=entidad.getApellido()%>","<%=entidad.getEmail()%>","<%=entidad.getTelefono()%>","<%=entidad.getCelular()%>","<%=fecha.format(entidad.getFecha_nacimiento())%>","<%=entidad.getLogin()%>","<%=entidad.getCodigo_erp()%>","<%=entidad.getUsuario_responsable()%>","<%=entidad.getContrasena()%>","<%=entidad.getEstado()%>")' class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href='javascript:void(0)' onclick='edit_form(<%=entidad.getId_usuario()%>,"<%=entidad.getNombre()%>","<%=entidad.getApellido()%>","<%=entidad.getEmail()%>","<%=entidad.getTelefono()%>","<%=entidad.getCelular()%>","<%=fecha.format(entidad.getFecha_nacimiento())%>","<%=entidad.getLogin()%>","<%=entidad.getCodigo_erp()%>","<%=entidad.getContrasena()%>","<%=entidad.getEstado()%>")' class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
@@ -67,7 +72,7 @@ if(list!=null)
     %>
     </table>
 
-<%} %>  
+<%} }%>  
                                                                         
                                                                        
                                                                             

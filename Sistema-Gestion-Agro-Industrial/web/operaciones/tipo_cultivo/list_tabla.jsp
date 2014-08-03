@@ -1,8 +1,12 @@
- <%@page import="Entidades.entTipoCultivo"%>
+ <%@page import="Entidades.entSesion"%>
+<%@page import="Entidades.entTipoCultivo"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{ 
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
 SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
 List<entTipoCultivo> list=clsGestor.ListarTipoCultivo(false);
@@ -14,6 +18,7 @@ if(list!=null)
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
+                    <th>Codigo Control</th>
                     <th>Responsable</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -31,6 +36,7 @@ if(list!=null)
             <td><%=entidad.getId_tipo_cultivo()%></td>
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getDescripcion()%></td>
+            <td><%=entidad.getCodigo_control()%></td>
             <td><%=entidad.getUsuario_responsable()%></td>
             <td><%=fecha.format(entidad.getFecha_modificacion())%></td>
             <td><%=hora.format(entidad.getFecha_modificacion())%></td>
@@ -45,7 +51,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_tipo_cultivo()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getUsuario_responsable()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_tipo_cultivo()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getCodigo_control()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
@@ -58,7 +64,7 @@ if(list!=null)
     %>
     </table>
 
-<%} %>  
+<%} }%>  
                                                                         
                                                                        
                                                                             

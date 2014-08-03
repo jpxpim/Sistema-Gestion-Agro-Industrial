@@ -21,6 +21,7 @@ public class entFormulario {
     private String etiqueta;
     private int padre;
     private boolean estado;
+    private int control_form;
     private String usuario_responsable;
     private Date fecha_modificacion;
     
@@ -100,6 +101,14 @@ public class entFormulario {
 
     public void setId_modulo(int id_modulo) {
         this.id_modulo = id_modulo;
+    }
+
+    public int getControl_form() {
+        return control_form;
+    }
+
+    public void setControl_form(int control_form) {
+        this.control_form = control_form;
     }
     
 }

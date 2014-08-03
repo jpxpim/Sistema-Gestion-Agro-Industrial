@@ -21,7 +21,7 @@ if(objSession!=null)
                                                                     <i class="icon-cog"></i> Modulos
                                                             </a>
                                                     </div>
-                                                    <div class="accordion-body collapse" id="collapseFour">
+                                                    <div class="accordion-body collapse in" id="collapseFour">
                                                             <div class="accordion-inner">
                                                                     <ul class="nav nav-list">
                                                                         <%
@@ -42,26 +42,11 @@ if(objSession!=null)
                                                             </div>
                                                     </div>
 
-                                            <div class="accordion-group">
-                                                    <div class="accordion-heading">
-                                                            <a href="#collapseLong" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                                                                    <i class="icon-leaf"></i> Long content (scrollbar)
-                                                            </a>
-                                                    </div>
-                                                    <div class="accordion-body collapse" id="collapseLong">
-                                                            <div class="accordion-inner">
-                                                                    Some text to show sidebar scroll bar<br>
-                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rhoncus, orci ac fermentum imperdiet, purus sapien pharetra diam, at varius nibh tellus tristique sem. Nulla congue odio ut augue volutpat congue. Nullam id nisl ut augue posuere ullamcorper vitae eget nunc. Quisque justo turpis, tristique non fermentum ac, feugiat quis lorem. Ut pellentesque, turpis quis auctor laoreet, nibh erat volutpat est, id mattis mi elit non massa. Suspendisse diam dui, fringilla id pretium non, dapibus eget enim. Duis fermentum quam a leo luctus tincidunt euismod sit amet arcu. Duis bibendum ultricies libero sed feugiat. Duis ut sapien risus. Morbi non nulla sit amet eros fringilla blandit id vel augue. Nam placerat ligula lacinia tellus molestie molestie vestibulum leo tincidunt.
-                                                                    Duis auctor varius risus vitae commodo. Fusce nec odio massa, ut dapibus justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus, mauris sit amet feugiat tempor, nulla diam gravida magna, in facilisis sapien tellus non ligula. Mauris sapien turpis, sodales ac lacinia sit amet, porttitor in lacus. Pellentesque tincidunt malesuada magna, in egestas augue sodales vel. Praesent iaculis sapien at ante sodales facilisis.
-                                                            </div>
-                                                    </div>
-                                            </div>
-
 
                                             <div class="accordion-group">
                                                     <div class="accordion-heading">
                                                             <a href="#collapse7" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                                                               <i class="icon-th"></i> Calculator
+                                                               <i class="icon-th"></i> Calculador
                                                             </a>
                                                     </div>
                                                     <div class="accordion-body collapse in" id="collapse7">

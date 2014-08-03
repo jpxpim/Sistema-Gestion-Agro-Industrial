@@ -29,7 +29,7 @@ public class FormularioDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion "
+            String sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,F.control_form "
                     + "from formulario F join modulo M on F.id_modulo=M.id_modulo inner join FORMULARIO_USUARIO FU on "
                     + "FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.ID_USUARIO="+idUsuario+" and F.ID_MODULO="+idModulo
                     +" order by F.padre asc,F.etiqueta asc";
@@ -51,6 +51,7 @@ public class FormularioDAO {
                     entidad.setEstado(dr.getBoolean(5)); 
                     entidad.setUsuario_responsable(dr.getString(6)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setControl_form(dr.getInt(8));
                     lista.add(entidad);
             }
 

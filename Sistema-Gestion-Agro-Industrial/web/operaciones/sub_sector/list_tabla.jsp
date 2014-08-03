@@ -1,8 +1,12 @@
- <%@page import="Entidades.entSubSector"%>
+ <%@page import="Entidades.entSesion"%>
+<%@page import="Entidades.entSubSector"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
 SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
 List<entSubSector> list=clsGestor.ListarSubSector(false);
@@ -14,6 +18,7 @@ if(list!=null)
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
+                    <th>Codigo Control</th>
                     <th>Responsable</th>
                     <th>Sector</th>
                     <th>Grower SENASA</th>
@@ -33,6 +38,7 @@ if(list!=null)
             <td><%=entidad.getId_sub_sector()%></td>
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getDescripcion()%></td>
+            <td><%=entidad.getCodigo_control()%></td>
             <td><%=entidad.getUsuario_responsable()%></td>
              <td><%=entidad.getObjSector().getNombre()%></td>
              <td><%=entidad.getGrower_senasa()%></td>
@@ -49,7 +55,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_sub_sector()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getUsuario_responsable()%>','<%=entidad.getEstado()%>','<%=entidad.getGrower_senasa()%>',<%=entidad.getObjSector().getId_sector()%>,'<%=entidad.getObjSector().getNombre()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_sub_sector()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getEstado()%>','<%=entidad.getGrower_senasa()%>',<%=entidad.getObjSector().getId_sector()%>,'<%=entidad.getObjSector().getNombre()%>','<%=entidad.getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
@@ -62,7 +68,7 @@ if(list!=null)
     %>
     </table>
 
-<%} %>  
+<%} }%>  
                                                                         
                                                                        
                                                                             

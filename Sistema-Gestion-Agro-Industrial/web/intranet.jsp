@@ -3,7 +3,12 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
-
+<%@page import="Entidades.entSesion"%>
+<%   
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{     
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -173,3 +178,5 @@ $(document).ready(function() {
 		</div>
 	</body>
 </html>
+<%}else  
+    response.sendRedirect("index.jsp");%>     

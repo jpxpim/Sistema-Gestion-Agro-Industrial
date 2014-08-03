@@ -3,7 +3,30 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
-
+<%@page import="Entidades.entSesion"%>
+<%   
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{
+    boolean pagina=false;
+    int posI=objSession.getListModulos().size();
+    for(int i=0;i<posI;i++)
+    {
+        int posJ=objSession.getListModulos().get(i).getList().size();
+        for(int j=0;j<posJ;j++)
+        {
+            if(23==objSession.getListModulos().get(i).getList().get(j).getControl_form())
+            {
+                pagina=true;
+                i=posI;
+                j=posJ;
+            }
+        }
+        
+    }
+    if(!pagina)
+        response.sendRedirect("intranet.jsp");
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +64,8 @@
             <link rel="stylesheet" href="lib/datepicker/datepicker.css" />
 
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
-	
+		<!-- smoke_js -->
+            <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
 		
@@ -73,18 +97,23 @@
                         <div id="jCrumbs" class="breadCrumb module">
                               <ul>
                                 <li>
-                                    <a href="#"><i class="icon-home"></i></a>
+                                    <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
                                 <li>
-                                   Gestión Vivero
+                                    <a href="#">CONFIGURACION</a>
+                                </li>
+                                <li>
+                                    <a href="#">Empresa</a>
+                                </li>
+                                 <li>
+                                      Personal
                                 </li>
                             </ul>
                         </div>
                     </nav>
                     
 					<div class="row-fluid">
-						<div class="span12">
-							<h3 class="heading">Wizard with validation</h3>
+						<div class="span12">							
 							<div class="row-fluid">
 								<div class="span3"></div>
 								<div class="span6">
@@ -157,12 +186,6 @@
 												<label for="txtCodigoERP" class="control-label">Código ERP:</label>
 												<div class="controls">
 													 <input type="text" name="txtCodigoERP" id="txtCodigoERP" />
-												</div>
-											</div>
-                                                                                        <div class="formSep control-group">
-												<label for="txtResponsable" class="control-label">Responsable:</label>
-												<div class="controls">
-													 <input type="text" name="txtResponsable" id="txtResponsable" />
 												</div>
 											</div>
                                                                                         <div class="formSep control-group">
@@ -246,8 +269,44 @@
 			<script src="lib/stepy/js/jquery.stepy.min.js"></script>
 			<!-- wizard functions -->
 			<script src="js/gebo_wizard.js"></script>
-			
+			<!-- smoke_js -->
+			<script src="lib/smoke/smoke.js"></script>
 			<script>
+function modulos()
+{
+     $.ajax({
+            url: 'operaciones/sidebar.jsp',
+            type: 'POST',
+            success: function (data) {     
+                     $('#sidebar').html(data);
+            },
+            contentType: false,
+            processData: false
+        });
+
+     $.ajax({
+            url: 'operaciones/header.jsp',
+            type: 'POST',
+            success: function (data) {     
+                     $('#header').html(data);
+            },
+            contentType: false,
+            processData: false
+        });
+};
+function getMododulos(posicion)
+{
+    $.ajax({
+            url: 'operaciones/modulos.jsp?posicion='+posicion,
+            type: 'POST',
+            success: function () {     
+                     modulos();
+            },
+            contentType: false,
+            processData: false
+        });
+};
+                              
 function tabla()
 {
      $.ajax({
@@ -302,35 +361,11 @@ function redimensionar(im,maxWidth,maxHeight){
 	}
 	i.src=im;
 }
-
-                                       $.ajax({
-                                            url: 'operaciones/header.jsp',
-                                            type: 'POST',
-                                            success: function (data) {     
-                                                     $('#header').html(data);
-                                            },
-                                            contentType: false,
-                                            processData: false
-                                        });
-
-
-
-                                        $.ajax({
-                                            url: 'operaciones/sidebar.jsp',
-                                            type: 'POST',
-                                            success: function (data) {     
-                                                     $('#sidebar').html(data);
-                                            },
-                                            contentType: false,
-                                            processData: false
-                                        });
-                                        
-                                        setTimeout('$("html").removeClass("js")',1000);
-
-                                     
-                                         $('#txtFNacimiento').datepicker({
-                                             language: 'es'
-                                         });
+setTimeout('$("html").removeClass("js")',1000);
+                                    
+$('#txtFNacimiento').datepicker({
+ language: 'es'
+});
           
 });
 function clear_form() {
@@ -343,7 +378,6 @@ function clear_form() {
     $('#txtFNacimiento').val("");
     $('#txtLogin').val("");
     $('#txtCodigoERP').val("");
-    $('#txtResponsable').val("");
     $('#txtContrasena').val("");
     $('#txtRContrasena').val("");
     $("#foto").html('<div id="foto"></div>');
@@ -354,7 +388,7 @@ function clear_form() {
 
 
 };
-function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,responsable,contrasena,estado) {
+function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,contrasena,estado) {
     
     $('#txtNombres').val(nombres);
     $('#txtApellidos').val(apellidos);
@@ -364,7 +398,6 @@ function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,
     $('#txtFNacimiento').val(nacimiento);
     $('#txtLogin').val(login);
     $('#txtCodigoERP').val(codigo);
-    $('#txtResponsable').val(responsable);
     $('#txtContrasena').val(contrasena);
     $('#txtRContrasena').val(contrasena);
     $( "#Remover" ).show();
@@ -388,7 +421,7 @@ function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,
     $('html,body').animate({ scrollTop: $('.main_content').offset().top - 100 }, 'fast');
     $("#atraz").trigger("click");
 };
-
+modulos();   
 tabla();
                                        
 
@@ -398,3 +431,5 @@ tabla();
 		</div>
 	</body>
 </html>
+<%}else  
+    response.sendRedirect("index.jsp");%> 

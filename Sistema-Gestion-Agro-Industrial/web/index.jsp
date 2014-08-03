@@ -4,7 +4,12 @@
     Author     : Toditos
 --%>
 
-
+<%@page import="Entidades.entSesion"%>
+<%
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession==null)
+{
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -136,3 +141,5 @@
         </script>
     </body>
 </html>
+<%}else  
+    response.sendRedirect("intranet.jsp");%>   

@@ -29,7 +29,7 @@ public class ViveroDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_vivero,nombre,descripcion,codigo_control,estado,usuario_responsable,fecha_modificacion"
+            String sql="select id_vivero,nombre,descripcion,codigo_control,estado,usuario_responsable,fecha_modificacion,codigo_control"
                     + " from vivero ";
             if(activo)
                         sql+=" where estado=1"; 
@@ -51,6 +51,7 @@ public class ViveroDAO {
                     entidad.setEstado(dr.getBoolean(5)); 
                     entidad.setUsuario_responsable(dr.getString(6)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setCodigo_control(dr.getString(8));
                     lista.add(entidad);
             }
 
@@ -111,8 +112,8 @@ public class ViveroDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE vivero SET nombre = ?,descripcion= ?,codigo_control=?,estado= ?,"
-                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_vivero = ?;";
+             String sql="UPDATE vivero SET nombre = ?,descripcion= ?,estado= ?,"
+                     + "usuario_responsable = ?,fecha_modificacion = GETDATE(),codigo_control = ? WHERE id_vivero = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
@@ -120,7 +121,8 @@ public class ViveroDAO {
             stmt.setString(2, entidad.getDescripcion());
             stmt.setBoolean(3, entidad.getEstado());
             stmt.setString(4, entidad.getUsuario_responsable());
-            stmt.setInt(5,entidad.getId_vivero());
+            stmt.setString(5, entidad.getCodigo_control());
+            stmt.setInt(6,entidad.getId_vivero());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

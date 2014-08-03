@@ -1,8 +1,12 @@
- <%@page import="Com.clsGestor"%>
+ <%@page import="Entidades.entSesion"%>
+<%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entVariedad"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
 SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
 List<entVariedad> list=clsGestor.ListarVariedad(false);
@@ -14,6 +18,7 @@ if(list!=null)
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
+                    <th>Codigo Control</th>
                     <th>Responsable</th>
                     <th>Cultivo</th>
                     <th>Fecha</th>
@@ -32,6 +37,7 @@ if(list!=null)
             <td><%=entidad.getId_variedad()%></td>
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getDescripcion()%></td>
+             <td><%=entidad.getCodigo_control()%></td>
             <td><%=entidad.getUsuario_responsable()%></td>
              <td><%=entidad.getObjCultivo().getNombre()%></td>
             <td><%=fecha.format(entidad.getFecha_modificacion())%></td>
@@ -47,7 +53,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_variedad()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getUsuario_responsable()%>','<%=entidad.getEstado()%>',<%=entidad.getObjCultivo().getId_cultivo()%>,'<%=entidad.getObjCultivo().getNombre()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_variedad()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getEstado()%>',<%=entidad.getObjCultivo().getId_cultivo()%>,'<%=entidad.getObjCultivo().getNombre()%>','<%=entidad.getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
@@ -60,7 +66,7 @@ if(list!=null)
     %>
     </table>
 
-<%} %>  
+<%} }%>  
                                                                         
                                                                        
                                                                             

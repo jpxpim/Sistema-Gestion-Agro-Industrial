@@ -3,7 +3,30 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
-
+<%@page import="Entidades.entSesion"%>
+<%   
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{
+    boolean pagina=false;
+    int posI=objSession.getListModulos().size();
+    for(int i=0;i<posI;i++)
+    {
+        int posJ=objSession.getListModulos().get(i).getList().size();
+        for(int j=0;j<posJ;j++)
+        {
+            if(12==objSession.getListModulos().get(i).getList().get(j).getControl_form())
+            {
+                pagina=true;
+                i=posI;
+                j=posJ;
+            }
+        }
+        
+    }
+    if(!pagina)
+        response.sendRedirect("intranet.jsp");
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -69,11 +92,17 @@
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
                               <ul>
-                                <li>
-                                    <a href="#"><i class="icon-home"></i></a>
+                               <li>
+                                    <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
                                 <li>
-                                   Gestión Vivero
+                                    <a href="#">CONFIGURACION</a>
+                                </li>
+                                <li>
+                                    <a href="#">Empresa</a>
+                                </li>
+                                 <li>
+                                      Sector
                                 </li>
                             </ul>
                         </div>
@@ -81,7 +110,6 @@
                 
                     <div class="row-fluid">
 						<div class="span12">
-							<h3 class="heading">Agregar Vivero</h3>
 							<div class="row-fluid">
 								<div class="span4">
 									<div class="row-fluid" id="g-map-top">
@@ -96,11 +124,11 @@
                                                                                                         <div class="input-prepend">
 													<label>Descripcion</label>
 													<input type="text" class="span10" id="txtDescripcion"  name="txtDescripcion" />
-                                                                                                         </div>
+                                                                                                         </div> 
                                                                                                         <div class="input-prepend">
-													<label>Responsable</label>
-													<input type="text" class="span10" id="txtResponsable"  name="txtResponsable" />
-                                                                                                         </div>                                                                                                      
+													<label>Codigo de Control</label>
+													<input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
+                                                                                                         </div>  
                                                                                                          <div class="input-prepend">
 													<label>Estado</label>
 													<label class="radio inline">
@@ -173,6 +201,40 @@
                         
 	
 			<script>
+ function modulos()
+{
+     $.ajax({
+            url: 'operaciones/sidebar.jsp',
+            type: 'POST',
+            success: function (data) {     
+                     $('#sidebar').html(data);
+            },
+            contentType: false,
+            processData: false
+        });
+
+     $.ajax({
+            url: 'operaciones/header.jsp',
+            type: 'POST',
+            success: function (data) {     
+                     $('#header').html(data);
+            },
+            contentType: false,
+            processData: false
+        });
+};
+function getMododulos(posicion)
+{
+    $.ajax({
+            url: 'operaciones/modulos.jsp?posicion='+posicion,
+            type: 'POST',
+            success: function () {     
+                     modulos();
+            },
+            contentType: false,
+            processData: false
+        });
+};                           
 function tabla()
 {
      $.ajax({
@@ -190,27 +252,6 @@ function tabla()
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
-                                       $.ajax({
-                                            url: 'operaciones/header.jsp',
-                                            type: 'POST',
-                                            success: function (data) {     
-                                                     $('#header').html(data);
-                                            },
-                                            contentType: false,
-                                            processData: false
-                                        });
-
-
-
-                                        $.ajax({
-                                            url: 'operaciones/sidebar.jsp',
-                                            type: 'POST',
-                                            success: function (data) {     
-                                                     $('#sidebar').html(data);
-                                            },
-                                            contentType: false,
-                                            processData: false
-                                        });
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
 
@@ -254,7 +295,7 @@ function tabla()
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
                                                 txtDescripcion: { required: true, minlength: 3 },
-                                                txtResponsable: { required: true, minlength: 3 },
+                                                txtCodigo: { required: true, minlength: 3 },
                                                 rbEstado: { required: true }
 					},
 					highlight: function(element) {
@@ -274,18 +315,18 @@ function tabla()
                                     function clear_form() {
                                            $('input:radio[name=rbEstado]').attr('checked',false);
                                           $('#txtNombre').val("");
+                                          $('#txtCodigo').val("");
                                             $('#txtDescripcion').val("");
-                                            $('#txtResponsable').val("");
                                         
                                           $("#IdVivero").val("0");  
                                      
                                            
                                       };
-                                       function edit_form(id,nombre,descripcion,responsable,estado) {
+                                       function edit_form(id,nombre,descripcion,codigo,estado) {
                                             $('#txtNombre').val(nombre);
                                             $('#txtDescripcion').val(descripcion);
-                                            $('#txtResponsable').val(responsable);
                                             $('#IdVivero').val(id);
+                                             $('#txtCodigo').val(codigo);
                                             if(estado.toLowerCase()=="true")
                                              $('input:radio[name=rbEstado]')[0].checked = true;
                                             else
@@ -293,10 +334,12 @@ function tabla()
                                           
 
                                       };
-                                  
+                                  modulos(); 
                                        tabla();
 			</script>
 		
 		</div>
 	</body>
 </html>
+<%}else  
+    response.sendRedirect("index.jsp");%> 
