@@ -27,6 +27,7 @@ public class entUsuario
     private Date fecha_nacimiento;
     private byte[] foto;
     private boolean estado;
+    private boolean es_administrador;
     private String usuario_responsable;
     private Date fecha_modificacion;
     
@@ -131,6 +132,14 @@ public class entUsuario
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public boolean isEs_administrador() {
+        return es_administrador;
+    }
+
+    public void setEs_administrador(boolean es_administrador) {
+        this.es_administrador = es_administrador;
     }
 
     public String getUsuario_responsable() {

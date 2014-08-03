@@ -34,7 +34,7 @@ public class UsuarioDAO {
         ResultSet dr = null;
         try {
             String sql="select id_usuario,login,contrasena,codigo_erp,nombre,apellido,email,telefono,celular,fecha_nacimiento,"
-                    + " foto,estado,usuario_responsable,fecha_modificacion from usuario where login like '"+login+"' and contrasena like '"+contrasena+"'"; 
+                    + " foto,estado,usuario_responsable,fecha_modificacion,es_administrador from usuario where login like '"+login+"' and contrasena like '"+contrasena+"'"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -57,6 +57,7 @@ public class UsuarioDAO {
                     entidad.setEstado(dr.getBoolean(12));
                     entidad.setUsuario_responsable(dr.getString(13));
                     entidad.setFecha_modificacion(dr.getTimestamp(14));
+                    entidad.setEs_administrador(dr.getBoolean(15));
             }
 
         } catch (Exception e) {
@@ -80,10 +81,10 @@ public class UsuarioDAO {
         ResultSet dr = null;
         try {
             String sql="select id_usuario,login,contrasena,codigo_erp,nombre,apellido,email,telefono,celular,fecha_nacimiento,"
-                    + " foto,estado,usuario_responsable,fecha_modificacion"
-                    + " from usuario ";
+                    + " foto,estado,usuario_responsable,fecha_modificacion,es_administrador "
+                    + " from usuario where es_administrador=0 ";
             if(activo)
-                        sql+=" where estado=1"; 
+                        sql+=" and estado=1 "; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -109,6 +110,7 @@ public class UsuarioDAO {
                     entidad.setEstado(dr.getBoolean(12));
                     entidad.setUsuario_responsable(dr.getString(13));
                     entidad.setFecha_modificacion(dr.getTimestamp(14));
+                    entidad.setEs_administrador(dr.getBoolean(15));
                     lista.add(entidad);
             }
 
@@ -166,8 +168,8 @@ public class UsuarioDAO {
         try {
             
            String sql="INSERT INTO usuario(login,contrasena,codigo_erp,nombre,apellido,email,telefono,celular,fecha_nacimiento,"
-                   + " foto,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,GETDATE());";
+                   + " foto,estado,usuario_responsable,fecha_modificacion,es_administrador)"
+                   + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,GETDATE(),0);";
            
             DateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
             conn = ConexionDAO.getConnection();
