@@ -24,6 +24,7 @@ public class ModuloDAO
 {
       public static entModulo ListarUsuario(int idUsuario) throws Exception
     {
+        //listarUsuario
         entModulo entidad = null;
         Connection conn =null;
         CallableStatement stmt = null;
