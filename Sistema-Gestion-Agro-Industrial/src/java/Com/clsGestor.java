@@ -200,4 +200,38 @@ public class clsGestor {
 
     
 // </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="EntCampania">
+    public static List<EntCampania> ListarCampania(boolean activo) throws Exception
+    {
+        return CampaniaDAO.Listar(activo);
+    }
+    
+    public  static int insertarCampania(EntCampania entidad) throws Exception
+    {
+        return CampaniaDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarCampania(EntCampania entidad) throws Exception
+    {
+        return CampaniaDAO.actualizar(entidad);
+    }
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entProductor">
+    public static List<entProductor> ListarProductor(boolean activo) throws Exception
+    {
+        return ProductorDAO.Listar(activo);
+    }
+    
+    public  static int insertarProductor(entProductor entidad) throws Exception
+    {
+        return ProductorDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarProductor(entProductor entidad) throws Exception
+    {
+        return ProductorDAO.actualizar(entidad);
+    }
+// </editor-fold>
 }

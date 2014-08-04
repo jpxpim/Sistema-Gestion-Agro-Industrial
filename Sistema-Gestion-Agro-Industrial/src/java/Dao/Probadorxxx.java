@@ -67,8 +67,6 @@ public class Probadorxxx {
 //        obj.setObjFormulario(objFormulario);
 //        obj.setObjUSuario(objUsuario);
 //        obj.setUsuario_responsable("dwdwd");
-        List<entModulo> list=ModuloDAO.ListarUsuario(1);
-        System.out.print(""+list.size());
         //List<entFormularioUsuario> list=FormularioUsuarioDAO.Listar();
         
         /*

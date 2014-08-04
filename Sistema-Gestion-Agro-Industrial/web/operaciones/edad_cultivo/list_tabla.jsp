@@ -2,13 +2,10 @@
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entEdadCultivo"%>
 <%@page import="java.util.List"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {  
-SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
 List<entEdadCultivo> list=clsGestor.ListarEdadCultivo(false);
 if(list!=null)
 {%>
@@ -20,8 +17,6 @@ if(list!=null)
                     <th>Descripcion</th>
                     <th>Codigo Control</th>
                     <th>Responsable</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
@@ -38,8 +33,6 @@ if(list!=null)
             <td><%=entidad.getDescripcion()%></td>
             <td><%=entidad.getCodigo_control()%></td>
             <td><%=entidad.getUsuario_responsable()%></td>
-            <td><%=fecha.format(entidad.getFecha_modificacion())%></td>
-            <td><%=hora.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
                    if(entidad.getEstado())

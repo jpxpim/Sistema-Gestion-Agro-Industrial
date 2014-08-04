@@ -2,13 +2,10 @@
 <%@page import="Entidades.entSubSector"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-SimpleDateFormat hora=new SimpleDateFormat("h:mm a");
 List<entSubSector> list=clsGestor.ListarSubSector(false);
 if(list!=null)
 {%>
@@ -22,8 +19,6 @@ if(list!=null)
                     <th>Responsable</th>
                     <th>Sector</th>
                     <th>Grower SENASA</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
@@ -42,8 +37,6 @@ if(list!=null)
             <td><%=entidad.getUsuario_responsable()%></td>
              <td><%=entidad.getObjSector().getNombre()%></td>
              <td><%=entidad.getGrower_senasa()%></td>
-            <td><%=fecha.format(entidad.getFecha_modificacion())%></td>
-            <td><%=hora.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
                    if(entidad.getEstado())

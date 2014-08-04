@@ -22,10 +22,9 @@ import java.util.List;
  */
 public class ModuloDAO 
 {
-      public static entModulo ListarUsuario(int idUsuario) throws Exception
+      public static List<entModulo> ListarUsuario(int idUsuario) throws Exception
     {
-        //listarUsuario
-        entModulo entidad = null;
+        List<entModulo> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
@@ -38,16 +37,19 @@ public class ModuloDAO
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
 
-            if(dr.next())
+            while(dr.next())
             {
+                if(lista==null)
+                    lista= new ArrayList<entModulo>();
                 
-                    entidad = new entModulo();
+                    entModulo entidad = new entModulo();
                     entidad.setId_modulo(dr.getInt(1));
                     entidad.setEtiqueta(dr.getString(2)); 
                     entidad.setEstado(dr.getInt(3)); 
                     entidad.setUsuario_responsable(dr.getString(4)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(5)); 
                     entidad.setList(FormularioDAO.ListarModuloUsuario(idUsuario,entidad.getId_modulo()));
+                    lista.add(entidad);
             }
 
         } catch (Exception e) {
@@ -61,7 +63,7 @@ public class ModuloDAO
             } catch (SQLException e) {
             }
         }
-        return entidad;
+        return lista;
     }
       
     public static List<entModulo> Listar(boolean activo) throws Exception
