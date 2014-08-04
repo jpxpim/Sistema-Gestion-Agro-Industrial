@@ -15,13 +15,13 @@
 			$('#simple_wizard').stepy({
 				titleClick	: true,
 				nextLabel:      'Siquiente <i class="icon-chevron-right icon-white"></i>',
-				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atraz'
+				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atras'
 			});
 		},
 		validation: function(){
 			$('#validate_wizard').stepy({
 				nextLabel:      'Siguiente <i class="icon-chevron-right icon-white"></i>',
-				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atraz',
+				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atras',
 				block		: true,
 				errorImage	: true,
 				titleClick	: true,

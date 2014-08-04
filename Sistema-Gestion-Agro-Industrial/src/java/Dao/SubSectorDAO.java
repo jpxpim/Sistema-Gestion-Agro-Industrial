@@ -129,7 +129,7 @@ public class SubSectorDAO
         CallableStatement stmt = null;
         try {
              String sql="UPDATE sub_sector SET id_sector = ?,nombre = ?,descripcion= ?,codigo_control=?,estado= ?,"
-                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_sub_sector = ?;";
+                     + "usuario_responsable = ?,fecha_modificacion = GETDATE(), grower_senasa=? WHERE id_sub_sector = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);  
@@ -139,7 +139,9 @@ public class SubSectorDAO
             stmt.setString(4, entidad.getCodigo_control());
             stmt.setBoolean(5, entidad.getEstado());
             stmt.setString(6, entidad.getUsuario_responsable());
-            stmt.setInt(7,entidad.getId_sub_sector());
+            stmt.setString (7,entidad.getGrower_senasa());
+            stmt.setInt(8,entidad.getId_sub_sector());
+            
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

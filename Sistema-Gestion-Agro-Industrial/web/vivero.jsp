@@ -102,7 +102,7 @@ if(objSession!=null)
                                     <a href="#">Empresa</a>
                                 </li>
                                  <li>
-                                      Sector
+                                      Vivero
                                 </li>
                             </ul>
                         </div>
@@ -295,7 +295,7 @@ function tabla()
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
                                                 txtDescripcion: { required: true, minlength: 3 },
-                                                txtCodigo: { required: true, minlength: 3 },
+                                                txtCodigo: { required: true, minlength: 2 },
                                                 rbEstado: { required: true }
 					},
 					highlight: function(element) {

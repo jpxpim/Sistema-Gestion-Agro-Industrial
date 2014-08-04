@@ -21,7 +21,7 @@ if(objSession!=null)
                                 </li>
                                 <li class="divider-vertical hidden-phone hidden-tablet"></li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=objSession.getObjUsuario().getApellido()%>, <%=objSession.getObjUsuario().getNombre()%> <b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=objSession.getObjUsuario().getNombre()%> <%=objSession.getObjUsuario().getApellido()%> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                     <li><a href="user_profile.html">Mi Perfil</a></li>
                                     <li class="divider"></li>
