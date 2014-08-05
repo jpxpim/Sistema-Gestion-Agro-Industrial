@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author rosemary
  */
-public class EntAnalisis 
+public class entAnalisis 
 {
     private int id_analisis;
     private String nombre;

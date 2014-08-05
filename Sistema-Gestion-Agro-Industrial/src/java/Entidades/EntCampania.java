@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Toditos
  */
-public class EntCampania {
+public class entCampania {
     private int id_campania;
     private String nombre;
     private Date fecha_inicio;
@@ -21,7 +21,8 @@ public class EntCampania {
     private String usuario_responsable;
     private Date fecha_modificacion;
 
-    public EntCampania() {
+    
+    public entCampania() {
     }
 
     public int getId_campania() {
