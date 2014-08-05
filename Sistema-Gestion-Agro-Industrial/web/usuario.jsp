@@ -106,7 +106,7 @@ if(objSession!=null)
                                     <a href="#">Empresa</a>
                                 </li>
                                  <li>
-                                      Personal
+                                      Usuario
                                 </li>
                             </ul>
                         </div>
