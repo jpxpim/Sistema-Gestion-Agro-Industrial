@@ -365,7 +365,7 @@ function tabla()
      function comboEdadCultivo()
 {
      $.ajax({
-        url: 'operaciones/tipo_cultivo/list_combo.jsp',
+        url: 'operaciones/edad_cultivo/list_combo.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#cbEdadCultivo').html(data);
@@ -377,7 +377,7 @@ function tabla()
       function comboVariedad()
 {
      $.ajax({
-        url: 'operaciones/tipo_cultivo/list_combo.jsp',
+        url: 'operaciones/variedad/list_combo.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#cbVariedad').html(data);

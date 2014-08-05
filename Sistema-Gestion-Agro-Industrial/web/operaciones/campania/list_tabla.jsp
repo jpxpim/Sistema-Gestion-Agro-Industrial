@@ -1,14 +1,14 @@
  <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.EntCampania"%>
+<%@page import="Entidades.entCampania"%>
 <%@page import="java.util.List"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {  
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-List<EntCampania> list=clsGestor.ListarCampania(false);
+List<entCampania> list=clsGestor.ListarCampania(false);
 if(list!=null)
 {%>
 <table id="tabla" class="table table-striped location_table">
@@ -24,7 +24,7 @@ if(list!=null)
             </tr>
     </thead>   
     <%
-    for(EntCampania entidad : list)
+    for(entCampania entidad : list)
     {
     %>
 

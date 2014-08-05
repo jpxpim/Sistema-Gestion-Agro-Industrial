@@ -294,7 +294,7 @@ function tabla()
                                                          });    
                                             },
 					rules: {
-						txtNombre: { required: true, minlength: 3 },
+						txtNombre: { required: true, digits:true, minlength: 4 },
                                                 txtFin: { required: true},
                                                 txtInicio: { required: true},
                                                 rbEstado: { required: true }

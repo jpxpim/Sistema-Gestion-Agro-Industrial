@@ -54,7 +54,7 @@ public class CampaniaLoteDAO
                     
                     entCampania objCampania = new entCampania();
                     objCampania.setId_campania(dr.getInt(8));
-                    objCampania.setNombre(dr.getString(9));
+                    objCampania.setNombre(dr.getInt(9));
                     
                     entCampaniaLote entidad = new entCampaniaLote();
                     entidad.setId_campania_lote(dr.getInt(1));

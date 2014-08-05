@@ -46,7 +46,7 @@ public class CampaniaDAO
                 
                     entCampania entidad = new entCampania();
                     entidad.setId_campania(dr.getInt(1));
-                    entidad.setNombre(dr.getString(2)); 
+                    entidad.setNombre(dr.getInt(2)); 
                     entidad.setFecha_inicio(dr.getTimestamp(3)); 
                     entidad.setFecha_fin(dr.getTimestamp(4));
                     entidad.setEstado(dr.getBoolean(5)); 
@@ -81,7 +81,7 @@ public class CampaniaDAO
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, entidad.getNombre());
+            stmt.setInt(1, entidad.getNombre());
             stmt.setTimestamp(2, new Timestamp(entidad.getFecha_inicio().getTime()));
             stmt.setTimestamp(3, new Timestamp(entidad.getFecha_fin().getTime()));
             stmt.setBoolean(4, entidad.isEstado());
@@ -117,7 +117,7 @@ public class CampaniaDAO
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
-            stmt.setString(1, entidad.getNombre());
+            stmt.setInt(1, entidad.getNombre());
             stmt.setTimestamp(2, new Timestamp(entidad.getFecha_inicio().getTime()));
             stmt.setTimestamp(3, new Timestamp(entidad.getFecha_fin().getTime()));
             stmt.setBoolean(4, entidad.isEstado());

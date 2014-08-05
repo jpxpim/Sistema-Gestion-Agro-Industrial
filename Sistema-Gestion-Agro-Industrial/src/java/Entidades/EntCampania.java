@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class entCampania {
     private int id_campania;
-    private String nombre;
+    private int nombre;
     private Date fecha_inicio;
     private Date fecha_fin;
     private Boolean estado;
@@ -33,13 +33,14 @@ public class entCampania {
         this.id_campania = id_campania;
     }
 
-    public String getNombre() {
+    public int getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(int nombre) {
         this.nombre = nombre;
     }
+
 
     public Date getFecha_inicio() {
         return fecha_inicio;

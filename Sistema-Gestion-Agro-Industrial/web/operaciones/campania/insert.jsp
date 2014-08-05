@@ -2,7 +2,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.EntCampania"%>
+<%@page import="Entidades.entCampania"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
@@ -12,8 +12,8 @@ if(objSession!=null)
                 request.getParameter("txtFin") != null && request.getParameter("txtFin") != "" &&
                 request.getParameter("rbEstado") != null && request.getParameter("rbEstado") != "" )
         {
-            EntCampania entidad = new EntCampania();
-            entidad.setNombre(request.getParameter("txtNombre"));
+            entCampania entidad = new entCampania();
+            entidad.setNombre(Integer.parseInt(request.getParameter("txtNombre")));
             entidad.setFecha_inicio(new Date(request.getParameter("txtInicio")));
             entidad.setFecha_fin(new Date(request.getParameter("txtFin")));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
