@@ -22,6 +22,13 @@ public class entEdadCultivo {
     private String usuario_responsable;
     private Date fecha_modificacion;
 
+    public entEdadCultivo() {
+    }
+
+    public entEdadCultivo(int id_edad_cultivo) {
+        this.id_edad_cultivo = id_edad_cultivo;
+    }
+
     public int getId_edad_cultivo() {
         return id_edad_cultivo;
     }

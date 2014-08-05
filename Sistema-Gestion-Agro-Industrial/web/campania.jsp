@@ -200,7 +200,6 @@ if(objSession!=null)
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                        
 	
 			<script>
 function modulos()

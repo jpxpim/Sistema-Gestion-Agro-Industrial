@@ -24,6 +24,10 @@ public class entTipoCultivo
     private Date fecha_modificacion;
 
     public entTipoCultivo(){}
+
+    public entTipoCultivo(int id_tipo_cultivo) {
+        this.id_tipo_cultivo = id_tipo_cultivo;
+    }
     
     public int getId_tipo_cultivo() {
         return id_tipo_cultivo;

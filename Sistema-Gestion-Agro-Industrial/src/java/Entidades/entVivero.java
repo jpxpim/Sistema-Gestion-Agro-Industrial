@@ -23,6 +23,10 @@ public class entVivero {
     private Date fecha_modificacion;
 
     public entVivero(){}
+
+    public entVivero(int id_vivero) {
+        this.id_vivero = id_vivero;
+    }
     
     public int getId_vivero() {
         return id_vivero;

@@ -58,7 +58,6 @@ if(list!=null)
     }
     %>
     </table>
-
 <%} }%>  
                                                                         
                                                                        

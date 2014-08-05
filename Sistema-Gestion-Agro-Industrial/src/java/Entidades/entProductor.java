@@ -24,6 +24,10 @@ public class entProductor {
     
     public entProductor(){}
 
+    public entProductor(int id_productor) {
+        this.id_productor = id_productor;
+    }
+
     public int getId_productor() {
         return id_productor;
     }

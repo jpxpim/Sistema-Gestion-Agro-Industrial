@@ -193,7 +193,6 @@ if(objSession!=null)
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
 	
-
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->

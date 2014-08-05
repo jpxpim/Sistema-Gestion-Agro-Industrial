@@ -31,6 +31,10 @@ public class entVariedad
         return id_variedad;
     }
 
+    public entVariedad(int id_variedad) {
+        this.id_variedad = id_variedad;
+    }
+
     public void setId_variedad(int id_variedad) {
         this.id_variedad = id_variedad;
     }

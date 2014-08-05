@@ -271,6 +271,7 @@ if(objSession!=null)
 			<script src="js/gebo_wizard.js"></script>
 			<!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
+                        
 			<script>
 function modulos()
 {

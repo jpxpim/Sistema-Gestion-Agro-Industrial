@@ -233,5 +233,22 @@ public class clsGestor {
     {
         return ProductorDAO.actualizar(entidad);
     }
+// </editor-fold> 
+    
+    //<editor-fold defaultstate="collapsed" desc="entLote">
+    public static List<entLote> ListarLote(boolean activo) throws Exception
+    {
+        return LoteDAO.Listar(activo);
+    }
+    
+    public  static int insertarLote(entLote entidad) throws Exception
+    {
+        return LoteDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarLote(entLote entidad) throws Exception
+    {
+        return LoteDAO.actualizar(entidad);
+    }
 // </editor-fold>
 }

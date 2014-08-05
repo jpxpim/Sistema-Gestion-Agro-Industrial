@@ -29,6 +29,10 @@ public class entSubSector {
         
     }
 
+    public entSubSector(int id_sub_sector) {
+        this.id_sub_sector = id_sub_sector;
+    }
+
     public String getGrower_senasa() {
         return grower_senasa;
     }

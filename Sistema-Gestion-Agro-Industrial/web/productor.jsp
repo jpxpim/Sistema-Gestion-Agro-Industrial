@@ -192,8 +192,6 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
-	
-
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->

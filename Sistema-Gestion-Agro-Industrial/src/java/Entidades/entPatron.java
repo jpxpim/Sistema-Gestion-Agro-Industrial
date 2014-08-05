@@ -22,6 +22,10 @@ public class entPatron {
     private Date fecha_modificacion;
 
     public entPatron(){}
+
+    public entPatron(int id_patron) {
+        this.id_patron = id_patron;
+    }
     
     public int getId_patron() {
         return id_patron;
