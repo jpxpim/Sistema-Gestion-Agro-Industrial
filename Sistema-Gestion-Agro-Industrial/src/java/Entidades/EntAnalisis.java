@@ -21,6 +21,9 @@ public class entAnalisis
     private String usuario_responsable;
     private Date fecha_modificacion;
 
+    public entAnalisis() {
+    }
+
     public int getId_analisis() {
         return id_analisis;
     }

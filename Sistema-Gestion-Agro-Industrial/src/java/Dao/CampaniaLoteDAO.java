@@ -92,7 +92,7 @@ public class CampaniaLoteDAO
             
            String sql="IF not exists(select * from CAMPANIA_LOTE T where ID_CAMPANIA="+entidad.getObjCampania().getId_campania() +" and ID_LOTE="+entidad.getObjLote().getId_lote()+") begin " 
                    + " INSERT INTO campania_lote(id_lote,id_campania,fecha_poda_formacion,numero_plantas,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,GETDATE()) end else begin select -1 end";
+                   + " VALUES(?,?,?,?,?,GETDATE()) end else begin return select isnull(@@IDENTITY,-1) end";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -120,7 +120,56 @@ public class CampaniaLoteDAO
         }
         return rpta;
     } 
-    
+      public  static int insertar1(entCampaniaLote entidad) throws Exception
+    {
+        int rpta = -1;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select id_campania_lote from CAMPANIA_LOTE where ID_CAMPANIA="+entidad.getObjCampania().getId_campania() +" and ID_LOTE="+entidad.getObjLote().getId_lote();
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+            if(dr.next())
+                rpta = 0;  
+            else
+            {
+                 sql="INSERT INTO campania_lote(id_lote,id_campania,fecha_poda_formacion,numero_plantas,usuario_responsable,fecha_modificacion)"
+                   + " VALUES(?,?,?,?,?,GETDATE())";
+                    PreparedStatement pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                    pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                    pst.setInt(1, entidad.getObjLote().getId_lote());
+                    pst.setInt(2, entidad.getObjCampania().getId_campania());
+                    pst.setDate(3, new java.sql.Date(entidad.getFechaPodaFormacion().getTime()));
+                    pst.setInt(4,entidad.getNumero_plantas());
+                    pst.setString(5, entidad.getUsuario_responsable());
+                    pst.execute();   
+                    ResultSet keyResultSet = pst.getGeneratedKeys();
+                    if (keyResultSet.next()) {
+                       rpta=keyResultSet.getInt(1);
+                    }
+                    pst.close();
+            }
+            conn.commit();
+
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }
     public static boolean actualizar(entCampaniaLote entidad) throws Exception
     {
         boolean rpta = false;

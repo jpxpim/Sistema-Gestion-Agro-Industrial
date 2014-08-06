@@ -6,10 +6,13 @@
 
 package Dao;
 
+import Entidades.entCampania;
+import Entidades.entCampaniaLote;
 import Entidades.entCultivo;
 import Entidades.entEdadCultivo;
 import Entidades.entFormulario;
 import Entidades.entFormularioUsuario;
+import Entidades.entLote;
 import Entidades.entModulo;
 import Entidades.entPatron;
 import Entidades.entSector;
@@ -18,9 +21,9 @@ import Entidades.entTipoCultivo;
 import Entidades.entUsuario;
 import Entidades.entVariedad;
 import Entidades.entVivero;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import sun.misc.BASE64Encoder;
 
@@ -129,9 +132,14 @@ public class Probadorxxx {
             
 
             */
-      
+      entCampaniaLote entidad = new entCampaniaLote();
+            entidad.setNumero_plantas(4);
+            entidad.setFechaPodaFormacion(new Date());
+            entidad.setObjLote(new entLote(4));            
+            entidad.setObjCampania(new entCampania(1));
+            entidad.setUsuario_responsable("asa");
         //if(list!=null)
-        System.out.print(""+CampaniaLoteDAO.Listar().size());
+        System.out.print(""+CampaniaLoteDAO.insertar1(entidad));
     }
     
 }
