@@ -139,7 +139,6 @@ public class CampaniaLoteDAO
                  sql="INSERT INTO campania_lote(id_lote,id_campania,fecha_poda_formacion,numero_plantas,usuario_responsable,fecha_modificacion)"
                    + " VALUES(?,?,?,?,?,GETDATE())";
                     PreparedStatement pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                    pst = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                     pst.setInt(1, entidad.getObjLote().getId_lote());
                     pst.setInt(2, entidad.getObjCampania().getId_campania());
                     pst.setDate(3, new java.sql.Date(entidad.getFechaPodaFormacion().getTime()));
