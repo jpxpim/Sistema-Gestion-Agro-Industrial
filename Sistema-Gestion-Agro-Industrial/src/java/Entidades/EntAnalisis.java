@@ -45,7 +45,7 @@ public class entAnalisis
         this.tabla_nombre = tabla_nombre;
     }
 
-    public Boolean isEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
@@ -69,5 +69,6 @@ public class entAnalisis
         this.fecha_modificacion = fecha_modificacion;
     }
     
-        
+
+    
 }
