@@ -92,7 +92,7 @@ public class CampaniaLoteDAO
             
            String sql="IF not exists(select * from CAMPANIA_LOTE T where ID_CAMPANIA="+entidad.getObjCampania().getId_campania() +" and ID_LOTE="+entidad.getObjLote().getId_lote()+") begin " 
                    + " INSERT INTO campania_lote(id_lote,id_campania,fecha_poda_formacion,numero_plantas,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,GETDATE()) end";
+                   + " VALUES(?,?,?,?,?,GETDATE()) end else begin select -1 end";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
