@@ -34,6 +34,10 @@ public class entLote
     
     public entLote(){}
 
+    public entLote(int id_lote) {
+        this.id_lote = id_lote;
+    }
+
     public int getId_lote() {
         return id_lote;
     }

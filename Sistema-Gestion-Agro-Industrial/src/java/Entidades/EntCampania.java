@@ -25,6 +25,10 @@ public class entCampania {
     public entCampania() {
     }
 
+    public entCampania(int id_campania) {
+        this.id_campania = id_campania;
+    }
+
     public int getId_campania() {
         return id_campania;
     }

@@ -50,7 +50,7 @@ public class LoteDAO
                         " JOIN VARIEDAD VA ON L.ID_VARIEDAD=VA.ID_VARIEDAD \n" +
                         " JOIN CULTIVO C ON VA.ID_CULTIVO=C.ID_CULTIVO ";
             if(activo)
-                        sql+=" where estado=1"; 
+                        sql+=" where L.ESTADO=1"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

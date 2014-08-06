@@ -131,7 +131,7 @@ public class Probadorxxx {
             */
       
         //if(list!=null)
-        
+        System.out.print(""+CampaniaLoteDAO.Listar().size());
     }
     
 }

@@ -33,7 +33,7 @@ public class CampaniaLoteDAO
         ResultSet dr = null;
         try {
             String sql="select CL.id_campania_lote,CL.fecha_poda_formacion,CL.numero_plantas,CL.usuario_responsable,CL.fecha_modificacion, "
-                    + " L.id_lote,L.nombre "
+                    + " L.id_lote,L.nombre,"
                     + " C.id_campania,C.nombre "
                     + " from campania_lote CL "
                     + " join lote L on CL.id_lote=L.id_lote "

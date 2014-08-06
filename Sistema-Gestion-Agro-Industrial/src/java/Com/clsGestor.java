@@ -251,4 +251,22 @@ public class clsGestor {
         return LoteDAO.actualizar(entidad);
     }
 // </editor-fold>
+     
+    //<editor-fold defaultstate="collapsed" desc="entCampaniaLote">
+    public static List<entCampaniaLote> ListarCampaniaLote() throws Exception
+    {
+        return CampaniaLoteDAO.Listar();
+    }
+    
+    public  static int insertarCampaniaLote(entCampaniaLote entidad) throws Exception
+    {
+        return CampaniaLoteDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarCampaniaLote(entCampaniaLote entidad) throws Exception
+    {
+        return CampaniaLoteDAO.actualizar(entidad);
+    }
+// </editor-fold>
+    
 }
