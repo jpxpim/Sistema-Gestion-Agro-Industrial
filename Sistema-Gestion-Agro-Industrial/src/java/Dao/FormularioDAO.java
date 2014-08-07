@@ -183,7 +183,7 @@ public class FormularioDAO {
         }
         return lista;
     }
-    
+
     public  static int insertar(entFormulario entidad) throws Exception
     {
         int rpta = 0;
@@ -191,34 +191,56 @@ public class FormularioDAO {
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO formulario(id_modulo,url,etiqueta,padre,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,?,GETDATE());";
+           String sql="INSERT INTO formulario(id_modulo,url,etiqueta,padre,control_form,estado,usuario_responsable,fecha_modificacion)"
+                   + " VALUES(?,?,?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjModulo().getId_modulo());
             stmt.setString(2, entidad.getUrl());
             stmt.setString(3, entidad.getEtiqueta());
             stmt.setInt(4, entidad.getPadre());
-            stmt.setBoolean(5, entidad.getEstado());
-            stmt.setString(6, entidad.getUsuario_responsable());
+            stmt.setInt(5, entidad.getControl_form());
+            stmt.setBoolean(6, entidad.getEstado());
+            stmt.setString(7, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             
             if (rs.next()){
                 rpta=rs.getInt(1);
+                sql="select id_usuario from usuario where es_administrador=1";
+                 CallableStatement ct = conn.prepareCall(sql);
+                 ResultSet dr = ct.executeQuery();
+                    while(dr.next())
+                    {                        
+                        sql="INSERT INTO formulario_usuario(id_usuario,id_formulario,usuario_responsable,fecha_modificacion)"
+                            + " VALUES(?,?,?,GETDATE());";
+                        
+                        PreparedStatement pst = conn.prepareStatement(sql);
+                        pst.setInt(1, dr.getInt(1));
+                        pst.setInt(2, rpta);
+                        pst.setString(3, entidad.getUsuario_responsable());
+                        pst.execute(); 
+                        pst.close();
+                    }
+                ct.close();
+                dr.close();
             }
             rs.close();
+            conn.commit();
         } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
             throw new Exception("Insertar"+e.getMessage(), e);
         }
-        finally{
-            try {
-                stmt.close();
-                conn.close();
-            } catch (SQLException e) {
+        finally {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                    stmt.close();
+                }
             }
-        }
         return rpta;
     } 
     
@@ -228,7 +250,7 @@ public class FormularioDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE formulario SET id_modulo=?,url = ?,etiqueta= ?,padre=?,estado= ?,"
+             String sql="UPDATE formulario SET id_modulo=?,url = ?,etiqueta= ?,padre=?,control_form=?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_formulario = ?;";
              
             conn = ConexionDAO.getConnection();
@@ -237,9 +259,10 @@ public class FormularioDAO {
             stmt.setString(2, entidad.getUrl());
             stmt.setString(3, entidad.getEtiqueta());
             stmt.setInt(4, entidad.getPadre());
-            stmt.setBoolean(5, entidad.getEstado());
-            stmt.setString(6, entidad.getUsuario_responsable());
-            stmt.setInt(7,entidad.getId_formulario());
+            stmt.setInt(5, entidad.getControl_form());
+            stmt.setBoolean(6, entidad.getEstado());
+            stmt.setString(7, entidad.getUsuario_responsable());
+            stmt.setInt(8,entidad.getId_formulario());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {
@@ -254,5 +277,6 @@ public class FormularioDAO {
         }
         return rpta;
     }
+
     
 }

@@ -33,7 +33,7 @@ public class CampaniaDAO
             String sql="select id_campania,nombre,fecha_inicio,fecha_fin,estado,usuario_responsable,fecha_modificacion"
                     + " from campania";
             if(activo)
-                        sql+=" where estado=1"; 
+                        sql+=" where estado=1 order by id_campania asc"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

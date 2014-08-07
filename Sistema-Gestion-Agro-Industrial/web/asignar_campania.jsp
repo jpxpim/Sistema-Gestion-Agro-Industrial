@@ -4,6 +4,7 @@
     Author     : Toditos
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entidades.entCampania"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entLote"%>
@@ -67,8 +68,7 @@ if(objSession!=null)
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
              	<!-- smoke_js -->
             <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
-	<!-- enhanced select -->
-            <link rel="stylesheet" href="lib/chosen/chosen.css" />
+            
 <!-- datepicker -->
             <link rel="stylesheet" href="lib/datepicker/datepicker.css" />
         <!-- Favicon -->
@@ -134,17 +134,15 @@ if(objSession!=null)
                                                                                                         <input type="text" class="span10" id="txtFecha" name="txtFecha" />
                                                                                                         </div>
                                                                                                         <div class="input-prepend">
-                                                                                                            <label>Camapaña</label>
-                                                                                                            <select id="cbCampania" class="span10" name="cbCampania" data-placeholder="Selecione una Opción"  title="Por favor selecione un Campaña!" required>
-                                                                                                                <option value=""></option>
-                                                                                                                <% 
-                                                                                                                    List<entCampania> listCampania=clsGestor.ListarCampania(true);
-                                                                                                                    if(listCampania!=null)
-                                                                                                                        for(entCampania entidad : listCampania)
-                                                                                                                            out.print("<option value='"+entidad.getId_campania()+"'>"+entidad.getNombre()+"</option>");
-                                                                                                                 %>
-                                                                                                            </select>
-                                                                                                        </div>   
+                                                                                                            <label>Campaña</label>
+                                                                                                                
+                                                                                                                    <span class='label label-info span9'><h4 id='Campania'>Selecione una Opcción</h4></span>
+                                                                                                                    <span class="add-on">
+                                                                                                                        <a data-toggle="modal" data-backdrop="static" href="#ModalLote"><i class="splashy-zoom"></i></a>
+                                                                                                                    </span>   
+                                                                                                                    <input type="text" id="cbCampania"  name="cbCampania" />
+                                                                                                        </div>     
+                                                                                                        
                                                                                                          <div class="input-prepend">
                                                                                                             <label>Lote</label>
                                                                                                             <select id="cbLote" name="cbLote" class="span10" data-placeholder="Selecione una Opción"  title="Por favor selecione un Lote!" required>
@@ -157,6 +155,7 @@ if(objSession!=null)
                                                                                                                  %>
                                                                                                             </select>
                                                                                                         </div>   
+                                                                                                        
                                                                                                     <input type="hidden" id="IdCampaniaLote"  name="IdCampaniaLote" value="0" />
                                                                                                         
 												</div>
@@ -171,12 +170,97 @@ if(objSession!=null)
 									</div>
 								</div>	
 								<div class="span9">
+                                                                    
+                                  
+
+                                                                    
                                                                     <div id="tabla"></div>
 								</div>
 							</div>
 						</div>
                         </div>
-					
+		<!-- Modal Lote -->	
+                <div class="modal hide fade" id="ModalLote"  style="width: 60%;">
+                    
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                        <h3>Buscar Lote</h3>
+                    </div>
+                    <div class="modal-body">
+                       <table id="tablaLote" class="table table-striped location_table">
+                            <thead>
+                                    <tr>
+                                            <th style="width:50px;">Nombre</th>
+                                            <th style="width:50px;">Nº Hectareas</th>
+                                            <th style="width:50px;">Centro de Costo</th>
+                                            <th style="width:50px;">Año de Siembra</th>
+                                            <th style="width:50px;">Productor</th>
+                                            <th style="width:50px;">Patrón</th>
+                                            <th style="width:50px;">Vivero</th>
+                                            <th style="width:50px;">Tipo Cultivo</th>
+                                            <th style="width:50px;"> Edad Cultivo</th>
+                                            <th style="width:50px;">Variedad</th>
+                                            <th style="width:50px;">Acciones</th>
+                                    </tr>
+                            </thead> 
+                            <tbody id='tbody'>    
+
+                            </tbody>
+                        </table>
+            
+                    </div>
+                    <div class="modal-footer">
+                        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+                    </div>
+                </div>     
+                            
+                            <!-- Modal Camapaña -->	
+                <div class="modal hide fade" id="ModalCampania">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                        <h3>Buscar Camapaña</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tablaCapania" class="table table-striped location_table">
+                            <thead>
+                                    <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Fin</th>
+                                            <th>Acciones</th>
+                                    </tr>
+                            </thead> 
+                            <tbody>    
+                            <%
+                            SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
+                            List<entCampania> listaCampania=clsGestor.ListarCampania(false);
+                            if(listaCampania!=null)
+                            for(entCampania entidad : listaCampania)
+                            {
+                            %>
+                                                                                                        
+                                <tr>
+                                    <td><%=entidad.getId_campania()%></td>
+                                    <td><%=entidad.getNombre()%></td>
+                                    <td><%=fecha.format(entidad.getFecha_inicio())%></td>
+                                    <td><%=fecha.format(entidad.getFecha_fin())%></td>
+                                    <td>
+                                        <a href="javascript:void(0)" data-dismiss="modal" onclick="selectCampania(<%=entidad.getId_campania()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-success btn-mini">Seleccionar</a>
+
+                                    </td>
+                                </tr>                                                            
+                            <%
+                            }
+                            %>
+                            </tbody>
+                        </table>
+            
+                    </div>
+                    <div class="modal-footer">
+                        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+                    </div>
+                </div>     
 
                 </div>
             </div>
@@ -209,15 +293,15 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
-                         <!-- enhanced select (chosen) -->
-                        <script src="lib/chosen/chosen.jquery.min.js"></script>
-
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
                           <!-- datepicker -->
                         <script src="lib/datepicker/bootstrap-datepicker.js"></script>
+                       <!-- datatable -->
+			<script src="lib/datatables/jquery.dataTables.min.js"></script>
+
 	
 			<script>
       function modulos()
@@ -266,22 +350,49 @@ function tabla()
         processData: false
     });          
  };
-                              
+ function tablaLote()
+{
+     $.ajax({
+        url: 'operaciones/lote/list_tabla_1.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#tbody').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };                            
                           
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
+                                         $( "#cbCampania" ).hide();
                                         setTimeout('$("html").removeClass("js")',1000);
 
-                                      
-                                        
+
+                                        $('#tablaCapania').dataTable({
+                                           "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+                                            "sScrollY": "200px",
+                                            "bDestroy": true,
+                                            "bDeferRender": true
+                                                    });
+                                                    
+                                           $('#tablaLote').dataTable({
+                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
+                                            "sScrollY": "200px",
+                                             "sScrollX": "90%",
+                                            "bDestroy": true,
+                                            "bDeferRender": true
+                                                    });
+
+
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',
 					onkeyup: false,
 					errorClass: 'error',
 					validClass: 'valid',
-                                        ignore: ":hidden:not(select)",
+                                        ignore: ".ignore",
                                             submitHandler: function() {       
                                            
                                                     var url = "operaciones/campania_lote/insert.jsp"; 
@@ -313,7 +424,9 @@ function tabla()
                                             },
 					rules: {
                                                 txtNumero: { required: true, digits:true},
-                                                txtFecha: { required: true}
+                                                txtFecha: { required: true},
+                                                cbCampania: { required: true}
+                                                
 					},
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");
@@ -327,12 +440,10 @@ function tabla()
 				});
                           
                                   $("#cbLote").chosen({allow_single_deselect:true});
-                                  $("#cbCampania").chosen({allow_single_deselect:true});
                                   $('#txtFecha').datepicker();
                                         
 				});
                                     var comboIdLote=0;
-                                    var comboIdCampania=0;
                                     function clear_form() {
                                           $('#txtNumero').val("");
                                           $('#txtFecha').val("");
@@ -340,11 +451,9 @@ function tabla()
                                           if(comboIdLote>0)
                                               $("#cbLote option[value='"+comboIdLote+"']").remove();
                                             $("select#cbLote").val(0);   
-                                            
-                                          if(comboIdCampania>0)
-                                            $("#cbCampania option[value='"+comboIdCampania+"']").remove();
-                                            $("select#cbCampania").val(0);   
-                                          
+                                         
+                                            $('#cbCampania').val("");
+                                            $('#Campania').html("<h4 id='Lote'>Selecione una Opcción</h4>");
                                      
                                            
                                       };
@@ -353,7 +462,8 @@ function tabla()
                                             $('#txtNumero').val(numero);
                                             $('#IdCampaniaLote').val(id);
                                              $('#txtFecha').val(fecha);
-                                             $("select#cbCampania").chosen().val(idCampania); 
+                                             $('#Campania').html("<h4 id='Campania'>"+nCampania+"</h4>");
+                                              $('#cbCampania').val(idCampania);
                                       };
                                        function buscaComboLote(valor) {
                                            var estado=false;
@@ -366,19 +476,15 @@ function tabla()
                                              });
                                              return estado;
                                        };
-                                        function buscaComboCampania(valor) {
-                                           var estado=false;
-                                            $("#cbCampania option").each(function(){
-                                                if($(this).attr('value')==valor)
-                                                {
-                                                    estado=true;
-                                                }
-                                                    
-                                             });
-                                             return estado;
+                                       function selectCampania(id,nombre) {
+                                           $('#Campania').html("<h4 id='Campania'>"+nombre+"</h4>");                                           
+                                           $('#cbCampania').val(id);
                                        };
+                                       
                                   modulos(); 
                                        tabla();
+                                       tablaLote();
+                                       tablaLote();
 			</script>
 		
 		</div>

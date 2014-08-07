@@ -27,6 +27,10 @@ public class entModulo {
         
     }
 
+    public entModulo(int id_modulo) {
+        this.id_modulo = id_modulo;
+    }
+
     public int getId_modulo() {
         return id_modulo;
     }

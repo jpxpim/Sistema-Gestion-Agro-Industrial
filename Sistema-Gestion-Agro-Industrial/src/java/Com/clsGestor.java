@@ -269,4 +269,17 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entFormulario">
+   
+    public  static int insertarFormulario(entFormulario entidad) throws Exception
+    {
+        return FormularioDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarFormulario(entFormulario entidad) throws Exception
+    {
+        return FormularioDAO.actualizar(entidad);
+    }
+// </editor-fold>
+    
 }
