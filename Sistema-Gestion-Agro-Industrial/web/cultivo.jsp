@@ -4,11 +4,14 @@
     Author     : Toditos
 --%>
 
+<%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
+    entFormulario formHijo=null;
+    entFormulario formPadre=null;
     boolean pagina=false;
     int posI=objSession.getListModulos().size();
     for(int i=0;i<posI;i++)
@@ -18,10 +21,18 @@ if(objSession!=null)
         {
             if(8==objSession.getListModulos().get(i).getList().get(j).getControl_form())
             {
+                formHijo=objSession.getListModulos().get(i).getList().get(j);
+                formHijo.setObjModulo(objSession.getListModulos().get(i));
                 pagina=true;
                 i=posI;
                 j=posJ;
             }
+        }
+        if(formHijo!=null)
+        for(entFormulario padre : formHijo.getObjModulo().getList())
+        {
+            if(padre.getId_formulario()==formHijo.getPadre())
+            formPadre=padre;
         }
         
     }
@@ -95,15 +106,21 @@ if(objSession!=null)
                                 <li>
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
-                                <li>
-                                    <a href="#">CONFIGURACION</a>
-                                </li>
-                                <li>
-                                    <a href="#">Empresa</a>
-                                </li>
                                  <li>
-                                      Cultivo
+                                    <a href="#"><%=formHijo.getObjModulo().getEtiqueta()%></a>
                                 </li>
+                                <%
+                                    if(formPadre==null)
+                                    {
+                                        out.print("<li><a href='#'>"+formHijo.getEtiqueta()+"</a></li>");
+                                        
+                                    }
+                                    else
+                                    {
+                                        out.print("<li><a href="+formPadre.getUrl()+">"+formPadre.getEtiqueta()+"</a></li>");
+                                        out.print("<li>"+formHijo.getEtiqueta()+"</li>");
+                                    }
+                                %>     
                             </ul>
                         </div>
                     </nav>
