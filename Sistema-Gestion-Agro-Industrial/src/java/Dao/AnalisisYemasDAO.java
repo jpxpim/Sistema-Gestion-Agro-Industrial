@@ -169,17 +169,19 @@ public class AnalisisYemasDAO
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE analisis_yemas SET nombre = ?,descripcion= ?,codigo_control=?,estado= ?,"
-                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_analisis_yemas = ?;";
+             String sql="UPDATE analisis_yemas SET id_campania_lote = ?,id_evaluador= ?,feminelas=?,fertilidad= ?,"
+                     + " fecha_muestra=?,estado=?,usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_analisis_yemas = ?;";
              
             conn = ConexionDAO.getConnection();
-            stmt = conn.prepareCall(sql);             
-            stmt.setString(1, entidad.getNombre());
-            stmt.setString(2, entidad.getDescripcion());
-            stmt.setString(3, entidad.getCodigo_control());
-            stmt.setBoolean(4, entidad.getEstado());
-            stmt.setString(5, entidad.getUsuario_responsable());
-            stmt.setInt(6,entidad.getId_analisis_yemas());
+            stmt = conn.prepareCall(sql); 
+            stmt.setInt(1, entidad.getObjCampaniaLote().getId_campania_lote());
+            stmt.setInt(2, entidad.getObjEvaluador().getId_evaluador());
+            stmt.setDouble(3, entidad.getFeminelas());
+            stmt.setDouble(4, entidad.getFertilidad());
+            stmt.setTimestamp(5, new Timestamp(entidad.getFecha_muestra().getTime()));            
+            stmt.setBoolean(6, entidad.getEstado());
+            stmt.setString(7, entidad.getUsuario_responsable());
+            stmt.setInt(8,entidad.getId_analisis_yemas());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {
