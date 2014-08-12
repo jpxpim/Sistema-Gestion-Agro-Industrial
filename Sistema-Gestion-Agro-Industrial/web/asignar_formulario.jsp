@@ -4,6 +4,9 @@
     Author     : Toditos
 --%>
 
+<%@page import="Com.clsGestor"%>
+<%@page import="Entidades.entUsuario"%>
+<%@page import="java.util.List"%>
 <%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
@@ -22,7 +25,7 @@ if(objSession!=null)
         int posJ=objSession.getListModulos().get(i).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(2==objSession.getListModulos().get(i).getList().get(j).getControl_form())
+            if(3==objSession.getListModulos().get(i).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(i).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(i));
@@ -134,42 +137,73 @@ if(objSession!=null)
                                                             
                                                                 
                                                             
-								<div class="span4">
-									<div class="row-fluid" id="g-map-top">
-										<div class="span12">
-                                                                                        <div class="location_add_form well">
-                                                                                                <div class="input-prepend">
-                                                                                                <label>Módulo</label>
-                                                                                                <select id="cbModulo" name="cbModulo" title="Por favor selecione un Modulo!" required>
-                                                                                                    <option value="">Selecione una Opción</option>                                                                                                           
-                                                                                                </select>
-                                                                                                </div>   
-
-                                                                                                <div class="input-prepend">
-                                                                                                <label>Detalle</label>
-                                                                                                    <div id="getModulo"></div>
-                                                                                                
-                                                                                                </div>  
-											</div>
-                                                                                    
-										</div>
-									</div>
-								</div>	
+								<div class="span4" id="user-list">
+							<div class="row-fluid">
+								<div class="input-prepend">
+									<span class="add-on ad-on-icon"><i class="icon-user"></i></span><input type="text" class="user-list-search search" placeholder="Buscar usuario" />
+								</div>
+								<ul class="nav nav-pills line_sep">                                                                   
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ordenar por <b class="caret"></b></a>
+										<ul class="dropdown-menu sort-by">
+											<li><a href="javascript:void(0)" class="sort" data-sort="sl_name">por nombre</a></li>
+											<li><a href="javascript:void(0)" class="sort" data-sort="sl_status">por usuario</a></li>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">Mostrar <b class="caret"></b></a>
+										<ul class="dropdown-menu filter">
+											<li class="active"><a href="javascript:void(0)" id="filter-none">Todos</a></li>
+											<li><a href="javascript:void(0)" id="filter-online">Activados</a></li>
+											<li><a href="javascript:void(0)" id="filter-offline">Desactivados</a></li>
+										</ul>
+									</li>
+                                                                        
+								</ul>
+							</div>
+							<ul class="list user_list">
+                                                                <%
+                                                                  List<entUsuario> list=clsGestor.ListarUsuario(false);
+                                                                  if(list!=null)
+                                                                  for(entUsuario entidad :list)
+                                                                 {
+                                                                %>
+								<li>
+                                                                     <%
+                                                                        if(entidad.getEstado())
+                                                                        out.print("<span class='label label-success pull-right sl_status'>Activado</span>");
+                                                                        else
+                                                                            out.print("<span class='label label-important pull-right sl_status'>Desactivado</span>");
+                                                                     %>									
+                                                                        
+                                                                     <a href="#" onclick="getUsuario(<%=entidad.getId_usuario()%>,'<%=entidad.getNombre()%> <%=entidad.getApellido()%>','<%=entidad.getLogin()%>')" class="sl_name"><%=entidad.getNombre()%> <%=entidad.getApellido()%></a><br />
+									<small class="s_color sl_email"><%=entidad.getLogin()%></small>
+								</li>
+                                                                 <%
+                                                                    }
+                                                                 %>
+							</ul>
+							<div class="pagination"><ul class="paging bottomPaging"></ul></div>
+                        </div>
                                                             
 								<div class="span4">
-                                                                        <div class="row-fluid" id="g-map-top">
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                     <div class="row-fluid" id="g-map-top">
 										<div class="span12">
-											  <form  method="get" id="reg_form">
                                                                                               <div class="location_add_form well">
 												<div class="formSep">
                                                                                                         <div class="input-prepend">
                                                                                                             <di id='Formulario'>
-                                                                                                                  <blockquote ><p>Módulo</p><blockquote><p>Cabezera</p><blockquote><p>Formulario</p></blockquote></blockquote></blockquote>
+                                                                                                                  <blockquote ><p>Nombre</p><blockquote><p>Usuario</p></blockquote></blockquote>
                                                                                                             </di>
                                                                                                         </div>
                                                                                                         <div class="input-prepend">
                                                                                                         <label>Módulo</label>
-                                                                                                        <select id="cbModuloFormulario" name="cbModuloFormulario" title="Por favor selecione un Modulo!" required>
+                                                                                                        <select id="cbModulo" name="cbModulo" title="Por favor selecione un Modulo!" required>
                                                                                                             <option value="">Selecione una Opción</option>                                                                                                           
                                                                                                         </select>
                                                                                                         </div> 
@@ -179,29 +213,24 @@ if(objSession!=null)
                                                                                                             <option value="">Selecione una Opción</option>                                                                                                           
                                                                                                         </select>
                                                                                                         </div> 
-                                                                                                         <div class="input-prepend">
-													<label>Acción</label>
-													<label class="radio inline">
-                                                                                                        <input type="radio" value="0"  id="rbAccion" name="rbAccion" />
-                                                                                                            Mover
-                                                                                                        </label>
-                                                                                                        <label class="radio inline">
-                                                                                                                <input type="radio" value="1" id="rbAccion" name="rbAccion" />
-                                                                                                                Copiar
-                                                                                                        </label>
-                                                                                                         </div>
-                                                                                                    <input type="hidden" id="IdFormulario"  name="IdFormulario"  />
+                                                                                                        <div class="input-prepend">
+                                                                                                        <label>Formularios</label>
+                                                                                                            <div id="getModulo"></div>
+                                                                                                        </div> 
+                                                                                                    
+                                                                                                 
+                                                                                                    <input type="hidden" id="IdUsuario"  name="IdUsuario"  />
                                                                                                         
 												</div>
-                                                                                                <button class="btn btn-invert" type="submit">Grabar</button>
-                                                                                                
                                                                                                 <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
 											</div>
                                                                                     
-                                                                                    
-                                                                                    </form>
 										</div>
 									</div>
+                                                                    
+                                                                    
+
+                                                                       
 								</div>
 
                                                                 <div class="span4">
@@ -253,9 +282,14 @@ if(objSession!=null)
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
                         
-	
+                         <!-- sortable/filterable list -->
+            <script src="lib/list_js/list.min.js"></script>
+            <script src="lib/list_js/plugins/paging/list.paging.min.js"></script>
+            <!-- dashboard functions -->
+            
 			<script>
- var idFormularioPadre=0;
+ var IdUsuario=0;
+ var IdModulo=0;
  function modulos()
 {
      $.ajax({
@@ -316,28 +350,22 @@ function comboModulo()
     });    
     
  };
- function comboModuloFormulario()
-{
-    $.ajax({
-        url: 'operaciones/modulo/list_combo_sesion.jsp?cbModulo=cbModuloFormulario',
-        type: 'POST',
-        success: function (data) {     
-                 $('#cbModuloFormulario').html(data);
-        },
-        contentType: false,
-        processData: false
-    });   
-    
- };
 
  
-function getFormulario(id,formulario,idpadre,padre,modulo)
-{   $("#IdFormulario").val(id); 
-   $('#Formulario').html("<di id='Formulario'><blockquote id='Formulario'><p>"+modulo+"</p><blockquote><p>"+padre+"</p><blockquote><p>"+formulario+"</p></blockquote></blockquote></blockquote></div>");
-   idFormularioPadre=idpadre;
-   $('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
-   comboModuloFormulario();
-   $('input:radio[name=rbAccion]').attr('checked',false);
+function getUsuario(id,nombre,usuario)
+{  $("#IdUsuario").val(id); 
+   $('#Formulario').html("<di id='Formulario'><blockquote id='Formulario'><p>"+nombre+"</p><blockquote><p>"+usuario+"</p></blockquote></blockquote></div>");
+   IdUsuario=id;
+   $.ajax({
+            url: 'operaciones/formulario/get_modulo_usuario.jsp?id='+IdUsuario,
+            type: 'POST',
+            success: function () {     
+            },
+            contentType: false,
+            processData: false
+        });
+   //$('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
+
 };
                        
                           
@@ -345,32 +373,15 @@ function getFormulario(id,formulario,idpadre,padre,modulo)
 				$(document).ready(function() {
 					//* show all elements & remove preloader
                                      
-                                        
+                                        gebo_flist.init();
                                         setTimeout('$("html").removeClass("js")',1000);
-
-                                       $('#cbModulo').on('change', function() {
+                                     
+                                        $('#cbModulo').on('change', function() {
                                            if(this.value!="" && this.value!=null)
                                            {
-                                                $.ajax({
-                                                    url: 'operaciones/modulo/get_modulo_sesion.jsp?id='+this.value,
-                                                    type: 'POST',
-                                                    success: function (data) {     
-                                                             $('#getModulo').html(data);
-                                                    },
-                                                    contentType: false,
-                                                    processData: false
-                                                });                                                       
-                                           }
-                                           else
-                                               $('#getModulo').html('<div id="getModulo"></div>');
-                                               
-                                        });
-                                        
-                                        $('#cbModuloFormulario').on('change', function() {
-                                           if(this.value!="" && this.value!=null)
-                                           {
+                                              IdModulo=this.value;
                                               $.ajax({
-                                                    url: 'operaciones/formulario/list_combo_sesion.jsp?cbFormulario=cbFormulario&idModulo='+this.value+'&idFormulario='+idFormularioPadre,
+                                                    url: 'operaciones/formulario/list_combo_usuario.jsp?cbFormulario=cbFormulario&idModulo='+this.value,
                                                     type: 'POST',
                                                     success: function (data) {     
                                                              $('#cbFormulario').html(data);
@@ -383,66 +394,29 @@ function getFormulario(id,formulario,idpadre,padre,modulo)
                                                
                                         });
                                         
-                                        
-                                      $('#reg_form').validate({
-                                        lang: 'es',
-					onkeyup: false,
-					errorClass: 'error',
-					validClass: 'valid',
-                                            submitHandler: function() {       
+                                         $('#cbFormulario').on('change', function() {
+                                           if(this.value!="" && this.value!=null)
+                                           {
+                                              $.ajax({
+                                                    url: 'operaciones/formulario/list_usuario.jsp?idModulo='+IdModulo+'&idFormulario='+this.value,
+                                                    type: 'POST',
+                                                    success: function (data) {     
+                                                             $('#getModulo').html(data);
+                                                    },
+                                                    contentType: false,
+                                                    processData: false
+                                                });      
+                                           }else
+                                                $('#getModulo').html('<div id="getModulo"></div>');
                                            
-                                                    var url = "operaciones/modulo/insert.jsp"; 
+                                               
+                                        });
 
-                                                    $.ajax({
-                                                           type: "POST",
-                                                           url: url,
-                                                           data: $("#reg_form").serialize(), 
-                                                           success: function(data)
-                                                           {
-                                                               if(data==-1)
-                                                                 $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
-                                                                else if(data==0)
-                                                                {
-                                                                    lista();
-                                                                    clear_form();
-                                                                    modulos();
-                                                                   $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
-                                                                    
-                                                               }
-                                                                else if(data>0)
-                                                                {
-                                                                   lista();
-                                                                   clear_form();
-                                                                   modulos();
-                                                                   $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
-                                                                   
-                                                                }
-                                                           }
-                                                         });    
-                                            },
-					rules: {
-                                                rbAccion: { required: true }
-					},
-					highlight: function(element) {
-						$(element).closest('div').addClass("f_error");
-					},
-					unhighlight: function(element) {
-						$(element).closest('div').removeClass("f_error");
-					},
-					errorPlacement: function(error, element) {
-						$(element).closest('div').append(error);
-					}
-				});
-                          
-                                   
-                                        
 				});
                                     function clear_form() {
-                                          $('input:radio[name=rbAccion]').attr('checked',false);
-                                          $("#IdFormulario").val("");  
-                                          $("select#cbModuloFormulario").val('0'); 
+                                          $("#IdUsuario").val("");  
                                           $("select#cbModulo").val('0'); 
-                                          $('#Formulario').html("<di id='Formulario'> <blockquote ><p>Módulo</p><blockquote><p>Cabezera</p><blockquote><p>Formulario</p></blockquote></blockquote></blockquote></div>");
+                                          $('#Formulario').html("<blockquote ><p>Nombre</p><blockquote><p>Usuario</p></blockquote></blockquote>");
                                           $('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
                                           $('#getModulo').html('<div id="getModulo"></div>');
                                            
@@ -450,6 +424,75 @@ function getFormulario(id,formulario,idpadre,padre,modulo)
                                         modulos(); 
                                        lista();
                                        comboModulo();
+//* filterable list
+	gebo_flist = {
+		init: function(){
+			//*typeahead
+			var list_source = [];
+			$('.user_list li').each(function(){
+				var search_name = $(this).find('.sl_name').text();
+				//var search_email = $(this).find('.sl_email').text();
+				list_source.push(search_name);
+			});
+			$('.user-list-search').typeahead({source: list_source, items:5});
+			
+			var pagingOptions = {};
+			var options = {
+				valueNames: [ 'sl_name', 'sl_status', 'sl_email' ],
+				page: 10,
+				plugins: [
+					[ 'paging', {
+						pagingClass	: "bottomPaging",
+						innerWindow	: 1,
+						left		: 1,
+						right		: 1
+					} ]
+				]
+			};
+			var userList = new List('user-list', options);
+			
+			$('#filter-online').on('click',function() {
+				$('ul.filter li').removeClass('active');
+				$(this).parent('li').addClass('active');
+				userList.filter(function(item) {
+					if (item.values().sl_status == "Activado") {
+						return true;
+					} else {
+						return false;
+					}
+				});
+				return false;
+			});
+			$('#filter-offline').on('click',function() {
+				$('ul.filter li').removeClass('active');
+				$(this).parent('li').addClass('active');
+				userList.filter(function(item) {
+					if (item.values().sl_status == "Desactivado") {
+						return true;
+					} else {
+						return false;
+					}
+				});
+				return false;
+			});
+			$('#filter-none').on('click',function() {
+				$('ul.filter li').removeClass('active');
+				$(this).parent('li').addClass('active');
+				userList.filter();
+				return false;
+			});
+			
+			$('#user-list').on('click','.sort',function(){
+					$('.sort').parent('li').removeClass('active');
+					if($(this).parent('li').hasClass('active')) {
+						$(this).parent('li').removeClass('active');
+					} else {
+						$(this).parent('li').addClass('active');
+					}
+				}
+			);
+		} 
+	};
 			</script>
 		
 		</div>

@@ -16,6 +16,9 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
+    if(objSession.getListModulos()==null)
+        response.sendRedirect("intranet.jsp");
+    
     entFormulario formHijo=null;
     entFormulario formPadre=null;
     boolean pagina=false;

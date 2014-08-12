@@ -18,6 +18,7 @@ public class entModulo {
     private int id_modulo;
     private String etiqueta;
     private int estado;
+    private boolean selecion;
     private String usuario_responsable;
     private Date fecha_modificacion;
     private List<entFormulario> list;
@@ -78,6 +79,14 @@ public class entModulo {
 
     public void setList(List<entFormulario> list) {
         this.list = list;
+    }
+
+    public boolean isSelecion() {
+        return selecion;
+    }
+
+    public void setSelecion(boolean selecion) {
+        this.selecion = selecion;
     }
     
 }

@@ -24,7 +24,7 @@ public class entFormulario {
     private int control_form;
     private String usuario_responsable;
     private Date fecha_modificacion;
-    
+    private boolean selecion;
     
     public entFormulario ()
     {
@@ -109,6 +109,14 @@ public class entFormulario {
 
     public void setControl_form(int control_form) {
         this.control_form = control_form;
+    }
+
+    public boolean isSelecion() {
+        return selecion;
+    }
+
+    public void setSelecion(boolean selecion) {
+        this.selecion = selecion;
     }
     
 }

@@ -21,6 +21,7 @@ public class entSesion {
     
     public entSesion() {
         this.posicion=0;
+        listModulos=null;
     }
 
     public entUsuario getObjUsuario() {
