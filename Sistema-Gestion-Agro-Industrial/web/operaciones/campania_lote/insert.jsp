@@ -1,5 +1,4 @@
 <%@page import="java.util.Date"%>
-txtFecha
 <%@page import="Entidades.entCampania"%>
 <%@page import="Entidades.entLote"%>
 <%@page import="Entidades.entSesion"%>

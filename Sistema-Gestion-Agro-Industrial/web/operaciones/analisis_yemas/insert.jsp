@@ -30,7 +30,7 @@ if(objSession!=null)
             
             if(!request.getParameter("IdAnalasisYemas").equals("0") )
             {
-                entidad.setId_analisis_yemas(Integer.parseInt(request.getParameter("IdCultivo")));
+                entidad.setId_analisis_yemas(Integer.parseInt(request.getParameter("IdAnalasisYemas")));
                  if(clsGestor.actualizarAnalisisYemas(entidad))
                  {
                      out.print(0);

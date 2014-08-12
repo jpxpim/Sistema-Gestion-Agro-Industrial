@@ -139,7 +139,7 @@ if(objSession!=null)
 						<div class="span12">
 							<div class="row-fluid">
                                                             
-                                                                
+                                                                <div class="span3"></div>
                                                             
 								<div class="span3" id="user-list">
 							<div class="row-fluid">
@@ -239,17 +239,18 @@ if(objSession!=null)
                                                                        
 								</div>
 
-                                                                <div class="span4">
-                                                                  <h3 class="heading">Quitar Formularios</h3>                                                                   
-
-                                                                          <div id="tabla"></div>
-                                                                      
-								</div>
+                                                               
                                                                
 							</div>
 						</div>
                         </div>
-                                                        
+                      <div class="row-fluid">
+                        
+                        <div class="span12">
+                            <div id="tabla"></div>
+                        </div>
+                        
+                    </div>                                   
                            <!-- Modal Camapaña -->	
                 <div class="modal hide fade" id="ModalCampaniaLote">
                     <div class="modal-header">
@@ -382,21 +383,18 @@ function getMododulos(posicion)
             processData: false
         });
 };                          
-function lista()
+function tabla()
 {
      $.ajax({
-        url: 'operaciones/modulo/list_modulos_usuario.jsp',
+        url: 'operaciones/analisis_yemas/list_tabla.jsp',
         type: 'POST',
-        success: function (data) {    
+        success: function (data) {     
                  $('#tabla').html(data);
-                 
         },
         contentType: false,
         processData: false
     });          
  };
-
-
  
 function getUsuario(id,nombre,usuario)
 {
@@ -486,12 +484,34 @@ function selectCampaniaLote(id,nombre)
                                      
                                        
 				});
-                                    function clear_form() {
-                                          $('#Formulario').html("<di id='Formulario'><blockquote ><p>Nombre</p><blockquote><p>Código ERP</p></blockquote></blockquote></div>");  
-                                            $('#idEvaluador').val("");
+                                    function clear_form() { 
+                                          $('#Formulario').html("<di id='Formulario'><blockquote><p>Nombre</p><blockquote><p>Código ERP</p></blockquote></blockquote></div>");  
+                                          $('#Lote').html("<h4 id='Lote'>Selecione una Opcción</h4>");   
+                                          $('#IdAnalasisYemas').val("0");
+                                          $('#idEvaluador').val("");
+                                          $('#idCampaniaLote').val("");
+                                          $('#txtFecha').val("");
+                                          $('#txtFertilidad').val("");
+                                          $('#txtFeminelas').val("");
+                                          $('input:radio[name=rbEstado]').attr('checked',false);
                                     };
+                                    function edit_form(id,idEvaluador,idCampaniaLote,nEvaluador,cEvaluador,nCampaniaLote,feminelas,fertilidad,fecha,estado) {
+                                            $('#Formulario').html("<di id='Formulario'><blockquote><p>"+nEvaluador+"</p><blockquote><p>"+cEvaluador+"</p></blockquote></blockquote></div>");  
+                                            $('#Lote').html("<h4 id='Lote'>"+nCampaniaLote+"</h4>");   
+                                            $('#IdAnalasisYemas').val(id);
+                                            $('#idEvaluador').val(idEvaluador);
+                                            $('#idCampaniaLote').val(idCampaniaLote);
+                                            $('#txtFecha').val(fecha);
+                                            $('#txtFertilidad').val(fertilidad);
+                                            $('#txtFeminelas').val(feminelas);
+                                            
+                                            if(estado.toLowerCase()=="true")
+                                             $('input:radio[name=rbEstado]')[0].checked = true;
+                                            else
+                                              $('input:radio[name=rbEstado]')[1].checked = true;
+                                      };
                                         modulos(); 
-                                       
+                                       tabla();
                                       
 //* filterable list
 	gebo_flist = {

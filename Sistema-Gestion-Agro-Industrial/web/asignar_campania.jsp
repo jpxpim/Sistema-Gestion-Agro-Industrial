@@ -146,11 +146,6 @@ if(objSession!=null)
 											  <form  method="get" id="reg_form">
                                                                                               <div class="location_add_form well">
 												<div class="formSep">
-                                                                                                    <div class="input-prepend">
-                                                                                                            <di id='Formulario'>
-                                                                                                                  <blockquote ><p>Nombre</p><blockquote><p>Código ERP</p></blockquote></blockquote>
-                                                                                                            </di>
-                                                                                                        </div>
                                                                                                         <div class="input-prepend">
                                                                                                             <label>Campaña Lote</label>
                                                                                                                 
@@ -160,19 +155,21 @@ if(objSession!=null)
                                                                                                                     </span>   
                                                                                                                     <input type="text" id="cbLote"  name="cbLote" />
                                                                                                         </div>  
-                                                                                                         <div class="input-prepend">
+                                                                                                         
+                                                                                                       <div class="input-prepend">
                                                                                                             <label>Campaña</label>
-                                                                                                            <select id="cbCampania" name="cbCampania" class="span10" data-placeholder="Selecione una Opción"  title="Por favor selecione un Lote!" required>
-                                                                                                                <option value=""></option>
-                                                                                                                <% 
-                                                                                                                    List<entLote> listLote=clsGestor.ListarLote(true);
-                                                                                                                    if(listLote!=null)
-                                                                                                                        for(entLote entidad : listLote)
-                                                                                                                            out.print("<option value='"+entidad.getId_lote()+"'>"+entidad.getNombre()+"</option>");
-                                                                                                                 %>
+                                                                                                            <select id="cbCampania" name="cbCampania" title="Por favor selecione un Campaña!" required>
+                                                                                                                <option value="">Selecione una Opción</option>
                                                                                                             </select>
-                                                                                                        </div>   
-                                                                                                        
+                                                                                                         </div>   
+                                                                                                         <div class="input-prepend">
+                                                                                                            <label>Número de Plantas</label>
+                                                                                                            <input type="text" class="span10" id="txtNumero"  name="txtNumero" />
+                                                                                                         </div> 
+                                                                                                        <div class="input-prepend">
+                                                                                                            <label>Fecha de Poda</label>
+                                                                                                            <input type="text" class="span10" id="txtFecha"  name="txtFecha" />
+                                                                                                         </div> 
                                                                                                     <input type="hidden" id="IdCampaniaLote"  name="IdCampaniaLote" value="0" />
                                                                                                         
 												</div>
@@ -392,7 +389,18 @@ function tabla()
         processData: false
     });          
  };
-                          
+function combo()
+{
+     $.ajax({
+        url: 'operaciones/campania/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbCampania').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };                  
                           
                             
 				$(document).ready(function() {
@@ -473,15 +481,12 @@ function tabla()
                                   $('#txtFecha').datepicker();
                                         
 				});
-                                    var comboIdLote=0;
                                     function clear_form() {
                                           $('#txtNumero').val("");
                                           $('#txtFecha').val("");
-                                          $("#IdCampaniaLote").val("0");  
-                                          if(comboIdLote>0)
-                                              $("#cbLote option[value='"+comboIdLote+"']").remove();
-                                            $("select#cbLote").val(0);   
+                                         $("select#cbCampania").val("0");   
                                          
+                                         $('#IdCampaniaLote').val("0");
                                             $('#cbLote').val("");
                                             $('#Lote').html("<h4 id='Lote'>Selecione una Opcción</h4>");
                                      
@@ -494,18 +499,8 @@ function tabla()
                                              $('#txtFecha').val(fecha);
                                              $('#Lote').html("<h4 id='Lote'>"+nLote+"</h4>");
                                               $('#cbLote').val(idLote);
-                                      };
-                                       function buscaComboLote(valor) {
-                                           var estado=false;
-                                            $("#cbLote option").each(function(){
-                                                if($(this).attr('value')==valor)
-                                                {
-                                                    estado=true;
-                                                }
-                                                    
-                                             });
-                                             return estado;
-                                       };
+                                               $("select#cbCampania").val(idCampania);   
+                                      };                                      
                                        function selectLote(id,nombre) {
                                            $('#Lote').html("<h4 id='Lote'>"+nombre+"</h4>");                                           
                                            $('#cbLote').val(id);
@@ -513,6 +508,7 @@ function tabla()
                                        
                                   modulos(); 
                                        tabla();
+                                       combo();
 			</script>
 		
 		</div>

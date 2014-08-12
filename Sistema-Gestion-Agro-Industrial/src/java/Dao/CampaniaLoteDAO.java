@@ -81,7 +81,7 @@ public class CampaniaLoteDAO
         return lista;
     }
     
-    public  static int insertar(entCampaniaLote entidad) throws Exception
+    public  static int insertar1(entCampaniaLote entidad) throws Exception
     {
         int rpta = 0;
         Connection conn =null;
@@ -120,7 +120,7 @@ public class CampaniaLoteDAO
         }
         return rpta;
     } 
-      public  static int insertar1(entCampaniaLote entidad) throws Exception
+      public  static int insertar(entCampaniaLote entidad) throws Exception
     {
         int rpta = -1;
         Connection conn =null;

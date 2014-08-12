@@ -22,7 +22,7 @@ if(list!=null)
                     <th>Feminelas</th>
                     <th>Fertilidad</th>
                     <th>F. Muestra</th>
-                    <th>Feminelas</th>
+                    <th>Responsable</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
@@ -35,9 +35,12 @@ if(list!=null)
     <tbody>                                                                                
         <tr>
             <td><%=entidad.getId_analisis_yemas()%></td>
-            <td><%=entidad.getNombre()%></td>
-            <td><%=fecha.format(entidad.getFecha_inicio())%></td>
-            <td><%=fecha.format(entidad.getFecha_fin())%></td>
+            <td><%=entidad.getObjCampaniaLote().getObjLote().getNombre()%></td>
+            <td><%=entidad.getObjCampaniaLote().getObjCampania().getNombre()%></td>
+            <td><%=entidad.getObjEvaluador().getNombre()%> <%=entidad.getObjEvaluador().getApellido()%></td>
+            <td><%=entidad.getFeminelas()%></td>
+            <td><%=entidad.getFertilidad()%></td>
+            <td><%=fecha.format(entidad.getFecha_muestra())%></td>
             <td><%=entidad.getUsuario_responsable()%></td>
             <td>
                  <%
@@ -50,8 +53,16 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_campania()%>,'<%=entidad.getNombre()%>','<%=fecha.format(entidad.getFecha_inicio())%>','<%=fecha.format(entidad.getFecha_fin())%>','<%=entidad.isEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
-
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_analisis_yemas()%>
+                    ,<%=entidad.getObjEvaluador().getId_evaluador()%>
+                    ,<%=entidad.getObjCampaniaLote().getId_campania_lote()%>
+                    ,'<%=entidad.getObjEvaluador().getNombre()%> <%=entidad.getObjEvaluador().getApellido()%>'
+                    ,'<%=entidad.getObjEvaluador().getCodigo_erp()%>'
+                    ,'<%=entidad.getObjCampaniaLote().getObjLote().getNombre()%> - <%=entidad.getObjCampaniaLote().getObjCampania().getNombre()%>'
+                    ,<%=entidad.getFeminelas()%>
+                    ,<%=entidad.getFertilidad()%>
+                    ,'<%=fecha.format(entidad.getFecha_muestra())%>'
+                    ,'<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
             </td>
         </tr>
 
