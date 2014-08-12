@@ -107,6 +107,7 @@ public class AnalisisYemasDAO
                     entidad.setEstado(dr.getBoolean(5)); 
                     entidad.setUsuario_responsable(dr.getString(6)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    entidad.setObjCampaniaLote(objCampaniaLote);
                     lista.add(entidad);
             }
 

@@ -4,13 +4,13 @@
     Author     : Toditos
 --%>
 
-<%@page import="Entidades.entFormulario"%>
+<%@page import="Entidades.entCampaniaLote"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="Entidades.entCampania"%>
+<%@page import="Entidades.entEvaluador"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entLote"%>
+<%@page import="Entidades.entUsuario"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.List"%>
+<%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
@@ -28,7 +28,7 @@ if(objSession!=null)
         int posJ=objSession.getListModulos().get(i).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(20==objSession.getListModulos().get(i).getList().get(j).getControl_form())
+            if(22==objSession.getListModulos().get(i).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(i).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(i));
@@ -82,8 +82,7 @@ if(objSession!=null)
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
              	<!-- smoke_js -->
             <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
-            
-<!-- datepicker -->
+	<!-- datepicker -->
             <link rel="stylesheet" href="lib/datepicker/datepicker.css" />
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
@@ -113,7 +112,7 @@ if(objSession!=null)
                 <div class="main_content">
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
-                              <ul>
+                             <ul>
                                 <li>
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
@@ -131,7 +130,7 @@ if(objSession!=null)
                                         out.print("<li><a href="+formPadre.getUrl()+">"+formPadre.getEtiqueta()+"</a></li>");
                                         out.print("<li>"+formHijo.getEtiqueta()+"</li>");
                                     }
-                                %>     
+                                %>                                
                             </ul>
                         </div>
                     </nav>
@@ -139,41 +138,89 @@ if(objSession!=null)
                     <div class="row-fluid">
 						<div class="span12">
 							<div class="row-fluid">
+                                                            
+                                                                
+                                                            
+								<div class="span3" id="user-list">
+							<div class="row-fluid">
+								<div class="input-prepend">
+									<span class="add-on ad-on-icon"><i class="icon-user"></i></span><input type="text" class="user-list-search search" placeholder="Buscar evaluador" />
+								</div>
+								<ul class="nav nav-pills line_sep">                                                                   
+									<li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ordenar por <b class="caret"></b></a>
+										<ul class="dropdown-menu sort-by">
+											<li><a href="javascript:void(0)" class="sort" data-sort="sl_name">por nombre</a></li>
+											<li><a href="javascript:void(0)" class="sort" data-sort="sl_status">por código ERP</a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<ul class="list user_list">
+                                                                <%
+                                                                 List<entEvaluador> list=clsGestor.ListarEvaluador(false);
+                                                                  if(list!=null)
+                                                                  for(entEvaluador entidad :list)
+                                                                 {
+                                                                %>
+								<li>								
+                                                                        
+                                                                     <a href="#" onclick="getUsuario(<%=entidad.getId_evaluador()%>,'<%=entidad.getNombre()%> <%=entidad.getApellido()%>','<%=entidad.getCodigo_erp()%>')" class="sl_name"><%=entidad.getNombre()%> <%=entidad.getApellido()%></a><br />
+									<small class="s_color sl_email"><%=entidad.getCodigo_erp()%></small>
+								</li>
+                                                                 <%
+                                                                    }
+                                                                 %>
+							</ul>
+							<div class="pagination"><ul class="paging bottomPaging"></ul></div>
+                        </div>
+                                                            
 								<div class="span3">
-									<div class="row-fluid" id="g-map-top">
-                                                                            
-										<div class="span12">
+                                                                
+                                                                     <div class="row-fluid" id="g-map-top">
+                                                                            <div class="span12">
 											  <form  method="get" id="reg_form">
                                                                                               <div class="location_add_form well">
 												<div class="formSep">
-                                                                                                    <div class="input-prepend">
+                                                                                                        <div class="input-prepend">
                                                                                                             <di id='Formulario'>
                                                                                                                   <blockquote ><p>Nombre</p><blockquote><p>Código ERP</p></blockquote></blockquote>
                                                                                                             </di>
+                                                                                                            <input type="text" id="idEvaluador"  name="idEvaluador" />
                                                                                                         </div>
                                                                                                         <div class="input-prepend">
                                                                                                             <label>Campaña Lote</label>
                                                                                                                 
                                                                                                                     <span class='label label-info span9'><h4 id='Lote'>Selecione una Opcción</h4></span>
                                                                                                                     <span class="add-on">
-                                                                                                                        <a data-toggle="modal" data-backdrop="static" href="#ModalLote"><i class="splashy-zoom"></i></a>
+                                                                                                                        <a data-toggle="modal" data-backdrop="static" href="#ModalCampaniaLote"><i class="splashy-zoom"></i></a>
                                                                                                                     </span>   
-                                                                                                                    <input type="text" id="cbLote"  name="cbLote" />
-                                                                                                        </div>  
-                                                                                                         <div class="input-prepend">
-                                                                                                            <label>Campaña</label>
-                                                                                                            <select id="cbCampania" name="cbCampania" class="span10" data-placeholder="Selecione una Opción"  title="Por favor selecione un Lote!" required>
-                                                                                                                <option value=""></option>
-                                                                                                                <% 
-                                                                                                                    List<entLote> listLote=clsGestor.ListarLote(true);
-                                                                                                                    if(listLote!=null)
-                                                                                                                        for(entLote entidad : listLote)
-                                                                                                                            out.print("<option value='"+entidad.getId_lote()+"'>"+entidad.getNombre()+"</option>");
-                                                                                                                 %>
-                                                                                                            </select>
-                                                                                                        </div>   
-                                                                                                        
-                                                                                                    <input type="hidden" id="IdCampaniaLote"  name="IdCampaniaLote" value="0" />
+                                                                                                                    <input type="text" id="idCampaniaLote"  name="idCampaniaLote" />
+                                                                                                        </div> 
+                                                                                                        <div class="input-prepend">
+													<label>Feminelas</label>
+                                                                                                        <input type="text" class="span10" id="txtFeminelas" name="txtFeminelas" />
+                                                                                                        </div>
+                                                                                                        <div class="input-prepend">
+													<label>Fertilidad</label>
+													<input type="text" class="span10" id="txtFertilidad"  name="txtFertilidad" />
+                                                                                                         </div>      
+                                                                                                        <div class="input-prepend">
+													<label>Fecha de Muestra</label>
+													<input type="text" class="span10" id="txtFecha"  name="txtFecha" />
+                                                                                                         </div> 
+                                                                                                          <div class="input-prepend">
+													<label>Estado</label>
+													<label class="radio inline">
+                                                                                                        <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                                            Activo
+                                                                                                        </label>
+                                                                                                        <label class="radio inline">
+                                                                                                                <input type="radio" value="0" id="rbEstado" name="rbEstado" />
+                                                                                                                Desactivado
+                                                                                                        </label>
+                                                                                                         </div>
+                                                                                                    <input type="hidden" id="IdAnalasisYemas"  name="IdAnalasisYemas" value="0" />
                                                                                                         
 												</div>
                                                                                                 <button class="btn btn-invert" type="submit">Grabar</button>
@@ -184,80 +231,27 @@ if(objSession!=null)
                                                                                     
                                                                                     </form>
 										</div>
+                                                                         
 									</div>
-								</div>	
-								<div class="span9">
                                                                     
-                                  
+                                                                    
 
-                                                                    
-                                                                    <div id="tabla"></div>
+                                                                       
 								</div>
+
+                                                                <div class="span4">
+                                                                  <h3 class="heading">Quitar Formularios</h3>                                                                   
+
+                                                                          <div id="tabla"></div>
+                                                                      
+								</div>
+                                                               
 							</div>
 						</div>
                         </div>
-		<!-- Modal Lote -->	
-                <div class="modal hide fade" id="ModalLote"  style="width: 62%;">
-                    
-                    <div class="modal-header">
-                        <button class="close" data-dismiss="modal">×</button>
-                        <h3>Buscar Lote</h3>
-                    </div>
-                    <div class="modal-body">
-                       <table id="tablaLote" class="table table-striped location_table">
-                            <thead>
-                                    <tr>
-                                            <th>Nombre</th>
-                                            <th>Nº Hectareas</th>
-                                            <th>Centro de Costo</th>
-                                            <th>Año de Siembra</th>
-                                            <th>Productor</th>
-                                            <th>Patrón</th>
-                                            <th>Vivero</th>
-                                            <th>Tipo Cultivo</th>
-                                            <th> Edad Cultivo</th>
-                                            <th>Variedad</th>
-                                            <th>Acciones</th>
-                                    </tr>
-                            </thead> 
-                           <tbody>    
-                            <%
-                            List<entLote> list=clsGestor.ListarLote(false);
-                            if(list!=null)
-                            for(entLote entidad : list)
-                            {
-                            %>
-                                                                                                        
-                            <tr>
-                                <td><%=entidad.getNombre()%></td>
-                                <td><%=entidad.getHectareas()%></td>
-                                <td><%=entidad.getCentro_costo()%></td>
-                                <td><%=entidad.getAnio_siembra()%></td>
-                                <td><%=entidad.getObjProductor().getNombre()%></td>
-                                <td><%=entidad.getObjPatron().getNombre()%></td>
-                                <td><%=entidad.getObjVivero().getNombre()%></td>
-                                <td><%=entidad.getObjTipoCultivo().getNombre()%></td>
-                                <td><%=entidad.getObjEdadCultivo().getNombre()%></td>
-                                <td><%=entidad.getObjVariedad().getNombre()%></td>
-                                <td>
-                                    <a href="javascript:void(0)" data-dismiss="modal" onclick="selectLote(<%=entidad.getId_lote()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-success btn-mini">Selecionar</a>
-
-                                </td>
-                            </tr>                                                       
-                            <%
-                            }
-                            %>
-                            </tbody>
-                        </table>
-            
-                    </div>
-                    <div class="modal-footer">
-                        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
-                    </div>
-                </div>     
-                            
-                            <!-- Modal Camapaña -->	
-                <div class="modal hide fade" id="ModalCampania">
+                                                        
+                           <!-- Modal Camapaña -->	
+                <div class="modal hide fade" id="ModalCampaniaLote">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
                         <h3>Buscar Camapaña</h3>
@@ -267,28 +261,30 @@ if(objSession!=null)
                             <thead>
                                     <tr>
                                             <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Fecha Inicio</th>
-                                            <th>Fecha Fin</th>
+                                            <th>Número de Plantas</th>
+                                            <th>Fecha de Poda</th>
+                                            <th>Lote</th>
+                                            <th>Campaña</th>
                                             <th>Acciones</th>
                                     </tr>
                             </thead> 
                             <tbody>    
                             <%
                             SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-                            List<entCampania> listaCampania=clsGestor.ListarCampania(false);
-                            if(listaCampania!=null)
-                            for(entCampania entidad : listaCampania)
+                            List<entCampaniaLote> listCapamiaLote=clsGestor.ListarCampaniaLote();
+                            if(listCapamiaLote!=null)
+                            for(entCampaniaLote entidad : listCapamiaLote)
                             {
                             %>
                                                                                                         
-                                <tr>
-                                    <td><%=entidad.getId_campania()%></td>
-                                    <td><%=entidad.getNombre()%></td>
-                                    <td><%=fecha.format(entidad.getFecha_inicio())%></td>
-                                    <td><%=fecha.format(entidad.getFecha_fin())%></td>
+                               <tr>
+                                   <td><%=entidad.getId_campania_lote()%></td>
+                                    <td><%=entidad.getNumero_plantas()%></td>
+                                    <td><%=fecha.format(entidad.getFechaPodaFormacion())%></td>
+                                    <td><%=entidad.getObjLote().getNombre()%></td>
+                                    <td><%=entidad.getObjCampania().getNombre()%></td>
                                     <td>
-                                        <a href="javascript:void(0)" data-dismiss="modal" onclick="selectCampania(<%=entidad.getId_campania()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-success btn-mini">Seleccionar</a>
+                                        <a href="javascript:void(0)" data-dismiss="modal" onclick="selectCampaniaLote(<%=entidad.getId_campania_lote()%>,'<%=entidad.getObjLote().getNombre()%> - <%=entidad.getObjCampania().getNombre()%>')" class="comp_edit btn btn-success btn-mini">Seleccionar</a>
 
                                     </td>
                                 </tr>                                                            
@@ -303,6 +299,7 @@ if(objSession!=null)
                         <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
                     </div>
                 </div>     
+                  
 
                 </div>
             </div>
@@ -335,18 +332,23 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
+                          <!-- datepicker -->
+                        <script src="lib/datepicker/bootstrap-datepicker.js"></script>
+
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                          <!-- datepicker -->
-                        <script src="lib/datepicker/bootstrap-datepicker.js"></script>
-                       <!-- datatable -->
+                        
+                         <!-- sortable/filterable list -->
+            <script src="lib/list_js/list.min.js"></script>
+            <script src="lib/list_js/plugins/paging/list.paging.min.js"></script>
+            <!-- datatable -->
 			<script src="lib/datatables/jquery.dataTables.min.js"></script>
 
-	
 			<script>
-      function modulos()
+
+ function modulos()
 {
      $.ajax({
             url: 'operaciones/sidebar.jsp',
@@ -379,46 +381,55 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};                           
-function tabla()
+};                          
+function lista()
 {
      $.ajax({
-        url: 'operaciones/campania_lote/list_tabla.jsp',
+        url: 'operaciones/modulo/list_modulos_usuario.jsp',
         type: 'POST',
-        success: function (data) {     
+        success: function (data) {    
                  $('#tabla').html(data);
+                 
         },
         contentType: false,
         processData: false
     });          
  };
-                          
-                          
+
+
+ 
+function getUsuario(id,nombre,usuario)
+{
+    $('#idEvaluador').val(id);  
+                                                
+ $('#Formulario').html("<di id='Formulario'><blockquote id='Formulario'><p>"+nombre+"</p><blockquote><p>"+usuario+"</p></blockquote></blockquote></div>");  
+};
+function selectCampaniaLote(id,nombre)
+{
+    $('#idCampaniaLote').val(id);  
+       $('#Lote').html("<h4 id='Lote'>"+nombre+"</h4>");                                         
+};              
+                        
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
-                                         $( "#cbLote" ).hide();
-                                        setTimeout('$("html").removeClass("js")',1000);
-
-
+                                        
+                                        
                                         $('#tablaCapania').dataTable({
                                            "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
                                             "sScrollY": "200px",
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     });
-                                                    
-                                           $('#tablaLote').dataTable({
-                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
-                                            "sScrollY": "200px",
-                                             "sScrollX": "90%",
-                                            "bDestroy": true,
-                                            "bDeferRender": true
-                                                    });
-
-
+                                        $('#txtFecha').datepicker();
                                         
-                                      $('#reg_form').validate({
+                                        
+                                        $( "#idCampaniaLote" ).hide();
+                                        $( "#idEvaluador" ).hide();
+                                        
+                                        gebo_flist.init();
+                                        setTimeout('$("html").removeClass("js")',1000);
+                                           $('#reg_form').validate({
                                         lang: 'es',
 					onkeyup: false,
 					errorClass: 'error',
@@ -426,7 +437,7 @@ function tabla()
                                         ignore: ".ignore",
                                             submitHandler: function() {       
                                            
-                                                    var url = "operaciones/campania_lote/insert.jsp"; 
+                                                    var url = "operaciones/analisis_yemas/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -454,9 +465,12 @@ function tabla()
                                                          });    
                                             },
 					rules: {
-                                                txtNumero: { required: true, digits:true},
+                                                txtFeminelas: { required: true, number: true},
+                                                txtFertilidad: { required: true, number: true},
                                                 txtFecha: { required: true},
-                                                cbLote: { required: true}
+                                                idCampaniaLote: { required: true},
+                                                idEvaluador: { required: true},
+                                                rbEstado: { required: true }
                                                 
 					},
 					highlight: function(element) {
@@ -469,50 +483,63 @@ function tabla()
 						$(element).closest('div').append(error);
 					}
 				});
-                          
-                                  $('#txtFecha').datepicker();
-                                        
-				});
-                                    var comboIdLote=0;
-                                    function clear_form() {
-                                          $('#txtNumero').val("");
-                                          $('#txtFecha').val("");
-                                          $("#IdCampaniaLote").val("0");  
-                                          if(comboIdLote>0)
-                                              $("#cbLote option[value='"+comboIdLote+"']").remove();
-                                            $("select#cbLote").val(0);   
-                                         
-                                            $('#cbLote').val("");
-                                            $('#Lote').html("<h4 id='Lote'>Selecione una Opcción</h4>");
                                      
-                                           
-                                      };
-                                       function edit_form(id,numero,fecha,idLote,nLote,idCampania,nCampania) {
-
-                                            $('#txtNumero').val(numero);
-                                            $('#IdCampaniaLote').val(id);
-                                             $('#txtFecha').val(fecha);
-                                             $('#Lote').html("<h4 id='Lote'>"+nLote+"</h4>");
-                                              $('#cbLote').val(idLote);
-                                      };
-                                       function buscaComboLote(valor) {
-                                           var estado=false;
-                                            $("#cbLote option").each(function(){
-                                                if($(this).attr('value')==valor)
-                                                {
-                                                    estado=true;
-                                                }
-                                                    
-                                             });
-                                             return estado;
-                                       };
-                                       function selectLote(id,nombre) {
-                                           $('#Lote').html("<h4 id='Lote'>"+nombre+"</h4>");                                           
-                                           $('#cbLote').val(id);
-                                       };
                                        
-                                  modulos(); 
-                                       tabla();
+				});
+                                    function clear_form() {
+                                          $('#Formulario').html("<di id='Formulario'><blockquote ><p>Nombre</p><blockquote><p>Código ERP</p></blockquote></blockquote></div>");  
+                                            $('#idEvaluador').val("");
+                                    };
+                                        modulos(); 
+                                       
+                                      
+//* filterable list
+	gebo_flist = {
+		init: function(){
+			//*typeahead
+			var list_source = [];
+			$('.user_list li').each(function(){
+				var search_name = $(this).find('.sl_name').text();
+				//var search_email = $(this).find('.sl_email').text();
+				list_source.push(search_name);
+			});
+			$('.user-list-search').typeahead({source: list_source, items:5});
+			
+			var pagingOptions = {};
+			var options = {
+				valueNames: [ 'sl_name', 'sl_status', 'sl_email' ],
+				page: 10,
+				plugins: [
+					[ 'paging', {
+						pagingClass	: "bottomPaging",
+						innerWindow	: 1,
+						left		: 1,
+						right		: 1
+					} ]
+				]
+			};
+			var userList = new List('user-list', options);
+			
+			
+			
+			$('#filter-none').on('click',function() {
+				$('ul.filter li').removeClass('active');
+				$(this).parent('li').addClass('active');
+				userList.filter();
+				return false;
+			});
+			
+			$('#user-list').on('click','.sort',function(){
+					$('.sort').parent('li').removeClass('active');
+					if($(this).parent('li').hasClass('active')) {
+						$(this).parent('li').removeClass('active');
+					} else {
+						$(this).parent('li').addClass('active');
+					}
+				}
+			);
+		} 
+	};
 			</script>
 		
 		</div>

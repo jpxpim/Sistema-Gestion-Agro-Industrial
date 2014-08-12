@@ -24,6 +24,10 @@ public class entCampaniaLote
     
     public entCampaniaLote(){}
 
+    public entCampaniaLote(int id_campania_lote) {
+        this.id_campania_lote = id_campania_lote;
+    }
+
     public int getId_campania_lote() {
         return id_campania_lote;
     }

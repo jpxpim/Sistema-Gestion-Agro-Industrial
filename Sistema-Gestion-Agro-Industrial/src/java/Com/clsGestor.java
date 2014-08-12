@@ -295,4 +295,41 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entEvaluador">
+   
+    public static List<entEvaluador> ListarEvaluador(boolean activo) throws Exception
+    {
+        return EvaluadorDAO.Listar(activo);
+    }
+    
+    public  static int insertarEvaluador(entEvaluador entidad) throws Exception
+    {
+        return EvaluadorDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarEvaluador(entEvaluador entidad) throws Exception
+    {
+        return EvaluadorDAO.actualizar(entidad);
+    }
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entAnalisisYemas">
+   
+    public static List<entAnalisisYemas> ListarAnalisisYemas(boolean activo) throws Exception
+    {
+        return AnalisisYemasDAO.Listar(activo);
+    }
+    
+    public  static int insertarAnalisisYemas(entAnalisisYemas entidad) throws Exception
+    {
+        return AnalisisYemasDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarAnalisisYemas(entAnalisisYemas entidad) throws Exception
+    {
+        return AnalisisYemasDAO.actualizar(entidad);
+    }
+// </editor-fold>
+    
+    
 }

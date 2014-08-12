@@ -396,14 +396,14 @@ function addFormulario(id,padre,etiqueta,tipo)
                                     else if(data==0)
                                     {
                                         lista();
-                                        
+                                        $("#cbFormulario").change();
                                         $.sticky("Se Elimino Correctamente.", {autoclose : 5000, position: "top-center" });
                                        
                                    }
                                     else if(data>0)
                                     {
                                        lista();
-                                       $('#cbFormulario').select();
+                                       $("#cbFormulario").change();
                                        $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                        
                                     }

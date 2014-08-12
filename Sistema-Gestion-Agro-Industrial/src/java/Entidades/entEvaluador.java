@@ -21,6 +21,10 @@ public class entEvaluador {
     private String usuario_responsable;
     private Date fecha_modificacion;    
 
+    public entEvaluador(int id_evaluador) {
+        this.id_evaluador = id_evaluador;
+    }
+
     public entEvaluador(){}
     public int getId_evaluador() {
         return id_evaluador;
