@@ -31,6 +31,15 @@ public class entFormulario {
         
     }
 
+    public entFormulario(int id_formulario) {
+        this.id_formulario = id_formulario;
+    }
+    
+    public entFormulario(int id_formulario, int padre) {
+        this.id_formulario = id_formulario;
+        this.padre = padre;
+    }
+
     public entModulo getObjModulo() {
         return objModulo;
     }

@@ -22,7 +22,7 @@ if(objSession!=null)
         if(list!=null)
             for(entFormulario entidad : list)
                  if(entidad.getPadre()==Integer.parseInt(request.getParameter("idFormulario")) && !entidad.isSelecion()) 
-              out.print("<li>"+entidad.getEtiqueta()+"</li>");
+              out.print("<li>"+entidad.getEtiqueta()+"  <a onclick='addFormulario("+entidad.getId_formulario()+","+entidad.getPadre()+",\""+entidad.getEtiqueta()+"\",\"True\")' class='label ttip_r' title='Agregar "+entidad.getEtiqueta()+"'><i class='splashy-add'></i></a>  </li>");
         out.print("</ul>");
     }
 }

@@ -188,7 +188,7 @@ if(objSession!=null)
                                                             
 								<div class="span4">
                                                                     
-                                                                    
+                                                                    <h3 class="heading">Agregar Formularios</h3>  
                                                                     
                                                                     
                                                                     
@@ -218,9 +218,6 @@ if(objSession!=null)
                                                                                                             <div id="getModulo"></div>
                                                                                                         </div> 
                                                                                                     
-                                                                                                 
-                                                                                                    <input type="hidden" id="IdUsuario"  name="IdUsuario"  />
-                                                                                                        
 												</div>
                                                                                                 <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
 											</div>
@@ -234,7 +231,7 @@ if(objSession!=null)
 								</div>
 
                                                                 <div class="span4">
-                                                                  <h3 class="heading">MODULOS</h3>                                                                   
+                                                                  <h3 class="heading">Quitar Formularios</h3>                                                                   
 
                                                                           <div id="tabla"></div>
                                                                       
@@ -290,6 +287,8 @@ if(objSession!=null)
 			<script>
  var IdUsuario=0;
  var IdModulo=0;
+ var Nombre="";
+ var Usuario="";
  function modulos()
 {
      $.ajax({
@@ -327,10 +326,11 @@ function getMododulos(posicion)
 function lista()
 {
      $.ajax({
-        url: 'operaciones/modulo/list_modulos_sesion.jsp',
+        url: 'operaciones/modulo/list_modulos_usuario.jsp',
         type: 'POST',
-        success: function (data) {     
+        success: function (data) {    
                  $('#tabla').html(data);
+                 
         },
         contentType: false,
         processData: false
@@ -353,22 +353,67 @@ function comboModulo()
 
  
 function getUsuario(id,nombre,usuario)
-{  $("#IdUsuario").val(id); 
-   $('#Formulario').html("<di id='Formulario'><blockquote id='Formulario'><p>"+nombre+"</p><blockquote><p>"+usuario+"</p></blockquote></blockquote></div>");
-   IdUsuario=id;
+{
    $.ajax({
-            url: 'operaciones/formulario/get_modulo_usuario.jsp?id='+IdUsuario,
+            url: 'operaciones/modulo/get_modulo_usuario.jsp?id='+id,
             type: 'POST',
-            success: function () {     
+            success: function () {  
+                $('#Formulario').html("<di id='Formulario'><blockquote id='Formulario'><p>"+nombre+"</p><blockquote><p>"+usuario+"</p></blockquote></blockquote></div>");
+                IdUsuario=id;
+                Nombre=nombre;
+                Usuario=usuario;
+                 comboModulo();
+                lista();
+                $("select#cbModulo").val('0'); 
+                $('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
+                $('#getModulo').html('<div id="getModulo"></div>');
             },
             contentType: false,
             processData: false
         });
-   //$('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
+     
 
 };
-                       
-                          
+function addFormulario(id,padre,etiqueta,tipo)
+{
+    var titulo='Quitar '+etiqueta+' a '+Nombre;
+        if(tipo.toLowerCase()=="true")
+            titulo='Agregar '+etiqueta+' a '+Nombre;
+    
+    smoke.confirm(titulo,function(e){
+                if (!e){
+                     
+                        var url = "operaciones/formulario_usuario/insert.jsp?idusuario="
+                                +IdUsuario+"&idFormulario="+id+"&idPadre="+padre+"&tipo="+tipo; 
+
+                        $.ajax({
+                               type: "POST",
+                               url: url,
+                               success: function(data)
+                               {
+                                   if(data==-1)
+                                     $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
+                                    else if(data==0)
+                                    {
+                                        lista();
+                                        
+                                        $.sticky("Se Elimino Correctamente.", {autoclose : 5000, position: "top-center" });
+                                       
+                                   }
+                                    else if(data>0)
+                                    {
+                                       lista();
+                                       $('#cbFormulario').select();
+                                       $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
+                                       
+                                    }
+                               }
+                             }); 
+                            
+                }
+        }, {ok:"No", cancel:"Si"});
+};                   
+                        
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
@@ -391,7 +436,7 @@ function getUsuario(id,nombre,usuario)
                                                 });      
                                            }
                                            
-                                               
+                                           $('#getModulo').html('<div id="getModulo"></div>');    
                                         });
                                         
                                          $('#cbFormulario').on('change', function() {
@@ -414,16 +459,20 @@ function getUsuario(id,nombre,usuario)
 
 				});
                                     function clear_form() {
-                                          $("#IdUsuario").val("");  
-                                          $("select#cbModulo").val('0'); 
+                                          $('#cbModulo').html('<select id="cbModulo" name="cbModulo" title="Por favor selecione un Modulo!" required><option value="">Selecione una Opción</option></select>');
                                           $('#Formulario').html("<blockquote ><p>Nombre</p><blockquote><p>Usuario</p></blockquote></blockquote>");
                                           $('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
                                           $('#getModulo').html('<div id="getModulo"></div>');
-                                           
+                                           $('#tabla').html('<div id="tabla"></div>');
+                                            IdUsuario=0;
+                                            IdModulo=0;
+                                            Nombre="";
+                                            Usuario="";
+                                         
                                       };
                                         modulos(); 
-                                       lista();
-                                       comboModulo();
+                                       
+                                      
 //* filterable list
 	gebo_flist = {
 		init: function(){

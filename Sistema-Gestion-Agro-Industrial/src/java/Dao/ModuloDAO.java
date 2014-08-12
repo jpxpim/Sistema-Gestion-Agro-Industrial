@@ -24,7 +24,7 @@ public class ModuloDAO
 {
       public static List<entModulo> ListarUsuario(int idUsuario) throws Exception
     {
-        List<entModulo> lista = new ArrayList<entModulo>();;
+        List<entModulo> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
@@ -39,6 +39,8 @@ public class ModuloDAO
 
             while(dr.next())
             {
+                if(lista==null)
+                    lista = new ArrayList<entModulo>();
                 
                     entModulo entidad = new entModulo();
                     entidad.setId_modulo(dr.getInt(1));

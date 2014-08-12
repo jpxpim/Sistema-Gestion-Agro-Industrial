@@ -35,11 +35,24 @@ if(objSession!=null)
                 }
                 
             }
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("SessionUsuario", objSession); 
-            sesion.setMaxInactiveInterval(-1);
+        }
+        else
+        {
+            out.print("<div id='tabla'></div>");
+            
+            for(int i=0;i<objSession.getListModulos().size();i++)
+            {
+                objSession.getListModulos().get(i).setSelecion(false);
+                for(int j=0;j<objSession.getListModulos().get(i).getList().size();j++)
+                {
+                    objSession.getListModulos().get(i).getList().get(j).setSelecion(false);
+                }
+            }
             
         }
+        HttpSession sesion = request.getSession();
+        sesion.setAttribute("SessionUsuario", objSession); 
+        sesion.setMaxInactiveInterval(-1);
     }
 }
  %>

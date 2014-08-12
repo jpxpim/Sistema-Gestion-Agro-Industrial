@@ -24,7 +24,7 @@ public class FormularioDAO {
     
     public static List<entFormulario> ListarModuloUsuario(int idUsuario ,int idModulo) throws Exception
     {
-        List<entFormulario> lista = new ArrayList<entFormulario>();
+        List<entFormulario> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
@@ -40,6 +40,9 @@ public class FormularioDAO {
 
             while(dr.next())
             {
+                if(lista==null)
+                lista = new ArrayList<entFormulario>();
+                
                     entFormulario entidad = new entFormulario();
                     entidad.setId_formulario(dr.getInt(1));
                     entidad.setUrl(dr.getString(2)); 
@@ -240,6 +243,8 @@ public class FormularioDAO {
             }
         return rpta;
     } 
+    
+    
     
     public static boolean actualizar(entFormulario entidad) throws Exception
     {

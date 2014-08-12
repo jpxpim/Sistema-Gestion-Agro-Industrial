@@ -109,6 +109,7 @@ public class FormularioUsuarioDAO
                    + "VALUES(?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjUSuario().getId_usuario());
             stmt.setInt(2, entidad.getObjFormulario().getId_formulario());
@@ -118,18 +119,41 @@ public class FormularioUsuarioDAO
             
             if (rs.next()){
                 rpta=rs.getInt(1);
+                sql="select FU.id_formulario_usuario from formulario_usuario FU inner join FORMULARIO F on FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.id_usuario=? and F.ID_FORMULARIO=?";
+                 CallableStatement ct = conn.prepareCall(sql);
+                 ct.setInt(1, entidad.getObjUSuario().getId_usuario());
+                 ct.setInt(2, entidad.getObjFormulario().getPadre());
+                 ResultSet dr = ct.executeQuery();
+                 boolean existe =  dr.next();
+                    if(!existe)
+                    {                        
+                        sql="INSERT INTO formulario_usuario(id_usuario,id_formulario,usuario_responsable,fecha_modificacion)"
+                                + "VALUES(?,?,?,GETDATE());";
+                        
+                        PreparedStatement pst = conn.prepareStatement(sql);
+                        pst.setInt(1, entidad.getObjUSuario().getId_usuario());
+                        pst.setInt(2, entidad.getObjFormulario().getPadre());
+                        pst.setString(3, entidad.getUsuario_responsable());
+                        pst.execute(); 
+                        pst.close();
+                    }
+                ct.close();
+                dr.close();
             }
             rs.close();
+            conn.commit();
         } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
             throw new Exception("Insertar"+e.getMessage(), e);
         }
-        finally{
-            try {
-                stmt.close();
-                conn.close();
-            } catch (SQLException e) {
+        finally {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                    stmt.close();
+                }
             }
-        }
         return rpta;
     } 
     
@@ -163,5 +187,60 @@ public class FormularioUsuarioDAO
         return rpta;
     }  
     
+    
+    public static boolean eliminar(entFormularioUsuario entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+             String sql="DELETE FROM FORMULARIO_USUARIO WHERE ID_USUARIO=? and ID_FORMULARIO=?";
+             
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareCall(sql);             
+            stmt.setInt(1, entidad.getObjUSuario().getId_usuario());
+            stmt.setInt(2, entidad.getObjFormulario().getId_formulario());                
+            rpta = stmt.executeUpdate() == 1;
+            if(rpta)
+            {
+                sql="select count(FU.id_formulario_usuario) from formulario_usuario FU inner join FORMULARIO F on FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.id_usuario=? and F.PADRE=?";
+                 CallableStatement ct = conn.prepareCall(sql);
+                 ct.setInt(1, entidad.getObjUSuario().getId_usuario());
+                 ct.setInt(2, entidad.getObjFormulario().getPadre());
+                 ResultSet dr = ct.executeQuery();
+                    if(dr.next())
+                    {   
+                        if(dr.getInt(1)==0)
+                        {
+                            sql="DELETE FROM FORMULARIO_USUARIO WHERE ID_USUARIO=? and ID_FORMULARIO=?";
+                        
+                            CallableStatement pst = conn.prepareCall(sql);      
+                            pst.setInt(1, entidad.getObjUSuario().getId_usuario());
+                            pst.setInt(2, entidad.getObjFormulario().getPadre());
+                            pst.execute(); 
+                            pst.close();
+                        }
+                    }
+                ct.close();
+                dr.close();
+                
+            }
+           
+        conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                    stmt.close();
+                }
+            }
+        return rpta;
+    }  
     
 }
