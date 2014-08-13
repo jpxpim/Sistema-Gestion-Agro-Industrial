@@ -139,9 +139,10 @@ if(objSession!=null)
 						<div class="span12">
 							<div class="row-fluid">
                                                             
-                                                                <div class="span3"></div>
+                                                                <div class="span1"></div>
                                                             
-								<div class="span3" id="user-list">
+								<div class="span4" id="user-list">
+                                                                     <h3 class="heading">Elegir Evaluador</h3>  
 							<div class="row-fluid">
 								<div class="input-prepend">
 									<span class="add-on ad-on-icon"><i class="icon-user"></i></span><input type="text" class="user-list-search search" placeholder="Buscar evaluador" />
@@ -175,8 +176,8 @@ if(objSession!=null)
 							<div class="pagination"><ul class="paging bottomPaging"></ul></div>
                         </div>
                                                             
-								<div class="span3">
-                                                                
+								<div class="span4">
+                                                                 <h3 class="heading">Ingreso de Datos</h3>  
                                                                      <div class="row-fluid" id="g-map-top">
                                                                             <div class="span12">
 											  <form  method="get" id="reg_form">

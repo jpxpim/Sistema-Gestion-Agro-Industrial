@@ -19,13 +19,10 @@ if(list!=null)
                     <th>Centro de Costo</th>
                     <th>Año de Siembra</th>
                     <th>Productor</th>
-                    <th>Patrón</th>
-                    <th>Vivero</th>
                     <th>Sub Sector</th>
                     <th>Tipo Cultivo</th>
                     <th>Edad Cultivo</th>
                     <th>Variedad</th>
-                    <th>Responsable</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
@@ -44,13 +41,10 @@ if(list!=null)
             <td><%=entidad.getCentro_costo()%></td>
             <td><%=entidad.getAnio_siembra()%></td>
             <td><%=entidad.getObjProductor().getNombre()%></td>
-            <td><%=entidad.getObjPatron().getNombre()%></td>
-            <td><%=entidad.getObjVivero().getNombre()%></td>
             <td><%=entidad.getObjSubSector().getNombre()%></td>
             <td><%=entidad.getObjTipoCultivo().getNombre()%></td>
             <td><%=entidad.getObjEdadCultivo().getNombre()%></td>
             <td><%=entidad.getObjVariedad().getNombre()%></td>
-            <td><%=entidad.getUsuario_responsable()%></td>
             <td>
                  <%
                    if(entidad.getEstado())

@@ -138,6 +138,7 @@ if(objSession!=null)
                                                                 
                                                             
 								<div class="span4" id="user-list">
+                                                                     <h3 class="heading">Elegir Usuario</h3>  
 							<div class="row-fluid">
 								<div class="input-prepend">
 									<span class="add-on ad-on-icon"><i class="icon-user"></i></span><input type="text" class="user-list-search search" placeholder="Buscar usuario" />
@@ -208,7 +209,7 @@ if(objSession!=null)
                                                                                                         </select>
                                                                                                         </div> 
                                                                                                         <div class="input-prepend">
-                                                                                                        <label>Cabezera</label>
+                                                                                                        <label>Cabesera</label>
                                                                                                         <select id="cbFormulario" name="cbFormulario" title="Por favor selecione un Cabezera!" required>
                                                                                                             <option value="">Selecione una Opción</option>                                                                                                           
                                                                                                         </select>

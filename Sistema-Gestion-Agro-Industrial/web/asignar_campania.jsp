@@ -147,7 +147,7 @@ if(objSession!=null)
                                                                                               <div class="location_add_form well">
 												<div class="formSep">
                                                                                                         <div class="input-prepend">
-                                                                                                            <label>Campaña Lote</label>
+                                                                                                            <label>Lote</label>
                                                                                                                 
                                                                                                                     <span class='label label-info span9'><h4 id='Lote'>Selecione una Opcción</h4></span>
                                                                                                                     <span class="add-on">
@@ -194,7 +194,7 @@ if(objSession!=null)
 						</div>
                         </div>
 		<!-- Modal Lote -->	
-                <div class="modal hide fade" id="ModalLote"  style="width: 62%;">
+                <div class="modal hide fade" id="ModalLote"  style="width: 50%;">
                     
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
@@ -207,10 +207,7 @@ if(objSession!=null)
                                             <th>Nombre</th>
                                             <th>Nº Hectareas</th>
                                             <th>Centro de Costo</th>
-                                            <th>Año de Siembra</th>
                                             <th>Productor</th>
-                                            <th>Patrón</th>
-                                            <th>Vivero</th>
                                             <th>Tipo Cultivo</th>
                                             <th> Edad Cultivo</th>
                                             <th>Variedad</th>
@@ -229,10 +226,7 @@ if(objSession!=null)
                                 <td><%=entidad.getNombre()%></td>
                                 <td><%=entidad.getHectareas()%></td>
                                 <td><%=entidad.getCentro_costo()%></td>
-                                <td><%=entidad.getAnio_siembra()%></td>
                                 <td><%=entidad.getObjProductor().getNombre()%></td>
-                                <td><%=entidad.getObjPatron().getNombre()%></td>
-                                <td><%=entidad.getObjVivero().getNombre()%></td>
                                 <td><%=entidad.getObjTipoCultivo().getNombre()%></td>
                                 <td><%=entidad.getObjEdadCultivo().getNombre()%></td>
                                 <td><%=entidad.getObjVariedad().getNombre()%></td>
