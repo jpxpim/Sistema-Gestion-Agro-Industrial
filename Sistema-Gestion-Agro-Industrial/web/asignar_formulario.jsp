@@ -191,8 +191,6 @@ if(objSession!=null)
                                                                     
                                                                     <h3 class="heading">Agregar Formularios</h3>  
                                                                     
-                                                                    
-                                                                    
                                                                      <div class="row-fluid" id="g-map-top">
 										<div class="span12">
                                                                                               <div class="location_add_form well">
@@ -427,7 +425,7 @@ function addFormulario(id,padre,etiqueta,tipo)
                 }
         }, {ok:"No", cancel:"Si"});
 };                   
-                        
+       modulos();                   
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
@@ -484,7 +482,7 @@ function addFormulario(id,padre,etiqueta,tipo)
                                             Usuario="";
                                          
                                       };
-                                        modulos(); 
+                                       
                                        
                                       
 //* filterable list
