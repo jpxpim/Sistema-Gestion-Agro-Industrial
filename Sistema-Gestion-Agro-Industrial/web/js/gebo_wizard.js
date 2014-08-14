@@ -45,7 +45,7 @@
 					};
 				},
                                 submitHandler: function() {       
-                                           
+                                            $("#abrirCarga").click();
                                                     var url = "../operaciones/usuario/insert.jsp"; 
 
                                                     $.ajax({
@@ -71,6 +71,7 @@
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
+                                                                 $("#cerrarCarga").trigger("click");
                                                            }
                                                          });    
                                             },

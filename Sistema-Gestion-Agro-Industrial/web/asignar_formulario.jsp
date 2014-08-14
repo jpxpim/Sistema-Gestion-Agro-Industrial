@@ -241,7 +241,17 @@ if(objSession!=null)
 							</div>
 						</div>
                         </div>
-                  
+                   <!-- Modal Cargando -->	
+               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
+                
+                     <div class="modal-body">
+
+                         <h3><img src="img/ajax-loader.gif" alt="" /> 
+                       Espere un Momento ...</h3>
+                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
+                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
+                     </div>
+                </div>   
 
                 </div>
             </div>
@@ -355,6 +365,7 @@ function comboModulo()
  
 function getUsuario(id,nombre,usuario)
 {
+    $("#abrirCarga").click();
    $.ajax({
             url: 'operaciones/modulo/get_modulo_usuario.jsp?id='+id,
             type: 'POST',
@@ -368,6 +379,7 @@ function getUsuario(id,nombre,usuario)
                 $("select#cbModulo").val('0'); 
                 $('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
                 $('#getModulo').html('<div id="getModulo"></div>');
+                $("#cerrarCarga").trigger("click");
             },
             contentType: false,
             processData: false
@@ -383,7 +395,7 @@ function addFormulario(id,padre,etiqueta,tipo)
     
     smoke.confirm(titulo,function(e){
                 if (!e){
-                     
+                     $("#abrirCarga").click();
                         var url = "operaciones/formulario_usuario/insert.jsp?idusuario="
                                 +IdUsuario+"&idFormulario="+id+"&idPadre="+padre+"&tipo="+tipo; 
 
@@ -408,6 +420,7 @@ function addFormulario(id,padre,etiqueta,tipo)
                                        $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                        
                                     }
+                                    $("#cerrarCarga").trigger("click");
                                }
                              }); 
                             

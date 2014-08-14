@@ -248,7 +248,18 @@ if(objSession!=null)
                         </div>
                         
                     </div>
-                        
+                      <!-- Modal Cargando -->	
+               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
+                
+                     <div class="modal-body">
+
+                         <h3><img src="img/ajax-loader.gif" alt="" /> 
+                       Espere un Momento ...</h3>
+                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
+                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
+                     </div>
+                </div>     
+   
                 </div>
             </div>
             
@@ -410,7 +421,7 @@ function clear_form() {
 
 };
 function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,contrasena,estado) {
-    
+    $("#abrirCarga").click();
     $('#txtNombres').val(nombres);
     $('#txtApellidos').val(apellidos);
     $('#txtEmail').val(email);
@@ -433,6 +444,7 @@ function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,
         success: function (data) {     
                  $("#foto").html('<img class="fileupload-preview thumbnail" src="'+data+'">');
                  $('#txtFoto').val(data);
+                  $("#cerrarCarga").trigger("click");
         },
         contentType: false,
         processData: false

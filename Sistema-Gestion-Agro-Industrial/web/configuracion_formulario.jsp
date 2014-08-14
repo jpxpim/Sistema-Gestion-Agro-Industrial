@@ -217,6 +217,18 @@ if(objSession!=null)
 						</div>
                         </div>
                   
+<!-- Modal Cargando -->	
+               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
+                
+                     <div class="modal-body">
+
+                         <h3><img src="img/ajax-loader.gif" alt="" /> 
+                       Espere un Momento ...</h3>
+                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
+                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
+                     </div>
+                </div>     
+
 
                 </div>
             </div>
@@ -392,7 +404,7 @@ function getFormulario(id,formulario,idpadre,padre,modulo)
 					errorClass: 'error',
 					validClass: 'valid',
                                             submitHandler: function() {       
-                                           
+                                                   $("#abrirCarga").click();
                                                     var url = "operaciones/modulo/insert.jsp"; 
 
                                                     $.ajax({
@@ -419,6 +431,7 @@ function getFormulario(id,formulario,idpadre,padre,modulo)
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
+                                                                $("#cerrarCarga").trigger("click");
                                                            }
                                                          });    
                                             },
