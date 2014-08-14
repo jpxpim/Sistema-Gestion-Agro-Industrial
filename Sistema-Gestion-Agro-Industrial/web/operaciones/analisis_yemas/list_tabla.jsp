@@ -12,7 +12,8 @@ SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
 List<entAnalisisYemas> list=clsGestor.ListarAnalisisYemas(false);
 if(list!=null)
 {%>
-<table id="tabla" class="table table-striped location_table">
+<div id="tabla">
+<table id="lista" class="table table-striped location_table">
     <thead>
             <tr>
                     <th>Id</th>
@@ -27,12 +28,13 @@ if(list!=null)
                     <th>Acciones</th>
             </tr>
     </thead>   
+     <tbody>    
     <%
     for(entAnalisisYemas entidad : list)
     {
     %>
 
-    <tbody>                                                                                
+                                                                               
         <tr>
             <td><%=entidad.getId_analisis_yemas()%></td>
             <td><%=entidad.getObjCampaniaLote().getObjLote().getNombre()%></td>
@@ -66,13 +68,28 @@ if(list!=null)
             </td>
         </tr>
 
-    </tbody>
+    
 
 
     <%
     }
     %>
+     </tbody>
     </table>
+</div>
+<script type="text/javascript">
+$(function () { 
+
+   $('#lista').dataTable({
+                                           "sDom": "<'row'<'span3'><'span3'f>r>t<'row'<'span3'i><'span3'>S>",
+                                            "sScrollY": "200px",
+                                            "bDestroy": true,
+                                            "bDeferRender": true
+                                                    }); 
+ 
+});
+</script>
+
 <%} }%>  
                                                                         
                                                                        

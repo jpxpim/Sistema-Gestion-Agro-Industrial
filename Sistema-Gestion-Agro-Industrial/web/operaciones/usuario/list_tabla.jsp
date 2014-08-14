@@ -14,7 +14,8 @@ List<entUsuario> list=clsGestor.ListarUsuario(false);
 BASE64Encoder e = new BASE64Encoder();
 if(list!=null)
 {%>
-<table id="tabla" class="table table-bordered table-striped table_vam">
+<div id="tabla">
+<table id="lista" class="table table-bordered table-striped table_vam">
     <thead>
             <tr>
                     <th>Imagen</th>
@@ -30,12 +31,12 @@ if(list!=null)
                     <th>Acciones</th>
             </tr>
     </thead>   
+     <tbody>     
     <%
     for(entUsuario entidad : list)
     {
     %>
-
-    <tbody>                                                                                
+                                                              
         <tr>
             <td style="width:100px">
                <img  style="height:90px;width:90px" class="fileupload-preview thumbnail" src="data:image/png;base64,<%=e.encodeBuffer(entidad.getFoto())%>">
@@ -64,13 +65,25 @@ if(list!=null)
             </td>
         </tr>
 
-    </tbody>
-
-
     <%
     }
     %>
+     </tbody>
     </table>
+</div>
+<script type="text/javascript">
+$(function () { 
+
+   $('#lista').dataTable({
+                                           "sDom": "<'row'<'span3'><'span3'f>r>t<'row'<'span3'i><'span3'>S>",
+                                            "sScrollY": "400px",
+                                            "bDestroy": true,
+                                            "bDeferRender": true
+                                                    }); 
+ 
+});
+</script>
+
 <%} }%>  
                                                                         
                                                                        

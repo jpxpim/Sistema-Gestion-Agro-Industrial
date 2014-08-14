@@ -81,21 +81,14 @@ if(objSession!=null)
                             </ul>
                         </div>
                     </nav>
-                 <div class="row-fluid">
+                
+                    <div class="row-fluid">
 						<div class="span12">
-							<div class="row-fluid">
-								<div class="span6">
-									<h3 class="heading">Número de Hecatareas por Año de Siembra</h3>  
-                                                               <div id="barras_hectareas_anio"></div>
-								</div>	
-								<div class="span6">
-                                                              <h3 class="heading">Porcentaje de Hecatareas por Vareidad</h3>  
-                                                              <div id="pie_hectareas_variedad"></div>
-                                                              
-								</div>
-							</div>
+							<h3 class="heading">Inicio</h3>
+							
 						</div>
                         </div>
+					
 
                 </div>
             </div>
@@ -134,18 +127,6 @@ if(objSession!=null)
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                     
-                     <!-- charts -->
-			<script src="lib/flot/jquery.flot.min.js"></script>
-			<script src="lib/flot/jquery.flot.resize.min.js"></script>
-			<script src="lib/flot/jquery.flot.pie.min.js"></script>
-			<script src="lib/flot/jquery.flot.curvedLines.min.js"></script>
-			<script src="lib/flot/jquery.flot.orderBars.min.js"></script>
-			<script src="lib/flot/jquery.flot.multihighlight.min.js"></script>
-			<script src="lib/flot/jquery.flot.pyramid.min.js"></script>
-                     <script src="lib/flot/jquery.flot.axislabels.js"></script>
-			<script src="lib/moment_js/moment.min.js"></script>
-			<!-- charts functions -->
                         
 	
 <script>
@@ -189,25 +170,7 @@ function getMododulos(posicion)
 $(document).ready(function() {
     //* show all elements & remove preloader
     setTimeout('$("html").removeClass("js")',1000);
-    $.ajax({
-            url: 'operaciones/graficos/barras_hectarias_anio.jsp',
-            type: 'POST',
-            success: function (data) {     
-                     $('#barras_hectareas_anio').html(data);
-            },
-            contentType: false,
-            processData: false
-        });
-        $.ajax({
-            url: 'operaciones/graficos/pie_hectareas_variedad.jsp',
-            type: 'POST',
-            success: function (data) {     
-                     $('#pie_hectareas_variedad').html(data);
-            },
-            contentType: false,
-            processData: false
-        });
- 
+
 });
  modulos();                               
 </script>

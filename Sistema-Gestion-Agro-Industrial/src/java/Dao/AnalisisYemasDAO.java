@@ -51,7 +51,7 @@ public class AnalisisYemasDAO
                         " JOIN VARIEDAD V ON L.ID_VARIEDAD=V.ID_VARIEDAD\n" +
                         " JOIN CULTIVO CV ON V.ID_CULTIVO=CV.ID_CULTIVO";
             if(activo)
-                        sql+=" where estado=1"; 
+                        sql+=" where AY.ESTADO=1"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

@@ -9,7 +9,8 @@ if(objSession!=null)
 List<entVariedad> list=clsGestor.ListarVariedad(false);
 if(list!=null)
 {%>
-<table id="tabla" class="table table-striped location_table">
+<div id="tabla">
+   <table id="lista" class="table table-striped location_table">
     <thead>
             <tr>
                     <th>Id</th>
@@ -21,13 +22,14 @@ if(list!=null)
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
-    </thead>   
+    </thead> 
+     <tbody>    
     <%
     for(entVariedad entidad : list)
     {
     %>
 
-    <tbody>                                                                                
+                                                                               
         <tr>
             <td><%=entidad.getId_variedad()%></td>
             <td><%=entidad.getNombre()%></td>
@@ -51,13 +53,28 @@ if(list!=null)
             </td>
         </tr>
 
-    </tbody>
+   
 
 
     <%
     }
     %>
+     </tbody>
     </table>
+</div>
+<script type="text/javascript">
+$(function () { 
+
+   $('#lista').dataTable({
+                                           "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+                                            "sScrollY": "200px",
+                                            "bDestroy": true,
+                                            "bDeferRender": true
+                                                    }); 
+ 
+});
+</script>
+
 <%} }%>  
                                                                         
                                                                        

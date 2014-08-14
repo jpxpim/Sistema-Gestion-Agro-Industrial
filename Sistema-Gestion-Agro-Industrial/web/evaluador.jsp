@@ -3,7 +3,6 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
-
 <%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
@@ -22,7 +21,7 @@ if(objSession!=null)
         int posJ=objSession.getListModulos().get(i).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(8==objSession.getListModulos().get(i).getList().get(j).getControl_form())
+            if(24==objSession.getListModulos().get(i).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(i).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(i));
@@ -105,7 +104,7 @@ if(objSession!=null)
                 <div class="main_content">
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
-                             <ul>
+                               <ul>
                                 <li>
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
@@ -137,30 +136,30 @@ if(objSession!=null)
 											  <form  method="get" id="reg_form">
                                                                                               <div class="location_add_form well">
 												<div class="formSep">
-                                                                                                        <div class="input-prepend">
-													<label>Nombre</label>
+                                                                                          <div class="input-prepend">
+													<label>Nombres</label>
                                                                                                         <input type="text" class="span10" id="txtNombre" name="txtNombre" />
-                                                                                                        </div>
-                                                                                                        <div class="input-prepend">
-													<label>Descripcion</label>
-													<input type="text" class="span10" id="txtDescripcion"  name="txtDescripcion" />
-                                                                                                         </div>  
-                                                                                                        <div class="input-prepend">
-													<label>Codigo de Control</label>
-													<input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
-                                                                                                         </div> 
-                                                                                                         <div class="input-prepend">
+                                                                                          </div>
+                                                                                          <div class="input-prepend">
+													<label>Apellidos</label>
+                                                                                                        <input type="text" class="span10" id="txtApellido" name="txtApellido" />
+                                                                                          </div>                                                                                        
+                                                                                          <div class="input-prepend">
+													<label>Codigo ERP</label>
+													<input type="text" class="span10" id="txtCodigoERP"  name="txtCodigoERP" />
+                                                                                          </div> 
+                                                                                          <div class="input-prepend">
 													<label>Estado</label>
 													<label class="radio inline">
-                                                                                                        <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
-                                                                                                            Activo
-                                                                                                        </label>
-                                                                                                        <label class="radio inline">
-                                                                                                                <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                                                Desactivado
-                                                                                                        </label>
-                                                                                                         </div>
-                                                                                                    <input type="hidden" id="IdCultivo"  name="IdCultivo" value="0" />
+                                                                                             <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                                Activo
+                                                                                             </label>
+                                                                                             <label class="radio inline">
+                                                                                                    <input type="radio" value="0" id="rbEstado" name="rbEstado" />
+                                                                                                    Desactivado
+                                                                                             </label>
+                                                                                          </div>
+                                                                                                    <input type="hidden" id="IdEvaluador"  name="IdEvaluador" value="0" />
                                                                                                         
 												</div>
                                                                                                 <button class="btn btn-invert" type="submit">Grabar</button>
@@ -217,11 +216,11 @@ if(objSession!=null)
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                        <!-- datatable -->
-			<script src="lib/datatables/jquery.dataTables.min.js"></script>
+                     <!-- datatable -->
+			<script src="lib/datatables/jquery.dataTables.min.js"></script>   
 	
 			<script>
- function modulos()
+function modulos()
 {
      $.ajax({
             url: 'operaciones/sidebar.jsp',
@@ -254,11 +253,11 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};                          
+};      
 function tabla()
 {
      $.ajax({
-        url: 'operaciones/cultivo/list_tabla.jsp',
+        url: 'operaciones/evaluador/list_tabla.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -272,7 +271,6 @@ function tabla()
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
-                                     
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
 
@@ -286,7 +284,7 @@ function tabla()
 					validClass: 'valid',
                                             submitHandler: function() {       
                                            
-                                                    var url = "operaciones/cultivo/insert.jsp"; 
+                                                    var url = "operaciones/evaluador/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -315,9 +313,9 @@ function tabla()
                                             },
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
-                                                txtDescripcion: { required: true, minlength: 3 },
-                                                txtCodigo: { required: true, minlength: 3 },
-                                                rbEstado: { required: true }
+                                          txtApellido: { required: true, minlength: 3 },
+                                          txtCodigoERP: { required: true, minlength: 3 },
+                                          rbEstado: { required: true }
 					},
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");
@@ -334,27 +332,27 @@ function tabla()
                                         
 				});
                                     function clear_form() {
-                                           $('input:radio[name=rbEstado]').attr('checked',false);
+                                          $('input:radio[name=rbEstado]').attr('checked',false);
                                           $('#txtNombre').val("");
-                                            $('#txtDescripcion').val("");
-                                        $('#txtCodigo').val("");  
-                                          $("#IdCultivo").val("0");  
+                                          $('#txtApellido').val("");
+                                          $('#txtCodigoERP').val("");  
+                                          $("#IdEvaluador").val("0");  
                                      
                                            
                                       };
-                                       function edit_form(id,nombre,descripcion,estado,codigo) {
-                                            $('#txtNombre').val(nombre);
-                                            $('#txtDescripcion').val(descripcion);
-                                            $('#IdCultivo').val(id);
-                                            $('#txtCodigo').val(codigo);
-                                            if(estado.toLowerCase()=="true")
-                                             $('input:radio[name=rbEstado]')[0].checked = true;
-                                            else
-                                              $('input:radio[name=rbEstado]')[1].checked = true;
+                                       function edit_form(id,nombre,apellido,codigo,estado) {
+                                          $('#txtNombre').val(nombre);
+                                          $('#txtApellido').val(apellido);
+                                          $('#IdEvaluador').val(id);
+                                          $('#txtCodigoERP').val(codigo);
+                                          if(estado.toLowerCase()=="true")
+                                          $('input:radio[name=rbEstado]')[0].checked = true;
+                                          else
+                                          $('input:radio[name=rbEstado]')[1].checked = true;
                                           
 
                                       };
-                                        modulos(); 
+                                       modulos(); 
                                        tabla();
 			</script>
 		

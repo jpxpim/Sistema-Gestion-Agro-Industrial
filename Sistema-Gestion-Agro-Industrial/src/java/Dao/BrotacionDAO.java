@@ -48,7 +48,7 @@ public class BrotacionDAO {
                         " JOIN CAMPANIA C ON CL.ID_CAMPANIA=C.ID_CAMPANIA\n" +
                         " JOIN LOTE L ON CL.ID_LOTE=L.ID_LOTE\n" +
                         " JOIN VARIEDAD V ON L.ID_VARIEDAD=V.ID_VARIEDAD\n" +
-                        " JOIN CULTIVO CV ON V.ID_CULTIVO=CV.ID_CULTIVO where id_brotacion="+id;
+                        " JOIN CULTIVO CV ON V.ID_CULTIVO=CV.ID_CULTIVO where  B.id_brotacion="+id;
 
 
             conn = ConexionDAO.getConnection();
@@ -143,7 +143,7 @@ public class BrotacionDAO {
                         " JOIN VARIEDAD V ON L.ID_VARIEDAD=V.ID_VARIEDAD\n" +
                         " JOIN CULTIVO CV ON V.ID_CULTIVO=CV.ID_CULTIVO";
             if(activo)
-                        sql+=" where estado=1"; 
+                        sql+=" where B.estado=1"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

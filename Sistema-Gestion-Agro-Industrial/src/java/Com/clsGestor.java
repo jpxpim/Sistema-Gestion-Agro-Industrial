@@ -216,6 +216,10 @@ public class clsGestor {
     {
         return CampaniaDAO.actualizar(entidad);
     }
+    public static List<entCampania> ListarDistintoLoteCampania(int idLote) throws Exception
+   {
+        return CampaniaDAO.ListarDistintoLote(idLote);
+    }
 // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entProductor">
@@ -250,6 +254,16 @@ public class clsGestor {
     {
         return LoteDAO.actualizar(entidad);
     }
+    
+    public static List<entLote> GraficoHectreasAnioLote() throws Exception
+    {
+        return LoteDAO.GraficoHectreasAnio();
+    }    
+    public static List<entLote> GraficoHectareasVariedadLote() throws Exception
+    {
+        return LoteDAO.GraficoHectareasVariedad();
+    }    
+     
 // </editor-fold>
      
     //<editor-fold defaultstate="collapsed" desc="entCampaniaLote">
@@ -331,5 +345,6 @@ public class clsGestor {
     }
 // </editor-fold>
     
+  
     
 }

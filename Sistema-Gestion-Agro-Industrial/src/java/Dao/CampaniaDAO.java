@@ -69,6 +69,51 @@ public class CampaniaDAO
         return lista;
     }
     
+    public static List<entCampania> ListarDistintoLote(int idLote) throws Exception
+    {
+        List<entCampania> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select id_campania ,nombre,fecha_inicio,fecha_fin,estado,"
+		      + "usuario_responsable,fecha_modificacion from campania where estado=1 and "
+		      + "id_campania not in(select id_campania from CAMPANIA_LOTE where ID_LOTE="+idLote+")";
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entCampania>();
+                
+                    entCampania entidad = new entCampania();
+                    entidad.setId_campania(dr.getInt(1));
+                    entidad.setNombre(dr.getInt(2)); 
+                    entidad.setFecha_inicio(dr.getTimestamp(3)); 
+                    entidad.setFecha_fin(dr.getTimestamp(4));
+                    entidad.setEstado(dr.getBoolean(5)); 
+                    entidad.setUsuario_responsable(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+    
     public  static int insertar(entCampania entidad) throws Exception
     {
         int rpta = 0;

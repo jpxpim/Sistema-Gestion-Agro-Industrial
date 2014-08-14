@@ -1,12 +1,12 @@
- <%@page import="Entidades.entSesion"%>
-<%@page import="Entidades.entSubSector"%>
+ <%@page import="Entidades.entEvaluador"%>
+<%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
-{
-List<entSubSector> list=clsGestor.ListarSubSector(false);
+{  
+List<entEvaluador> list=clsGestor.ListarEvaluador(false);
 if(list!=null)
 {%>
 <div id="tabla">
@@ -14,30 +14,27 @@ if(list!=null)
     <thead>
             <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Codigo Control</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Codigo ERP</th>
                     <th>Responsable</th>
-                    <th>Sector</th>
-                    <th>Grower SENASA</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
     </thead>   
-     <tbody>     
+     <tbody>       
     <%
-    for(entSubSector entidad : list)
+    for(entEvaluador entidad : list)
     {
     %>
-                                                               
+
+                                                                            
         <tr>
-            <td><%=entidad.getId_sub_sector()%></td>
+            <td><%=entidad.getId_evaluador()%></td>
             <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getDescripcion()%></td>
-            <td><%=entidad.getCodigo_control()%></td>
+            <td><%=entidad.getApellido()%></td>
+            <td><%=entidad.getCodigo_erp()%></td>
             <td><%=entidad.getUsuario_responsable()%></td>
-             <td><%=entidad.getObjSector().getNombre()%></td>
-             <td><%=entidad.getGrower_senasa()%></td>
             <td>
                  <%
                    if(entidad.getEstado())
@@ -49,11 +46,10 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_sub_sector()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getEstado()%>','<%=entidad.getGrower_senasa()%>',<%=entidad.getObjSector().getId_sector()%>,'<%=entidad.getObjSector().getNombre()%>','<%=entidad.getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_evaluador()%>,'<%=entidad.getNombre()%>','<%=entidad.getApellido()%>','<%=entidad.getCodigo_erp()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
-
     <%
     }
     %>
@@ -72,7 +68,6 @@ $(function () {
  
 });
 </script>
-
 <%} }%>  
                                                                         
                                                                        

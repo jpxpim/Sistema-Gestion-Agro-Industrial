@@ -290,7 +290,8 @@ if(objSession!=null)
 			<script src="js/gebo_wizard.js"></script>
 			<!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                        
+                        <!-- datatable -->
+			<script src="lib/datatables/jquery.dataTables.min.js"></script>
 			<script>
 function modulos()
 {

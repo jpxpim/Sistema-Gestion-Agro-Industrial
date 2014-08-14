@@ -22,6 +22,82 @@ import java.util.List;
  */
 public class LoteDAO 
 {
+   public static List<entLote> GraficoHectreasAnio() throws Exception
+    {
+        List<entLote> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select sum(L.HECTAREAS),L.ANIO_SIEMBRA from LOTE L where L.Estado=1 group by  L.ANIO_SIEMBRA ";
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entLote>();
+                //Lote
+                entLote entidad = new entLote(); 
+                entidad.setHectareas(dr.getDouble(1));
+                entidad.setAnio_siembra(dr.getInt(2));
+                lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+   
+    public static List<entLote> GraficoHectareasVariedad() throws Exception
+    {
+        List<entLote> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select sum(L.HECTAREAS),V.NOMBRE from LOTE L inner join VARIEDAD V on L.ID_VARIEDAD=V.ID_VARIEDAD where L.Estado=1 group by V.NOMBRE";
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entLote>();
+                //Lote
+                entLote entidad = new entLote(); 
+                entidad.setHectareas(dr.getDouble(1));
+                entidad.setNombre(dr.getString(2));
+                lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+    
     public static List<entLote> Listar(boolean activo) throws Exception
     {
         List<entLote> lista = null;

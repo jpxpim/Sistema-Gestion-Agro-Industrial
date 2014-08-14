@@ -224,7 +224,7 @@
             });
 		},
 		
-		fl_c : function() {
+            fl_c : function() {
 			var elem = $('#fl_c');
             
             var d1 = [
@@ -363,7 +363,6 @@
             });
             
         },
-		
         fl_d : function() {
 			
             // Setup the placeholder reference
