@@ -70,7 +70,17 @@ if(objSession==null)
 					<button class="btn btn-inverse pull-right" type="submit">Ingresar</button>
 				</div>  
 			</form>
-			
+				<!-- Modal Cargando -->	
+               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
+                
+                     <div class="modal-body">
+
+                         <h3><img src="img/ajax-loader.gif" alt="" /> 
+                       Espere un Momento ...</h3>
+                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
+                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
+                     </div>
+                </div>    	
 			
 		</div>
 		
@@ -96,7 +106,7 @@ if(objSession==null)
 						password: { required: true }
 					},
                                         submitHandler: function() {                                        
-
+                                             $("#abrirCarga").click();
                                             var url = "operaciones/usuario/login.jsp"; 
 
                                             $.ajax({
@@ -105,6 +115,7 @@ if(objSession==null)
                                                    data: $("#login_form").serialize(), 
                                                    success: function(data)
                                                    {
+                                                        $("#cerrarCarga").trigger("click");
                                                        if(data==2)
                                                        {
                                                             window.location='intranet.jsp'; 
