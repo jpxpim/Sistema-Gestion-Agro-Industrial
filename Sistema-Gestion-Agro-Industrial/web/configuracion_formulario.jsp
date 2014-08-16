@@ -166,7 +166,7 @@ if(objSession!=null)
 												<div class="formSep">
                                                                                                         <div class="input-prepend">
                                                                                                             <di id='Formulario'>
-                                                                                                                  <blockquote ><p>Módulo</p><blockquote><p>Cabesera</p><blockquote><p>Formulario</p></blockquote></blockquote></blockquote>
+                                                                                                                  <blockquote ><p>Módulo</p><blockquote><p>Cabecera</p><blockquote><p>Formulario</p></blockquote></blockquote></blockquote>
                                                                                                             </di>
                                                                                                         </div>
                                                                                                         <div class="input-prepend">
@@ -176,8 +176,8 @@ if(objSession!=null)
                                                                                                         </select>
                                                                                                         </div> 
                                                                                                         <div class="input-prepend">
-                                                                                                        <label>Cabesera</label>
-                                                                                                        <select id="cbFormulario" name="cbFormulario" title="Por favor selecione un Cabesera!" required>
+                                                                                                        <label>Cabecera</label>
+                                                                                                        <select id="cbFormulario" name="cbFormulario" title="Por favor selecione un Cabecera!" required>
                                                                                                             <option value="">Selecione una Opción</option>                                                                                                           
                                                                                                         </select>
                                                                                                         </div> 
@@ -457,7 +457,7 @@ function getFormulario(id,formulario,idpadre,padre,modulo)
                                           $("#IdFormulario").val("");  
                                           $("select#cbModuloFormulario").val('0'); 
                                           $("select#cbModulo").val('0'); 
-                                          $('#Formulario').html("<di id='Formulario'> <blockquote ><p>Módulo</p><blockquote><p>Cabesera</p><blockquote><p>Formulario</p></blockquote></blockquote></blockquote></div>");
+                                          $('#Formulario').html("<di id='Formulario'> <blockquote ><p>Módulo</p><blockquote><p>Cabecera</p><blockquote><p>Formulario</p></blockquote></blockquote></blockquote></div>");
                                           $('#cbFormulario').html('<select id="cbFormulario" name="cbFormulario" title="Por favor selecione una Cabecera!" required><option value="">Selecione una Opción</option></select>');
                                           $('#getModulo').html('<div id="getModulo"></div>');
                                            
