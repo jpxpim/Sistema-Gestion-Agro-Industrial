@@ -48,8 +48,6 @@ if(list!=null)
             </td>
         </tr>
 
-    </tbody>
-
 
     <%
     }
