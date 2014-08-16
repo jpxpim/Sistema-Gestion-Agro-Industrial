@@ -20,7 +20,6 @@ if(list!=null)
                     <th>Fecha de Poda</th>
                     <th>Lote</th>
                     <th>Campaña</th>
-                    <th>Responsable</th>
                     <th>Acciones</th>
             </tr>
     </thead>   
@@ -36,7 +35,6 @@ if(list!=null)
             <td><%=fecha.format(entidad.getFechaPodaFormacion())%></td>
             <td><%=entidad.getObjLote().getNombre()%></td>
             <td><%=entidad.getObjCampania().getNombre()%></td>
-            <td><%=entidad.getUsuario_responsable()%></td>
             <td>
                 <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_campania_lote()%>,'<%=entidad.getNumero_plantas()%>','<%=fecha.format(entidad.getFechaPodaFormacion())%>',<%=entidad.getObjLote().getId_lote()%>,'<%=entidad.getObjLote().getNombre()%>',<%=entidad.getObjCampania().getId_campania()%>,'<%=entidad.getObjCampania().getNombre()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
@@ -54,7 +52,7 @@ if(list!=null)
 $(function () { 
 
    $('#lista').dataTable({
-                                           "sDom": "<'row'<'span3'><'span3'f>r>t<'row'<'span3'i><'span3'>S>",
+                                           "sDom": "<'row'<'span2'><'span2'f>r>t<'row'<'span2'i><'span2'>S>",
                                             "sScrollY": "200px",
                                             "bDestroy": true,
                                             "bDeferRender": true

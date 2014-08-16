@@ -13,7 +13,7 @@ package Entidades;
 public class entDetalleBrotacion 
 {
     private int id_det_brotacion;
-    private int id_brotacion;
+    private int id_cabecera_brotacion;
     private int posicion;
     private int num_1;
     private int num_2;
@@ -38,14 +38,15 @@ public class entDetalleBrotacion
         this.id_det_brotacion = id_det_brotacion;
     }
 
-    public int getId_brotacion() {
-        return id_brotacion;
+    public int getId_cabecera_brotacion() {
+        return id_cabecera_brotacion;
     }
 
-    public void setId_brotacion(int id_brotacion) {
-        this.id_brotacion = id_brotacion;
+    public void setId_cabecera_brotacion(int id_cabecera_brotacion) {
+        this.id_cabecera_brotacion = id_cabecera_brotacion;
     }
 
+    
     public int getPosicion() {
         return posicion;
     }

@@ -43,7 +43,7 @@ public class DetalleBrotacionDAO
                 
                     entDetalleBrotacion entidad = new entDetalleBrotacion();
                     entidad.setId_det_brotacion(dr.getInt(1));
-                    entidad.setId_brotacion(dr.getInt(2));
+//                    entidad.setId_brotacion(dr.getInt(2));
                     entidad.setPosicion(dr.getInt(3));
                     entidad.setNum_1(dr.getInt(4));
                     entidad.setNum_2(dr.getInt(5));
@@ -87,7 +87,7 @@ public class DetalleBrotacionDAO
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, entidad.getId_brotacion());
+//            stmt.setInt(1, entidad.getId_brotacion());
             stmt.setInt(2, entidad.getPosicion());
             stmt.setInt(3, entidad.getNum_1());
             stmt.setInt(4, entidad.getNum_2());
@@ -135,7 +135,7 @@ public class DetalleBrotacionDAO
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
-            stmt.setInt(1, entidad.getId_brotacion());
+//            stmt.setInt(1, entidad.getId_brotacion());
             stmt.setInt(2, entidad.getPosicion());
             stmt.setInt(3, entidad.getNum_1());
             stmt.setInt(4, entidad.getNum_2());

@@ -85,11 +85,11 @@ if(objSession!=null)
 						<div class="span12">
 							<div class="row-fluid">
 								<div class="span6">
-									<h3 class="heading">Número de Hectareas por Año de Siembra</h3>  
+									<h3 class="heading">Número de Hecatareas por Año de Siembra</h3>  
                                                                <div id="barras_hectareas_anio"></div>
 								</div>	
 								<div class="span6">
-                                                              <h3 class="heading">Porcentaje de Hectareas por Variedad</h3>  
+                                                              <h3 class="heading">Porcentaje de Hecatareas por Vareidad</h3>  
                                                               <div id="pie_hectareas_variedad"></div>
                                                               
 								</div>

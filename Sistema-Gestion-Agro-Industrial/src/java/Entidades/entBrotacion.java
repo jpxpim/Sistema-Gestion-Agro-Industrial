@@ -18,16 +18,16 @@ public class entBrotacion
     private int id_brotacion;
     private entCampaniaLote objCampaniaLote;
     private entEvaluador objEvaluador;
-    private int num_hilera;
-    private int num_planta;
-    private int num_salida_planta;
-    private int num_cargador_planta;
     private Boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
-    private List<entDetalleBrotacion> list;
+    private List<entCabeceraBrotacion> list;
+
+    public entBrotacion() {
+        this.list = null;
+    }
     
-    public entBrotacion(){}
+  
 
     public int getId_brotacion() {
         return id_brotacion;
@@ -53,39 +53,7 @@ public class entBrotacion
         this.objEvaluador = objEvaluador;
     }
 
-    public int getNum_hilera() {
-        return num_hilera;
-    }
-
-    public void setNum_hilera(int num_hilera) {
-        this.num_hilera = num_hilera;
-    }
-
-    public int getNum_planta() {
-        return num_planta;
-    }
-
-    public void setNum_planta(int num_planta) {
-        this.num_planta = num_planta;
-    }
-
-    public int getNum_salida_planta() {
-        return num_salida_planta;
-    }
-
-    public void setNum_salida_planta(int num_salida_planta) {
-        this.num_salida_planta = num_salida_planta;
-    }
-
-    public int getNum_cargador_planta() {
-        return num_cargador_planta;
-    }
-
-    public void setNum_cargador_planta(int num_cargador_planta) {
-        this.num_cargador_planta = num_cargador_planta;
-    }
-
-    public Boolean getEstado() {
+    public Boolean isEstado() {
         return estado;
     }
 
@@ -109,13 +77,12 @@ public class entBrotacion
         this.fecha_modificacion = fecha_modificacion;
     }
 
-    public List<entDetalleBrotacion> getList() {
+    public List<entCabeceraBrotacion> getList() {
         return list;
     }
 
-    public void setList(List<entDetalleBrotacion> list) {
+    public void setList(List<entCabeceraBrotacion> list) {
         this.list = list;
     }
-    
-    
+
 }

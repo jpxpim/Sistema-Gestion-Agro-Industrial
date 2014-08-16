@@ -17,7 +17,6 @@ if(list!=null)
                     <th>Nombre</th>
                     <th>Descripcion</th>
                     <th>Codigo Control</th>
-                    <th>Responsable</th>
                     <th>Cultivo</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -35,7 +34,6 @@ if(list!=null)
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getDescripcion()%></td>
              <td><%=entidad.getCodigo_control()%></td>
-            <td><%=entidad.getUsuario_responsable()%></td>
              <td><%=entidad.getObjCultivo().getNombre()%></td>
             <td>
                  <%
@@ -66,7 +64,7 @@ if(list!=null)
 $(function () { 
 
    $('#lista').dataTable({
-                                           "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+                                           "sDom": "<'row'<'span2'><'span2'f>r>t<'row'<'span2'i><'span2'>S>",
                                             "sScrollY": "200px",
                                             "bDestroy": true,
                                             "bDeferRender": true

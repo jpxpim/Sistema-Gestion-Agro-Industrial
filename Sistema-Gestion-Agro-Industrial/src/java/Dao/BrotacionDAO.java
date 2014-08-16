@@ -97,14 +97,14 @@ public class BrotacionDAO {
                     //Analisis_Yemas
                     entBrotacion entidad = new entBrotacion();
                     entidad.setId_brotacion(dr.getInt(1));
-                    entidad.setNum_hilera(dr.getInt(2)); 
-                    entidad.setNum_planta(dr.getInt(3)); 
-                    entidad.setNum_salida_planta(dr.getInt(4)); 
-                    entidad.setNum_cargador_planta(dr.getInt(5));                     
-                    entidad.setEstado(dr.getBoolean(6)); 
-                    entidad.setUsuario_responsable(dr.getString(7)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(8)); 
-                    entidad.setList(DetalleBrotacionDAO.ListarPorBrotacion(dr.getInt(1)));
+//                    entidad.setNum_hilera(dr.getInt(2)); 
+//                    entidad.setNum_planta(dr.getInt(3)); 
+//                    entidad.setNum_salida_planta(dr.getInt(4)); 
+//                    entidad.setNum_cargador_planta(dr.getInt(5));                     
+//                    entidad.setEstado(dr.getBoolean(6)); 
+//                    entidad.setUsuario_responsable(dr.getString(7)); 
+//                    entidad.setFecha_modificacion(dr.getTimestamp(8)); 
+//                    entidad.setList(DetalleBrotacionDAO.ListarPorBrotacion(dr.getInt(1)));
             }
 
         } catch (Exception e) {
@@ -193,15 +193,15 @@ public class BrotacionDAO {
                     //Analisis_Yemas
                     entBrotacion entidad = new entBrotacion();
                     entidad.setId_brotacion(dr.getInt(1));
-                    entidad.setNum_hilera(dr.getInt(2)); 
-                    entidad.setNum_planta(dr.getInt(3)); 
-                    entidad.setNum_salida_planta(dr.getInt(4)); 
-                    entidad.setNum_cargador_planta(dr.getInt(5));                     
-                    entidad.setEstado(dr.getBoolean(6)); 
-                    entidad.setUsuario_responsable(dr.getString(7)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(8)); 
-                    entidad.setList(DetalleBrotacionDAO.ListarPorBrotacion(dr.getInt(1)));
-                    lista.add(entidad);
+//                    entidad.setNum_hilera(dr.getInt(2)); 
+//                    entidad.setNum_planta(dr.getInt(3)); 
+//                    entidad.setNum_salida_planta(dr.getInt(4)); 
+//                    entidad.setNum_cargador_planta(dr.getInt(5));                     
+//                    entidad.setEstado(dr.getBoolean(6)); 
+//                    entidad.setUsuario_responsable(dr.getString(7)); 
+//                    entidad.setFecha_modificacion(dr.getTimestamp(8)); 
+//                    entidad.setList(DetalleBrotacionDAO.ListarPorBrotacion(dr.getInt(1)));
+//                    lista.add(entidad);
             }
 
         } catch (Exception e) {
@@ -233,11 +233,11 @@ public class BrotacionDAO {
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjCampaniaLote().getId_campania_lote());
             stmt.setInt(2, entidad.getObjEvaluador().getId_evaluador());
-            stmt.setInt(3, entidad.getNum_hilera());
-            stmt.setInt(4, entidad.getNum_planta());
-            stmt.setInt(5, entidad.getNum_salida_planta());
-            stmt.setInt(6, entidad.getNum_cargador_planta());
-            stmt.setBoolean(7, entidad.getEstado());
+//            stmt.setInt(3, entidad.getNum_hilera());
+//            stmt.setInt(4, entidad.getNum_planta());
+//            stmt.setInt(5, entidad.getNum_salida_planta());
+//            stmt.setInt(6, entidad.getNum_cargador_planta());
+//            stmt.setBoolean(7, entidad.getEstado());
             stmt.setString(8, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -273,11 +273,11 @@ public class BrotacionDAO {
             stmt = conn.prepareCall(sql); 
             stmt.setInt(1, entidad.getObjCampaniaLote().getId_campania_lote());
             stmt.setInt(2, entidad.getObjEvaluador().getId_evaluador());
-            stmt.setInt(3, entidad.getNum_hilera());
-            stmt.setInt(4, entidad.getNum_planta());
-            stmt.setInt(5, entidad.getNum_salida_planta());
-            stmt.setInt(6, entidad.getNum_cargador_planta());
-            stmt.setBoolean(7, entidad.getEstado());
+//            stmt.setInt(3, entidad.getNum_hilera());
+//            stmt.setInt(4, entidad.getNum_planta());
+//            stmt.setInt(5, entidad.getNum_salida_planta());
+//            stmt.setInt(6, entidad.getNum_cargador_planta());
+//            stmt.setBoolean(7, entidad.getEstado());
             stmt.setString(8, entidad.getUsuario_responsable());
             stmt.setInt(9,entidad.getId_brotacion());
                 

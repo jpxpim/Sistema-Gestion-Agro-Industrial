@@ -14,7 +14,7 @@ int size=list.size();
 <script type="text/javascript">
 $(function () { 
    
-   var data = {  label: "Has.",  
+   var data = {  label: "Años",  
     data:   [  
         <% for(int i=0;i<size;i++)
         {
