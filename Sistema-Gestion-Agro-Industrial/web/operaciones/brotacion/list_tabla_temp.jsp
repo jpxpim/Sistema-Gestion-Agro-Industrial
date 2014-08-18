@@ -1,3 +1,4 @@
+<%@page import="Com.Operaciones"%>
 <%@page import="Entidades.entEvaluador"%>
 <%@page import="Entidades.entCampaniaLote"%>
 <%@page import="java.util.List"%>
@@ -11,6 +12,12 @@ if(objSession!=null)
 {  
 if(request.getParameter("posicion") != null && request.getParameter("posicion") != "" )
 {
+ int sum1=0;
+ int sum2=0;
+ int sum3=0;
+ int total1=0;
+ int total2=0;
+ int total3=0;
  String Titulo="Grabar";
  String Boton="Limpiar";
  String nEvaluador="Nombre";   
@@ -90,7 +97,8 @@ int pos = Integer.parseInt(request.getParameter("posicion"))-1;
         <th>13</th>
         <th>14</th>
         <th>15</th>
-        <th>16</th>
+        <th>Sumas</th>
+        <th>Acciones</th>
 
 </tr>
 </thead>  
@@ -468,7 +476,7 @@ if(pos==i)
 
     </table>
 </td>
-
+<td> </td>
 <td>
 
     <button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button><br><br>
@@ -491,7 +499,11 @@ if(pos==i)
 
 
 <%for(entDetalleBrotacion entidad : objSession.getObjBotacion().getList().get(i).getList())
-{%>
+{
+sum1+=entidad.getNum_1()+entidad.getNum_2()+entidad.getNum_3()+entidad.getNum_4();
+sum2+=entidad.getNum_5()+entidad.getNum_6()+entidad.getNum_7()+entidad.getNum_8();
+sum3+=entidad.getNum_9()+entidad.getNum_10()+entidad.getNum_11()+entidad.getNum_12();
+%>
         
 <td>
     <table class="table table-bordered table-striped table_vam">
@@ -517,7 +529,44 @@ if(pos==i)
     </table>
 </td>
 <%}%>
+<td>
+    <table class="table table-bordered table-striped table_vam">
+        <tr>
+            <td>
+                <%=sum1%>
+            </td>
+             <td>
+                
+            </td>
+             <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+               
+            </td>
+             <td>
+                <%=sum2%>
+            </td>
+             <td>
+               
+            </td>
+        </tr>
+        <tr>
+            <td>
+              
+            </td>
+             <td>
+                
+            </td>
+             <td>
+                <%=sum3%>
+            </td>
+        </tr>
 
+    </table>
+</td>
 <td>
 <button class="comp_edit btn btn-warning btn-mini" onclick="tablaTemp(<%=(i+1)%>)" type="button">Editar</button>
 </td>
@@ -525,6 +574,12 @@ if(pos==i)
 </tr> 
 <%
 }
+total1+=sum1;
+total2+=sum2;
+total3+=sum3;
+ sum1=0;
+ sum2=0;
+ sum3=0;
 }
 if(pos==-1){
 %>  
@@ -894,7 +949,7 @@ if(pos==-1){
 
     </table>
 </td>
-
+<td> </td>
 <td>
 
     <button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button><br><br>
@@ -907,6 +962,7 @@ if(pos==-1){
 }
 %>
 
+
 </tbody>
 
 </table>
@@ -914,25 +970,112 @@ if(pos==-1){
 </form>
 
 </div>
-
+      
 </div>
 
 <%
 if(objSession.getObjBotacion()!=null)
 {
+   double pocentaje1=((double)total2/(double)total1)*100;
+   double pocentaje2=((double)total3/(double)total2)*100;
 %>
-
 <div class="row-fluid">
-    <div class="span12">
-         <form  method="get" id="reg_form">
-            <div class="row-fluid">
-                <div class="span3"></div>
-                    <div class="span4">
-                        <h3 class="heading"><%=Titulo%> Brotación</h3>  
+    <div class="span4">	
+           <table class="table table-bordered table-striped table_vam" >
+            <thead>
+            <tr>
+                <th>Detalle</th>
+                <th>T1</th>
+                <th>T2</th>
+                <th>T3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                   Suma
+                </td>
+                <td >
+                    <%=total1%>
+                </td>
+                 <td>
+                    <%=total2%>
+                </td>
+                 <td>
+                    <%=total3%>
+                </td>
+            </tr>
+            <tr>
+                 <td colspan="2">
+                   % Botación
+                    
+                </td>
+                 <td>
+                     <%=Operaciones.Redondear(pocentaje1,2)%>%
+                </td>
+                 <td>
+                    <%=Operaciones.Redondear(pocentaje2,2)%>%
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                   Total
+                </td>
+                <td>
+                    <%=Operaciones.Redondear(pocentaje1+pocentaje2,2)%>%
+                </td>
+            </tr>
+             
+            </tbody>
+    </table>
+        <table class="table table-bordered table-striped table_vam" >
+            <thead>
+            <tr>
+                <th colspan="2"> Botacion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                   N°  YEMAS TOTALES
+                </td>
+                <td >
+                   T1
+                </td>
+            </tr>
+            <tr>
+                <td>
+                  N°DE BROTES EN MADERA NUEVA(CARGADORES)
+                </td>
+                <td >
+                   T2
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   N° DE BROTES DE MADERA VIEJA
+                </td>
+                <td >
+                   T3
+                </td>
+            </tr>
+          
+        
+             
+            </tbody>
+    </table>
+   
+    </div> 
+    <div class="span2">	
+      
+    </div>	
+      <div class="span4">                       
                             <div class="row-fluid" id="g-map-top">
-                                    <div class="span12">                                                                      
+                                    <div class="span12">   
+                                             <form  method="get" id="reg_form">
                                                   <div class="location_add_form well">
                                                       <div class="formSep">
+                                                          <h3 class="heading"><%=Titulo%> Brotación</h3>  
                                                           <div class="input-prepend">
                                                             <di id='Evaluador'>
                                                                   <blockquote >
@@ -985,15 +1128,13 @@ if(objSession.getObjBotacion()!=null)
                                                         %>
                                                         
                                                  </div>
+                                            </form>
                                     </div>
                             </div>
                     </div>
-
-
-            </div>
-         </form>
-    </div>
 </div>
+   
+
 
 <%
 }
