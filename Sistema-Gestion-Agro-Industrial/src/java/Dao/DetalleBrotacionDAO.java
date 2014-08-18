@@ -29,7 +29,7 @@ public class DetalleBrotacionDAO
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql=" select id_det_brotacion, id_brotacion, posicion, num_1,num_2,num_3,num_4,num_5,num_6,num_7,num_8,num_9,num_10,num_11,num_12\n" +
+            String sql=" select id_det_brotacion, id_cabecera_brotacion , posicion, num_1,num_2,num_3,num_4,num_5,num_6,num_7,num_8,num_9,num_10,num_11,num_12\n" +
                         " from DET_BROTACION where id_det_brotacion ="+idBrotacion;
             
             conn = ConexionDAO.getConnection();
@@ -43,7 +43,7 @@ public class DetalleBrotacionDAO
                 
                     entDetalleBrotacion entidad = new entDetalleBrotacion();
                     entidad.setId_det_brotacion(dr.getInt(1));
-//                    entidad.setId_brotacion(dr.getInt(2));
+                    entidad.setId_cabecera_brotacion(dr.getInt(2));
                     entidad.setPosicion(dr.getInt(3));
                     entidad.setNum_1(dr.getInt(4));
                     entidad.setNum_2(dr.getInt(5));

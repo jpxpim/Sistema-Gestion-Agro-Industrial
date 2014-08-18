@@ -641,6 +641,12 @@ if(objSession!=null)
          
         if(pos>=0)
         {
+            if(objSession.getObjBotacion().getId_brotacion()>0)
+            {
+                entidad.setSeleccion(true);
+                entidad.setId_cabecera_brotacion(objSession.getObjBotacion().getList().get(pos).getId_cabecera_brotacion());
+            }
+            
             objSession.getObjBotacion().getList().remove(pos);
             objSession.getObjBotacion().getList().add(pos, entidad);
         }

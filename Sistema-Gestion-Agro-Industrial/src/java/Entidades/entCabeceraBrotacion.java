@@ -16,14 +16,16 @@ public class entCabeceraBrotacion
 {    
     private int id_cabecera_brotacion;
     private int id_brotacion;
+    private int posicion;
     private int num_hilera;
     private int num_planta;
     private int num_salida_planta;
     private int num_cargador_planta;
     private List<entDetalleBrotacion> list;
-
+    private Boolean seleccion; 
     public entCabeceraBrotacion() {
         this.list = null;
+        this.seleccion=false;
     }
     
     
@@ -84,6 +86,20 @@ public class entCabeceraBrotacion
         this.list = list;
     }
 
+    public Boolean isSeleccion() {
+        return seleccion;
+    }
 
-    
+    public void setSeleccion(Boolean seleccion) {
+        this.seleccion = seleccion;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
 }

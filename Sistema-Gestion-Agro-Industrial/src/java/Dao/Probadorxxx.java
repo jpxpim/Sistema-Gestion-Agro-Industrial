@@ -41,7 +41,7 @@ public class Probadorxxx {
         entidad.setObjUSuario(new entUsuario(2) );
         entidad.setObjFormulario(new entFormulario(8,7));
         entidad.setUsuario_responsable("sdas");
-        System.out.print(""+FormularioUsuarioDAO.eliminar(entidad));
+        System.out.print(""+BrotacionDAO.BuscarPorId(22).getList().get(0).getList().size());
     }
     
 }

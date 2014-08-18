@@ -128,55 +128,55 @@ if(objSession!=null)
                     </nav>
                 
                     <div class="row-fluid">
-						<div class="span12">
-							<div class="row-fluid">
-								<div class="span4">
-									<div class="row-fluid" id="g-map-top">
-										<div class="span12">
-											  <form  method="get" id="reg_form">
-                                                                                              <div class="location_add_form well">
-												<div class="formSep">
-                                                                                                        <div class="input-prepend">
-													<label>Nombre</label>
-                                                                                                        <input type="text" class="span10" id="txtNombre" name="txtNombre" />
-                                                                                                        </div>
-                                                                                                        <div class="input-prepend">
-													<label>Descripcion</label>
-													<input type="text" class="span10" id="txtDescripcion"  name="txtDescripcion" />
-                                                                                                         </div> 
-                                                                                                        <div class="input-prepend">
-													<label>Codigo de Control</label>
-													<input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
-                                                                                                         </div>  
-                                                                                                         <div class="input-prepend">
-													<label>Estado</label>
-													<label class="radio inline">
-                                                                                                        <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
-                                                                                                            Activo
-                                                                                                        </label>
-                                                                                                        <label class="radio inline">
-                                                                                                                <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                                                Desactivado
-                                                                                                        </label>
-                                                                                                         </div>
-                                                                                                    <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
-                                                                                                        
-												</div>
-                                                                                                <button class="btn btn-invert" type="submit">Grabar</button>
-                                                                                                
-                                                                                                <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
-											</div>
-                                                                                    
-                                                                                    
-                                                                                    </form>
-										</div>
-									</div>
-								</div>	
-								<div class="span8">
-                                                                    <div id="tabla"></div>
-								</div>
-							</div>
-						</div>
+                            <div class="span12">
+                                    <div class="row-fluid">
+                                            <div class="span4">
+                                                    <div class="row-fluid" id="g-map-top">
+                                                            <div class="span12">
+                                                                      <form  method="get" id="reg_form">
+                                                                          <div class="location_add_form well">
+                                                                            <div class="formSep">
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Nombre</label>
+                                                                                    <input type="text" class="span10" id="txtNombre" name="txtNombre" />
+                                                                                    </div>
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Descripcion</label>
+                                                                                    <input type="text" class="span10" id="txtDescripcion"  name="txtDescripcion" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Codigo de Control</label>
+                                                                                    <input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
+                                                                                     </div>  
+                                                                                     <div class="input-prepend">
+                                                                                    <label>Estado</label>
+                                                                                    <label class="radio inline">
+                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                        Activo
+                                                                                    </label>
+                                                                                    <label class="radio inline">
+                                                                                            <input type="radio" value="0" id="rbEstado" name="rbEstado" />
+                                                                                            Desactivado
+                                                                                    </label>
+                                                                                     </div>
+                                                                                <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
+
+                                                                            </div>
+                                                                            <button class="btn btn-invert" type="submit">Grabar</button>
+
+                                                                            <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
+                                                                    </div>
+
+
+                                                                </form>
+                                                            </div>
+                                                    </div>
+                                            </div>	
+                                            <div class="span8">
+                                                <div id="tabla"></div>
+                                            </div>
+                                    </div>
+                            </div>
                         </div>
 	
                <!-- Modal Cargando -->	

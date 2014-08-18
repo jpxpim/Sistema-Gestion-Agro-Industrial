@@ -345,6 +345,25 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entBrotacion">
+    public  static int insertarBrotacion(entBrotacion entidad) throws Exception
+    {
+        return BrotacionDAO.insertar(entidad);
+    }
+    public static boolean actualizarBrotacion(entBrotacion entidad) throws Exception
+    {
+        return BrotacionDAO.actualizar(entidad);
+    }
+    public static List<entBrotacion> ListarBrotacion(boolean activo) throws Exception
+    {
+        return BrotacionDAO.Listar(activo);
+    }
+    public static entBrotacion BuscarPorIdBrotacion(int id) throws Exception
+    {
+        return BrotacionDAO.BuscarPorId(id);
+    }
+// </editor-fold>
+    
   
     
 }

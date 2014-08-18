@@ -126,20 +126,8 @@ if(objSession!=null)
                             </ul>
                         </div>
                     </nav>
-                
-                    <div class="row-fluid">
-						<div class="span12">
-									<div class="row-fluid" id="g-map-top">
-										<div class="span12">
-                                                                                                                                                                              
-                                                                                    <div id="tabla"></div>
-                                                                               
-										</div>
-									</div>
-						</div>
-                        </div>
-	
-               <!-- Modal Cargando -->	
+                            <div id="frane"></div>
+             <!-- Modal Cargando -->	
                <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
                 
                      <div class="modal-body">
@@ -190,7 +178,9 @@ if(objSession!=null)
 			<script src="lib/smoke/smoke.js"></script>
                         <!-- datatable -->
 			<script src="lib/datatables/jquery.dataTables.min.js"></script>
-	
+                            <!-- sortable/filterable list -->
+            <script src="lib/list_js/list.min.js"></script>
+            <script src="lib/list_js/plugins/paging/list.paging.min.js"></script>
 			<script>
 
  function modulos()
@@ -226,14 +216,52 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};                           
+};
+function editar(id)
+{
+     $("#abrirCarga").click();
+     $.ajax({
+            url: 'operaciones/brotacion/buscar.jsp?id='+id,
+            type: 'POST',
+            success: function () {  
+                $.ajax({
+                    url: 'operaciones/brotacion/list_tabla_temp.jsp?posicion=0',
+                    type: 'POST',
+                    success: function (data) {     
+                             $('#frane').html(data);
+                    },
+                    contentType: false,
+                    processData: false
+                });      
+            },
+            contentType: false,
+            processData: false
+        });
+
+     
+ };
 function tablaTemp(pos)
 {
+    $("#abrirCarga").click(); 
      $.ajax({
         url: 'operaciones/brotacion/list_tabla_temp.jsp?posicion='+pos,
         type: 'POST',
         success: function (data) {     
-                 $('#tabla').html(data);
+                 $('#frane').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+ function tabla()
+{
+    
+     $.ajax({
+        url: 'operaciones/brotacion/list_tabla.jsp?',
+        type: 'POST',
+        success: function (data) {     
+                 $('#frane').html(data);
+                 $("#cerrarCarga").trigger("click");
         },
         contentType: false,
         processData: false
@@ -241,7 +269,7 @@ function tablaTemp(pos)
  };
                               
                            modulos(); 
-                                      tablaTemp(0);
+                                      tabla();
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
@@ -251,18 +279,6 @@ function tablaTemp(pos)
                                         
 				});
                                 
-                                       function edit_form(id,nombre,descripcion,codigo,estado) {
-                                            $('#txtNombre').val(nombre);
-                                            $('#txtDescripcion').val(descripcion);
-                                            $('#IdVivero').val(id);
-                                             $('#txtCodigo').val(codigo);
-                                            if(estado.toLowerCase()=="true")
-                                             $('input:radio[name=rbEstado]')[0].checked = true;
-                                            else
-                                              $('input:radio[name=rbEstado]')[1].checked = true;
-                                          
-
-                                      };
                                  
 			</script>
 		

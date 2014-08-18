@@ -18,11 +18,12 @@ public class entBrotacion
     private int id_brotacion;
     private entCampaniaLote objCampaniaLote;
     private entEvaluador objEvaluador;
+    private Date fecha_registro;
     private Boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
     private List<entCabeceraBrotacion> list;
-
+    
     public entBrotacion() {
         this.list = null;
     }
@@ -84,5 +85,14 @@ public class entBrotacion
     public void setList(List<entCabeceraBrotacion> list) {
         this.list = list;
     }
+
+    public Date getFecha_registro() {
+        return fecha_registro;
+    }
+
+    public void setFecha_registro(Date fecha_registro) {
+        this.fecha_registro = fecha_registro;
+    }
+
 
 }
