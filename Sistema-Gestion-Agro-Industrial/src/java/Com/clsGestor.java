@@ -364,6 +364,25 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entDesbrote">
+    public  static int insertarDesbrote(entDesbrote entidad) throws Exception
+    {
+        return DesbroteDAO.insertar(entidad);
+    }
+    public static boolean actualizarDesbrote(entDesbrote entidad) throws Exception
+    {
+        return DesbroteDAO.actualizar(entidad);
+    }
+    public static List<entDesbrote> ListarDesbrote(boolean activo) throws Exception
+    {
+        return DesbroteDAO.Listar(activo);
+    }
+    public static entDesbrote BuscarPorIdDesbrote(int id) throws Exception
+    {
+        return DesbroteDAO.BuscarPorId(id);
+    }
+// </editor-fold>
+    
   
     
 }

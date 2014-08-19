@@ -12,7 +12,7 @@ package Entidades;
  */
 public class entDetalleDesbrote {
     private int id_det_desbrote;
-    private int id_desbrote;
+    private int id_cabecera_desbrote;
     private int posicion;
     private int num_1;
     private int num_2;
@@ -40,12 +40,12 @@ public class entDetalleDesbrote {
         this.id_det_desbrote = id_det_desbrote;
     }
 
-    public int getId_desbrote() {
-        return id_desbrote;
+    public int getId_cabecera_desbrote() {
+        return id_cabecera_desbrote;
     }
 
-    public void setId_desbrote(int id_desbrote) {
-        this.id_desbrote = id_desbrote;
+    public void setId_cabecera_desbrote(int id_cabecera_desbrote) {
+        this.id_cabecera_desbrote = id_cabecera_desbrote;
     }
 
     public int getPosicion() {

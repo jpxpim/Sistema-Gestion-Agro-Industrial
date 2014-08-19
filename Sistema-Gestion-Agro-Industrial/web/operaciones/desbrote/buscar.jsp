@@ -3,17 +3,20 @@
 <%@page import="Entidades.entCampaniaLote"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entBrotacion"%>
+<%@page import="Entidades.entDesbrote"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-        if(request.getParameter("id") != null && request.getParameter("id") != "")
+        if(request.getParameter("id") != null && request.getParameter("id") != "" &&
+           request.getParameter("tipo") != null && request.getParameter("tipo") != "")
         {
-            entBrotacion entidad = clsGestor.BuscarPorIdBrotacion(Integer.parseInt(request.getParameter("id")));
+            entDesbrote entidad = clsGestor.BuscarPorIdDesbrote(Integer.parseInt(request.getParameter("id")));
+            if(request.getParameter("tipo").equals("0"))
+                entidad.setSeleccion(true);
             if(entidad!=null)
             {
-                objSession.setObjBrotacion(entidad);
+                objSession.setObjDesbrote(entidad);
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("SessionUsuario", objSession);
                 sesion.setMaxInactiveInterval(-1);

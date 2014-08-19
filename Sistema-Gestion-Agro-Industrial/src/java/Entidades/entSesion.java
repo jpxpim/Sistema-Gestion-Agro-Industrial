@@ -16,7 +16,8 @@ public class entSesion {
 
     private int posicion;
     private entUsuario objUsuario;
-    private entBrotacion objBotacion;
+    private entBrotacion objBrotacion;
+    private entDesbrote objDesbrote;
     List<entModulo> listModulos;
     
     public entSesion() {
@@ -49,12 +50,22 @@ public class entSesion {
         this.posicion = posicion;
     }
 
-    public entBrotacion getObjBotacion() {
-        return objBotacion;
+    public entBrotacion getObjBrotacion() {
+        return objBrotacion;
     }
 
-    public void setObjBotacion(entBrotacion objBotacion) {
-        this.objBotacion = objBotacion;
+    public void setObjBrotacion(entBrotacion objBrotacion) {
+        this.objBrotacion = objBrotacion;
+    }
+
+
+
+    public entDesbrote getObjDesbrote() {
+        return objDesbrote;
+    }
+
+    public void setObjDesbrote(entDesbrote objDesbrote) {
+        this.objDesbrote = objDesbrote;
     }
 
    

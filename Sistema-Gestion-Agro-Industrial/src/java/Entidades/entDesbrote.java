@@ -18,14 +18,17 @@ public class entDesbrote
     private int id_desbrote;
     private entCampaniaLote objCampaniaLote;
     private entEvaluador objEvaluador;
-    private int num_hilera;
-    private int num_planta;
-    private int num_salida_planta;
-    private int num_cargador_planta;
+    private Date fecha_registro;
     private Boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
-    private List<entDetalleDesbrote> list;
+    private Boolean seleccion; 
+    private List<entCabeceraDesbrote> list;
+    
+    public entDesbrote() {
+        this.list = null;
+        this.seleccion = false;
+    }
 
     public int getId_desbrote() {
         return id_desbrote;
@@ -34,6 +37,15 @@ public class entDesbrote
     public void setId_desbrote(int id_desbrote) {
         this.id_desbrote = id_desbrote;
     }
+
+    public List<entCabeceraDesbrote> getList() {
+        return list;
+    }
+
+    public void setList(List<entCabeceraDesbrote> list) {
+        this.list = list;
+    }
+    
 
     public entCampaniaLote getObjCampaniaLote() {
         return objCampaniaLote;
@@ -49,38 +61,6 @@ public class entDesbrote
 
     public void setObjEvaluador(entEvaluador objEvaluador) {
         this.objEvaluador = objEvaluador;
-    }
-
-    public int getNum_hilera() {
-        return num_hilera;
-    }
-
-    public void setNum_hilera(int num_hilera) {
-        this.num_hilera = num_hilera;
-    }
-
-    public int getNum_planta() {
-        return num_planta;
-    }
-
-    public void setNum_planta(int num_planta) {
-        this.num_planta = num_planta;
-    }
-
-    public int getNum_salida_planta() {
-        return num_salida_planta;
-    }
-
-    public void setNum_salida_planta(int num_salida_planta) {
-        this.num_salida_planta = num_salida_planta;
-    }
-
-    public int getNum_cargador_planta() {
-        return num_cargador_planta;
-    }
-
-    public void setNum_cargador_planta(int num_cargador_planta) {
-        this.num_cargador_planta = num_cargador_planta;
     }
 
     public Boolean isEstado() {
@@ -107,13 +87,21 @@ public class entDesbrote
         this.fecha_modificacion = fecha_modificacion;
     }
 
-    public List<entDetalleDesbrote> getList() {
-        return list;
+    public Date getFecha_registro() {
+        return fecha_registro;
     }
 
-    public void setList(List<entDetalleDesbrote> list) {
-        this.list = list;
+    public void setFecha_registro(Date fecha_registro) {
+        this.fecha_registro = fecha_registro;
     }
-    
-    
+
+    public Boolean isSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Boolean seleccion) {
+        this.seleccion = seleccion;
+    }
+
+
 }

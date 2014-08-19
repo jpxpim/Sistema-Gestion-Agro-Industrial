@@ -17,11 +17,11 @@ if(objSession!=null)
        request.getParameter("posicion") != null && request.getParameter("posicion") != "")
     {
         int pos = Integer.parseInt(request.getParameter("posicion"));  
-        if(objSession.getObjBotacion()==null)
+        if(objSession.getObjBrotacion()==null)
         {
-            objSession.setObjBotacion(new entBrotacion());
-            if(objSession.getObjBotacion().getList()==null)
-                objSession.getObjBotacion().setList(new ArrayList<entCabeceraBrotacion>());
+            objSession.setObjBrotacion(new entBrotacion());
+            if(objSession.getObjBrotacion().getList()==null)
+                objSession.getObjBrotacion().setList(new ArrayList<entCabeceraBrotacion>());
         }
         
         
@@ -641,18 +641,18 @@ if(objSession!=null)
          
         if(pos>=0)
         {
-            if(objSession.getObjBotacion().getId_brotacion()>0)
+            if(objSession.getObjBrotacion().getId_brotacion()>0)
             {
                 entidad.setSeleccion(true);
-                entidad.setId_cabecera_brotacion(objSession.getObjBotacion().getList().get(pos).getId_cabecera_brotacion());
+                entidad.setId_cabecera_brotacion(objSession.getObjBrotacion().getList().get(pos).getId_cabecera_brotacion());
             }
             
-            objSession.getObjBotacion().getList().remove(pos);
-            objSession.getObjBotacion().getList().add(pos, entidad);
+            objSession.getObjBrotacion().getList().remove(pos);
+            objSession.getObjBrotacion().getList().add(pos, entidad);
         }
         else
         {
-            objSession.getObjBotacion().getList().add(entidad);
+            objSession.getObjBrotacion().getList().add(entidad);
         }
         
         HttpSession sesion = request.getSession();

@@ -33,22 +33,22 @@ if(request.getParameter("posicion") != null && request.getParameter("posicion") 
  String estadoL="$('input:radio[name=rbEstado]').attr('checked',false);";
  String eActivo="";
  String eDesactivo="";
- if(objSession.getObjBotacion()!=null)
+ if(objSession.getObjBrotacion()!=null)
  {
-     if(objSession.getObjBotacion().getId_brotacion()>0)
+     if(objSession.getObjBrotacion().getId_brotacion()>0)
      {
          Titulo="Editar";
          Boton="Restaurar";
-         nEvaluador=objSession.getObjBotacion().getObjEvaluador().getNombre()+" "+objSession.getObjBotacion().getObjEvaluador().getApellido();
-         cEvluador=objSession.getObjBotacion().getObjEvaluador().getCodigo_erp();
-         idEvaluador="value='"+objSession.getObjBotacion().getObjEvaluador().getId_evaluador()+"'";
-         idEvaluadorL=""+objSession.getObjBotacion().getObjEvaluador().getId_evaluador();
+         nEvaluador=objSession.getObjBrotacion().getObjEvaluador().getNombre()+" "+objSession.getObjBrotacion().getObjEvaluador().getApellido();
+         cEvluador=objSession.getObjBrotacion().getObjEvaluador().getCodigo_erp();
+         idEvaluador="value='"+objSession.getObjBrotacion().getObjEvaluador().getId_evaluador()+"'";
+         idEvaluadorL=""+objSession.getObjBrotacion().getObjEvaluador().getId_evaluador();
          
-         nLote="Lote: "+objSession.getObjBotacion().getObjCampaniaLote().getObjLote().getNombre();
-         nCamapania="Campaña: "+objSession.getObjBotacion().getObjCampaniaLote().getObjCampania().getNombre();
-         idCampaniaLote="value='"+objSession.getObjBotacion().getObjCampaniaLote().getId_campania_lote()+"'"; 
-         idCampaniaLoteL=""+objSession.getObjBotacion().getObjCampaniaLote().getId_campania_lote(); 
-         if(objSession.getObjBotacion().isEstado())
+         nLote="Lote: "+objSession.getObjBrotacion().getObjCampaniaLote().getObjLote().getNombre();
+         nCamapania="Campaña: "+objSession.getObjBrotacion().getObjCampaniaLote().getObjCampania().getNombre();
+         idCampaniaLote="value='"+objSession.getObjBrotacion().getObjCampaniaLote().getId_campania_lote()+"'"; 
+         idCampaniaLoteL=""+objSession.getObjBrotacion().getObjCampaniaLote().getId_campania_lote(); 
+         if(objSession.getObjBrotacion().isEstado())
          {
             eActivo="checked='true'";
             estadoL="$('input:radio[name=rbEstado]')[0].checked = true;";
@@ -77,11 +77,11 @@ int pos = Integer.parseInt(request.getParameter("posicion"))-1;
 <table id="lista" class="table table-bordered table-striped table_vam">
 <thead>
 <tr>
-        <th>NºM</th>
-        <th>NºH</th>
-        <th>NºP</th>
-        <th>N°S/P</th>
-        <th>N°C/P</th>
+        <th>Nº M</th>
+        <th>Nº H</th>
+        <th>Nº P</th>
+        <th>N° S/P</th>
+        <th>N° C/P</th>
         <th>1</th>
         <th>2</th>
         <th>3</th>
@@ -105,39 +105,39 @@ int pos = Integer.parseInt(request.getParameter("posicion"))-1;
 <tbody> 
 
 <%
-if(objSession.getObjBotacion()!=null)
-for(int i=0;i<objSession.getObjBotacion().getList().size();i++)
+if(objSession.getObjBrotacion()!=null)
+for(int i=0;i<objSession.getObjBrotacion().getList().size();i++)
 {
 if(pos==i)
 {
 %>    
 <tr>
 <td><%=(i+1)%></td>
-<td><input type="text" style="width:15px;" id="txtNH" name="txtNH" value="<%=objSession.getObjBotacion().getList().get(i).getNum_hilera()%>" /></td>
-<td><input type="text" style="width:15px;"  id="txtNP" name="txtNP" value="<%=objSession.getObjBotacion().getList().get(i).getNum_planta()%>"/></td>
-<td><input type="text" style="width:15px;"  id="txtNSP" name="txtNSP" value="<%=objSession.getObjBotacion().getList().get(i).getNum_salida_planta()%>"/></td>
-<td><input type="text" style="width:15px;"  id="txtNCP" name="txtNCP" value="<%=objSession.getObjBotacion().getList().get(i).getNum_cargador_planta()%>"/></td>                                                                                                        
+<td><input type="text" style="width:15px;" id="txtNH" name="txtNH" value="<%=objSession.getObjBrotacion().getList().get(i).getNum_hilera()%>" /></td>
+<td><input type="text" style="width:15px;"  id="txtNP" name="txtNP" value="<%=objSession.getObjBrotacion().getList().get(i).getNum_planta()%>"/></td>
+<td><input type="text" style="width:15px;"  id="txtNSP" name="txtNSP" value="<%=objSession.getObjBrotacion().getList().get(i).getNum_salida_planta()%>"/></td>
+<td><input type="text" style="width:15px;"  id="txtNCP" name="txtNCP" value="<%=objSession.getObjBrotacion().getList().get(i).getNum_cargador_planta()%>"/></td>                                                                                                        
 
 
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt0N1" name="txt0N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_1()%>"  /></td>
-            <td><input type="text" style="width:10px;" id="txt0N2" name="txt0N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N3" name="txt0N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N4" name="txt0N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N1" name="txt0N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_1()%>"  /></td>
+            <td><input type="text" style="width:10px;" id="txt0N2" name="txt0N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N3" name="txt0N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N4" name="txt0N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt0N5" name="txt0N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N6" name="txt0N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N7" name="txt0N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N8" name="txt0N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N5" name="txt0N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N6" name="txt0N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N7" name="txt0N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N8" name="txt0N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt0N9" name="txt0N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N10" name="txt0N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N11" name="txt0N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt0N12" name="txt0N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(0).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N9" name="txt0N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N10" name="txt0N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N11" name="txt0N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt0N12" name="txt0N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(0).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -146,46 +146,22 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt1N1" name="txt1N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N2" name="txt1N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N3" name="txt1N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N4" name="txt1N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N1" name="txt1N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N2" name="txt1N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N3" name="txt1N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N4" name="txt1N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt1N5" name="txt1N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N6" name="txt1N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N7" name="txt1N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N8" name="txt1N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N5" name="txt1N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N6" name="txt1N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N7" name="txt1N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N8" name="txt1N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt1N9" name="txt1N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N10" name="txt1N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N11" name="txt1N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N12" name="txt1N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(1).getNum_12()%>"/></td>
-        </tr>
-
-    </table>
-</td>
-
-<td>
-    <table>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt2N1" name="txt2N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N2" name="txt2N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N3" name="txt2N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N4" name="txt2N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_4()%>" /></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt2N5" name="txt2N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N6" name="txt2N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N7" name="txt2N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N8" name="txt2N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_8()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt2N9" name="txt2N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N10" name="txt2N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N11" name="txt2N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt2N12" name="txt2N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(2).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N9" name="txt1N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N10" name="txt1N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N11" name="txt1N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N12" name="txt1N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(1).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -194,69 +170,22 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt3N1" name="txt3N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N2" name="txt3N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N3" name="txt3N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N4" name="txt3N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N1" name="txt2N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N2" name="txt2N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N3" name="txt2N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N4" name="txt2N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_4()%>" /></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt3N5" name="txt3N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N6" name="txt3N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N7" name="txt3N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N8" name="txt3N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N5" name="txt2N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N6" name="txt2N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N7" name="txt2N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N8" name="txt2N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt3N9" name="txt3N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N10" name="txt3N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N11" name="txt3N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt3N12" name="txt3N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(3).getNum_12()%>"/></td>
-        </tr>
-
-    </table>
-</td>
-
-<td>
-    <table>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt4N1" name="txt4N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N2" name="txt4N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N3" name="txt4N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N4" name="txt4N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_4()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt4N5" name="txt4N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N6" name="txt4N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N7" name="txt4N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N8" name="txt4N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_8()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt4N9" name="txt4N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N10" name="txt4N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N11" name="txt4N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt4N12" name="txt4N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(4).getNum_12()%>"/></td>
-        </tr>
-
-    </table>
-</td>
-<td>
-    <table>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt5N1" name="txt5N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N2" name="txt5N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N3" name="txt5N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N4" name="txt5N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_4()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt5N5" name="txt5N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N6" name="txt5N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N7" name="txt5N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N8" name="txt5N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_8()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt5N9" name="txt5N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N10" name="txt5N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N11" name="txt5N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt5N12" name="txt5N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(5).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N9" name="txt2N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N10" name="txt2N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N11" name="txt2N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt2N12" name="txt2N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(2).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -265,46 +194,22 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt6N1" name="txt6N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N2" name="txt6N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N3" name="txt6N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N4" name="txt6N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N1" name="txt3N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N2" name="txt3N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N3" name="txt3N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N4" name="txt3N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt6N5" name="txt6N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N6" name="txt6N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N7" name="txt6N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N8" name="txt6N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N5" name="txt3N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N6" name="txt3N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N7" name="txt3N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N8" name="txt3N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt6N9" name="txt6N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N10" name="txt6N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N11" name="txt6N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt6N12" name="txt6N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(6).getNum_12()%>"/></td>
-        </tr>
-
-    </table>
-</td>
-
-<td>
-    <table>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt7N1" name="txt7N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N2" name="txt7N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N3" name="txt7N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N4" name="txt7N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_4()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt7N5" name="txt7N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N6" name="txt7N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N7" name="txt7N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N8" name="txt7N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_8()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt7N9" name="txt7N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N10" name="txt7N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N11" name="txt7N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt7N12" name="txt7N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(7).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N9" name="txt3N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N10" name="txt3N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N11" name="txt3N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt3N12" name="txt3N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(3).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -313,22 +218,45 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt8N1" name="txt8N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N2" name="txt8N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N3" name="txt8N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N4" name="txt8N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N1" name="txt4N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N2" name="txt4N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N3" name="txt4N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N4" name="txt4N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt8N5" name="txt8N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N6" name="txt8N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N7" name="txt8N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N8" name="txt8N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N5" name="txt4N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N6" name="txt4N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N7" name="txt4N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N8" name="txt4N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt8N9" name="txt8N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N10" name="txt8N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N11" name="txt8N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt8N12" name="txt8N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(8).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N9" name="txt4N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N10" name="txt4N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N11" name="txt4N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt4N12" name="txt4N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(4).getNum_12()%>"/></td>
+        </tr>
+
+    </table>
+</td>
+<td>
+    <table>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt5N1" name="txt5N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N2" name="txt5N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N3" name="txt5N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N4" name="txt5N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_4()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt5N5" name="txt5N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N6" name="txt5N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N7" name="txt5N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N8" name="txt5N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_8()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt5N9" name="txt5N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N10" name="txt5N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N11" name="txt5N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt5N12" name="txt5N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(5).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -337,45 +265,22 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt9N1" name="txt9N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N2" name="txt9N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N3" name="txt9N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N4" name="txt9N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N1" name="txt6N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N2" name="txt6N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N3" name="txt6N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N4" name="txt6N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt9N5" name="txt9N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N6" name="txt9N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N7" name="txt9N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N8" name="txt9N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N5" name="txt6N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N6" name="txt6N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N7" name="txt6N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N8" name="txt6N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt9N9" name="txt9N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N10" name="txt9N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N11" name="txt9N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt9N12" name="txt9N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(9).getNum_12()%>"/></td>
-        </tr>
-
-    </table>
-</td>
-<td>
-    <table>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt10N1" name="txt10N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N2" name="txt10N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N3" name="txt10N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N4" name="txt10N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_4()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt10N5" name="txt10N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N6" name="txt10N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N7" name="txt10N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N8" name="txt10N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_8()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt10N9" name="txt10N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N10" name="txt10N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N11" name="txt10N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt10N12" name="txt10N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(10).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N9" name="txt6N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N10" name="txt6N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N11" name="txt6N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt6N12" name="txt6N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(6).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -384,46 +289,22 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt11N1" name="txt11N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N2" name="txt11N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N3" name="txt11N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N4" name="txt11N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N1" name="txt7N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N2" name="txt7N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N3" name="txt7N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N4" name="txt7N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt11N5" name="txt11N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N6" name="txt11N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N7" name="txt11N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N8" name="txt11N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N5" name="txt7N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N6" name="txt7N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N7" name="txt7N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N8" name="txt7N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt11N9" name="txt11N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N10" name="txt11N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt1N11" name="txt11N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt11N12" name="txt11N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(11).getNum_12()%>"/></td>
-        </tr>
-
-    </table>
-</td>
-
-<td>
-    <table>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt12N1" name="txt12N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N2" name="txt12N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N3" name="txt12N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N4" name="txt12N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_4()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt12N5" name="txt12N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N6" name="txt12N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N7" name="txt12N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N8" name="txt12N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_8()%>"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" style="width:10px;" id="txt12N9" name="txt12N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N10" name="txt12N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N11" name="txt12N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt12N12" name="txt12N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(12).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N9" name="txt7N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N10" name="txt7N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N11" name="txt7N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt7N12" name="txt7N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(7).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -432,22 +313,22 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt13N1" name="txt13N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N2" name="txt13N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N3" name="txt13N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N4" name="txt13N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N1" name="txt8N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N2" name="txt8N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N3" name="txt8N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N4" name="txt8N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt13N5" name="txt13N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N6" name="txt13N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N7" name="txt13N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N8" name="txt13N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N5" name="txt8N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N6" name="txt8N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N7" name="txt8N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N8" name="txt8N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt13N9" name="txt13N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N10" name="txt13N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N11" name="txt13N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt13N12" name="txt13N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(13).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N9" name="txt8N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N10" name="txt8N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N11" name="txt8N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt8N12" name="txt8N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(8).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -456,22 +337,141 @@ if(pos==i)
 <td>
     <table>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt14N1" name="txt14N1" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_1()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N2" name="txt14N2" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_2()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N3" name="txt14N3" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_3()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N4" name="txt14N4" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_4()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N1" name="txt9N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N2" name="txt9N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N3" name="txt9N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N4" name="txt9N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_4()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt14N5" name="txt14N5" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_5()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N6" name="txt14N6" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_6()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N7" name="txt14N7" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_7()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N8" name="txt14N8" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_8()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N5" name="txt9N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N6" name="txt9N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N7" name="txt9N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N8" name="txt9N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_8()%>"/></td>
         </tr>
         <tr>
-            <td><input type="text" style="width:10px;" id="txt14N9" name="txt14N9" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_9()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N10" name="txt14N10" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_10()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N11" name="txt14N11" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_11()%>"/></td>
-            <td><input type="text" style="width:10px;" id="txt14N12" name="txt14N12" value="<%=objSession.getObjBotacion().getList().get(i).getList().get(14).getNum_12()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N9" name="txt9N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N10" name="txt9N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N11" name="txt9N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt9N12" name="txt9N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(9).getNum_12()%>"/></td>
+        </tr>
+
+    </table>
+</td>
+<td>
+    <table>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt10N1" name="txt10N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N2" name="txt10N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N3" name="txt10N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N4" name="txt10N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_4()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt10N5" name="txt10N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N6" name="txt10N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N7" name="txt10N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N8" name="txt10N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_8()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt10N9" name="txt10N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N10" name="txt10N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N11" name="txt10N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt10N12" name="txt10N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(10).getNum_12()%>"/></td>
+        </tr>
+
+    </table>
+</td>
+
+<td>
+    <table>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt11N1" name="txt11N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N2" name="txt11N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N3" name="txt11N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N4" name="txt11N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_4()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt11N5" name="txt11N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N6" name="txt11N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N7" name="txt11N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N8" name="txt11N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_8()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt11N9" name="txt11N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N10" name="txt11N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt1N11" name="txt11N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt11N12" name="txt11N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(11).getNum_12()%>"/></td>
+        </tr>
+
+    </table>
+</td>
+
+<td>
+    <table>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt12N1" name="txt12N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N2" name="txt12N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N3" name="txt12N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N4" name="txt12N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_4()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt12N5" name="txt12N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N6" name="txt12N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N7" name="txt12N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N8" name="txt12N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_8()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt12N9" name="txt12N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N10" name="txt12N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N11" name="txt12N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt12N12" name="txt12N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(12).getNum_12()%>"/></td>
+        </tr>
+
+    </table>
+</td>
+
+<td>
+    <table>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt13N1" name="txt13N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N2" name="txt13N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N3" name="txt13N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N4" name="txt13N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_4()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt13N5" name="txt13N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N6" name="txt13N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N7" name="txt13N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N8" name="txt13N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_8()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt13N9" name="txt13N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N10" name="txt13N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N11" name="txt13N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt13N12" name="txt13N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(13).getNum_12()%>"/></td>
+        </tr>
+
+    </table>
+</td>
+
+<td>
+    <table>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt14N1" name="txt14N1" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_1()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N2" name="txt14N2" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_2()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N3" name="txt14N3" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_3()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N4" name="txt14N4" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_4()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt14N5" name="txt14N5" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_5()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N6" name="txt14N6" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_6()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N7" name="txt14N7" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_7()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N8" name="txt14N8" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_8()%>"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" style="width:10px;" id="txt14N9" name="txt14N9" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_9()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N10" name="txt14N10" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_10()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N11" name="txt14N11" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_11()%>"/></td>
+            <td><input type="text" style="width:10px;" id="txt14N12" name="txt14N12" value="<%=objSession.getObjBrotacion().getList().get(i).getList().get(14).getNum_12()%>"/></td>
         </tr>
 
     </table>
@@ -492,13 +492,13 @@ if(pos==i)
 
 <tr>
 <td><%=(i+1)%></td>
-<td><%=objSession.getObjBotacion().getList().get(i).getNum_hilera()%></td>
-<td><%=objSession.getObjBotacion().getList().get(i).getNum_planta()%></td>
-<td><%=objSession.getObjBotacion().getList().get(i).getNum_salida_planta()%></td>
-<td><%=objSession.getObjBotacion().getList().get(i).getNum_cargador_planta()%></td>
+<td><%=objSession.getObjBrotacion().getList().get(i).getNum_hilera()%></td>
+<td><%=objSession.getObjBrotacion().getList().get(i).getNum_planta()%></td>
+<td><%=objSession.getObjBrotacion().getList().get(i).getNum_salida_planta()%></td>
+<td><%=objSession.getObjBrotacion().getList().get(i).getNum_cargador_planta()%></td>
 
 
-<%for(entDetalleBrotacion entidad : objSession.getObjBotacion().getList().get(i).getList())
+<%for(entDetalleBrotacion entidad : objSession.getObjBrotacion().getList().get(i).getList())
 {
 sum1+=entidad.getNum_1()+entidad.getNum_2()+entidad.getNum_3()+entidad.getNum_4();
 sum2+=entidad.getNum_5()+entidad.getNum_6()+entidad.getNum_7()+entidad.getNum_8();
@@ -974,7 +974,7 @@ if(pos==-1){
 </div>
 
 <%
-if(objSession.getObjBotacion()!=null)
+if(objSession.getObjBrotacion()!=null)
 {
    double pocentaje1=((double)total2/(double)total1)*100;
    double pocentaje2=((double)total3/(double)total2)*100;
@@ -1115,16 +1115,16 @@ if(objSession.getObjBotacion()!=null)
                                                             </div>
                                                     </div>
 
-                                                        <input type="hidden" id="IdBrotacion"  name="IdBrotacion" value="<%=objSession.getObjBotacion().getId_brotacion()%>" />
+                                                        <input type="hidden" id="IdBrotacion"  name="IdBrotacion" value="<%=objSession.getObjBrotacion().getId_brotacion()%>" />
 
                                                         <button class="btn btn-invert" type="submit"><%=Titulo%></button>
 
                                                         <button class="btn btn-invert" onclick="clear_form()" type="button"><%=Boton%></button>
                                                         
                                                         <%
-                                                         if(objSession.getObjBotacion()!=null)
-                                                             if(objSession.getObjBotacion().getId_brotacion()>0)
-                                                             out.print("<button class='btn btn-invert' onclick='restaurar("+objSession.getObjBotacion().getId_brotacion()+")' type='button'>Restaurar Todo</button>");
+                                                         if(objSession.getObjBrotacion()!=null)
+                                                             if(objSession.getObjBrotacion().getId_brotacion()>0)
+                                                             out.print("<button class='btn btn-invert' onclick='restaurar("+objSession.getObjBrotacion().getId_brotacion()+")' type='button'>Restaurar Todo</button>");
                                                         %>
                                                         
                                                  </div>
@@ -1255,7 +1255,7 @@ function restaurar(id)
 {
     smoke.confirm('Desea Restaurar Todo',function(e){
         if (!e){            
-            editar(id);
+            editar(id,0);
         }
     }, {ok:"No", cancel:"Si"});
            

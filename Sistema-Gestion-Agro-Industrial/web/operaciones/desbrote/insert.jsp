@@ -3,7 +3,7 @@
 <%@page import="Entidades.entCampaniaLote"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entBrotacion"%>
+<%@page import="Entidades.entDesbrote"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
@@ -12,7 +12,7 @@ if(objSession!=null)
                 request.getParameter("idLoteCanpania") != null && request.getParameter("idLoteCanpania") != "" &&
                 request.getParameter("rbEstado") != null && request.getParameter("rbEstado") != "" )
         {
-            entBrotacion entidad = objSession.getObjBrotacion();
+            entDesbrote entidad = objSession.getObjDesbrote();
             entidad.setObjCampaniaLote(new entCampaniaLote(Integer.parseInt(request.getParameter("idLoteCanpania"))));
             entidad.setObjEvaluador(new entEvaluador(Integer.parseInt(request.getParameter("idEvaluador"))));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
@@ -21,10 +21,10 @@ if(objSession!=null)
                  entidad.setEstado(false);
 
             
-            if(!request.getParameter("IdBrotacion").equals("0") )
+            if(!request.getParameter("IdDesbrote").equals("0") )
             {
-                entidad.setId_brotacion(Integer.parseInt(request.getParameter("IdBrotacion")));
-                 if(clsGestor.actualizarBrotacion(entidad))
+                entidad.setId_desbrote(Integer.parseInt(request.getParameter("IdDesbrote")));
+                 if(clsGestor.actualizarDesbrote(entidad))
                  {                   
                     out.print(0);
                  }
@@ -33,10 +33,10 @@ if(objSession!=null)
             }
              else
              {
-                 int id=clsGestor.insertarBrotacion(entidad);
+                 int id=clsGestor.insertarDesbrote(entidad);
                     if(id>0)
                     {
-                        objSession.setObjBrotacion(null);
+                        objSession.setObjDesbrote(null);
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("SessionUsuario", objSession);
                         sesion.setMaxInactiveInterval(-1);
