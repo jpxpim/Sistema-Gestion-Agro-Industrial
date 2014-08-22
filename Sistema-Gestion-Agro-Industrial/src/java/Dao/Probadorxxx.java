@@ -10,11 +10,13 @@ import Entidades.entCampania;
 import Entidades.entCampaniaLote;
 import Entidades.entCultivo;
 import Entidades.entEdadCultivo;
+import Entidades.entEvaluador;
 import Entidades.entFormulario;
 import Entidades.entFormularioUsuario;
 import Entidades.entLote;
 import Entidades.entModulo;
 import Entidades.entPatron;
+import Entidades.entPrePoda;
 import Entidades.entSector;
 import Entidades.entSubSector;
 import Entidades.entTipoCultivo;
@@ -37,11 +39,13 @@ public class Probadorxxx {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        entFormularioUsuario entidad = new entFormularioUsuario();
-        entidad.setObjUSuario(new entUsuario(2) );
-        entidad.setObjFormulario(new entFormulario(8,7));
-        entidad.setUsuario_responsable("sdas");
-        System.out.print(""+BrotacionDAO.BuscarPorId(22).getList().get(0).getList().size());
+            entPrePoda entidad = new entPrePoda();
+            entidad.setObjCampaniaLote(new entCampaniaLote(1));
+            entidad.setObjEvaluador(new entEvaluador(1));
+            entidad.setUsuario_responsable("s");
+            entidad.setEstado(true);
+
+        System.out.print(""+PrePodaDAO.insertar(entidad));
     }
     
 }

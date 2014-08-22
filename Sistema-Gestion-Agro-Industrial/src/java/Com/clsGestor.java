@@ -383,6 +383,25 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entPrePoda">
+    public  static int insertarPrePoda(entPrePoda entidad) throws Exception
+    {
+        return PrePodaDAO.insertar(entidad);
+    }
+    public static boolean actualizarPrePoda(entPrePoda entidad) throws Exception
+    {
+        return PrePodaDAO.actualizar(entidad);
+    }
+    public static List<entPrePoda> ListarPrePoda(boolean activo) throws Exception
+    {
+        return PrePodaDAO.Listar(activo);
+    }
+    public static entPrePoda BuscarPorIdPrePoda(int id) throws Exception
+    {
+        return PrePodaDAO.BuscarPorId(id);
+    }
+// </editor-fold>
+    
   
     
 }
