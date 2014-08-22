@@ -127,28 +127,28 @@ if(pos==i)
                    {
                        out.print("<option value='0' selected>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                    }                                  
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==1)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1' selected>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                     }                       
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==2)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2' selected>SEMISALADO</option>");
+                       out.print("<option value='2' selected>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                     }
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==3)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3' selected>CILINDRICO</option>");
                     }
                   %>
@@ -163,28 +163,28 @@ if(pos==i)
                    {
                        out.print("<option value='0' selected>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                    }                                  
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==1)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1' selected>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                     }                       
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==2)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2' selected>SEMISALADO</option>");
+                       out.print("<option value='2' selected>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                     }
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==3)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3' selected>CILINDRICO</option>");
                     }
                   %>
@@ -199,28 +199,28 @@ if(pos==i)
                    {
                        out.print("<option value='0' selected>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                    }                                  
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==1)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1' selected>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                     }                       
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==2)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2' selected>SEMISALADO</option>");
+                       out.print("<option value='2' selected>SEMIALADO</option>");
                        out.print("<option value='3'>CILINDRICO</option>");
                     }
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==3)
                     {
                        out.print("<option value='0'>Selecione una Opción</option>");    
                        out.print("<option value='1'>ALADO</option>");
-                       out.print("<option value='2'>SEMISALADO</option>");
+                       out.print("<option value='2'>SEMIALADO</option>");
                        out.print("<option value='3' selected>CILINDRICO</option>");
                     }
                   %>
@@ -344,7 +344,7 @@ if(pos==i)
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==1)
                         out.print("ALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==2)
-                        out.print("SEMISALADO");
+                        out.print("SEMIALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==3)
                         out.print("CILINDRICO");%>
             </td>
@@ -356,7 +356,7 @@ if(pos==i)
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==1)
                         out.print("ALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==2)
-                        out.print("SEMISALADO");
+                        out.print("SEMIALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==3)
                         out.print("CILINDRICO");%>
             </td>
@@ -368,7 +368,7 @@ if(pos==i)
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==1)
                         out.print("ALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==2)
-                        out.print("SEMISALADO");
+                        out.print("SEMIALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==3)
                         out.print("CILINDRICO");%>
             </td>
@@ -499,7 +499,7 @@ if(pos==-1){
                <select id="cbTR1" name="cbTR1" >
                     <option value="0">Selecione una Opción</option>
                     <option value="1">ALADO</option>
-                    <option value="2">SEMISALADO</option>
+                    <option value="2">SEMIALADO</option>
                     <option value="3">CILINDRICO</option>
                 </select>
             </td>
@@ -509,7 +509,7 @@ if(pos==-1){
                 <select id="cbTR2" name="cbTR2" >
                     <option value="0">Selecione una Opción</option>
                     <option value="1">ALADO</option>
-                    <option value="2">SEMISALADO</option>
+                    <option value="2">SEMIALADO</option>
                     <option value="3">CILINDRICO</option>
                 </select>
             </td>
@@ -519,7 +519,7 @@ if(pos==-1){
                  <select id="cbTR3" name="cbTR3" >
                     <option value="0">Selecione una Opción</option>
                     <option value="1">ALADO</option>
-                    <option value="2">SEMISALADO</option>
+                    <option value="2">SEMIALADO</option>
                     <option value="3">CILINDRICO</option>
                 </select>
             </td>

@@ -155,7 +155,7 @@ for(int i=0;i<size;i++)
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==1)
                         out.print("ALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==2)
-                        out.print("SEMISALADO");
+                        out.print("SEMIALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_1()==3)
                         out.print("CILINDRICO");%>
             </td>
@@ -167,7 +167,7 @@ for(int i=0;i<size;i++)
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==1)
                         out.print("ALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==2)
-                        out.print("SEMISALADO");
+                        out.print("SEMIALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_2()==3)
                         out.print("CILINDRICO");%>
             </td>
@@ -179,7 +179,7 @@ for(int i=0;i<size;i++)
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==1)
                         out.print("ALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==2)
-                        out.print("SEMISALADO");
+                        out.print("SEMIALADO");
                     else if(objSession.getObjRaleo().getList().get(i).getTipo_racimo_3()==3)
                         out.print("CILINDRICO");%>
             </td>
