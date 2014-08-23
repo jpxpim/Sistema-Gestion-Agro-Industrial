@@ -61,7 +61,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="editar(<%=entidad.getId_brotacion()%>)" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="editar(<%=entidad.getId_brotacion()%>)" class="comp_edit btn btn-primary btn-mini">Ver o Editar</a>
 
             </td>
         </tr>
@@ -79,7 +79,7 @@ $(function () {
 
    $('#lista').dataTable({
        "sDom": "<'row'<'span2'><'span2'f>r>t<'row'<'span2'i><'span2'>S>",
-        "sScrollY": "200px",
+        "sScrollY": "320px",
         "bDestroy": true,
         "bDeferRender": true
     }); 

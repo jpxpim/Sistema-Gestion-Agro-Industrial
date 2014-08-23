@@ -27,7 +27,7 @@ public class entDesbrote
     
     public entDesbrote() {
         this.list = null;
-        this.seleccion = false;
+        this.seleccion = true;
     }
 
     public int getId_desbrote() {

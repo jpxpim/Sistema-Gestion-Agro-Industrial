@@ -979,7 +979,7 @@ function restaurar(id)
 {
     smoke.confirm('Desea Restaurar Todo',function(e){
         if (!e){            
-            editar(id);
+            editar(id,0);
         }
     }, {ok:"No", cancel:"Si"});
            

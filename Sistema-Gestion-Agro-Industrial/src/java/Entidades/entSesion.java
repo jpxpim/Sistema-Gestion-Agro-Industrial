@@ -19,6 +19,8 @@ public class entSesion {
     private entBrotacion objBrotacion;
     private entDesbrote objDesbrote;
     private entPrePoda objPrePoda;
+    private entPoda objPoda;
+    private entRaleo objRaleo;
     List<entModulo> listModulos;
     
     public entSesion() {
@@ -75,6 +77,22 @@ public class entSesion {
 
     public void setObjPrePoda(entPrePoda objPrePoda) {
         this.objPrePoda = objPrePoda;
+    }
+
+    public entPoda getObjPoda() {
+        return objPoda;
+    }
+
+    public void setObjPoda(entPoda objPoda) {
+        this.objPoda = objPoda;
+    }
+
+    public entRaleo getObjRaleo() {
+        return objRaleo;
+    }
+
+    public void setObjRaleo(entRaleo objRaleo) {
+        this.objRaleo = objRaleo;
     }
 
    

@@ -402,6 +402,45 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entPoda">
+    public  static int insertarPoda(entPoda entidad) throws Exception
+    {
+        return PodaDAO.insertar(entidad);
+    }
+    public static boolean actualizarPoda(entPoda entidad) throws Exception
+    {
+        return PodaDAO.actualizar(entidad);
+    }
+    public static List<entPoda> ListarPoda(boolean activo) throws Exception
+    {
+        return PodaDAO.Listar(activo);
+    }
+    public static entPoda BuscarPorIdPoda(int id) throws Exception
+    {
+        return PodaDAO.BuscarPorId(id);
+    }
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entRaleo">
+    public  static int insertarRaleo(entRaleo entidad) throws Exception
+    {
+        return RaleoDAO.insertar(entidad);
+    }
+    public static boolean actualizarRaleo(entRaleo entidad) throws Exception
+    {
+        return RaleoDAO.actualizar(entidad);
+    }
+    public static List<entRaleo> ListarRaleo(boolean activo) throws Exception
+    {
+        return RaleoDAO.Listar(activo);
+    }
+    public static entRaleo BuscarPorIdRaleo(int id) throws Exception
+    {
+        return RaleoDAO.BuscarPorId(id);
+    }
+// </editor-fold>
+    
+    
   
     
 }

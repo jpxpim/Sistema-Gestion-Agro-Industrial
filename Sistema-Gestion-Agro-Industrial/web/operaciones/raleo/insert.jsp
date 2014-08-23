@@ -3,7 +3,7 @@
 <%@page import="Entidades.entCampaniaLote"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entPrePoda"%>
+<%@page import="Entidades.entRaleo"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
@@ -12,7 +12,7 @@ if(objSession!=null)
                 request.getParameter("idLoteCanpania") != null && request.getParameter("idLoteCanpania") != "" &&
                 request.getParameter("rbEstado") != null && request.getParameter("rbEstado") != "" )
         {
-            entPrePoda entidad = objSession.getObjPrePoda();
+            entRaleo entidad = objSession.getObjRaleo();
             entidad.setObjCampaniaLote(new entCampaniaLote(Integer.parseInt(request.getParameter("idLoteCanpania"))));
             entidad.setObjEvaluador(new entEvaluador(Integer.parseInt(request.getParameter("idEvaluador"))));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
@@ -21,10 +21,10 @@ if(objSession!=null)
                  entidad.setEstado(false);
 
             
-            if(!request.getParameter("IdPrePoda").equals("0") )
+            if(!request.getParameter("IdRaleo").equals("0") )
             {
-                entidad.setId_pre_poda(Integer.parseInt(request.getParameter("IdPrePoda")));
-                 if(clsGestor.actualizarPrePoda(entidad))
+                entidad.setId_raleo(Integer.parseInt(request.getParameter("IdRaleo")));
+                 if(clsGestor.actualizarRaleo(entidad))
                  {                   
                     out.print(0);
                  }
@@ -33,10 +33,10 @@ if(objSession!=null)
             }
              else
              {
-                 int id=clsGestor.insertarPrePoda(entidad);
+                 int id=clsGestor.insertarRaleo(entidad);
                     if(id>0)
                     {
-                        objSession.setObjPrePoda(null);
+                        objSession.setObjRaleo(null);
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("SessionUsuario", objSession);
                         sesion.setMaxInactiveInterval(-1);

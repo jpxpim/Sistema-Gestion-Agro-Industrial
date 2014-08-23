@@ -1256,7 +1256,7 @@ if(objSession.getObjPrePoda()!=null)
                                              <form  method="get" id="reg_form">
                                                   <div class="location_add_form well">
                                                       <div class="formSep">
-                                                          <h3 class="heading"><%=Titulo%> Desbrote</h3>  
+                                                          <h3 class="heading"><%=Titulo%> Pre - Poda</h3>  
                                                           <div class="input-prepend">
                                                             <di id='Evaluador'>
                                                                   <blockquote >

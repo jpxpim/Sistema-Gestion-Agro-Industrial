@@ -13,32 +13,36 @@ import java.util.List;
  *
  * @author rosemary
  */
-public class entPrePoda 
+public class entPoda 
 {
-    private int id_pre_poda;
+    private int id_poda;
     private entCampaniaLote objCampaniaLote;
     private entEvaluador objEvaluador;
     private Date fecha_registro;
     private Boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
-    private Boolean seleccion; 
-    private List<entCabeceraPrePoda> list;
+    private List<entCabeceraPoda> list;
     
-    public entPrePoda() {
+    public entPoda() {
         this.list = null;
-        this.seleccion = true;
     }
 
-    public int getId_pre_poda() {
-        return id_pre_poda;
+    public int getId_poda() {
+        return id_poda;
     }
 
-    public void setId_pre_poda(int id_pre_poda) {
-        this.id_pre_poda = id_pre_poda;
+    public void setId_poda(int id_poda) {
+        this.id_poda = id_poda;
     }
-    
-  
+
+    public List<entCabeceraPoda> getList() {
+        return list;
+    }
+
+    public void setList(List<entCabeceraPoda> list) {
+        this.list = list;
+    }
 
     public entCampaniaLote getObjCampaniaLote() {
         return objCampaniaLote;
@@ -80,29 +84,12 @@ public class entPrePoda
         this.fecha_modificacion = fecha_modificacion;
     }
 
-
-    public List<entCabeceraPrePoda> getList() {
-        return list;
-    }
-
-    public void setList(List<entCabeceraPrePoda> list) {
-        this.list = list;
-    }
-
     public Date getFecha_registro() {
         return fecha_registro;
     }
 
     public void setFecha_registro(Date fecha_registro) {
         this.fecha_registro = fecha_registro;
-    }
-
-    public Boolean isSeleccion() {
-        return seleccion;
-    }
-
-    public void setSeleccion(Boolean seleccion) {
-        this.seleccion = seleccion;
     }
 
 

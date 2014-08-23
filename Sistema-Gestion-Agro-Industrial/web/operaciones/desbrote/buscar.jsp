@@ -14,6 +14,8 @@ if(objSession!=null)
             entDesbrote entidad = clsGestor.BuscarPorIdDesbrote(Integer.parseInt(request.getParameter("id")));
             if(request.getParameter("tipo").equals("0"))
                 entidad.setSeleccion(true);
+            else
+                 entidad.setSeleccion(false);
             if(entidad!=null)
             {
                 objSession.setObjDesbrote(entidad);

@@ -1,5 +1,5 @@
  <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="Entidades.entDesbrote"%>
+<%@page import="Entidades.entRaleo"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entVivero"%>
@@ -8,8 +8,8 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-if(objSession.getObjDesbrote()!=null)   
-    if(objSession.getObjDesbrote().isSeleccion())
+if(objSession.getObjRaleo()!=null)   
+    if(objSession.getObjRaleo().isSeleccion())
     out.print("<script type='text/javascript'>tablaTemp(0);</script>");
     else
         out.print("<script type='text/javascript'>vertablaTemp();</script>");
@@ -17,11 +17,11 @@ else
 {  
     
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-List<entDesbrote> list=clsGestor.ListarDesbrote(false);
+List<entRaleo> list=clsGestor.ListarRaleo(false);
 if(list!=null)
 {%>
 <div id="frame">
- <button class="btn btn-invert" onclick="tablaTemp(0)" type="button">Agregar Desbrote</button>
+ <button class="btn btn-invert" onclick="tablaTemp(0)" type="button">Agregar Raleo</button>
 <div class="row-fluid">
     
 <div class="span12">
@@ -41,12 +41,12 @@ if(list!=null)
     </thead> 
      <tbody>      
     <%
-    for(entDesbrote entidad : list)
+    for(entRaleo entidad : list)
     {
     %>
                                                                    
         <tr>
-            <td><%=entidad.getId_desbrote()%></td>
+            <td><%=entidad.getId_raleo()%></td>
             <td><%=entidad.getObjCampaniaLote().getObjLote().getNombre()%></td>
             <td><%=entidad.getObjCampaniaLote().getObjCampania().getNombre()%></td>
             <td><%=entidad.getObjCampaniaLote().getObjLote().getObjVariedad().getNombre()%></td>
@@ -64,8 +64,8 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="editar(<%=entidad.getId_desbrote()%>,0)" class="comp_edit btn btn-primary btn-mini">Editar</a>
-                <a href="javascript:void(0)" onclick="editar(<%=entidad.getId_desbrote()%>,1)" class="comp_edit btn btn-warning btn-mini">Ver</a>
+                <a href="javascript:void(0)" onclick="editar(<%=entidad.getId_raleo()%>,0)" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="editar(<%=entidad.getId_raleo()%>,1)" class="comp_edit btn btn-warning btn-mini">Ver</a>
             </td>
         </tr>
 
@@ -93,7 +93,7 @@ $(function () {
 
 <%}
 else
-    out.print("<button class='btn btn-invert' onclick='tablaTemp(0)' type='button'>Agregar Desbrote</button>");
+    out.print("<button class='btn btn-invert' onclick='tablaTemp(0)' type='button'>Agregar Raleo</button>");
 }}%>  
                                                                         
                                                                        

@@ -13,9 +13,9 @@ import java.util.List;
  *
  * @author rosemary
  */
-public class entPrePoda 
+public class entRaleo 
 {
-    private int id_pre_poda;
+    private int id_raleo;
     private entCampaniaLote objCampaniaLote;
     private entEvaluador objEvaluador;
     private Date fecha_registro;
@@ -23,19 +23,19 @@ public class entPrePoda
     private String usuario_responsable;
     private Date fecha_modificacion;
     private Boolean seleccion; 
-    private List<entCabeceraPrePoda> list;
+    private List<entCabeceraRaleo> list;
     
-    public entPrePoda() {
+    public entRaleo() {
         this.list = null;
         this.seleccion = true;
     }
 
-    public int getId_pre_poda() {
-        return id_pre_poda;
+    public int getId_raleo() {
+        return id_raleo;
     }
 
-    public void setId_pre_poda(int id_pre_poda) {
-        this.id_pre_poda = id_pre_poda;
+    public void setId_raleo(int id_raleo) {
+        this.id_raleo = id_raleo;
     }
     
   
@@ -81,11 +81,11 @@ public class entPrePoda
     }
 
 
-    public List<entCabeceraPrePoda> getList() {
+    public List<entCabeceraRaleo> getList() {
         return list;
     }
 
-    public void setList(List<entCabeceraPrePoda> list) {
+    public void setList(List<entCabeceraRaleo> list) {
         this.list = list;
     }
 
