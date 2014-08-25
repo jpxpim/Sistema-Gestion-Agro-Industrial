@@ -173,9 +173,15 @@ if(objSession!=null)
                                                     </div>
                                             </div>	
                                             <div class="span8">
-                                                <div id="tabla"></div>
+                                                <div id="tabla">
+                                                  
+                                                </div>
                                             </div>
                                     </div>
+                                  <div class="span12">
+                                                    <a href="operaciones/vivero/reporte.jsp" class="btn">Generar Reporte</a>
+                                                </div>
+                                            </div>
                             </div>
                         </div>
 	
