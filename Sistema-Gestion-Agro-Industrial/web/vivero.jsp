@@ -165,7 +165,7 @@ if(objSession!=null)
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
 
                                                                             <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
-                                                                    </div>
+                                                                          </div>
 
 
                                                                 </form>
@@ -178,9 +178,6 @@ if(objSession!=null)
                                                 </div>
                                             </div>
                                     </div>
-                                  <div class="span12">
-                                                    <a href="operaciones/vivero/reporte.jsp" class="btn btn-inverse">Generar Reporte</a>
-                                                </div>
                                             </div>
                             </div>
                         </div>
@@ -284,6 +281,10 @@ function tabla()
         processData: false
     });          
  };
+ function getReporte()
+{
+     window.location='operaciones/vivero/reporte.jsp';
+ };
                               
                            modulos(); 
                                        tabla();
@@ -292,9 +293,9 @@ function tabla()
 					//* show all elements & remove preloader
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
-
-                                       
                                         
+                                       
+                               
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',

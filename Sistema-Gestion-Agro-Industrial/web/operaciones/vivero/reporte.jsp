@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entVivero"%>
 <%@page import="Entidades.entSesion"%>
@@ -7,10 +8,13 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
+    SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
+
 List<entVivero> list=clsGestor.ListarVivero(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"reporte.xls\"");%>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"reporte "+e.format(new Date())+".xls\"");%>
 <center><h1>REPORTE VIVERO </h1></center>
 <table border="1">
     
@@ -35,7 +39,7 @@ if(list!=null)
         </td>
     </tr>
     <%
-         SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
+         
         
      
          for(entVivero entidad : list)
@@ -64,6 +68,6 @@ if(list!=null)
        %>
         
         </table>
-
+<%out.print(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre()+" "+fecha.format(new Date())); %>
 <%} }%>  
            

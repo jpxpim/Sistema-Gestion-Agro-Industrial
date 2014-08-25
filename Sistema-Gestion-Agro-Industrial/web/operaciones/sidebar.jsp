@@ -18,7 +18,7 @@ if(objSession!=null)
                                             <div class="accordion-group">
                                                     <div class="accordion-heading">
                                                             <a href="#collapseFour" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                                                                    <i class="icon-cog"></i> Modulos
+                                                                    <i class="icon-folder-close"></i> Modulos
                                                             </a>
                                                     </div>
                                                     <div class="accordion-body collapse in" id="collapseFour">
@@ -45,11 +45,26 @@ if(objSession!=null)
 
                                             <div class="accordion-group">
                                                     <div class="accordion-heading">
-                                                            <a href="#collapse7" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+                                                            <a href="#collapseHerramientas" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+                                                               <i class="icon-cog"></i> Herramientas
+                                                            </a>
+                                                    </div>
+                                                    <div class="accordion-body collapse" id="collapseHerramientas">
+                                                            <div class="accordion-inner">
+                                                                  <ul class="nav nav-list">
+                                                                      <li><a onclick="getReporte()" href="javascript:void(0)">Generar Excel</a></li>
+                                                                </ul> 
+                                                            </div>
+                                                     </div>
+                                            </div>
+                                            
+                                             <div class="accordion-group">
+                                                    <div class="accordion-heading">
+                                                            <a href="#collapseCalculador" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
                                                                <i class="icon-th"></i> Calculador
                                                             </a>
                                                     </div>
-                                                    <div class="accordion-body collapse in" id="collapse7">
+                                                    <div class="accordion-body collapse in" id="collapseCalculador">
                                                             <div class="accordion-inner">
                                                                     <form name="Calc" id="calc">
                                                                             <div class="formSep control-group input-append">

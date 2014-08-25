@@ -45,7 +45,6 @@ $(function () {
 
    $('#listaDireccionLlegada').dataTable({
                                            "sDom": "<'row'<'span3'><'span3'f>r>t<'row'<'span3'i><'span3'>S>",
-                                            "sScrollY": "200px",
                                             "bDeferRender": true
                                                     }); 
  
