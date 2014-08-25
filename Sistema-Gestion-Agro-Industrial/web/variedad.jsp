@@ -238,6 +238,10 @@ if(objSession!=null)
 			<script src="lib/datatables/jquery.dataTables.min.js"></script>
 	
 			<script>
+  function getReporte()
+{
+     window.location='operaciones/variedad/reporte.jsp';
+ };                           
 function modulos()
 {
      $.ajax({
