@@ -179,7 +179,7 @@ if(objSession!=null)
                                             </div>
                                     </div>
                                   <div class="span12">
-                                                    <a href="operaciones/vivero/reporte.jsp" class="btn">Generar Reporte</a>
+                                                    <a href="operaciones/vivero/reporte.jsp" class="btn btn-inverse">Generar Reporte</a>
                                                 </div>
                                             </div>
                             </div>
