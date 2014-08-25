@@ -394,6 +394,10 @@ function tabla()
         processData: false
     });          
  };
+   function getReporte()
+{
+     window.location='operaciones/campania_lote/reporte.jsp';
+ }; 
 function combo(id,idCampania,nCampania)
 {
     $("#abrirCarga").click();

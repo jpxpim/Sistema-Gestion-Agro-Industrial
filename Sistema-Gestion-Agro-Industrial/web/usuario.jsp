@@ -351,7 +351,10 @@ function tabla()
         processData: false
     });          
  };
-                              
+     function getReporte()
+{
+     window.location='operaciones/usuario/reporte.jsp';
+ };                             
                           
                             
 $(document).ready(function() {

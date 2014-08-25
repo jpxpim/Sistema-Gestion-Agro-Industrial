@@ -279,7 +279,10 @@ function tabla()
         processData: false
     });          
  };
-                              
+   function getReporte()
+{
+     window.location='operaciones/campania/reporte.jsp';
+ };                             
                           
                             
 				$(document).ready(function() {

@@ -1,4 +1,4 @@
-<%@page import="Entidades.entVariedad"%>
+<%@page import="Entidades.entSubSector"%>
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entSesion"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entVariedad> list=clsGestor.ListarVariedad(false);
+List<entSubSector> list=clsGestor.ListarSubSector(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Variedad "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE VARIEDAD </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Sub-Sector "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE SUB-SECTOR </h1></center>
 <table border="1">
     
     <tr>
@@ -31,10 +31,12 @@ if(list!=null)
          <td>
              <center> <strong>Codigo Control</strong> </center>
         </td>
-         <td>
-             <center> <strong>Cultivo</strong> </center>
+        <td>
+             <center> <strong>Sector</strong> </center>
         </td>
-        
+        <td>
+             <center> <strong>Grower SENASA</strong> </center>
+        </td>
          <td>
              <center> <strong>Fecha Registro</strong> </center>
         </td>
@@ -46,16 +48,17 @@ if(list!=null)
          
         
      
-         for(entVariedad entidad : list)
+         for(entSubSector entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_variedad()%></td>
+        <td><%=entidad.getId_sub_sector()%></td>
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getDescripcion()%></td>
              <td><%=entidad.getCodigo_control()%></td>
-             <td><%=entidad.getObjCultivo().getNombre()%></td>
+             <td><%=entidad.getObjSector().getNombre()%></td>
+             <td><%=entidad.getGrower_senasa()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%

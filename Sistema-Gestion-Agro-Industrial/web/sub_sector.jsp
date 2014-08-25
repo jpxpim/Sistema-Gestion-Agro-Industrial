@@ -286,6 +286,10 @@ function tabla()
         processData: false
     });          
  };
+   function getReporte()
+{
+     window.location='operaciones/sub_sector/reporte.jsp';
+ };
  function comboCultivo()
 {
      $.ajax({

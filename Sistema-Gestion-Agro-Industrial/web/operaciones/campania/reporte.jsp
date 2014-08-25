@@ -1,4 +1,4 @@
-<%@page import="Entidades.entVariedad"%>
+<%@page import="Entidades.entCampania"%>
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entSesion"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entVariedad> list=clsGestor.ListarVariedad(false);
+List<entCampania> list=clsGestor.ListarCampania(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Variedad "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE VARIEDAD </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Campaña "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE CAMPAÑA </h1></center>
 <table border="1">
     
     <tr>
@@ -26,13 +26,10 @@ if(list!=null)
              <center> <strong>Nombre</strong> </center>
         </td>
          <td>
-             <center> <strong>Descripcion</strong> </center>
+             <center> <strong>Fecha Inicio</strong> </center>
         </td>
          <td>
-             <center> <strong>Codigo Control</strong> </center>
-        </td>
-         <td>
-             <center> <strong>Cultivo</strong> </center>
+             <center> <strong>Fecha Fin</strong> </center>
         </td>
         
          <td>
@@ -46,20 +43,19 @@ if(list!=null)
          
         
      
-         for(entVariedad entidad : list)
+         for(entCampania entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_variedad()%></td>
+        <td><%=entidad.getId_campania()%></td>
             <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getDescripcion()%></td>
-             <td><%=entidad.getCodigo_control()%></td>
-             <td><%=entidad.getObjCultivo().getNombre()%></td>
+            <td><%=entidad.getFecha_inicio()%></td>
+             <td><%=entidad.getFecha_fin()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
-                   if(entidad.getEstado())
+                   if(entidad.isEstado())
                    out.print("Activado");
                    else
                        out.print("Desactivado");

@@ -1,6 +1,6 @@
-<%@page import="Entidades.entVariedad"%>
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
+<%@page import="Entidades.entEvaluador"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entVariedad> list=clsGestor.ListarVariedad(false);
+List<entEvaluador> list=clsGestor.ListarEvaluador(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Variedad "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE VARIEDAD </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Evaluador "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE EVALUADOR </h1></center>
 <table border="1">
     
     <tr>
@@ -26,15 +26,11 @@ if(list!=null)
              <center> <strong>Nombre</strong> </center>
         </td>
          <td>
-             <center> <strong>Descripcion</strong> </center>
+             <center> <strong>Apellidos</strong> </center>
         </td>
          <td>
-             <center> <strong>Codigo Control</strong> </center>
+             <center> <strong>Codigo ERP</strong> </center>
         </td>
-         <td>
-             <center> <strong>Cultivo</strong> </center>
-        </td>
-        
          <td>
              <center> <strong>Fecha Registro</strong> </center>
         </td>
@@ -46,16 +42,15 @@ if(list!=null)
          
         
      
-         for(entVariedad entidad : list)
+         for(entEvaluador entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_variedad()%></td>
+        <td><%=entidad.getId_evaluador()%></td>
             <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getDescripcion()%></td>
-             <td><%=entidad.getCodigo_control()%></td>
-             <td><%=entidad.getObjCultivo().getNombre()%></td>
+            <td><%=entidad.getApellido()%></td>
+             <td><%=entidad.getCodigo_erp()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%

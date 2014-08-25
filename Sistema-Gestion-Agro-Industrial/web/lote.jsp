@@ -335,6 +335,10 @@ function tabla()
         processData: false
     });          
  };
+   function getReporte()
+{
+     window.location='operaciones/lote/reporte.jsp';
+ };
  function comboProductor()
 {
      $.ajax({

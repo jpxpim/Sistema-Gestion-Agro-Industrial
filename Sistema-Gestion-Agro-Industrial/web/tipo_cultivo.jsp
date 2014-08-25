@@ -277,7 +277,10 @@ function tabla()
         processData: false
     });          
  };
-                              
+ function getReporte()
+{
+     window.location='operaciones/tipo_cultivo/reporte.jsp';
+ };                             
                           
                             
 				$(document).ready(function() {

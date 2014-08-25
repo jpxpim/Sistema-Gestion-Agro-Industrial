@@ -1,6 +1,6 @@
-<%@page import="Entidades.entVariedad"%>
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
+<%@page import="Entidades.entTipoCultivo"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entVariedad> list=clsGestor.ListarVariedad(false);
+List<entTipoCultivo> list=clsGestor.ListarTipoCultivo(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Variedad "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE VARIEDAD </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Tipo Cultivo "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE TIPO DE CULTIVO </h1></center>
 <table border="1">
     
     <tr>
@@ -32,10 +32,6 @@ if(list!=null)
              <center> <strong>Codigo Control</strong> </center>
         </td>
          <td>
-             <center> <strong>Cultivo</strong> </center>
-        </td>
-        
-         <td>
              <center> <strong>Fecha Registro</strong> </center>
         </td>
          <td>
@@ -46,16 +42,15 @@ if(list!=null)
          
         
      
-         for(entVariedad entidad : list)
+         for(entTipoCultivo entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_variedad()%></td>
+        <td><%=entidad.getId_tipo_cultivo()%></td>
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getDescripcion()%></td>
              <td><%=entidad.getCodigo_control()%></td>
-             <td><%=entidad.getObjCultivo().getNombre()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%

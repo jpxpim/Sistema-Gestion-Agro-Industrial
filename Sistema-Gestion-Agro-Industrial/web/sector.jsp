@@ -276,7 +276,10 @@ function tabla()
         processData: false
     });          
  };
-                              
+    function getReporte()
+{
+     window.location='operaciones/sector/reporte.jsp';
+ };                            
                           
                             
 				$(document).ready(function() {

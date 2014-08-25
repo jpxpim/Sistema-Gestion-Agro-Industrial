@@ -277,7 +277,10 @@ function tabla()
         processData: false
     });          
  };
-                              
+   function getReporte()
+{
+     window.location='operaciones/patron/reporte.jsp';
+ };                             
                           
                             
 				$(document).ready(function() {
