@@ -6,21 +6,15 @@
 
 package Dao;
 
-import Entidades.entCabeceraBrotacion;
-import Entidades.entCampania;
-import Entidades.entCampaniaLote;
 import Entidades.entCategoria;
 import Entidades.entChofer;
-import Entidades.entCultivo;
 import Entidades.entDetalleRecepcion;
 import Entidades.entDireccionLlegada;
-import Entidades.entEvaluador;
 import Entidades.entJaba;
 import Entidades.entLote;
 import Entidades.entParihuela;
 import Entidades.entRecepcion;
 import Entidades.entTransportista;
-import Entidades.entVariedad;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -304,7 +298,7 @@ public class RecepcionDAO {
                 sql="INSERT INTO DET_RECEPCION(ID_RECEPCION,ID_LOTE,ID_JABA,ID_PARIHUELA,ID_CATEGORIA,NUM_JABAS,PESO_BRUTO)"
                             + " VALUES(?,?,?,?,?,?,?);";
                     PreparedStatement pst1 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                    pst1.setInt(1, entidad.getLista().get(i).getObjRecepcion().getId_recepcion());
+                    pst1.setInt(1, entidad.getLista().get(i).getId_recepcion());
                     pst1.setInt(2,entidad.getLista().get(i).getObjLote().getId_lote());
                     pst1.setInt(3, entidad.getLista().get(i).getObjJaba().getId_jaba());
                     pst1.setInt(4, entidad.getLista().get(i).getObjParihuela().getId_parihuela());
@@ -366,7 +360,7 @@ public class RecepcionDAO {
                             + "ID_CATEGORIA=?,NUM_JABAS=?,PESO_BRUTO=? "
                          + " WHERE ID_DET_RECEPCION = ?;";
                     CallableStatement stmt2 = conn.prepareCall(sql);    
-                    stmt2.setInt(1, entidad.getLista().get(i).getObjRecepcion().getId_recepcion());
+                    stmt2.setInt(1, entidad.getLista().get(i).getId_recepcion());
                     stmt2.setInt(2, entidad.getLista().get(i).getObjLote().getId_lote());
                     stmt2.setInt(3, entidad.getLista().get(i).getObjJaba().getId_jaba());
                     stmt2.setInt(4, entidad.getLista().get(i).getObjParihuela().getId_parihuela());

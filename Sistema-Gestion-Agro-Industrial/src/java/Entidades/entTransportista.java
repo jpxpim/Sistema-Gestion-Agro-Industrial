@@ -23,6 +23,10 @@ public class entTransportista
     
     public entTransportista(){}
 
+    public entTransportista(int id_transportista) {
+        this.id_transportista = id_transportista;
+    }
+
     public Boolean getEstado() {
         return estado;
     }

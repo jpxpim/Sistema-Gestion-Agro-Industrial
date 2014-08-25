@@ -13,7 +13,7 @@ package Entidades;
 public class entDetalleRecepcion 
 {
     private int id_det_recepcion;
-    private entRecepcion objRecepcion;
+    private int id_recepcion;
     private entLote objLote;
     private entJaba objJaba;
     private entParihuela objParihuela;
@@ -29,13 +29,15 @@ public class entDetalleRecepcion
         this.id_det_recepcion = id_det_recepcion;
     }
 
-    public entRecepcion getObjRecepcion() {
-        return objRecepcion;
+    public int getId_recepcion() {
+        return id_recepcion;
     }
 
-    public void setObjRecepcion(entRecepcion objRecepcion) {
-        this.objRecepcion = objRecepcion;
+    public void setId_recepcion(int id_recepcion) {
+        this.id_recepcion = id_recepcion;
     }
+
+    
 
     public entLote getObjLote() {
         return objLote;

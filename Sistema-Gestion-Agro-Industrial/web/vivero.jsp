@@ -184,8 +184,7 @@ if(objSession!=null)
                 
                      <div class="modal-body">
 
-                         <h3><img src="img/ajax-loader.gif" alt="" /> 
-                       Espere un Momento ...</h3>
+                         <h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3>
                         <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
                          <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
                      </div>

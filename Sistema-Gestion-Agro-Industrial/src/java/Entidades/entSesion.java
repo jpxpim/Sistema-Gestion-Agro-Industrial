@@ -21,6 +21,7 @@ public class entSesion {
     private entPrePoda objPrePoda;
     private entPoda objPoda;
     private entRaleo objRaleo;
+    private entRecepcion objRecepcion;
     List<entModulo> listModulos;
     
     public entSesion() {
@@ -95,6 +96,12 @@ public class entSesion {
         this.objRaleo = objRaleo;
     }
 
-   
-    
+    public entRecepcion getObjRecepcion() {
+        return objRecepcion;
+    }
+
+    public void setObjRecepcion(entRecepcion objRecepcion) {
+        this.objRecepcion = objRecepcion;
+    }
+
 }

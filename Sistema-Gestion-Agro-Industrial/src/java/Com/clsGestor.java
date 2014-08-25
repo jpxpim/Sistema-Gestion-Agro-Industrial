@@ -440,7 +440,51 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entChofer">
+    public  static int insertarChofer(entChofer entidad) throws Exception
+    {
+        return ChoferDAO.insertar(entidad);
+    }
+    public static boolean actualizarChofer(entChofer entidad) throws Exception
+    {
+        return ChoferDAO.actualizar(entidad);
+    }
+    public static List<entChofer> ListarChofer(boolean activo) throws Exception
+    {
+        return ChoferDAO.Listar(activo);
+    }
+
+// </editor-fold>    
     
+    //<editor-fold defaultstate="collapsed" desc="entDireccionLlegada">
+    public  static int insertarDireccionLlegada(entDireccionLlegada entidad) throws Exception
+    {
+        return DireccionLlegadaDAO.insertar(entidad);
+    }
+    public static boolean actualizarDireccionLlegada(entDireccionLlegada entidad) throws Exception
+    {
+        return DireccionLlegadaDAO.actualizar(entidad);
+    }
+    public static List<entDireccionLlegada> ListarDireccionLlegada(boolean activo) throws Exception
+    {
+        return DireccionLlegadaDAO.Listar(activo);
+    }
+
+// </editor-fold>
   
-    
+    //<editor-fold defaultstate="collapsed" desc="entTransportista">
+    public  static int insertarTransportista(entTransportista entidad) throws Exception
+    {
+        return TransportistaDAO.insertar(entidad);
+    }
+    public static boolean actualizarTransportista(entTransportista entidad) throws Exception
+    {
+        return TransportistaDAO.actualizar(entidad);
+    }
+    public static List<entTransportista> ListarTransportista(boolean activo) throws Exception
+    {
+        return TransportistaDAO.Listar(activo);
+    }
+
+    // </editor-fold>
 }

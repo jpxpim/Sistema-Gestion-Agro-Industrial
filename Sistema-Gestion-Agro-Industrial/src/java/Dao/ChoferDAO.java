@@ -87,15 +87,16 @@ public class ChoferDAO
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO chofer(nombre,brevete,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,GETDATE());";
+           String sql="INSERT INTO chofer(id_transportista,nombre,brevete,estado,usuario_responsable,fecha_modificacion)"
+                   + " VALUES(?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, entidad.getNombre());
-            stmt.setString(2, entidad.getBrevete());
-            stmt.setBoolean(3, entidad.getEstado());
-            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setInt(1, entidad.getObjTransportista().getId_transportista());
+            stmt.setString(2, entidad.getNombre());
+            stmt.setString(3, entidad.getBrevete());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             
