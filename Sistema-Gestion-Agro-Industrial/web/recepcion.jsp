@@ -68,9 +68,7 @@ if(objSession!=null)
             <link rel="stylesheet" href="img/splashy/splashy.css" />
         <!-- colorbox -->
             <link rel="stylesheet" href="lib/colorbox/colorbox.css" />	
-		    <!-- enhanced select -->
-            <link rel="stylesheet" href="lib/chosen/chosen.css" />
-
+		    
         <!-- main styles -->
             <link rel="stylesheet" href="css/style.css" />
 			
@@ -174,8 +172,6 @@ if(objSession!=null)
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
 	  
- <!-- enhanced select (chosen) -->
-            <script src="lib/chosen/chosen.jquery.min.js"></script>
 
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
@@ -220,27 +216,25 @@ function getMododulos(posicion)
             processData: false
         });
 };                           
-function getRecepcion(id)
-{    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
-    $.ajax({
-        url: 'operaciones/recepcion/gestion_recepcion.jsp?id='+id,
-        type: 'POST',
-        success: function (data) {     
-                 $('#frame').html(data);
-        },
-        contentType: false,
-        processData: false
-    });
-};
+
                               
                            modulos(); 
-                               getRecepcion(0);    
+                                   
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
 
+                                        $.ajax({
+                                            url: 'operaciones/recepcion/gestion_recepcion.jsp',
+                                            type: 'POST',
+                                            success: function (data) {     
+                                                     $('#frame').html(data);
+                                            },
+                                            contentType: false,
+                                            processData: false
+                                        });
                                         
                                         
                                     

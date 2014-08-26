@@ -1,7 +1,3 @@
-<%@page import="Entidades.entRecepcion"%>
-<%@page import="Entidades.entParihuela"%>
-<%@page import="Entidades.entCategoria"%>
-<%@page import="Entidades.entJaba"%>
 <%@page import="Com.Operaciones"%>
 <%@page import="Entidades.entEvaluador"%>
 <%@page import="Entidades.entCampaniaLote"%>
@@ -14,44 +10,19 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {  
-if(request.getParameter("id") != null && request.getParameter("id") != "" )
-{
-  if(objSession.getObjRecepcion()==null)
-  {
-        entRecepcion objRecepcion = new entRecepcion();
-        List<entJaba> listJaba=clsGestor.ListarJaba(true);
-        List<entCategoria> listCategoria=clsGestor.ListarCategoria(true);
-        List<entParihuela> listParihuela=clsGestor.ListarParihuela(true);
-
-        
-        if(!request.getParameter("id").equals("0"))
-        {
-            
-        }
-        
-        objRecepcion.setListaCategoria(listCategoria);
-        objRecepcion.setListaJaba(listJaba);
-        objRecepcion.setListaParihuela(listParihuela);
-        
-        objSession.setObjRecepcion(objRecepcion);
-        HttpSession sesion = request.getSession();
-        sesion.setAttribute("SessionUsuario", objSession);
-        sesion.setMaxInactiveInterval(-1);
-  }
-
-  
+ 
 %>
 <div id="frame">
 
                     <div class="row-fluid">
                             <div class="span12">
-                                <form  method="get" id="reg_form">
                                     <div class="row-fluid">
                                             <div class="span4">
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
-                                                                      
-                                                                          <div class="location_add_form well">                                                                             
+                                                                      <form  method="get" id="reg_form">
+                                                                          <div class="location_add_form well">
+                                                                            <div class="formSep">                                                                                    
                                                                                     <div class="input-prepend">
                                                                                     <label>Chofer
                                                                                         <a data-toggle='modal' data-backdrop='static' href='#ModalChofer'><i class='splashy-zoom'></i></a>
@@ -66,19 +37,6 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                         <blockquote><div id="direccion">Dirección de Llegada</div></blockquote>
                                                                                         <input type="text" class="span10" id="IdDireccion" name="IdDireccion" />
                                                                                     </div>
-                                                                                   
-                                                                    </div>
-
-
-                                                              
-                                                            </div>
-                                                    </div>
-                                            </div>	
-                                            <div class="span4">
-                                                <div class="row-fluid" id="g-map-top">
-                                                            <div class="span12">
-                                                                      
-                                                                          <div class="location_add_form well">
                                                                                     <div class="input-prepend">
                                                                                     <label>Guia de Recepción N°</label>
                                                                                     <input type="text" class="span10" id="txtGuia" name="txtGuia" />
@@ -90,23 +48,8 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                     <div class="input-prepend">
                                                                                     <label>Modelo</label>
                                                                                     <input type="text" class="span10" id="txtModelo"  name="txtModelo" />
-                                                                                     </div>                                                                                   
-                                                                                  
-                                                                    </div>
-
-
-                                                              
-                                                            </div>
-                                                    </div>
-                                               
-                                            </div>
-                                            <div class="span4">
-                                                <div class="row-fluid" id="g-map-top">
-                                                            <div class="span12">
-                                                                      
-                                                                          <div class="location_add_form well">
-                                                                            <div class="formSep">  
-                                                                                 <div class="input-prepend">
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
                                                                                     <label>Fecha</label>
                                                                                     <input type="text" class="span10" id="txtFecha"  name="txtFecha" />
                                                                                      </div>  
@@ -130,20 +73,15 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                     </div>
 
 
-                                                              
+                                                                </form>
                                                             </div>
                                                     </div>
-                                               
+                                            </div>	
+                                            <div class="span8">
+                                                <div id="tabla"></div>
                                             </div>
                                     </div>
-                                  </form>
                             </div>
-                        </div>
-    
-                         <div class="row-fluid">
-                             <div class="span12">
-                                  <div id="tabla"></div>
-                             </div>
                         </div>
 
 </div>
@@ -311,7 +249,6 @@ function tablaDireccion()
  };      
  function tabla(pos)
 {
-    $('#tabla').html('<center><h3 id="tabla"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
      $.ajax({
         url: 'operaciones/recepcion/list_tabla_temp.jsp?posicion='+pos,
         type: 'POST',
@@ -411,5 +348,5 @@ function tablaDireccion()
 
                                       };
 </script>
-<%}}%>  
+<%}%>  
            
