@@ -6,6 +6,7 @@
 
 package Entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +28,13 @@ public class entRecepcion {
     private String usuario_responsable;
     private Date fecha_modificacion;
     private List<entDetalleRecepcion> lista;
+    private List<entCategoria> listaCategoria;
+    private List<entJaba> listaJaba;
+    private List<entParihuela> listaParihuela;
     
-    public entRecepcion (){}
+    public entRecepcion (){
+    this.lista=new ArrayList<entDetalleRecepcion>();
+    }
 
     public Date getFecha_recepcion() {
         return fecha_recepcion;
@@ -128,6 +134,30 @@ public class entRecepcion {
 
     public void setLista(List<entDetalleRecepcion> lista) {
         this.lista = lista;
+    }
+
+    public List<entCategoria> getListaCategoria() {
+        return listaCategoria;
+    }
+
+    public void setListaCategoria(List<entCategoria> listaCategoria) {
+        this.listaCategoria = listaCategoria;
+    }
+
+    public List<entJaba> getListaJaba() {
+        return listaJaba;
+    }
+
+    public void setListaJaba(List<entJaba> listaJaba) {
+        this.listaJaba = listaJaba;
+    }
+
+    public List<entParihuela> getListaParihuela() {
+        return listaParihuela;
+    }
+
+    public void setListaParihuela(List<entParihuela> listaParihuela) {
+        this.listaParihuela = listaParihuela;
     }
     
     
