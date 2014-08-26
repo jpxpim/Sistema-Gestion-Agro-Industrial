@@ -22,6 +22,10 @@ public class entDireccionLlegada
     
     public entDireccionLlegada(){}
 
+    public entDireccionLlegada(int id_dir_llegada) {
+        this.id_dir_llegada = id_dir_llegada;
+    }
+
     public int getId_dir_llegada() {
         return id_dir_llegada;
     }

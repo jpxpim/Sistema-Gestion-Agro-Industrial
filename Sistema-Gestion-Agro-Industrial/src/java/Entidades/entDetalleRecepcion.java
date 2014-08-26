@@ -20,7 +20,12 @@ public class entDetalleRecepcion
     private entCategoria objCategoria;
     private Double num_jabas;
     private Double peso_bruto;
+    boolean seleccion;
 
+    public entDetalleRecepcion() {
+        this.seleccion = false;
+    }
+    
     public int getId_det_recepcion() {
         return id_det_recepcion;
     }
@@ -86,6 +91,13 @@ public class entDetalleRecepcion
     public void setPeso_bruto(Double peso_bruto) {
         this.peso_bruto = peso_bruto;
     }
-    
-    
+
+    public boolean isSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(boolean seleccion) {
+        this.seleccion = seleccion;
+    }
+
 }

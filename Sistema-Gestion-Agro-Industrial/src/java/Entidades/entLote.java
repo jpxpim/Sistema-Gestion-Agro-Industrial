@@ -38,6 +38,11 @@ public class entLote
         this.id_lote = id_lote;
     }
 
+    public entLote(int id_lote, String nombre) {
+        this.id_lote = id_lote;
+        this.nombre = nombre;
+    }
+
     public int getId_lote() {
         return id_lote;
     }

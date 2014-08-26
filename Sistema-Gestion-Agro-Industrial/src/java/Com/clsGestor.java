@@ -542,4 +542,25 @@ public class clsGestor {
     
     // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entRecepcion">
+    public static List<entRecepcion> ListarRecepcion(boolean activo) throws Exception
+    {
+        return RecepcionDAO.Listar(activo);
+    }
+    
+    public  static int insertarRecepcion(entRecepcion entidad) throws Exception
+    {
+        return RecepcionDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarRecepcion(entRecepcion entidad) throws Exception
+    {
+        return RecepcionDAO.actualizar(entidad);
+    }
+     public static entRecepcion BuscarPorIdRecepcion(int id) throws Exception
+    {
+        return RecepcionDAO.BuscarPorId(id);
+    }
+    // </editor-fold>
+    
 }

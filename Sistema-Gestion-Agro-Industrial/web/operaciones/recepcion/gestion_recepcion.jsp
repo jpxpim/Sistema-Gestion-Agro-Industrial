@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="Entidades.entRecepcion"%>
 <%@page import="Entidades.entParihuela"%>
 <%@page import="Entidades.entCategoria"%>
@@ -16,6 +17,21 @@ if(objSession!=null)
 {  
 if(request.getParameter("id") != null && request.getParameter("id") != "" )
 {
+    SimpleDateFormat  e=new SimpleDateFormat("MM/dd/yyyy");
+    String chofer="Chofer";
+    String transportista="Empresa Tramsportista";
+    String direccion="Dirección de Llegada";
+    String idChofer="";
+    String idDireccion="";
+    String precinto="";
+    String guia="";
+    String placa="";
+    String modelo="";
+    String fecha=e.format(new Date());
+    String activo="";
+    String inactivo="";
+    String estado="$('input:radio[name=rbEstado]').attr('checked',false);";
+  
   if(objSession.getObjRecepcion()==null)
   {
         entRecepcion objRecepcion = new entRecepcion();
@@ -26,6 +42,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
         
         if(!request.getParameter("id").equals("0"))
         {
+            objRecepcion = clsGestor.BuscarPorIdRecepcion(Integer.parseInt(request.getParameter("id")));
             
         }
         
@@ -38,11 +55,39 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
         sesion.setAttribute("SessionUsuario", objSession);
         sesion.setMaxInactiveInterval(-1);
   }
-
+  
+  
+  if(objSession.getObjRecepcion().getId_recepcion()>0)
+      {
+            chofer=objSession.getObjRecepcion().getObjChofer().getNombre();
+            transportista=objSession.getObjRecepcion().getObjChofer().getObjTransportista().getRazon_social();
+            direccion=objSession.getObjRecepcion().getObjDireccionLlegada().getNombre();
+            idChofer="value='"+objSession.getObjRecepcion().getObjChofer().getId_chofer()+"'";
+            idDireccion="value='"+objSession.getObjRecepcion().getObjDireccionLlegada().getId_dir_llegada()+"'";
+            precinto="value='"+objSession.getObjRecepcion().getPrecinto()+"'";
+            guia="value='"+objSession.getObjRecepcion().getNum_guia()+"'";
+            placa="value='"+objSession.getObjRecepcion().getPlaca()+"'";
+            modelo="value='"+objSession.getObjRecepcion().getModelo()+"'";
+            fecha=e.format(objSession.getObjRecepcion().getFecha_recepcion());
+            if(objSession.getObjRecepcion().getEstado()==1)
+            {
+               activo="checked='true'";
+               estado="$('input:radio[name=rbEstado]')[0].checked = true;";
+            }
+            else if(objSession.getObjRecepcion().getEstado()==2)
+            {
+                 estado="$('input:radio[name=rbEstado]')[1].checked = true;";
+                 inactivo="checked='true'";
+            }
+      }
   
 %>
 <div id="frame">
-
+    <div class="row-fluid">
+        <div class="span12">			
+             <button class="btn btn-invert" onclick="clear_all()" type="button">Cancelar y Volver a las lista</button>
+        </div>
+    </div>
                     <div class="row-fluid">
                             <div class="span12">
                                 <form  method="get" id="reg_form">
@@ -56,17 +101,20 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                     <label>Chofer
                                                                                         <a data-toggle='modal' data-backdrop='static' href='#ModalChofer'><i class='splashy-zoom'></i></a>
                                                                                     </label>
-                                                                                        <div id="chofer"><blockquote>Chofer<blockquote>Empresa Tramsportista</blockquote></blockquote></div>
-                                                                                        <input type="text" class="span10" id="IdChofer" name="IdChofer" />
+                                                                                        <div id="chofer"><blockquote><%=chofer%><blockquote><%=transportista%></blockquote></blockquote></div>
+                                                                                        <input type="text" class="span10" id="IdChofer" name="IdChofer" <%=idChofer%> />
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                     <label>Dirección de Llegada
                                                                                         <a data-toggle='modal' data-backdrop='static' href='#ModalDireccion'><i class='splashy-zoom'></i></a>
                                                                                     </label>
-                                                                                        <blockquote><div id="direccion">Dirección de Llegada</div></blockquote>
-                                                                                        <input type="text" class="span10" id="IdDireccion" name="IdDireccion" />
+                                                                                        <blockquote><div id="direccion"><%=direccion%></div></blockquote>
+                                                                                        <input type="text" class="span10" id="IdDireccion" name="IdDireccion"  <%=idDireccion%>/>
                                                                                     </div>
-                                                                                   
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Precinto</label>
+                                                                                    <input type="text" class="span10" id="txtPrecinto" name="txtPrecinto" <%=precinto%> />
+                                                                                    </div>
                                                                     </div>
 
 
@@ -81,15 +129,15 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                           <div class="location_add_form well">
                                                                                     <div class="input-prepend">
                                                                                     <label>Guia de Recepción N°</label>
-                                                                                    <input type="text" class="span10" id="txtGuia" name="txtGuia" />
+                                                                                    <input type="text" class="span10" id="txtGuia" name="txtGuia" <%=guia%>  />
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                     <label>Placa</label>
-                                                                                    <input type="text" class="span10" id="txtPlaca" name="txtPlaca" />
+                                                                                    <input type="text" class="span10" id="txtPlaca" name="txtPlaca" <%=placa%>  />
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                     <label>Modelo</label>
-                                                                                    <input type="text" class="span10" id="txtModelo"  name="txtModelo" />
+                                                                                    <input type="text" class="span10" id="txtModelo"  name="txtModelo" <%=modelo%> />
                                                                                      </div>                                                                                   
                                                                                   
                                                                     </div>
@@ -108,20 +156,19 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                             <div class="formSep">  
                                                                                  <div class="input-prepend">
                                                                                     <label>Fecha</label>
-                                                                                    <input type="text" class="span10" id="txtFecha"  name="txtFecha" />
+                                                                                    <input type="text" class="span10" id="txtFecha"  name="txtFecha" value="<%=fecha%>"  />
                                                                                      </div>  
                                                                                      <div class="input-prepend">
                                                                                     <label>Estado</label>
                                                                                     <label class="radio inline">
-                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" <%=activo%>  />
                                                                                         Activo
                                                                                     </label>
                                                                                     <label class="radio inline">
-                                                                                            <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                            Desactivado
+                                                                                            <input type="radio" value="0" id="rbEstado" name="rbEstado" <%=inactivo%> />
+                                                                                            Inactivado
                                                                                     </label>
                                                                                      </div>
-                                                                                <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
 
                                                                             </div>
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
@@ -183,6 +230,24 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
 <script>
     var estadoChofer=true;
     var estadoDireccion=true;
+function clear_all()
+{
+    smoke.confirm('Desea Cancelar Todo',function(e){
+        if (!e){            
+            $.ajax({
+            url: 'operaciones/recepcion/limpiar_tabla_temp.jsp',
+            type: 'POST',
+            success: function () {     
+                     lista();
+            },
+            contentType: false,
+            processData: false
+            });  
+        }
+    }, {ok:"No", cancel:"Si"});
+           
+
+};
 function setEstadoChofer(id)
 {
     $('#IdChofer').val(id);
@@ -336,7 +401,7 @@ function tablaDireccion()
                                         ignore: ".ignore",
                                             submitHandler: function() {       
                                                        $("#abrirCarga").click();
-                                                    var url = "operaciones/vivero/insert.jsp"; 
+                                                    var url = "operaciones/recepcion/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -348,15 +413,12 @@ function tablaDireccion()
                                                                  $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
                                                                 else if(data==0)
                                                                 {
-                                                                    tabla();
-                                                                    clear_form();
                                                                    $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
                                                                     
                                                                }
                                                                 else if(data>0)
                                                                 {
-                                                                   tabla();
-                                                                   clear_form();
+                                                                   lista();
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
@@ -371,7 +433,8 @@ function tablaDireccion()
                                                 rbEstado: { required: true },
                                                 IdChofer: { required: true },
                                                 IdDireccion: { required: true },
-                                                txtFecha: { required: true }
+                                                txtFecha: { required: true },
+                                                txtPrecinto: { required: true }
                                                 
 					},
 					highlight: function(element) {

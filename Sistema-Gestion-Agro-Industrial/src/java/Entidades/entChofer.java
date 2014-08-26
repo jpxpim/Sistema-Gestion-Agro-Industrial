@@ -24,6 +24,10 @@ public class entChofer
     
     public entChofer(){}
 
+    public entChofer(int id_chofer) {
+        this.id_chofer = id_chofer;
+    }
+
     public int getId_chofer() {
         return id_chofer;
     }

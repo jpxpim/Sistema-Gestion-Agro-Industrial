@@ -232,9 +232,21 @@ function getRecepcion(id)
         processData: false
     });
 };
-                              
+ function lista()
+{    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+    $.ajax({
+        url: 'operaciones/recepcion/list_tabla.jsp?',
+        type: 'POST',
+        success: function (data) {     
+                 $('#frame').html(data);
+        },
+        contentType: false,
+        processData: false
+    });
+};
+                                  
                            modulos(); 
-                               getRecepcion(0);    
+                               lista();    
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader

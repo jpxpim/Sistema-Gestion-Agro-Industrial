@@ -207,7 +207,7 @@ public class RecepcionDAO {
             stmt = conn.prepareCall(sql);
             dr1 = stmt.executeQuery();
 
-            if(dr1.next())
+            while(dr1.next())
             {
                 if(lista==null)
                 {lista= new ArrayList<entRecepcion>();}
@@ -298,7 +298,7 @@ public class RecepcionDAO {
                 sql="INSERT INTO DET_RECEPCION(ID_RECEPCION,ID_LOTE,ID_JABA,ID_PARIHUELA,ID_CATEGORIA,NUM_JABAS,PESO_BRUTO)"
                             + " VALUES(?,?,?,?,?,?,?);";
                     PreparedStatement pst1 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                    pst1.setInt(1, entidad.getLista().get(i).getId_recepcion());
+                    pst1.setInt(1,rpta);
                     pst1.setInt(2,entidad.getLista().get(i).getObjLote().getId_lote());
                     pst1.setInt(3, entidad.getLista().get(i).getObjJaba().getId_jaba());
                     pst1.setInt(4, entidad.getLista().get(i).getObjParihuela().getId_parihuela());
@@ -354,21 +354,21 @@ public class RecepcionDAO {
             if(rpta1)
             {   
                 for(int i=0; i<entidad.getLista().size();i++)
+                    if(entidad.getLista().get(i).isSeleccion())
                 {
-                    boolean rpta2 = false;          
-                    sql="UPDATE DET_RECEPCION SET ID_RECEPCION=?,ID_LOTE= ?,ID_JABA= ?,ID_PARIHUELA= ? ,"
+                    
+                    sql="UPDATE DET_RECEPCION SET ID_LOTE= ?,ID_JABA= ?,ID_PARIHUELA= ? ,"
                             + "ID_CATEGORIA=?,NUM_JABAS=?,PESO_BRUTO=? "
                          + " WHERE ID_DET_RECEPCION = ?;";
                     CallableStatement stmt2 = conn.prepareCall(sql);    
-                    stmt2.setInt(1, entidad.getLista().get(i).getId_recepcion());
-                    stmt2.setInt(2, entidad.getLista().get(i).getObjLote().getId_lote());
-                    stmt2.setInt(3, entidad.getLista().get(i).getObjJaba().getId_jaba());
-                    stmt2.setInt(4, entidad.getLista().get(i).getObjParihuela().getId_parihuela());
-                    stmt2.setInt(5, entidad.getLista().get(i).getObjCategoria().getId_categoria());
-                    stmt2.setDouble(6, entidad.getLista().get(i).getNum_jabas());
-                    stmt2.setDouble(7, entidad.getLista().get(i).getPeso_bruto());
-                    stmt2.setInt(8, entidad.getLista().get(i).getId_det_recepcion());
-                    rpta2 = stmt2.executeUpdate() == 1;
+                    stmt2.setInt(1, entidad.getLista().get(i).getObjLote().getId_lote());
+                    stmt2.setInt(2, entidad.getLista().get(i).getObjJaba().getId_jaba());
+                    stmt2.setInt(3, entidad.getLista().get(i).getObjParihuela().getId_parihuela());
+                    stmt2.setInt(4, entidad.getLista().get(i).getObjCategoria().getId_categoria());
+                    stmt2.setDouble(5, entidad.getLista().get(i).getNum_jabas());
+                    stmt2.setDouble(6, entidad.getLista().get(i).getPeso_bruto());
+                    stmt2.setInt(7, entidad.getLista().get(i).getId_det_recepcion());
+                    stmt2.executeUpdate();
                     stmt2.close();
                 }
             }
