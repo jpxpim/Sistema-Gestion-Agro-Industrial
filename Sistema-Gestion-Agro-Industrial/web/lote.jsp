@@ -15,18 +15,17 @@ if(objSession!=null)
     entFormulario formHijo=null;
     entFormulario formPadre=null;
     boolean pagina=false;
-    int posI=objSession.getListModulos().size();
-    for(int i=0;i<posI;i++)
-    {
-        int posJ=objSession.getListModulos().get(i).getList().size();
+    
+    
+ 
+        int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(17==objSession.getListModulos().get(i).getList().get(j).getControl_form())
+            if(17==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
             {
-                formHijo=objSession.getListModulos().get(i).getList().get(j);
-                formHijo.setObjModulo(objSession.getListModulos().get(i));
+                formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
+                formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));
                 pagina=true;
-                i=posI;
                 j=posJ;
             }
         }
@@ -37,7 +36,6 @@ if(objSession!=null)
             formPadre=padre;
         }
         
-    }
     if(!pagina)
         response.sendRedirect("intranet.jsp");
 %>
@@ -174,7 +172,7 @@ if(objSession!=null)
 
                                                                       </div>
 								</div>	
-                                                                <div class="span3">
+                                                                <div class="span4">
                                                                           <div class="location_add_form well">
                                                                             <div class="formSep">
                                                                                     <div class="input-prepend">
