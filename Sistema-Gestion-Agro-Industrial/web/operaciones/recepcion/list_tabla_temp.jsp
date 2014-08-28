@@ -13,8 +13,7 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {  
-    double tara1=0;
-    double tara2=0;
+    double tara=0;
     double pesoBruto=0;
 if(request.getParameter("posicion") != null && request.getParameter("posicion") != "" )
 {
@@ -34,17 +33,16 @@ int pos = Integer.parseInt(request.getParameter("posicion"))-1;
 <table id="lista" class="table table-bordered table-striped table_vam">
 <thead>
 <tr>
-        <th>N°</th>
-        <th>LOTE</th>
-        <th>CATEGORIA</th>
-        <th>JABA</th>
-        <th>N° JABAS</th>
-        <th>TARA 1</th>
-        <th>PARIHUELA</th>
-        <th>TARA 2</th>        
-        <th>PESO BRUTO</th>    
-        <th>PESO NETO</th>     
-        <th>Acciones</th>
+         <th><center>#</center> </th>
+         <th><center><center>LOTE</center></center> </th>
+         <th><center><center>CATEGORIA</center></center> </th>
+         <th><center>JABA</center> </th>
+         <th  style="width: 70px;"><center>N° JABAS</center> </th>
+         <th><center>PARIHUELA</center> </th>
+         <th><center>TARA</center> </th>        
+         <th><center>P. BRUTO</center> </th>    
+         <th style="width: 70px;"><center>P. NETO</center> </th>     
+        <th style="width: 110px;"><center>Acciones</center> </th>
 </tr>
 </thead>  
 <tbody> 
@@ -108,7 +106,6 @@ if(pos==i)
     </select>
 </td>
 <td><input type="text" style="width:40px;"  id="txtNJabas" name="txtNJabas" value="<%=objSession.getObjRecepcion().getLista().get(i).getNum_jabas()%>" /></td>
-<td></td>
 <td>
     <select id="cbParihuela" name="cbParihuela" class="span10" title="Por favor selecione una Parihuela!" required>
     <option value="">Selecione una Opción</option>
@@ -130,7 +127,7 @@ if(pos==i)
 <td></td>
 <td>
 
-<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button><br><br>
+<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button>
 
 <button class="comp_edit btn btn-success btn-mini" onclick="tabla(0)" type="button">Cancelar</button>
 </td>
@@ -139,9 +136,8 @@ if(pos==i)
 <%
 }else
 {
-tara1=objSession.getObjRecepcion().getLista().get(i).getNum_jabas()*objSession.getObjRecepcion().getLista().get(i).getObjJaba().getPeso();
-tara2=objSession.getObjRecepcion().getLista().get(i).getObjParihuela().getPeso();
-pesoBruto=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()-tara1-tara2;
+tara=objSession.getObjRecepcion().getLista().get(i).getNum_jabas()*objSession.getObjRecepcion().getLista().get(i).getObjJaba().getPeso()+objSession.getObjRecepcion().getLista().get(i).getObjParihuela().getPeso();
+pesoBruto=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()-tara;
 %> 
 
 <tr>
@@ -150,13 +146,14 @@ pesoBruto=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()-tara1-t
 <td><%=objSession.getObjRecepcion().getLista().get(i).getObjCategoria().getNombre()%></td>
 <td><%=objSession.getObjRecepcion().getLista().get(i).getObjJaba().getNombre()%></td>
 <td><%=objSession.getObjRecepcion().getLista().get(i).getNum_jabas()%></td>
-<td><%=Operaciones.Redondear(tara1, 2)%></td>
 <td><%=objSession.getObjRecepcion().getLista().get(i).getObjParihuela().getNombre()%></td>
-<td><%=Operaciones.Redondear(tara2, 2)%></td>
+<td><%=Operaciones.Redondear(tara, 2)%></td>
 <td><%=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()%></td>
 <td><%=Operaciones.Redondear(pesoBruto, 2)%></td>
 <td>
+<center>
 <button class="comp_edit btn btn-warning btn-mini" onclick="tabla(<%=(i+1)%>)" type="button">Editar</button>
+</center>
 </td>
 
 </tr> 
@@ -209,7 +206,6 @@ if(objSession.getObjRecepcion().getLista().size()==0){%>
     </select>
 </td>
 <td><input type="text" style="width:40px;"  id="txtNJabas" name="txtNJabas" /></td>
-<td></td>
 <td>
     <select id="cbParihuela" name="cbParihuela" class="span10" title="Por favor selecione una Parihuela!" required>
     <option value="">Selecione una Opción</option>
@@ -228,9 +224,9 @@ if(objSession.getObjRecepcion().getLista().size()==0){%>
 <td></td>
 <td>
 
-<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button><br><br>
+<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button>
 
-<button class="comp_edit btn btn-success btn-mini" onclick="tablaTemp(0)" type="button">Cancelar</button>
+<button class="comp_edit btn btn-success btn-mini" onclick="tabla(0)" type="button">Cancelar</button>
 </td>
 
 
@@ -288,7 +284,6 @@ if(objSession.getObjRecepcion().getLista().size()==0){%>
     </select>
 </td>
 <td><input type="text" style="width:40px;"  id="txtNJabas" name="txtNJabas" /></td>
-<td></td>
 <td>
     <select id="cbParihuela" name="cbParihuela" class="span10" title="Por favor selecione una Parihuela!" required>
     <option value="">Selecione una Opción</option>
@@ -311,7 +306,7 @@ if(objSession.getObjRecepcion().getLista().size()==0){%>
 <td>
 
 
-<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button><br><br>
+<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button>
 
 <button class="comp_edit btn btn-success btn-mini" onclick="tablaTemp(0)" type="button">Cancelar</button>
 </td>
@@ -366,6 +361,7 @@ $(function () {
                        data: $("#reg_form_tabla").serialize(), 
                        success: function()
                        {
+                           size++;
                            tabla(0);
                        }
                      }); 

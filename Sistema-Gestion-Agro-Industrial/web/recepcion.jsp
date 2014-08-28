@@ -171,7 +171,7 @@ if(objSession!=null)
 			<script src="lib/smoke/smoke.js"></script>
                         <!-- datatable -->
 			<script src="lib/datatables/jquery.dataTables.min.js"></script>
-	
+
 			<script>
 
  function modulos()
@@ -219,6 +219,10 @@ function getRecepcion(id)
         contentType: false,
         processData: false
     });
+};
+function SetRecepccion(parametro)
+{
+   alert(parametro); 
 };
  function lista()
 {    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');

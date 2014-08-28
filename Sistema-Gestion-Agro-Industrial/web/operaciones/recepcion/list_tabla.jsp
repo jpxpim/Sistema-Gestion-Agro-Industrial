@@ -1,4 +1,5 @@
- <%@page import="java.text.SimpleDateFormat"%>
+ <%@page import="Entidades.entDiaRecepcion"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entidades.entRecepcion"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
@@ -7,6 +8,8 @@
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
+{
+
 {
 if(objSession.getObjRecepcion()!=null)   
     out.print("<script type='text/javascript'>getRecepcion(0);</script>");
@@ -76,6 +79,7 @@ if(list!=null)
 </div>
 </div>
 <script type="text/javascript">
+
 $(function () { 
 
    $('#lista').dataTable({
@@ -90,7 +94,14 @@ $(function () {
 </script>
 
 <%}
-}}%>  
+else{
+%>
+<div id="frame">
+ <button class="btn btn-invert" onclick="getRecepcion(0)" type="button">Agregar Recepcion</button>
+</div>
+<%
+}
+}}}%>  
                                                                         
                                                                        
                                                                             

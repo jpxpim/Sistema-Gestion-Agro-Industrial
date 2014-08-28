@@ -15,6 +15,8 @@ import java.util.List;
 public class entSesion {
 
     private int posicion;
+    private entDiaRecepcion objDiaRecepcion;  
+    private boolean dia_recepcion;
     private entUsuario objUsuario;
     private entBrotacion objBrotacion;
     private entDesbrote objDesbrote;
@@ -26,8 +28,18 @@ public class entSesion {
     
     public entSesion() {
         this.posicion=0;
+        this.dia_recepcion=false;
+        this.objDiaRecepcion=null;
         listModulos=null;
         objRecepcion=null;
+    }
+
+    public boolean isDia_recepcion() {
+        return dia_recepcion;
+    }
+
+    public void setDia_recepcion(boolean dia_recepcion) {
+        this.dia_recepcion = dia_recepcion;
     }
 
     
@@ -103,6 +115,14 @@ public class entSesion {
 
     public void setObjRecepcion(entRecepcion objRecepcion) {
         this.objRecepcion = objRecepcion;
+    }
+
+    public entDiaRecepcion getObjDiaRecepcion() {
+        return objDiaRecepcion;
+    }
+
+    public void setObjDiaRecepcion(entDiaRecepcion objDiaRecepcion) {
+        this.objDiaRecepcion = objDiaRecepcion;
     }
 
 }

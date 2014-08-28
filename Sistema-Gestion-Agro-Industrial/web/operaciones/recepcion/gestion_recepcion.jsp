@@ -83,7 +83,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
   
 %>
 <div id="frame">
-         <div class="row-fluid">
+         <div id="ocultar" class="row-fluid">
                             <div class="span12">
                                 <form  method="get" id="reg_form">
                                     <div class="row-fluid">
@@ -106,10 +106,8 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                         <blockquote><div id="direccion"><%=direccion%></div></blockquote>
                                                                                         <input type="text" class="span10" id="IdDireccion" name="IdDireccion"  <%=idDireccion%>/>
                                                                                     </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Precinto</label>
-                                                                                    <input type="text" class="span10" id="txtPrecinto" name="txtPrecinto" <%=precinto%> />
-                                                                                    </div>
+                                                                                   
+                                                                                    
                                                                     </div>
 
 
@@ -123,16 +121,16 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                       
                                                                           <div class="location_add_form well">
                                                                                     <div class="input-prepend">
-                                                                                    <label>Guia de Recepción N°</label>
-                                                                                    <input type="text" class="span10" id="txtGuia" name="txtGuia" <%=guia%>  />
+                                                                                    <input type="text" class="ttip_r" id="txtPrecinto" name="txtPrecinto" title="Ingrese Precinto"  placeholder="Ingrese Precinto" <%=precinto%> />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Placa</label>
-                                                                                    <input type="text" class="span10" id="txtPlaca" name="txtPlaca" <%=placa%>  />
+                                                                                    <input type="text" id="txtGuia" name="txtGuia" <%=guia%> class="ttip_r"  title="Ingrese Guia de Recepción"  placeholder="Ingrese Guia de Recepción" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Modelo</label>
-                                                                                    <input type="text" class="span10" id="txtModelo"  name="txtModelo" <%=modelo%> />
+                                                                                    <input type="text" id="txtPlaca" name="txtPlaca" <%=placa%>  class="ttip_r"  title="Ingrese Placa"  placeholder="Ingrese Placa"/>
+                                                                                    </div>
+                                                                                    <div class="input-prepend">
+                                                                                    <input type="text" id="txtModelo"  name="txtModelo" <%=modelo%> class="ttip_r"  title="Ingrese Modelo"  placeholder="Ingrese Modelo"/>
                                                                                      </div>                                                                                   
                                                                                   
                                                                     </div>
@@ -141,6 +139,8 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                               
                                                             </div>
                                                     </div>
+                                                 
+                                                                          
                                                
                                             </div>
                                             <div class="span4">
@@ -150,8 +150,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                           <div class="location_add_form well">
                                                                             <div class="formSep">  
                                                                                  <div class="input-prepend">
-                                                                                    <label>Fecha</label>
-                                                                                    <input type="text" class="span10" id="txtFecha"  name="txtFecha" value="<%=fecha%>"  />
+                                                                                    <input type="text" id="txtFecha"  name="txtFecha" value="<%=fecha%>"  class="ttip_r"  title="Ingrese Fecha"  placeholder="Ingrese Fecha"/>
                                                                                      </div>  
                                                                                      <div class="input-prepend">
                                                                                     <label>Estado</label>
@@ -169,7 +168,8 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
 
                                                                             <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
-                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Volver a las lista</button>
+                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Regresar</button>
+                                                                             <button class="btn btn-inverse" onclick="getOcultar()" type="button">Ocultar</button>
                                                                           </div>
 
 
@@ -182,7 +182,12 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                   </form>
                             </div>
                         </div>
-    
+     
+                        <div class="row-fluid" id="ver" style="display: none">
+                             <div class="span12">
+                                   <button class="btn btn-gebo" onclick="getOcultar()" type="button">Ver</button>
+                             </div>
+                        </div>
                          <div class="row-fluid">
                              <div class="span12">
                                   <div id="tabla"></div>
@@ -226,6 +231,21 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
 <script>
     var estadoChofer=true;
     var estadoDireccion=true;
+    var ocultar=true;
+    var size=<%=objSession.getObjRecepcion().getLista().size()%>;
+function getOcultar()
+{
+    if(ocultar)
+    {
+         $("#ocultar").hide();   
+         $("#ver").show();   
+        ocultar=false;
+    }else{
+         $("#ocultar").show();   
+        $("#ver").hide();   
+        ocultar=true;
+    }
+};
 function clear_all()
 {
     smoke.confirm('Desea Cancelar Todo',function(e){
@@ -387,6 +407,7 @@ function tablaDireccion()
  tablaChofer();
  tablaDireccion();
     		$(document).ready(function() {
+                                    
                                     $('#IdChofer').hide();
                                     $('#IdDireccion').hide();
                                       $('#reg_form').validate({
@@ -396,6 +417,9 @@ function tablaDireccion()
 					validClass: 'valid',
                                         ignore: ".ignore",
                                             submitHandler: function() {       
+                                                
+                                                if(0<size)
+                                                 {
                                                        $("#abrirCarga").click();
                                                     var url = "operaciones/recepcion/insert.jsp"; 
 
@@ -420,7 +444,11 @@ function tablaDireccion()
                                                                 }
                                                                  $("#cerrarCarga").trigger("click");
                                                            }
-                                                         });    
+                                                         });
+                                                     }
+                                                     else
+                                                         $.sticky("Por favor al menos ingrese un datalle.", {autoclose : 5000, position: "top-right", type: "st-error" });
+                                              
                                             },
 					rules: {
 						txtModelo: { required: true, minlength: 3 },
@@ -457,18 +485,7 @@ function tablaDireccion()
                                      
                                            
                                       };
-                                   function edit_form(id,nombre,descripcion,codigo,estado) {
-                                        $('#txtNombre').val(nombre);
-                                        $('#txtDescripcion').val(descripcion);
-                                        $('#IdVivero').val(id);
-                                         $('#txtCodigo').val(codigo);
-                                        if(estado.toLowerCase()=="true")
-                                         $('input:radio[name=rbEstado]')[0].checked = true;
-                                        else
-                                          $('input:radio[name=rbEstado]')[1].checked = true;
-
-
-                                      };
+                                  
 </script>
 <%}}%>  
            

@@ -562,5 +562,16 @@ public class clsGestor {
         return RecepcionDAO.BuscarPorId(id);
     }
     // </editor-fold>
+     
+    //<editor-fold defaultstate="collapsed" desc="entDiaRecepcion">
+     public static entDiaRecepcion verificarDiaRecepcion() throws Exception
+    {
+        return DiaRecepcionDAO.verificar();
+    }
+    
+  
+    // </editor-fold>
+     
+     
     
 }
