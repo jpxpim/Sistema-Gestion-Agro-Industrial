@@ -18,6 +18,9 @@ public class entProductor {
     private String nombre;
     private String codigo_erp;
     private String codigo_control;
+    private String code;
+    private String fda;
+    private String ggn;
     private Boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
@@ -82,6 +85,30 @@ public class entProductor {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public String getFda() {
+        return fda;
+    }
+
+    public void setFda(String fda) {
+        this.fda = fda;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getGgn() {
+        return ggn;
+    }
+
+    public void setGgn(String ggn) {
+        this.ggn = ggn;
     }
     
     

@@ -83,12 +83,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
   
 %>
 <div id="frame">
-    <div class="row-fluid">
-        <div class="span12">			
-             <button class="btn btn-invert" onclick="clear_all()" type="button">Cancelar y Volver a las lista</button>
-        </div>
-    </div>
-                    <div class="row-fluid">
+         <div class="row-fluid">
                             <div class="span12">
                                 <form  method="get" id="reg_form">
                                     <div class="row-fluid">
@@ -174,7 +169,8 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
 
                                                                             <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
-                                                                    </div>
+                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Volver a las lista</button>
+                                                                          </div>
 
 
                                                               

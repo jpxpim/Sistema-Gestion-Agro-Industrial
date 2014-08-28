@@ -21,7 +21,7 @@ if(request.getParameter("posicion") != null && request.getParameter("posicion") 
 List<entJaba> listJaba=objSession.getObjRecepcion().getListaJaba();
 List<entCategoria> listCategoria=objSession.getObjRecepcion().getListaCategoria();
 List<entParihuela> listParihuela=objSession.getObjRecepcion().getListaParihuela();
-
+int size = objSession.getObjRecepcion().getLista().size();
 int pos = Integer.parseInt(request.getParameter("posicion"))-1;    
 %>
 <div id="frameDetalle">
@@ -51,7 +51,7 @@ int pos = Integer.parseInt(request.getParameter("posicion"))-1;
 
 <%
 if(objSession.getObjRecepcion()!=null)
-for(int i=0;i<objSession.getObjRecepcion().getLista().size();i++)
+for(int i=0;i<size;i++)
 {
 if(pos==i)
 {
@@ -151,7 +151,7 @@ pesoBruto=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()-tara1-t
 <td><%=objSession.getObjRecepcion().getLista().get(i).getObjJaba().getNombre()%></td>
 <td><%=objSession.getObjRecepcion().getLista().get(i).getNum_jabas()%></td>
 <td><%=Operaciones.Redondear(tara1, 2)%></td>
-<td><%=objSession.getObjRecepcion().getLista().get(i).getObjParihuela().getId_parihuela()%></td>
+<td><%=objSession.getObjRecepcion().getLista().get(i).getObjParihuela().getNombre()%></td>
 <td><%=Operaciones.Redondear(tara2, 2)%></td>
 <td><%=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()%></td>
 <td><%=Operaciones.Redondear(pesoBruto, 2)%></td>
@@ -165,9 +165,7 @@ pesoBruto=objSession.getObjRecepcion().getLista().get(i).getPeso_bruto()-tara1-t
 
 }
 if(pos==-1){
-%>  
-    
-    
+if(objSession.getObjRecepcion().getLista().size()==0){%>  
 <tr>
 <td></td>
 <td>
@@ -237,8 +235,90 @@ if(pos==-1){
 
 
 </tr>
+ <%}else{%>  
+<tr>
+<td></td>
+<td>
+    <select id="cbLote" name="cbLote" style="width: 70px;" title="Por favor selecione una Lote!" required>
+    <option value=""></option>
+
+    <%  
+    List<entLote> listLote=clsGestor.ListarLote(true);
+    if(listLote!=null)
+
+    for(entLote entidad : listLote)
+        if(entidad.getId_lote()==objSession.getObjRecepcion().getLista().get(size-1).getObjLote().getId_lote())
+        out.print("<option value='"+entidad.getId_lote()+"' selected>"+entidad.getCodigo_control()+"</option>");
+        else
+            out.print("<option value='"+entidad.getId_lote()+"'>"+entidad.getCodigo_control()+"</option>");
+    %>
+    </select>
+
+</td>
+<td>
+    <select id="cbCategoria" name="cbCategoria" class="span10" title="Por favor selecione una Categoria!" required>
+    <option value="">Selecione una Opción</option>
+
+    <%  
+    
+    if(listCategoria!=null)
+
+    for(entCategoria entidad : listCategoria)
+         if(entidad.getId_categoria()==objSession.getObjRecepcion().getLista().get(size-1).getObjCategoria().getId_categoria())
+        out.print("<option value='"+entidad.getId_categoria()+"' selected>"+entidad.getNombre()+"</option>");
+        else
+              out.print("<option value='"+entidad.getId_categoria()+"'>"+entidad.getNombre()+"</option>");
+    %>
+    </select>
+</td>
+<td>
+    <select id="cbJaba" name="cbJaba" class="span10" title="Por favor selecione una Jaba!" required>
+    <option value="">Selecione una Opción</option>
+
+    <%  
+    
+    if(listJaba!=null)
+
+    for(entJaba entidad : listJaba)
+         if(entidad.getId_jaba()==objSession.getObjRecepcion().getLista().get(size-1).getObjJaba().getId_jaba())
+            out.print("<option value='"+entidad.getId_jaba()+"'selected>"+entidad.getNombre()+"</option>");
+            else
+            out.print("<option value='"+entidad.getId_jaba()+"'>"+entidad.getNombre()+"</option>");
+    %>
+    </select>
+</td>
+<td><input type="text" style="width:40px;"  id="txtNJabas" name="txtNJabas" /></td>
+<td></td>
+<td>
+    <select id="cbParihuela" name="cbParihuela" class="span10" title="Por favor selecione una Parihuela!" required>
+    <option value="">Selecione una Opción</option>
+
+    <%  
+    
+    if(listParihuela!=null)
+
+    for(entParihuela entidad : listParihuela)
+        if(entidad.getId_parihuela()==objSession.getObjRecepcion().getLista().get(size-1).getObjParihuela().getId_parihuela())
+        out.print("<option value='"+entidad.getId_parihuela()+"' selected>"+entidad.getNombre()+"</option>");
+        else
+            out.print("<option value='"+entidad.getId_parihuela()+"'>"+entidad.getNombre()+"</option>");
+    %>
+    </select>
+</td>
+<td></td>
+<td><input type="text" style="width:60px;"  id="txtPBruto" name="txtPBruto" /></td>
+<td></td>
+<td>
+
+
+<button class="comp_edit btn btn-primary btn-mini" type="submit">Grabar</button><br><br>
+
+<button class="comp_edit btn btn-success btn-mini" onclick="tablaTemp(0)" type="button">Cancelar</button>
+</td>
+
+</tr>
 <%
-}
+}}
 %>
 
 
