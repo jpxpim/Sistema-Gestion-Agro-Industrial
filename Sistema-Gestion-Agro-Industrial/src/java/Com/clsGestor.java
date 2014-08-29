@@ -17,7 +17,14 @@ import java.util.List;
  */
 public class clsGestor {
     
-    //<editor-fold defaultstate="collapsed" desc="entUsuario">
+    //<editor-fold defaultstate="collapsed" desc="entConfiguracion">
+    public static boolean actualizarConfiguracion(entConfiguracion entidad) throws Exception{
+        return ConfiguracionDAO.actualizar(entidad);
+    }
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entSesion">
     public static entSesion loginSession(String login,String contrasena) throws Exception
     {
         return SesionDAO.login(login, contrasena);

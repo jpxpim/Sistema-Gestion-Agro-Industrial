@@ -9,12 +9,8 @@ package Dao;
 import Entidades.entConfiguracion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -75,9 +71,10 @@ public class ConfiguracionDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE configuracion SET nom_bd_erp_ext = ?,ip_bd_erp_ext= ?,puerto_bd_erp_ext=?,usuario_bd_erp_ext= ?,"
-                     + "contra_bd_erp_ext = ?,tiempo_alerta = ?,usuario_clave = ?,max_intentos_login = ?,sincro_dash= ?,"
-                     + "  minutos_bloqueo=?, productor_empresa=? WHERE id_configuracion = ?;";
+
+             String sql="UPDATE configuracion SET NOM_BD_ERP_EXT = ?,IP_BD_ERP_EXT= ?,PUERTO_ERP_EXT=?,USUARIO_BD_ERP_EXT= ?,"
+                     + "CONTRA_BD_ERP_EXT = ?,TIEMPO_ALERTA = ?,USUARIO_CLAVE = ?,SINCRO_DASH = ?,PRODUCTOR_EMPRESA= ?,"
+                     + "  USUARIO_CIERRE_RECEPCION_1=?, USUARIO_CIERRE_RECEPCION_2=?, USUARIO_CIERRE_RECEPCION_3=? WHERE ID_CONFIGURACION = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
@@ -88,11 +85,12 @@ public class ConfiguracionDAO {
             stmt.setString(5, entidad.getContra_bd_erp_ext());
             stmt.setInt(6,entidad.getTiempo_alerta());
             stmt.setString(7,entidad.getUsuario_clave());
-            stmt.setInt(8,entidad.getMax_intentos_login());
-            stmt.setInt(9,entidad.getSincro_dash());
-            stmt.setInt(10,entidad.getMinutos_bloqueo());
-            stmt.setInt(11,entidad.getProductor_empresa());
-            stmt.setInt(12,entidad.getId_configuracion());
+            stmt.setInt(8,entidad.getSincro_dash());
+            stmt.setInt(9,entidad.getProductor_empresa());
+            stmt.setInt(10,entidad.getUsuario_cierre_recepcion_1());
+            stmt.setInt(11,entidad.getUsuario_cierre_recepcion_2());
+            stmt.setInt(12,entidad.getUsuario_cierre_recepcion_3());
+            stmt.setInt(13,entidad.getId_configuracion());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

@@ -238,7 +238,7 @@ if(objSession!=null)
                                                                                     <input type="text" class="span10" id="txtContraseniaBD"  name="txtContraseniaBD" value='<%=objSession.getObjConfiguracion().getContra_bd_erp_ext()%>'/>
                                                                                      </div> 
                                                                             </div>
-                                                                            <button class="btn btn-invert" type="submit">Grabar Todo</button>
+                                                                            <button class="btn btn-invert" type="submit">Guardar Todo</button>
 
                                                                           </div>
 
@@ -479,7 +479,7 @@ function getMododulos(posicion)
                                         ignore: ":hidden:not(select)",
                                             submitHandler: function() {       
                                                        $("#abrirCarga").click();
-                                                    var url = "operaciones/vivero/insert.jsp"; 
+                                                    var url = "operaciones/configuracion/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -491,18 +491,10 @@ function getMododulos(posicion)
                                                                  $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
                                                                 else if(data==0)
                                                                 {
-                                                                    tabla();
-                                                                    clear_form();
                                                                    $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
                                                                     
                                                                }
-                                                                else if(data>0)
-                                                                {
-                                                                   tabla();
-                                                                   clear_form();
-                                                                   $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
-                                                                   
-                                                                }
+                                                               
                                                                  $("#cerrarCarga").trigger("click");
                                                            }
                                                          });    
