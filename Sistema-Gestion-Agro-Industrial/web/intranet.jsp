@@ -89,7 +89,7 @@ if(objSession!=null)
                                                                <div id="barras_hectareas_anio"></div>
 								</div>	
 								<div class="span6">
-                                                              <h3 class="heading">Porcentaje de Hectáreas por Vareidad</h3>  
+                                                              <h3 class="heading">Porcentaje de Hectáreas por Variedad</h3>  
                                                               <div id="pie_hectareas_variedad"></div>
                                                               
 								</div>

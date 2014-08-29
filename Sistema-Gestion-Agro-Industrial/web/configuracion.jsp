@@ -71,7 +71,9 @@ if(objSession!=null)
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
              	<!-- smoke_js -->
             <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
-	
+	<!-- enhanced select -->
+            <link rel="stylesheet" href="lib/chosen/chosen.css" />
+
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
 		
@@ -126,26 +128,14 @@ if(objSession!=null)
                     <div class="row-fluid">
                             <div class="span12">
                                     <div class="row-fluid">
+                                         <form  method="get" id="reg_form">
                                             <div class="span4">
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
-                                                                      <form  method="get" id="reg_form">
-                                                                          <div class="location_add_form well">
-                                                                            <div class="formSep">
+                                                                     
+                                                                          <div class="location_add_form well">                                                                              
                                                                                     <div class="input-prepend">
-                                                                                    <label>Nombre</label>
-                                                                                    <input type="text" class="span10" id="txtNombre" name="txtNombre" />
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Descripcion</label>
-                                                                                    <input type="text" class="span10" id="txtDescripcion"  name="txtDescripcion" />
-                                                                                     </div> 
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Codigo de Control</label>
-                                                                                    <input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
-                                                                                     </div> 
-                                                                                    <div class="input-prepend">
-                                                                                        <label>Tiempo Alerta ()minutos</label>
+                                                                                        <label>Tiempo de Alerta en minutos</label>
                                                                                         <select name="cbTiempoAlerta" id="cbTiempoAlerta" class="input-mini" >
                                                                                             <option>1</option>
                                                                                             <option>2</option>
@@ -154,17 +144,54 @@ if(objSession!=null)
                                                                                             <option>5</option>
                                                                                         </select>                                                                                    
                                                                                     </div> 
-                                                                                     <div class="input-prepend">
-                                                                                    <label>Estado</label>
-                                                                                    <label class="radio inline">
-                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
-                                                                                        Activo
-                                                                                    </label>
-                                                                                    <label class="radio inline">
-                                                                                            <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                            Desactivado
-                                                                                    </label>
-                                                                                     </div>
+                                                                                    <div class="input-prepend">
+                                                                                        <label>Sincronización de Dashboard en minutos</label>
+                                                                                        <select name="cbDash" id="cbDash" class="input-mini" >
+                                                                                            <option>1</option>
+                                                                                            <option>2</option>
+                                                                                            <option>3</option>
+                                                                                            <option>4</option>
+                                                                                            <option>5</option>
+                                                                                        </select>                                                                                    
+                                                                                    </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Clave por Defecto de Usuarios</label>
+                                                                                    <input type="text" class="span10" id="txtClave" name="txtClave" />
+                                                                                    </div>
+                                                                          </div>
+
+
+                                                               
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                             <div class="span4">
+                                                    <div class="row-fluid" id="g-map-top">
+                                                            <div class="span12">
+                                                                     
+                                                                          <div class="location_add_form well">
+                                                                            <div class="formSep">  
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Nombre de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtNombreBD" name="txtNombreBD" />
+                                                                                    </div>
+                                                                                    <div class="input-prepend">
+                                                                                    <label>IP de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtIPBD"  name="txtIPBD" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Puerto ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Usuario de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Contraseña de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                     </div> 
+                                                                                    
                                                                                 <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
 
                                                                             </div>
@@ -174,26 +201,46 @@ if(objSession!=null)
                                                                           </div>
 
 
-                                                                </form>
+                                                               
                                                             </div>
                                                     </div>
-                                            </div>	
-                                            <div class="span8">
-                                         <div class="formSep">
-						<div class="row-fluid">							
-                                                        <div class="sepH_c">
-										
-								</div>       
-						</div>
+                                            </div>
+                                             <div class="span4">
+                                                    <div class="row-fluid" id="g-map-top">
+                                                            <div class="span12">
+                                                                     
+                                                                          <div class="location_add_form well">
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Nombre de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtNombreBD" name="txtNombreBD" />
+                                                                                    </div>
+                                                                                    <div class="input-prepend">
+                                                                                    <label>IP de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtIPBD"  name="txtIPBD" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Puerto ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Usuario de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Contraseña de BD ERP Externa</label>
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                     </div> 
+                                                                                </div>
+                                                            </div>
+                                                    </div>
+                                            </div>
                                              
-					</div>
-
-
-
-                                                </div>
-                                            </div>
+                                             
+                                         </form>
+                                           
                                     </div>
-                                            </div>
+                                    </div>
+                                    </div>
                             </div>
                         </div>
 	
@@ -237,6 +284,8 @@ if(objSession!=null)
 			<!-- scrollbar -->
 			<script src="lib/antiscroll/antiscroll.js"></script>
 			<script src="lib/antiscroll/jquery-mousewheel.js"></script>
+                        <!-- enhanced select (chosen) -->
+                        <script src="lib/chosen/chosen.jquery.min.js"></script>
 
 	  
                            <script src="lib/jquery-ui/jquery-ui-1.8.20.custom.min.js"></script>
@@ -294,19 +343,36 @@ function getMododulos(posicion)
                                         setTimeout('$("html").removeClass("js")',1000);
                                         
                                        
-                               var select = $( "#cbTiempoAlerta" );
-			var slider = $( "<br><br><div id='ui_slider3'></div>" ).insertAfter( select ).slider({
-				min: 1,
-				max: 5,
-				range: "min",
-				value: select[ 0 ].selectedIndex + 1,
-				slide: function( event, ui ) {
-					select[ 0 ].selectedIndex = ui.value - 1;
-				}
-			});
-			$( "#cbTiempoAlerta" ).change(function() {
-				slider.slider( "value", this.selectedIndex + 1 );
-			});
+                                        var select1 = $( "#cbTiempoAlerta" );
+                                        var slider1 = $( "<br><br><div id='ui_slider1'></div>" ).insertAfter( select1 ).slider({
+                                                min: 1,
+                                                max: 5,
+                                                range: "min",
+                                                value: select1[ 0 ].selectedIndex + 1,
+                                                slide: function( event, ui ) {
+                                                        select1[ 0 ].selectedIndex = ui.value - 1;
+                                                }
+                                        });
+                                        $( "#cbTiempoAlerta" ).change(function() {
+                                                slider1.slider( "value", this.selectedIndex + 1 );
+                                        });
+                                        
+                                        var select2 = $( "#cbDash" );
+                                        var slider2 = $( "<br><br><div id='ui_slider2'></div>" ).insertAfter( select2 ).slider({
+                                                min: 1,
+                                                max: 5,
+                                                range: "min",
+                                                value: select2[ 0 ].selectedIndex + 1,
+                                                slide: function( event, ui ) {
+                                                        select2[ 0 ].selectedIndex = ui.value - 1;
+                                                }
+                                        });
+                                        $( "#cbDash" ).change(function() {
+                                                slider2.slider( "value", this.selectedIndex + 1 );
+                                        });
+                        
+                        
+                        
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',
@@ -344,10 +410,9 @@ function getMododulos(posicion)
                                                          });    
                                             },
 					rules: {
-						txtNombre: { required: true, minlength: 3 },
-                                                txtDescripcion: { required: true, minlength: 3 },
-                                                txtCodigo: { required: true, minlength: 2 },
-                                                rbEstado: { required: true }
+						txtNombreBD: { required: true, minlength: 3 },
+                                                txtIPBD: { required: true, minlength: 3 },
+                                                txtPuertoBD: { required: true, minlength: 2 }
 					},
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");
@@ -365,19 +430,19 @@ function getMododulos(posicion)
 				});
                                     function clear_form() {
                                            $('input:radio[name=rbEstado]').attr('checked',false);
-                                          $('#txtNombre').val("");
-                                          $('#txtCodigo').val("");
-                                            $('#txtDescripcion').val("");
+                                          $('#txtNombreBD').val("");
+                                          $('#txtPuertoBD').val("");
+                                            $('#txtIPBD').val("");
                                         
                                           $("#IdVivero").val("0");  
                                      
                                            
                                       };
                                        function edit_form(id,nombre,descripcion,codigo,estado) {
-                                            $('#txtNombre').val(nombre);
-                                            $('#txtDescripcion').val(descripcion);
+                                            $('#txtNombreBD').val(nombre);
+                                            $('#txtIPBD').val(descripcion);
                                             $('#IdVivero').val(id);
-                                             $('#txtCodigo').val(codigo);
+                                             $('#txtPuertoBD').val(codigo);
                                             if(estado.toLowerCase()=="true")
                                              $('input:radio[name=rbEstado]')[0].checked = true;
                                             else
