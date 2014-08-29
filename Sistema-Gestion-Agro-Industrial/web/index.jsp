@@ -107,7 +107,7 @@ if(objSession==null)
 					},
                                         submitHandler: function() {                                        
                                              $("#abrirCarga").click();
-                                            var url = "operaciones/usuario/login.jsp"; 
+                                            var url = "operaciones/sesion/login.jsp"; 
 
                                             $.ajax({
                                                    type: "POST",

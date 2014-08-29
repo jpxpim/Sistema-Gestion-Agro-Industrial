@@ -123,7 +123,7 @@ if(objSession!=null)
 						<div class="span12">							
 							<div class="row-fluid">
 								<div class="span3"></div>
-								<div class="span6">
+								<div class="span7">
 									<form id="validate_wizard" class="stepy-wizzard form-horizontal">
                                                                             
 										<fieldset title="Información Personal">

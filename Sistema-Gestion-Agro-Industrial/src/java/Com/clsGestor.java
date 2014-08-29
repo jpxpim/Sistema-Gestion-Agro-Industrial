@@ -16,6 +16,15 @@ import java.util.List;
  * @author Toditos
  */
 public class clsGestor {
+    
+    //<editor-fold defaultstate="collapsed" desc="entUsuario">
+    public static entSesion loginSession(String login,String contrasena) throws Exception
+    {
+        return SesionDAO.login(login, contrasena);
+    }
+    
+// </editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="entCultivo">
     public static List<entCultivo> ListarCultivo(boolean activo) throws Exception
     {
@@ -106,10 +115,6 @@ public class clsGestor {
     public static byte[] getFotoUsuario(int IdUsuario) throws Exception
     {
         return UsuarioDAO.getFoto(IdUsuario);
-    }
-    public static entUsuario loginUsuario(String login,String contrasena) throws Exception
-    {
-        return UsuarioDAO.login(login, contrasena);
     }
     
 // </editor-fold>

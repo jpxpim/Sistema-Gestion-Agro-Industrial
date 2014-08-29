@@ -45,7 +45,7 @@ public class Probadorxxx {
             entidad.setUsuario_responsable("s");
             entidad.setEstado(true);
 
-        System.out.print(""+PrePodaDAO.insertar(entidad));
+        System.out.print(""+SesionDAO.login("Admin", "123456").getListModulos().size());
     }
     
 }

@@ -3,6 +3,10 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
+<%@page import="Entidades.entUsuario"%>
+<%@page import="Com.clsGestor"%>
+<%@page import="Entidades.entProductor"%>
+<%@page import="java.util.List"%>
 <%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
@@ -137,26 +141,68 @@ if(objSession!=null)
                                                                                     <div class="input-prepend">
                                                                                         <label>Tiempo de Alerta en minutos</label>
                                                                                         <select name="cbTiempoAlerta" id="cbTiempoAlerta" class="input-mini" >
-                                                                                            <option>1</option>
-                                                                                            <option>2</option>
-                                                                                            <option>3</option>
-                                                                                            <option>4</option>
-                                                                                            <option>5</option>
+                                                                                            <%
+                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==1)
+                                                                                                out.print("<option value='1' selected>1</option>");
+                                                                                            else
+                                                                                                out.print("<option value='1'>1</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==2)
+                                                                                                out.print("<option value='2' selected>2</option>");
+                                                                                            else
+                                                                                                out.print("<option value='2'>2</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==3)
+                                                                                                out.print("<option value='3' selected>3</option>");
+                                                                                            else
+                                                                                                out.print("<option value='3'>3</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==4)
+                                                                                                out.print("<option value='4' selected>4</option>");
+                                                                                            else
+                                                                                                out.print("<option value='4'>4</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==5)
+                                                                                                out.print("<option value='5' selected>1</option>");
+                                                                                            else
+                                                                                                out.print("<option value='5'>5</option>");
+                                                                                            %>
                                                                                         </select>                                                                                    
                                                                                     </div> 
                                                                                     <div class="input-prepend">
                                                                                         <label>Sincronización de Dashboard en minutos</label>
                                                                                         <select name="cbDash" id="cbDash" class="input-mini" >
-                                                                                            <option>1</option>
-                                                                                            <option>2</option>
-                                                                                            <option>3</option>
-                                                                                            <option>4</option>
-                                                                                            <option>5</option>
+                                                                                            <%
+                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==1)
+                                                                                                out.print("<option value='1' selected>1</option>");
+                                                                                            else
+                                                                                                out.print("<option value='1'>1</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==2)
+                                                                                                out.print("<option value='2' selected>2</option>");
+                                                                                            else
+                                                                                                out.print("<option value='2'>2</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==3)
+                                                                                                out.print("<option value='3' selected>3</option>");
+                                                                                            else
+                                                                                                out.print("<option value='3'>3</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==4)
+                                                                                                out.print("<option value='4' selected>4</option>");
+                                                                                            else
+                                                                                                out.print("<option value='4'>4</option>");
+                                                                                            
+                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==5)
+                                                                                                out.print("<option value='5' selected>1</option>");
+                                                                                            else
+                                                                                                out.print("<option value='5'>5</option>");
+                                                                                            %>
                                                                                         </select>                                                                                    
                                                                                     </div> 
                                                                                     <div class="input-prepend">
                                                                                     <label>Clave por Defecto de Usuarios</label>
-                                                                                    <input type="text" class="span10" id="txtClave" name="txtClave" />
+                                                                                    <input type="text" class="span10" id="txtClave" name="txtClave" value='<%=objSession.getObjConfiguracion().getUsuario_clave()%>' />
                                                                                     </div>
                                                                           </div>
 
@@ -173,31 +219,27 @@ if(objSession!=null)
                                                                             <div class="formSep">  
                                                                                     <div class="input-prepend">
                                                                                     <label>Nombre de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtNombreBD" name="txtNombreBD" />
+                                                                                    <input type="text" class="span10" id="txtNombreBD" name="txtNombreBD" value='<%=objSession.getObjConfiguracion().getNom_bd_erp_ext()%>'/>
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                     <label>IP de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtIPBD"  name="txtIPBD" />
+                                                                                    <input type="text" class="span10" id="txtIPBD"  name="txtIPBD" value='<%=objSession.getObjConfiguracion().getIp_bd_erp_ext()%>'/>
                                                                                      </div> 
                                                                                     <div class="input-prepend">
                                                                                     <label>Puerto ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" value='<%=objSession.getObjConfiguracion().getPuerto_erp_ext()%>'/>
                                                                                      </div> 
                                                                                     <div class="input-prepend">
                                                                                     <label>Usuario de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                    <input type="text" class="span10" id="txtUsuarioBD"  name="txtUsuarioBD" value='<%=objSession.getObjConfiguracion().getUsuario_bd_erp_ext()%>'/>
                                                                                      </div> 
                                                                                     <div class="input-prepend">
                                                                                     <label>Contraseña de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
+                                                                                    <input type="text" class="span10" id="txtContraseniaBD"  name="txtContraseniaBD" value='<%=objSession.getObjConfiguracion().getContra_bd_erp_ext()%>'/>
                                                                                      </div> 
-                                                                                    
-                                                                                <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
-
                                                                             </div>
-                                                                            <button class="btn btn-invert" type="submit">Grabar</button>
+                                                                            <button class="btn btn-invert" type="submit">Grabar Todo</button>
 
-                                                                            <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
                                                                           </div>
 
 
@@ -209,28 +251,67 @@ if(objSession!=null)
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
-                                                                          <div class="location_add_form well">
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Nombre de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtNombreBD" name="txtNombreBD" />
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>IP de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtIPBD"  name="txtIPBD" />
-                                                                                     </div> 
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Puerto ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
-                                                                                     </div> 
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Usuario de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
-                                                                                     </div> 
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Contraseña de BD ERP Externa</label>
-                                                                                    <input type="text" class="span10" id="txtPuertoBD"  name="txtPuertoBD" />
-                                                                                     </div> 
-                                                                                </div>
+                                                                <div class="location_add_form well">
+                                                                     <div class="input-prepend">
+                                                                        <label>Productos Empresa</label>
+                                                                        <select id="cbEmpresa" name="cbEmpresa" title="Por favor selecione una Empresa!" required data-placeholder="selecione una Empresa...">
+									<option value=""></option> 
+                                                                        <%   
+                                                                            List<entProductor> list=clsGestor.ListarProductor(true);
+                                                                            if(list!=null)for(entProductor entidad : list)
+                                                                                if(objSession.getObjConfiguracion().getProductor_empresa()==entidad.getId_productor())
+                                                                                    out.print("<option value='"+entidad.getId_productor()+"' selected>"+entidad.getNombre()+"</option>");
+                                                                                else
+                                                                                    out.print("<option value='"+entidad.getId_productor()+"'>"+entidad.getNombre()+"</option>");
+                                                                        %>
+                                                                        </select>
+                                                                     </div>  
+                                                                    <div class="input-prepend">
+                                                                        <label>Usuario Principal Inicio y Cierre (Día de Producción)</label>
+                                                                        <select id="cbUsuario1" name="cbUsuario1" title="Por favor selecione Usuario Principal!" required data-placeholder="selecione Usuario Principal...">
+									<option value=""></option> 
+                                                                            <%   
+                                                                            List<entUsuario> listUsuario=clsGestor.ListarUsuario(true);
+                                                                            if(listUsuario!=null)for(entUsuario entidad : listUsuario)
+                                                                                if(objSession.getObjConfiguracion().getUsuario_cierre_recepcion_1()==entidad.getId_usuario())
+                                                                                    out.print("<option value='"+entidad.getId_usuario()+"' selected>"+entidad.getApellido()+"c"+entidad.getNombre()+"</option>");
+                                                                                else
+                                                                                    out.print("<option value='"+entidad.getId_usuario()+"'>"+entidad.getApellido()+"c"+entidad.getNombre()+"</option>");
+                                                                            %>
+                                                                        </select>
+                                                                        
+                                                                     </div>  
+                                                                        <div class="input-prepend">
+                                                                        <label>Usuario Secundario 1 Inicio y Cierre (Día de Producción)</label>
+                                                                        <select id="cbUsuario2" name="cbUsuario2" data-placeholder="selecione Usuario Secundario...">
+									<option value=""></option> 
+                                                                            <%   
+                                                                            if(listUsuario!=null)for(entUsuario entidad : listUsuario)
+                                                                                if(objSession.getObjConfiguracion().getUsuario_cierre_recepcion_2()==entidad.getId_usuario())
+                                                                                    out.print("<option value='"+entidad.getId_usuario()+"' selected>"+entidad.getApellido()+"c"+entidad.getNombre()+"</option>");
+                                                                                else
+                                                                                    out.print("<option value='"+entidad.getId_usuario()+"'>"+entidad.getApellido()+"c"+entidad.getNombre()+"</option>");
+                                                                            %>
+                                                                        </select>
+                                                                        
+                                                                     </div>  
+                                                                        <div class="input-prepend">
+                                                                        <label>Usuario Secundario 2 Inicio y Cierre (Día de Producción)</label>
+                                                                        <select id="cbUsuario3" name="cbUsuario3" data-placeholder="selecione Usuario Secundario...">
+									<option value=""></option> 
+                                                                            <%   
+                                                                            if(listUsuario!=null)for(entUsuario entidad : listUsuario)
+                                                                                if(objSession.getObjConfiguracion().getUsuario_cierre_recepcion_3()==entidad.getId_usuario())
+                                                                                    out.print("<option value='"+entidad.getId_usuario()+"' selected>"+entidad.getApellido()+"c"+entidad.getNombre()+"</option>");
+                                                                                else
+                                                                                    out.print("<option value='"+entidad.getId_usuario()+"'>"+entidad.getApellido()+"c"+entidad.getNombre()+"</option>");
+                                                                            %>
+                                                                        </select>
+                                                                        
+                                                                     </div>  
+                                                                    
+                                                                   
+                                                                </div>
                                                             </div>
                                                     </div>
                                             </div>
@@ -342,6 +423,22 @@ function getMododulos(posicion)
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
                                         
+                                         $("#cbEmpresa").chosen({
+                                            allow_single_deselect: true
+                                            });
+                                            
+                                            $("#cbUsuario1").chosen({
+                                            allow_single_deselect: true
+                                            });
+                                            
+                                            $("#cbUsuario2").chosen({
+                                            allow_single_deselect: true
+                                            });
+                                            
+                                            $("#cbUsuario3").chosen({
+                                            allow_single_deselect: true
+                                            });
+                                            
                                        
                                         var select1 = $( "#cbTiempoAlerta" );
                                         var slider1 = $( "<br><br><div id='ui_slider1'></div>" ).insertAfter( select1 ).slider({
@@ -379,6 +476,7 @@ function getMododulos(posicion)
 					onkeyup: false,
 					errorClass: 'error',
 					validClass: 'valid',
+                                        ignore: ":hidden:not(select)",
                                             submitHandler: function() {       
                                                        $("#abrirCarga").click();
                                                     var url = "operaciones/vivero/insert.jsp"; 
@@ -412,7 +510,11 @@ function getMododulos(posicion)
 					rules: {
 						txtNombreBD: { required: true, minlength: 3 },
                                                 txtIPBD: { required: true, minlength: 3 },
-                                                txtPuertoBD: { required: true, minlength: 2 }
+                                                txtPuertoBD: { required: true, minlength: 2 },
+                                                txtClave: { required: true, minlength: 6 },
+                                                txtContraseniaBD: { required: true, minlength: 4 },
+                                                txtUsuarioBD: { required: true, minlength: 2 },
+                                                txtPuertoBD: { required: true, minlength: 1, digits: true }
 					},
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");

@@ -24,14 +24,17 @@ public class entSesion {
     private entPoda objPoda;
     private entRaleo objRaleo;
     private entRecepcion objRecepcion;
+    private entConfiguracion objConfiguracion;
     List<entModulo> listModulos;
     
     public entSesion() {
         this.posicion=0;
         this.dia_recepcion=false;
         this.objDiaRecepcion=null;
-        listModulos=null;
-        objRecepcion=null;
+        this.listModulos=null;
+        this.objRecepcion=null;
+        this.objUsuario=null;
+        this.objConfiguracion=null;
     }
 
     public boolean isDia_recepcion() {
@@ -123,6 +126,14 @@ public class entSesion {
 
     public void setObjDiaRecepcion(entDiaRecepcion objDiaRecepcion) {
         this.objDiaRecepcion = objDiaRecepcion;
+    }
+
+    public entConfiguracion getObjConfiguracion() {
+        return objConfiguracion;
+    }
+
+    public void setObjConfiguracion(entConfiguracion objConfiguracion) {
+        this.objConfiguracion = objConfiguracion;
     }
 
 }

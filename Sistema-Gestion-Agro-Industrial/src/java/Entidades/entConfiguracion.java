@@ -21,14 +21,17 @@ public class entConfiguracion {
     private String usuario_clave;    
     private int sincro_dash;    
     private int productor_empresa;
-    private int usuario_cierre_recpccion_1;
-    private int usuario_cierre_recpccion_2;
-    private int usuario_cierre_recpccion_3;
+    private int usuario_cierre_recepcion_1;
+    private int usuario_cierre_recepcion_2;
+    private int usuario_cierre_recepcion_3;
     private int minutos_bloqueo;
     private int max_intentos_login;
     
     public entConfiguracion ()
-    {}
+    {
+        this.usuario_cierre_recepcion_2=0;
+        this.usuario_cierre_recepcion_3=0;
+    }
 
     public int getId_configuracion() {
         return id_configuracion;
@@ -126,30 +129,31 @@ public class entConfiguracion {
         this.productor_empresa = productor_empresa;
     }
 
-    public int getUsuario_cierre_recpccion_1() {
-        return usuario_cierre_recpccion_1;
+    public int getUsuario_cierre_recepcion_1() {
+        return usuario_cierre_recepcion_1;
     }
 
-    public void setUsuario_cierre_recpccion_1(int usuario_cierre_recpccion_1) {
-        this.usuario_cierre_recpccion_1 = usuario_cierre_recpccion_1;
+    public void setUsuario_cierre_recepcion_1(int usuario_cierre_recepcion_1) {
+        this.usuario_cierre_recepcion_1 = usuario_cierre_recepcion_1;
     }
 
-    public int getUsuario_cierre_recpccion_2() {
-        return usuario_cierre_recpccion_2;
+    public int getUsuario_cierre_recepcion_2() {
+        return usuario_cierre_recepcion_2;
     }
 
-    public void setUsuario_cierre_recpccion_2(int usuario_cierre_recpccion_2) {
-        this.usuario_cierre_recpccion_2 = usuario_cierre_recpccion_2;
+    public void setUsuario_cierre_recepcion_2(int usuario_cierre_recepcion_2) {
+        this.usuario_cierre_recepcion_2 = usuario_cierre_recepcion_2;
     }
 
-    public int getUsuario_cierre_recpccion_3() {
-        return usuario_cierre_recpccion_3;
+    public int getUsuario_cierre_recepcion_3() {
+        return usuario_cierre_recepcion_3;
     }
 
-    public void setUsuario_cierre_recpccion_3(int usuario_cierre_recpccion_3) {
-        this.usuario_cierre_recpccion_3 = usuario_cierre_recpccion_3;
+    public void setUsuario_cierre_recepcion_3(int usuario_cierre_recepcion_3) {
+        this.usuario_cierre_recepcion_3 = usuario_cierre_recepcion_3;
     }
-    
+
+  
     
     
 }

@@ -21,28 +21,24 @@ import java.util.List;
  * @author rosemary
  */
 public class ConfiguracionDAO {
-    public static List<entConfiguracion> Listar() throws Exception
+    public static entConfiguracion buscar() throws Exception
     {
-        List<entConfiguracion> lista = null;
+        entConfiguracion entidad = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_configuracion,nomb_bd_erp_ext, ip_bd_erp_ext, puertp_erp_ext, usuario_bd_erp_ext,"
-                    + " contra_bd_erp_ext, tiempo_alerta,usuario_clave, max_intentos_login, sincro_dash, minutos_bloqueo, productor_empresa"
-                    + " from configuracion ";
-
-
+            String sql="select ID_CONFIGURACION,NOM_BD_ERP_EXT,IP_BD_ERP_EXT,PUERTO_ERP_EXT,USUARIO_BD_ERP_EXT,"
+                    + " CONTRA_BD_ERP_EXT,TIEMPO_ALERTA,USUARIO_CLAVE,SINCRO_DASH,PRODUCTOR_EMPRESA,USUARIO_CIERRE_RECEPCION_1,"
+                    + " USUARIO_CIERRE_RECEPCION_2,USUARIO_CIERRE_RECEPCION_3 from CONFIGURACION ";
+            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
 
-            while(dr.next())
+            if(dr.next())
             {
-                if(lista==null)
-                    lista= new ArrayList<entConfiguracion>();
-                
-                    entConfiguracion entidad = new entConfiguracion();
+                    entidad = new entConfiguracion();
                     entidad.setId_configuracion(dr.getInt(1));
                     entidad.setNom_bd_erp_ext(dr.getString(2)); 
                     entidad.setIp_bd_erp_ext(dr.getString(3)); 
@@ -51,11 +47,11 @@ public class ConfiguracionDAO {
                     entidad.setContra_bd_erp_ext(dr.getString(6)); 
                     entidad.setTiempo_alerta(dr.getInt(7)); 
                     entidad.setUsuario_clave(dr.getString(8));
-                    entidad.setMax_intentos_login(dr.getInt(9));
-                    entidad.setSincro_dash(dr.getInt(10));
-                    entidad.setMinutos_bloqueo(dr.getInt(11));
-                    entidad.setProductor_empresa(dr.getInt(12));
-                    lista.add(entidad);
+                    entidad.setSincro_dash(dr.getInt(9));
+                    entidad.setProductor_empresa(dr.getInt(10));
+                    entidad.setUsuario_cierre_recepcion_1(dr.getInt(11));
+                    entidad.setUsuario_cierre_recepcion_2(dr.getInt(12));
+                    entidad.setUsuario_cierre_recepcion_3(dr.getInt(13));
             }
 
         } catch (Exception e) {
@@ -69,7 +65,7 @@ public class ConfiguracionDAO {
             } catch (SQLException e) {
             }
         }
-        return lista;
+        return entidad;
     }
     
         
