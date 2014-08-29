@@ -18,7 +18,6 @@ if(objSession!=null)
             request.getParameter("txtFoto") != null && request.getParameter("txtFoto") != "" &&
             request.getParameter("txtLogin") != null && request.getParameter("txtLogin") != "" &&
             request.getParameter("txtCodigoERP") != null && request.getParameter("txtCodigoERP") != "" &&
-            request.getParameter("txtContrasena") != null && request.getParameter("txtContrasena") != "" &&
             request.getParameter("rbEstado") != null && request.getParameter("rbEstado") != "")
     {
         String foto="";
@@ -32,7 +31,7 @@ if(objSession!=null)
         entidad.setLogin(request.getParameter("txtLogin"));
         entidad.setCodigo_erp(request.getParameter("txtCodigoERP"));
         entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
-        entidad.setContrasena(request.getParameter("txtContrasena"));
+        entidad.setContrasena(objSession.getObjConfiguracion().getUsuario_clave());
         entidad.setEstado(true);
         if(request.getParameter("rbEstado").equals("0"))
              entidad.setEstado(false);

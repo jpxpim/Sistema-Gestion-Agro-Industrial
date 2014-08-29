@@ -106,19 +106,9 @@
                                         txtResponsable: { 
                                             required: true,
                                             minlength	: 3
-                                        },
-                                        txtContrasena: { 
-                                             required: true, 
-                                             minlength:6 
-                                         },
-                                        txtRContrasena: { 
-                                             required: true, 
-                                             equalTo: "#txtContrasena"
-                                         }
+                                        }
 				}, messages: {
                                         'txtNombres'	: { required:  'Se requiere el campo Nombres!' },
-                                        'txtContrasena'	: { required:  'Se requiere el campo Contraseña!' },
-                                        'txtRContrasena': { required:  'Se requiere el campo Repita Contraseña!' },
                                         'txtApellidos'	: { required:  'Se requiere el campo Apellidos!' },
                                         'txtTelefono'	: { required:  'Se requiere el campo Telefono!' },
                                         'txtResponsable': { required:  'Se requiere el campo Responsable!' },

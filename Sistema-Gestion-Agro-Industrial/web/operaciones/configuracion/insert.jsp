@@ -41,7 +41,7 @@ if(objSession!=null)
             HttpSession sesion = request.getSession();
             sesion.setAttribute("SessionUsuario", objSession);
             sesion.setMaxInactiveInterval(-1);
-             out.print(0);
+            out.print(0);
          }
          else
              out.print(-1);

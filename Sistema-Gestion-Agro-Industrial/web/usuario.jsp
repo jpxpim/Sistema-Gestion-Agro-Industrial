@@ -194,19 +194,7 @@ if(objSession!=null)
 												<div class="controls">
 													 <input type="text" name="txtCodigoERP" id="txtCodigoERP" />
 												</div>
-											</div>
-                                                                                        <div class="formSep control-group">
-												<label for="txtContrasena" class="control-label">Contraseña:</label>
-												<div class="controls">
-													 <input type="password" name="txtContrasena" id="txtContrasena" />
-												</div>
-											</div>
-                                                                                        <div class="formSep control-group">
-												<label for="txtRContrasena" class="control-label">Repita Contraseña:</label>
-												<div class="controls">
-													 <input type="password" name="txtRContrasena" id="txtRContrasena" />
-												</div>
-											</div>
+											</div>                                                                                 
 											<div class="control-group">
 												<label class="control-label">Estado:</label>
 												<div class="controls">
@@ -344,7 +332,34 @@ function tabla()
      window.location='operaciones/usuario/reporte.jsp';
  };                             
                           
-                            
+function restablecer(id,nombre)
+{
+    smoke.confirm('Desea Restablecer contraseña por defecto al usario: '+nombre,function(e){
+        if (!e){        
+            $("#abrirCarga").click();
+            $.ajax({
+            url: 'operaciones/usuario/restablecer.jsp?id='+id,
+            type: 'POST',
+            success: function (data) {     
+                   
+                   if(data==-1)
+                     $.sticky("Error al Restaurar.", {autoclose : 5000, position: "top-center" });
+                    else if(data==0)
+                    {
+                        tabla();
+                       $.sticky("Se Restablecio Correctamente.", {autoclose : 5000, position: "top-center" });
+
+                   }
+                    $('html,body').animate({ scrollTop: $('.main_content').offset().top - 100 }, 'fast');
+                     $("#cerrarCarga").trigger("click");
+            },
+            contentType: false,
+            processData: false
+            });  
+        }
+    }, {ok:"No", cancel:"Si"});
+};
+
 $(document).ready(function() {
  $( "#Remover" ).hide();
  $( "#txtFoto" ).hide();
@@ -401,8 +416,6 @@ function clear_form() {
     $('#txtFNacimiento').val("");
     $('#txtLogin').val("");
     $('#txtCodigoERP').val("");
-    $('#txtContrasena').val("");
-    $('#txtRContrasena').val("");
     $("#foto").html('<div id="foto"></div>');
     $('#txtFoto').val("");
     $( "#Remover" ).hide();
@@ -411,7 +424,7 @@ function clear_form() {
 
 
 };
-function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,contrasena,estado) {
+function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,estado) {
     $("#abrirCarga").click();
     $('#txtNombres').val(nombres);
     $('#txtApellidos').val(apellidos);
@@ -421,8 +434,6 @@ function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,
     $('#txtFNacimiento').val(nacimiento);
     $('#txtLogin').val(login);
     $('#txtCodigoERP').val(codigo);
-    $('#txtContrasena').val(contrasena);
-    $('#txtRContrasena').val(contrasena);
     $( "#Remover" ).show();
     $("#idUsuario").val(id);
     if(estado.toLowerCase()=="true")

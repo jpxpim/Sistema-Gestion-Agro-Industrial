@@ -123,6 +123,10 @@ public class clsGestor {
     {
         return UsuarioDAO.getFoto(IdUsuario);
     }
+    public static boolean restablecerUsuario(int Id,String Contrasena) throws Exception
+    {
+        return UsuarioDAO.restablecer(Id, Contrasena);
+    }
     
 // </editor-fold>
     
