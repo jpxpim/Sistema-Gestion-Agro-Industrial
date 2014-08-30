@@ -9,6 +9,7 @@ package Dao;
 import Entidades.entCampania;
 import Entidades.entCampaniaLote;
 import Entidades.entCultivo;
+import Entidades.entDiaRecepcion;
 import Entidades.entEdadCultivo;
 import Entidades.entEvaluador;
 import Entidades.entFormulario;
@@ -39,13 +40,9 @@ public class Probadorxxx {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-            entPrePoda entidad = new entPrePoda();
-            entidad.setObjCampaniaLote(new entCampaniaLote(1));
-            entidad.setObjEvaluador(new entEvaluador(1));
-            entidad.setUsuario_responsable("s");
-            entidad.setEstado(true);
-
-        System.out.print(""+SesionDAO.login("Admin", "123456").getListModulos().size());
+            entDiaRecepcion entidad = new entDiaRecepcion();
+entidad.setUsuario_responsable_inicio("XD");
+        System.out.print(""+DiaRecepcionDAO.insertar(entidad));
     }
     
 }

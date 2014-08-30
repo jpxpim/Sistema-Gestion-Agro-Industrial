@@ -584,6 +584,14 @@ public class clsGestor {
     {
         return DiaRecepcionDAO.verificar();
     }
+    public  static int insertarDiaRecepcion(entDiaRecepcion entidad) throws Exception
+    {
+      return DiaRecepcionDAO.insertar(entidad);
+    }
+    public static boolean actualizarDiaRecepcion(entDiaRecepcion entidad) throws Exception
+    {
+      return DiaRecepcionDAO.actualizar(entidad);
+    }
     
   
     // </editor-fold>

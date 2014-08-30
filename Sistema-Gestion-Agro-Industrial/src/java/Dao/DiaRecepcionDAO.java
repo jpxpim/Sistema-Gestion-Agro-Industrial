@@ -13,8 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -29,8 +27,8 @@ public class DiaRecepcionDAO
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select top 1 ID_DIA_RECEPCION,HORA_INICIO,HORA_FIN,ES_CERRADO,USUARIO_RESPONSABLE,"
-                    + "FECHA_MODIFICACION from DIA_RECEPCION where ES_CERRADO=0 order by ID_DIA_RECEPCION asc ";
+            String sql="select top 1 ID_DIA_RECEPCION,HORA_INICIO,HORA_FIN,ES_CERRADO,USUARIO_RESPONSABLE_INICIO,"
+                    + "USUARIO_RESPONSABLE_FIN,FECHA_MODIFICACION from DIA_RECEPCION where ES_CERRADO=0 order by ID_DIA_RECEPCION asc ";
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -44,8 +42,9 @@ public class DiaRecepcionDAO
                     entidad.setHora_inicio(dr.getTimestamp(2)); 
                     entidad.setHora_fin(dr.getTimestamp(3)); 
                     entidad.setEs_cerrado(dr.getBoolean(4)); 
-                    entidad.setUsuario_responsable(dr.getString(5)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    entidad.setUsuario_responsable_inicio(dr.getString(5)); 
+                    entidad.setUsuario_responsable_fin(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
             }
 
         } catch (Exception e) {
@@ -61,117 +60,66 @@ public class DiaRecepcionDAO
         }
         return entidad;
     }
-     
-//    public static List<entDiaRecepcion> Listar(boolean activo) throws Exception
-//    {
-//        List<entDiaRecepcion> lista = null;
-//        Connection conn =null;
-//        CallableStatement stmt = null;
-//        ResultSet dr = null;
-//        try {
-//            String sql="select id_jaba,nombre,peso,estado,usuario_responsable,fecha_modificacion"
-//                    + " from jaba ";
-//            if(activo)
-//                        sql+=" where estado=1"; 
-//
-//            conn = ConexionDAO.getConnection();
-//            stmt = conn.prepareCall(sql);
-//            dr = stmt.executeQuery();
-//
-//            while(dr.next())
-//            {
-//                if(lista==null)
-//                    lista= new ArrayList<entDiaRecepcion>();
-//                
-//                        entDiaRecepcion entidad = new entDiaRecepcion();
-//                    entidad.setId_jaba(dr.getInt(1));
-//                    entidad.setNombre(dr.getString(2)); 
-//                    entidad.setPeso(dr.getDouble(3)); 
-//                    entidad.setEstado(dr.getBoolean(4)); 
-//                    entidad.setUsuario_responsable(dr.getString(5)); 
-//                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
-//                    lista.add(entidad);
-//            }
-//
-//        } catch (Exception e) {
-//            throw new Exception("Listar "+e.getMessage(), e);
-//        }
-//        finally{
-//            try {
-//                dr.close();
-//                stmt.close();
-//                conn.close();
-//            } catch (SQLException e) {
-//            }
-//        }
-//        return lista;
-//    }
-//    
-//    public  static int insertar(entDiaRecepcion entidad) throws Exception
-//    {
-//        int rpta = 0;
-//        Connection conn =null;
-//        PreparedStatement  stmt = null;
-//        try {
-//            
-//           String sql="INSERT INTO jaba(nombre,peso,estado,usuario_responsable,fecha_modificacion)"
-//                   + " VALUES(?,?,?,?,GETDATE());";
-//           
-//            conn = ConexionDAO.getConnection();
-//            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//            stmt.setString(1, entidad.getNombre());
-//            stmt.setDouble(2, entidad.getPeso());
-//            stmt.setBoolean(3, entidad.getEstado());
-//            stmt.setString(4, entidad.getUsuario_responsable());
-//            stmt.executeUpdate();
-//            ResultSet rs = stmt.getGeneratedKeys();
-//            
-//            if (rs.next()){
-//                rpta=rs.getInt(1);
-//            }
-//            rs.close();
-//        } catch (Exception e) {
-//            throw new Exception("Insertar"+e.getMessage(), e);
-//        }
-//        finally{
-//            try {
-//                stmt.close();
-//                conn.close();
-//            } catch (SQLException e) {
-//            }
-//        }
-//        return rpta;
-//    } 
-//    
-//    public static boolean actualizar(entDiaRecepcion entidad) throws Exception
-//    {
-//        boolean rpta = false;
-//        Connection conn =null;
-//        CallableStatement stmt = null;
-//        try {
-//             String sql="UPDATE jaba SET nombre = ?,peso= ?,estado= ?,"
-//                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_jaba = ?;";
-//             
-//            conn = ConexionDAO.getConnection();
-//            stmt = conn.prepareCall(sql);             
-//            stmt.setString(1, entidad.getNombre());
-//            stmt.setDouble(2, entidad.getPeso());
-//            stmt.setBoolean(3, entidad.getEstado());
-//            stmt.setString(4, entidad.getUsuario_responsable());
-//            stmt.setInt(5,entidad.getId_jaba());
-//                
-//           rpta = stmt.executeUpdate() == 1;
-//        } catch (Exception e) {
-//            throw new Exception("Error Actualizar "+e.getMessage(), e);
-//        }
-//        finally{
-//            try {
-//                stmt.close();
-//                conn.close();
-//            } catch (SQLException e) {
-//            }
-//        }
-//        return rpta;
-//    }
-//    
+
+      public  static int insertar(entDiaRecepcion entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement stmt = null;
+        try {
+            
+           String sql="INSERT INTO DIA_RECEPCION(HORA_INICIO,HORA_FIN,ES_CERRADO,USUARIO_RESPONSABLE_INICIO,"
+                   + "USUARIO_RESPONSABLE_FIN,FECHA_MODIFICACION)VALUES(GETDATE(),GETDATE(),0,?,'',GETDATE());";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, entidad.getUsuario_responsable_inicio());
+            stmt.executeUpdate();
+           
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
+      
+        public static boolean actualizar(entDiaRecepcion entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+             String sql="UPDATE DIA_RECEPCION SET HORA_FIN = GETDATE(),ES_CERRADO= 1,"
+                     + "USUARIO_RESPONSABLE_FIN= ? WHERE ID_DIA_RECEPCION = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);             
+            stmt.setString(1, entidad.getUsuario_responsable_fin());
+            stmt.setInt(2,entidad.getId_dia_recepcion());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
+        
 }

@@ -17,7 +17,8 @@ public class entDiaRecepcion {
     private Date hora_inicio;
     private Date hora_fin;
     private boolean es_cerrado;
-    private String usuario_responsable;
+    private String usuario_responsable_inicio;
+    private String usuario_responsable_fin;
     private Date fecha_modificacion;
 
     public entDiaRecepcion() {
@@ -55,13 +56,22 @@ public class entDiaRecepcion {
         this.es_cerrado = es_cerrado;
     }
 
-    public String getUsuario_responsable() {
-        return usuario_responsable;
+    public String getUsuario_responsable_inicio() {
+        return usuario_responsable_inicio;
     }
 
-    public void setUsuario_responsable(String usuario_responsable) {
-        this.usuario_responsable = usuario_responsable;
+    public void setUsuario_responsable_inicio(String usuario_responsable_inicio) {
+        this.usuario_responsable_inicio = usuario_responsable_inicio;
     }
+
+    public String getUsuario_responsable_fin() {
+        return usuario_responsable_fin;
+    }
+
+    public void setUsuario_responsable_fin(String usuario_responsable_fin) {
+        this.usuario_responsable_fin = usuario_responsable_fin;
+    }
+
 
     public Date getFecha_modificacion() {
         return fecha_modificacion;

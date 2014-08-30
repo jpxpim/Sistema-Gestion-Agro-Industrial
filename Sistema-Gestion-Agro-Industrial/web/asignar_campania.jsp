@@ -127,7 +127,7 @@ if(objSession!=null)
                     <div class="row-fluid">
 						<div class="span12">
 							<div class="row-fluid">
-								<div class="span3">
+								<div class="span4">
 									<div class="row-fluid" id="g-map-top">
                                                                             
 										<div class="span12">
@@ -171,7 +171,7 @@ if(objSession!=null)
 										</div>
 									</div>
 								</div>	
-								<div class="span9">
+								<div class="span8">
                                                                     
                                   
 

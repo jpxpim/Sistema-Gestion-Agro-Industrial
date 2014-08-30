@@ -18,7 +18,7 @@ if(objSession!=null)
     int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(36==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
+            if(52==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));
@@ -208,18 +208,6 @@ function getMododulos(posicion)
             processData: false
         });
 };                           
-function getRecepcion(id)
-{    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
-    $.ajax({
-        url: 'operaciones/recepcion/gestion_recepcion.jsp?id='+id,
-        type: 'POST',
-        success: function (data) {     
-                 $('#frame').html(data);
-        },
-        contentType: false,
-        processData: false
-    });
-};
 function SetRecepccion(parametro)
 {
     var texto="Desea iniciar un dia de Producción ";
@@ -235,7 +223,7 @@ function SetRecepccion(parametro)
                         type: 'POST',
                         success: function () {     
                                 $.ajax({
-                                url: 'operaciones/recepcion/list_tabla.jsp?',
+                                url: 'operaciones/descarte/gestion_descarte.jsp',
                                 type: 'POST',
                                 success: function (data) {     
                                          $('#frame').html(data);
@@ -253,10 +241,11 @@ function SetRecepccion(parametro)
     
   
 };
- function lista()
+
+ function getion()
 {    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
     $.ajax({
-        url: 'operaciones/recepcion/list_tabla.jsp?',
+        url: 'operaciones/descarte/gestion_descarte.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#frame').html(data);
@@ -267,7 +256,7 @@ function SetRecepccion(parametro)
 };
                                   
                            modulos(); 
-                               lista();    
+                               getion();    
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
