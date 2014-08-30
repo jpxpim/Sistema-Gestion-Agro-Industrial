@@ -127,7 +127,7 @@ if(objSession!=null)
 									<form id="validate_wizard" class="stepy-wizzard form-horizontal">
                                                                             
 										<fieldset title="Información Personal">
-											<legend class="hide">Datos de personales del usario.</legend>
+											<legend class="hide">Datos de personales del usuario.</legend>
 											<div class="formSep control-group">
 												<label for="txtNombres" class="control-label">Nombres:</label>
 												<div class="controls">
