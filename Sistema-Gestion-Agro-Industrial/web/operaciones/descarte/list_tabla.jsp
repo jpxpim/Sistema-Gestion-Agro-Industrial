@@ -1,12 +1,14 @@
- <%@page import="Entidades.entSesion"%>
+ <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entVivero"%>
+<%@page import="Entidades.entDescarte"%>
 <%@page import="java.util.List"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-List<entVivero> list=clsGestor.ListarVivero(false);
+SimpleDateFormat  fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
+List<entDescarte> list=clsGestor.ListarDescarte();
 if(list!=null)
 {%>
 <div id="tabla">
@@ -14,36 +16,59 @@ if(list!=null)
     <thead>
             <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Codigo Control</th>
-                    <th>Estado</th>
+                    <th>N Jaba</th>
+                    <th>P Jaba</th>
+                    <th>N Jabas</th>
+                    <th>N Parihuela</th>
+                    <th>P Parihuela</th>
+                    <th>N Lote</th>
+                    <th>Cod Lote</th>                   
+                    <th>Peso Bruto</th>
+                    <th>Racimo</th>                   
+                    <th>Campo</th>
+                    <th>F Registro</th>
                     <th>Acciones</th>
             </tr>
     </thead> 
      <tbody>      
     <%
-    for(entVivero entidad : list)
+    for(entDescarte entidad : list)
     {
     %>
                                                                    
         <tr>
-            <td><%=entidad.getId_vivero()%></td>
-            <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getDescripcion()%></td>
-             <td><%=entidad.getCodigo_control()%></td>
+            <td><%=entidad.getId_descarte()%></td>
+            <td><%=entidad.getObjJaba().getNombre()%></td>
+            <td><%=entidad.getObjJaba().getPeso()%></td>
+             <td><%=entidad.getNum_jabas()%></td>
+             <td><%=entidad.getObjParihuela().getNombre()%></td>
+            <td><%=entidad.getObjParihuela().getPeso()%></td>
+             <td><%=entidad.getObjLote().getNombre()%></td>
+              <td><%=entidad.getObjLote().getCodigo_control()%></td>
+             <td><%=entidad.getPeso_bruto()%></td>
             <td>
                  <%
-                   if(entidad.getEstado())
-                   out.print(" <span class='label label-success'>Activado</span>");
+                   if(entidad.getIs_racimo())                       
+                   out.print(" <span class='label label-success'>Si</span>");
                    else
-                       out.print(" <span class='label label-important'>Desactivado</span>");
+                       out.print(" <span class='label label-important'>No</span>");
                 %>
 
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_vivero()%>,'<%=entidad.getNombre()%>','<%=entidad.getDescripcion()%>','<%=entidad.getCodigo_control()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                 <%
+                   if(entidad.getIs_campo())
+                   out.print(" <span class='label label-success'>Si</span>");
+                   else
+                       out.print(" <span class='label label-important'>No</span>");
+                %>
+
+
+            </td>
+            <td><%=fecha.format(entidad.getFecha_registro())%></td>
+            <td>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_descarte()%>,<%=entidad.getObjJaba().getId_jaba()%>,'<%=entidad.getObjJaba().getNombre()%>',<%=entidad.getObjParihuela().getId_parihuela()%>,'<%=entidad.getObjParihuela().getNombre()%>',<%=entidad.getObjLote().getId_lote()%>,'<%=entidad.getObjLote().getNombre()%>',<%=entidad.getNum_jabas()%>,<%=entidad.getPeso_bruto()%>,'<%=entidad.getIs_campo()%>','<%=entidad.getIs_racimo()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>

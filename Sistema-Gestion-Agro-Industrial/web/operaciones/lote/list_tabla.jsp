@@ -72,7 +72,7 @@ if(list!=null)
 $(function () { 
 
    $('#lista').dataTable({
-                                           "sDom": "<'row'<'span2'><'span2'f>r>t<'row'<'span2'i><'span2'>S>",
+                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
                                             "sScrollY": "200px",
                                             "bDestroy": true,
                                             "bDeferRender": true

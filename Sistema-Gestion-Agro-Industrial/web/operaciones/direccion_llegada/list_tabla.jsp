@@ -1,12 +1,12 @@
  <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entCategoria"%>
+<%@page import="Entidades.entDireccionLlegada"%>
 <%@page import="java.util.List"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-List<entCategoria> list=clsGestor.ListarCategoria(false);
+List<entDireccionLlegada> list=clsGestor.ListarDireccionLlegada(false);
 if(list!=null)
 {%>
 <div id="tabla">
@@ -15,21 +15,19 @@ if(list!=null)
             <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Codigo de Control</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
     </thead> 
      <tbody>      
     <%
-    for(entCategoria entidad : list)
+    for(entDireccionLlegada entidad : list)
     {
     %>
                                                                    
         <tr>
-            <td><%=entidad.getId_categoria()%></td>
+            <td><%=entidad.getId_dir_llegada()%></td>
             <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getCodigo_control()%></td>
             <td>
                  <%
                    if(entidad.getEstado())
@@ -41,7 +39,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_categoria()%>,'<%=entidad.getNombre()%>','<%=entidad.getCodigo_control()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_dir_llegada()%>,'<%=entidad.getNombre()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
@@ -58,7 +56,7 @@ $(function () {
 
    $('#lista').dataTable({
                                            "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
-                                            "sScrollY": "150px",
+                                            "sScrollY": "155px",
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     }); 

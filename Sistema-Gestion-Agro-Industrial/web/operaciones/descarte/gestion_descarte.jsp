@@ -99,10 +99,7 @@ if(!objSession.isDia_recepcion())
 }
 else
 {
-if(objSession.getObjRecepcion()!=null)   
-    out.print("<script type='text/javascript'>getRecepcion(0);</script>");
-else
-{  
+
     
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
 List<entRecepcion> list=clsGestor.ListarRecepcion(false);
@@ -141,7 +138,7 @@ if(list!=null)
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                      <label>Paraihuela</label>
-                                                                                    <select id="cbParaihuela" name="cbParaihuela" title="Por favor selecione una Paraihuela!" required>
+                                                                                    <select id="cbParihuela" name="cbParihuela" title="Por favor selecione una Paraihuela!" required>
                                                                                         <option value="">Selecione una Opción</option>
                                                                                         <% 
                                                                                          List<entParihuela> listParihuela=clsGestor.ListarParihuela(true);
@@ -326,7 +323,7 @@ validClass: 'valid',
 ignore: ".ignore",
     submitHandler: function() {       
                $("#abrirCarga").click();
-            var url = "operaciones/vivero/insert.jsp"; 
+            var url = "operaciones/descarte/insert.jsp"; 
 
             $.ajax({
                    type: "POST",
@@ -375,34 +372,96 @@ errorPlacement: function(error, element) {
 
 
 });
+var comboIdJaba=0
+var comboIdParihuela=0;
 function clear_form() {
-   $('input:radio[name=rbEstado]').attr('checked',false);
-  $('#txtNJabas').val("");
-  $('#txtCodigo').val("");
+    
+    if(comboIdJaba>0)
+        $("#cbJaba option[value='"+comboIdJaba+"']").remove();
+    $("select#cbJaba").val(0); 
+    
+    if(comboIdParihuela>0)
+        $("#cbParihuela option[value='"+comboIdParihuela+"']").remove();
+    $("select#cbParihuela").val(0); 
+    
+    $('input:radio[name=rbCampo]').attr('checked',false);
+    $('input:radio[name=rbRacimo]').attr('checked',false);
+    $('#txtNJabas').val("");
+    $('#txtCodigo').val("");
     $('#txtPBruto').val("");
 
-  $("#IdDescarte").val("0");  
-
+    $("#IdDescarte").val("0");  
+    $('#cbLote').val("");
+    $('#Lote').html("<h4 id='Lote'>Selecione una Opcción</h4>");
 
 };
-function edit_form(id,nombre,descripcion,codigo,estado) {
-    $('#txtNJabas').val(nombre);
-    $('#txtPBruto').val(descripcion);
+function edit_form(id,idJaba,nJaba,idParihuela,nParihuela,idLote,nLote,nJabas,pBruto,campo,racimo) {
+    if(comboIdJaba>0)
+       $("#cbJaba option[value='"+comboIdJaba+"']").remove();
+    if(comboIdParihuela>0)
+       $("#cbParihuela option[value='"+comboIdParihuela+"']").remove();
+   
+    $('#txtNJabas').val(nJabas);
+    $('#txtPBruto').val(pBruto);
     $('#IdDescarte').val(id);
-     $('#txtCodigo').val(codigo);
-    if(estado.toLowerCase()=="true")
-     $('input:radio[name=rbEstado]')[0].checked = true;
+     $('#Lote').html("<h4 id='Lote'>"+nLote+"</h4>");
+     $('#cbLote').val(idLote);
+    if(campo.toLowerCase()=="true")
+     $('input:radio[name=rbCampo]')[0].checked = true;
     else
-      $('input:radio[name=rbEstado]')[1].checked = true;
+      $('input:radio[name=rbCampo]')[1].checked = true;
+  
+    if(racimo.toLowerCase()=="true")
+     $('input:radio[name=rbRacimo]')[0].checked = true;
+    else
+      $('input:radio[name=rbRacimo]')[1].checked = true;
 
 
+    if(buscaComboJaba(idJaba))
+       $("select#cbJaba").val(idJaba); 
+    else
+    {
+        comboIdJaba=idJaba;
+        $("#cbJaba").append('<option value='+idJaba+'>'+nJaba+'</option>');
+        $("select#cbJaba").val(idJaba); 
+    }
+    if(buscaComboParihuela(idParihuela))
+       $("select#cbParihuela").val(idParihuela); 
+    else
+    {
+        comboIdParihuela=idParihuela;
+        $("#cbParihuela").append('<option value='+idParihuela+'>'+nParihuela+'</option>');
+        $("select#cbParihuela").val(idParihuela); 
+    }
+};
+function buscaComboJaba(valor) {
+var estado=false;
+$("#cbJaba option").each(function(){
+    if($(this).attr('value')==valor)
+    {
+        estado=true;
+    }
+
+ });
+ return estado;
+};
+function buscaComboParihuela(valor) {
+   var estado=false;
+    $("#cbParihuela option").each(function(){
+        if($(this).attr('value')==valor)
+        {
+            estado=true;
+        }
+
+     });
+     return estado;
 };
 tabla();
 
 </script>
   </div>
 <%}
-}}}%>  
+}}%>  
                                                                         
                                                                        
                                                                             

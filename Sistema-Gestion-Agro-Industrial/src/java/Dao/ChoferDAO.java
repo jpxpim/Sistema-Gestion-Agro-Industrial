@@ -124,7 +124,7 @@ public class ChoferDAO
         CallableStatement stmt = null;
         try {
              String sql="UPDATE chofer SET nombre = ?,brevete= ?,estado= ?,"
-                     + " usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_chofer = ?;";
+                     + " usuario_responsable = ?,id_transportista = ?,fecha_modificacion = GETDATE() WHERE id_chofer = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
@@ -132,7 +132,8 @@ public class ChoferDAO
             stmt.setString(2, entidad.getBrevete());
             stmt.setBoolean(3, entidad.getEstado());
             stmt.setString(4, entidad.getUsuario_responsable());
-            stmt.setInt(5,entidad.getId_chofer());
+            stmt.setInt(5,entidad.getObjTransportista().getId_transportista());
+            stmt.setInt(6,entidad.getId_chofer());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

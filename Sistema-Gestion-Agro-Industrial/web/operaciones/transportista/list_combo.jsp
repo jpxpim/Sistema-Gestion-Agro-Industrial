@@ -13,7 +13,7 @@ if(objSession!=null)
     if(list!=null)
 
         for(entTransportista entidad : list)
-            out.print("<option value='"+entidad.getId_jaba()+"'>"+entidad.getNombre()+"</option>");
+            out.print("<option value='"+entidad.getId_transportista()+"'>"+entidad.getRazon_social()+"</option>");
 }
  %>
 </select>

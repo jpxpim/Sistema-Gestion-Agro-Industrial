@@ -65,7 +65,8 @@ if(objSession!=null)
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
              	<!-- smoke_js -->
             <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
-	
+	<!-- datepicker -->
+            <link rel="stylesheet" href="lib/datepicker/datepicker.css" />
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
 		
@@ -171,7 +172,8 @@ if(objSession!=null)
 			<script src="lib/smoke/smoke.js"></script>
                         <!-- datatable -->
 			<script src="lib/datatables/jquery.dataTables.min.js"></script>
-
+                        <!-- datepicker -->
+                        <script src="lib/datepicker/bootstrap-datepicker.min.js"></script>
 			<script>
 
  function modulos()

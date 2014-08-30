@@ -587,7 +587,7 @@ function tabla()
                                                $("select#cbPatron").val(idPatron); 
                                             else
                                             {
-                                                comboIdProductor=idPatron;
+                                                comboIdPatron=idPatron;
                                                 $("#cbPatron").append('<option value='+idPatron+'>'+nPatron+'</option>');
                                                 $("select#cbPatron").val(idProductor); 
                                             }

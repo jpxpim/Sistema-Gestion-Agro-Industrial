@@ -11,7 +11,7 @@ if(objSession!=null)
 {
         if(request.getParameter("cbLote") != null && request.getParameter("cbLote") != "" &&
                 request.getParameter("cbJaba") != null && request.getParameter("cbJaba") != "" &&
-                request.getParameter("cbParaihuela") != null && request.getParameter("cbParaihuela") != "" &&
+                request.getParameter("cbParihuela") != null && request.getParameter("cbParihuela") != "" &&
                 request.getParameter("txtNJabas") != null && request.getParameter("txtNJabas") != "" &&
                 request.getParameter("txtPBruto") != null && request.getParameter("txtPBruto") != "" &&
                 request.getParameter("rbRacimo") != null && request.getParameter("rbRacimo") != "" &&
@@ -20,7 +20,7 @@ if(objSession!=null)
             entDescarte entidad = new entDescarte();
             entidad.setObjLote(new entLote(Integer.parseInt(request.getParameter("cbLote"))));
             entidad.setObjJaba(new entJaba(Integer.parseInt(request.getParameter("cbJaba"))));
-            entidad.setObjParihuela(new entParihuela(Integer.parseInt(request.getParameter("cbParaihuela"))));
+            entidad.setObjParihuela(new entParihuela(Integer.parseInt(request.getParameter("cbParihuela"))));
             entidad.setNum_jabas(Double.parseDouble(request.getParameter("txtNJabas")));
             entidad.setPeso_bruto(Double.parseDouble(request.getParameter("txtPBruto")));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
@@ -30,7 +30,7 @@ if(objSession!=null)
                  entidad.setIs_campo(false);
             
             entidad.setIs_racimo(true);
-            if(request.getParameter("rbCampo").equals("0"))
+            if(request.getParameter("rbRacimo").equals("0"))
                  entidad.setIs_racimo(false);
 
             

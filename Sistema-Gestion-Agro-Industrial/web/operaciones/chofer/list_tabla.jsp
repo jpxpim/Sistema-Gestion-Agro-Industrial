@@ -15,8 +15,8 @@ if(list!=null)
             <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Codigo Control</th>
+                    <th>Brevete</th>
+                    <th>Transportista</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
@@ -43,7 +43,7 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_chofer()%>,'<%=entidad.getNombre()%>','<%=entidad.getNombre()%>','<%=entidad.getNombre()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_chofer()%>,'<%=entidad.getNombre()%>','<%=entidad.getBrevete()%>',<%=entidad.getObjTransportista().getId_transportista()%>,'<%=entidad.getObjTransportista().getRazon_social()%>','<%=entidad.getEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
@@ -59,7 +59,7 @@ if(list!=null)
 $(function () { 
 
    $('#listaChofer').dataTable({
-                                           "sDom": "<'row'<'span3'><'span3'f>r>t<'row'<'span3'i><'span3'>S>",
+                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
                                             "sScrollY": "200px",
                                             "bDeferRender": true
                                                     }); 

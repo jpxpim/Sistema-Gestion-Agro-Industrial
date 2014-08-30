@@ -1066,7 +1066,7 @@ if(objSession.getObjBrotacion()!=null)
     </table>
    
     </div> 
-    <div class="span2">	
+    <div class="span6">	
       
     </div>	
       <div class="span4">                       
@@ -1310,7 +1310,7 @@ $('#tablaCampaniaLote').dataTable({
 }); 
 
 $('#lista').dataTable({
-       "sDom": "<'row'<'span2'><'span2'f>r>t<'row'<'span2'i><'span2'>S>",
+       "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
        "sScrollX": "100%",
        "bDestrox": true,
         "bDeferRender": true

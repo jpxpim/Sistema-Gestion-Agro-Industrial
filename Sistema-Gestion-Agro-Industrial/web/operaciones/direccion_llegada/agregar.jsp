@@ -16,7 +16,7 @@ if(objSession!=null)
                                                   <div class="location_add_form well">
                                                     <div class="formSep">
                                                             <div class="input-prepend">
-                                                            <label>Nombre</label>
+                                                            <label>Dirección</label>
                                                             <textarea cols="30" rows="4" class="span10" id="txtDireccion" name="txtDireccion" />
                                                             </div>
                                                               

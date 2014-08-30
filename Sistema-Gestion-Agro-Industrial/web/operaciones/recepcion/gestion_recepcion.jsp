@@ -18,6 +18,7 @@ if(objSession!=null)
 if(request.getParameter("id") != null && request.getParameter("id") != "" )
 {
     SimpleDateFormat  e=new SimpleDateFormat("MM/dd/yyyy");
+    String boton="Limpiar";
     String chofer="Chofer";
     String transportista="Empresa Tramsportista";
     String direccion="Dirección de Llegada";
@@ -62,17 +63,19 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
             chofer=objSession.getObjRecepcion().getObjChofer().getNombre();
             transportista=objSession.getObjRecepcion().getObjChofer().getObjTransportista().getRazon_social();
             direccion=objSession.getObjRecepcion().getObjDireccionLlegada().getNombre();
-            idChofer="value='"+objSession.getObjRecepcion().getObjChofer().getId_chofer()+"'";
-            idDireccion="value='"+objSession.getObjRecepcion().getObjDireccionLlegada().getId_dir_llegada()+"'";
-            precinto="value='"+objSession.getObjRecepcion().getPrecinto()+"'";
-            guia="value='"+objSession.getObjRecepcion().getNum_guia()+"'";
-            placa="value='"+objSession.getObjRecepcion().getPlaca()+"'";
-            modelo="value='"+objSession.getObjRecepcion().getModelo()+"'";
+            idChofer=""+objSession.getObjRecepcion().getObjChofer().getId_chofer();
+            idDireccion=""+objSession.getObjRecepcion().getObjDireccionLlegada().getId_dir_llegada();
+            precinto=objSession.getObjRecepcion().getPrecinto();
+            guia=objSession.getObjRecepcion().getNum_guia();
+            placa=objSession.getObjRecepcion().getPlaca();
+            modelo=objSession.getObjRecepcion().getModelo();
             fecha=e.format(objSession.getObjRecepcion().getFecha_recepcion());
+            boton="Restaurar";
             if(objSession.getObjRecepcion().getEstado()==1)
             {
                activo="checked='true'";
                estado="$('input:radio[name=rbEstado]')[0].checked = true;";
+               
             }
             else if(objSession.getObjRecepcion().getEstado()==2)
             {
@@ -97,14 +100,14 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                         <a data-toggle='modal' data-backdrop='static' href='#ModalChofer'><i class='splashy-zoom'></i></a>
                                                                                     </label>
                                                                                         <div id="chofer"><blockquote><%=chofer%><blockquote><%=transportista%></blockquote></blockquote></div>
-                                                                                        <input type="text" class="span10" id="IdChofer" name="IdChofer" <%=idChofer%> />
+                                                                                        <input type="text" class="span10" id="IdChofer" name="IdChofer" value="<%=idChofer%>" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                     <label>Dirección de Llegada
                                                                                         <a data-toggle='modal' data-backdrop='static' href='#ModalDireccion'><i class='splashy-zoom'></i></a>
                                                                                     </label>
                                                                                         <blockquote><div id="direccion"><%=direccion%></div></blockquote>
-                                                                                        <input type="text" class="span10" id="IdDireccion" name="IdDireccion"  <%=idDireccion%>/>
+                                                                                        <input type="text" class="span10" id="IdDireccion" name="IdDireccion" value="<%=idDireccion%>" />
                                                                                     </div>
                                                                                    
                                                                                     
@@ -121,16 +124,16 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                       
                                                                           <div class="location_add_form well">
                                                                                     <div class="input-prepend">
-                                                                                    <input type="text" class="ttip_r" id="txtPrecinto" name="txtPrecinto" title="Ingrese Precinto"  placeholder="Ingrese Precinto" <%=precinto%> />
+                                                                                    <input type="text" class="ttip_r" id="txtPrecinto" name="txtPrecinto" title="Ingrese Precinto"  placeholder="Ingrese Precinto" value="<%=precinto%>" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <input type="text" id="txtGuia" name="txtGuia" <%=guia%> class="ttip_r"  title="Ingrese Guia de Recepción"  placeholder="Ingrese Guia de Recepción" />
+                                                                                    <input type="text" id="txtGuia" name="txtGuia" value="<%=guia%>" class="ttip_r"  title="Ingrese Guia de Recepción"  placeholder="Ingrese Guia de Recepción" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <input type="text" id="txtPlaca" name="txtPlaca" <%=placa%>  class="ttip_r"  title="Ingrese Placa"  placeholder="Ingrese Placa"/>
+                                                                                    <input type="text" id="txtPlaca" name="txtPlaca" value="<%=placa%>" class="ttip_r"  title="Ingrese Placa"  placeholder="Ingrese Placa"/>
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <input type="text" id="txtModelo"  name="txtModelo" <%=modelo%> class="ttip_r"  title="Ingrese Modelo"  placeholder="Ingrese Modelo"/>
+                                                                                    <input type="text" id="txtModelo"  name="txtModelo" value="<%=modelo%>" class="ttip_r"  title="Ingrese Modelo"  placeholder="Ingrese Modelo"/>
                                                                                      </div>                                                                                   
                                                                                   
                                                                     </div>
@@ -167,7 +170,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                             </div>
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
 
-                                                                            <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
+                                                                            <button class="btn btn-invert" onclick="clear_form()" type="button"><%=boton%></button>
                                                                              <button class="btn btn-invert" onclick="clear_all()" type="button">Regresar</button>
                                                                              <button class="btn btn-inverse" onclick="getOcultar()" type="button">Ocultar</button>
                                                                           </div>
@@ -407,7 +410,9 @@ function tablaDireccion()
  tablaChofer();
  tablaDireccion();
     		$(document).ready(function() {
-                                    
+                                    $('#txtFecha').datepicker({
+                                            language: 'es'
+                                           });
                                     $('#IdChofer').hide();
                                     $('#IdDireccion').hide();
                                       $('#reg_form').validate({
@@ -476,15 +481,17 @@ function tablaDireccion()
                                         
 				});
                                  function clear_form() {
-                                           $('input:radio[name=rbEstado]').attr('checked',false);
-                                          $('#txtNombre').val("");
-                                          $('#txtCodigo').val("");
-                                            $('#txtDescripcion').val("");
-                                        
-                                          $("#IdVivero").val("0");  
-                                     
-                                           
-                                      };
+                                $('#IdChofer').val(<%=idChofer%>);
+                                $('#chofer').html('<div id="chofer"><blockquote><%=chofer%><blockquote><%=transportista%></blockquote></blockquote></div> '); 
+                                $('#IdDireccion').val(<%=idDireccion%>);
+                                $('#direccion').html('<div id="direccion"><%=direccion%></div>');
+                                <%=estado%>
+                                $('#txtModelo').val("<%=modelo%>");
+                                $('#txtPlaca').val("<%=placa%>");
+                                $('#txtGuia').val("<%=guia%>");
+                                $('#txtFecha').val("<%=fecha%>");
+                                $('#txtPrecinto').val("<%=precinto%>");
+                            };
                                   
 </script>
 <%}}%>  

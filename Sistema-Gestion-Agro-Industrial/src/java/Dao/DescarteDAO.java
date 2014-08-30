@@ -133,9 +133,8 @@ public class DescarteDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE DESCARTE SET ID_JABA = ?,ID_PARIHUELA= ?,ID_LOTE= ?,"
-                     + "NUM_JABAS = ?,PESO_BRUTO = ?,ES_RACIMO = ?,"
-                     + "ES_CAMPO = ?,FECHA_MODIFICACION = GETDATE() WHERE ID_DESCARTE = ?;";
+             String sql="UPDATE DESCARTE SET ID_JABA = ?,ID_PARIHUELA= ?,ID_LOTE= ?,NUM_JABAS = ?,PESO_BRUTO = ?,"
+                     + "ES_RACIMO = ?,ES_CAMPO = ?,USUARIO_RESPONSABLE = ?,FECHA_MODIFICACION = GETDATE() WHERE ID_DESCARTE = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
