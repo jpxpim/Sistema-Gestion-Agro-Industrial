@@ -7,13 +7,16 @@
 package Dao;
 
 import Entidades.entProductoTerminado;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  *
@@ -21,7 +24,64 @@ import java.util.GregorianCalendar;
  */
 public class ProductoTerminadoDAO {
     
-        public  static int insertar(entProductoTerminado entidad) throws Exception
+public static List<entProductoTerminado> Listar(boolean activo) throws Exception
+    {
+        List<entProductoTerminado> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="SELECT P.ID_PRODUCTO_TERMINADO,P.ID_DIA_RECEPCION,P.SELECCIONADOR,P.EMBALADOR,P.CODIGO_CONTROL,\n" +
+                    "P.FECHA_PRODUCCION,P.ESTADO,P.USUARIO_RESPONSABLE,P.FECHA_MODIFICACION,\n" +
+                    "E.ID_ENVASE,E.CODIGO_CONTROL,E.NOMBRE,E.PESO,E.PESO_CARGA,E.ESTADO,\n" +
+                    "C.ID_CALIBRE,C.CODIGO_CONTROL,C.NOMBRE,C.ID_CULTIVO,C.ESTADO,\n" +
+                    "CAT.ID_CATEGORIA,CAT.NOMBRE,CAT.ESTADO,CAT.CODIGO_CONTROL,\n" +
+                    "COL.ID_COLOR,COL.CODIGO_CONTROL,COL.NOMBRE,COL.ID_CULTIVO,COL.ESTADO,\n" +
+                    "L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,L.ESTADO,\n" +
+                    "LP.ID_LINEA_PRODUCCION,LP.NOMBRE,LP.ESTADO\n" +
+                    "FROM PRODUCTO_TERMINADO P\n" +
+                    "JOIN ENVASE E ON P.ID_ENVASE=E.ID_ENVASE\n" +
+                    "JOIN RECETA R ON E.ID_RECETA=R.ID_RECETA\n" +
+                    "JOIN CALIBRE C ON P.ID_CALIBRE=C.ID_CALIBRE\n" +
+                    "JOIN CATEGORIA CAT ON P.ID_CATEGORIA=CAT.ID_CATEGORIA\n" +
+                    "JOIN COLOR COL ON P.ID_COLOR=COL.ID_COLOR\n" +
+                    "JOIN LOTE L ON P.ID_LOTE=P.ID_LOTE\n" +
+                    "JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION"; 
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entProductoTerminado>();                    
+                    
+                    entProductoTerminado entidad = new entProductoTerminado();
+                    entidad.setId_empleado(dr.getInt(1));
+                    entidad.setDni(dr.getString(2));
+                    entidad.setNombre(dr.getString(3));
+                    entidad.setApellido(dr.getString(4));  
+                    entidad.setEstado(dr.getBoolean(5)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }        
+    
+    public  static int insertar(entProductoTerminado entidad) throws Exception
     {
         int rpta = 0;
         Connection conn =null;
