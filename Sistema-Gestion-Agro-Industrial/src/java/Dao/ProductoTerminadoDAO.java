@@ -6,6 +6,7 @@
 
 package Dao;
 
+import Com.Operaciones;
 import Entidades.entCalibre;
 import Entidades.entCategoria;
 import Entidades.entColor;
@@ -173,18 +174,10 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             
             if (rs.next()){
                 rpta=rs.getInt(1);
-                Calendar c = new GregorianCalendar();
-                String dia="";
-                String mes="";
-                if(c.get(Calendar.DATE)>9) dia = Integer.toString(c.get(Calendar.DATE));
-                else dia="0"+Integer.toString(c.get(Calendar.DATE));
-                if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
-                else mes="0"+Integer.toString(c.get(Calendar.MONTH));
-                String anio = ""+Integer.toString(c.get(Calendar.YEAR));
-                String codigo=""+rpta+dia+mes+anio;
+                
                 sql = "UPDATE PRODUCTO_TERMINADO SET CODIGO_CONTROL=? WHERE ID_PRODUCTO_TERMINADO=?";
                  CallableStatement ctmt = conn.prepareCall(sql);    
-                 ctmt.setString(1, codigo);
+                 ctmt.setString(1, Operaciones.getCodigoControl(rpta));
                  ctmt.setInt(2, rpta);
                  ctmt.executeUpdate();
                  ctmt.close();

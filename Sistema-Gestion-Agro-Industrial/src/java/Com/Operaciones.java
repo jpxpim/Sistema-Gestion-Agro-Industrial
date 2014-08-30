@@ -6,6 +6,9 @@
 
 package Com;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author Toditos
@@ -15,4 +18,17 @@ public class Operaciones {
     {
       return Math.round(NDecimal*Math.pow(10,decimales))/Math.pow(10,decimales);
     } 
+    
+    public static String getCodigoControl(int rpta)
+    {
+        Calendar c = new GregorianCalendar();
+                String dia="";
+                String mes="";
+                if(c.get(Calendar.DATE)>9) dia = Integer.toString(c.get(Calendar.DATE));
+                else dia="0"+Integer.toString(c.get(Calendar.DATE));
+                if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
+                else mes="0"+Integer.toString(c.get(Calendar.MONTH));
+                String anio = ""+Integer.toString(c.get(Calendar.YEAR));
+                return ""+rpta+dia+mes+anio;
+    }
 }
