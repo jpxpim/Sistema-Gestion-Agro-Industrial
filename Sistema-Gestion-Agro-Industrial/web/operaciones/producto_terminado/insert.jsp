@@ -1,59 +1,53 @@
 
+<%@page import="Entidades.entColor"%>
+<%@page import="Entidades.entCalibre"%>
+<%@page import="Entidades.entEnvase"%>
+<%@page import="Entidades.entCategoria"%>
+<%@page import="Entidades.entLineaProduccion"%>
 <%@page import="Entidades.entParihuela"%>
 <%@page import="Entidades.entJaba"%>
 <%@page import="Entidades.entLote"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entDescarte"%>
+<%@page import="Entidades.entProductoTerminado"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-        if(request.getParameter("cbLote") != null && request.getParameter("cbLote") != "" &&
-                request.getParameter("cbJaba") != null && request.getParameter("cbJaba") != "" &&
-                request.getParameter("cbParihuela") != null && request.getParameter("cbParihuela") != "" &&
-                request.getParameter("txtNJabas") != null && request.getParameter("txtNJabas") != "" &&
-                request.getParameter("txtPBruto") != null && request.getParameter("txtPBruto") != "" &&
-                request.getParameter("rbRacimo") != null && request.getParameter("rbRacimo") != "" &&
-                request.getParameter("rbCampo") != null && request.getParameter("rbCampo") != "" )
+        if(request.getParameter("cbLineaProduccion") != null && request.getParameter("cbLineaProduccion") != "" &&
+                request.getParameter("cbEnvase") != null && request.getParameter("cbEnvase") != "" &&
+                request.getParameter("cbCategoria") != null && request.getParameter("cbCategoria") != "" &&
+                request.getParameter("idLote") != null && request.getParameter("idLote") != "" &&
+                request.getParameter("idCalibre") != null && request.getParameter("idCalibre") != "" &&
+                request.getParameter("idColor") != null && request.getParameter("idColor") != "" &&
+                request.getParameter("idSeleccionador") != null && request.getParameter("idSeleccionador") != "" &&
+                request.getParameter("idEmpaquetador") != null && request.getParameter("idEmpaquetador") != "" )
         {
-            entDescarte entidad = new entDescarte();
-            entidad.setObjLote(new entLote(Integer.parseInt(request.getParameter("cbLote"))));
-            entidad.setObjJaba(new entJaba(Integer.parseInt(request.getParameter("cbJaba"))));
-            entidad.setObjParihuela(new entParihuela(Integer.parseInt(request.getParameter("cbParihuela"))));
-            entidad.setNum_jabas(Double.parseDouble(request.getParameter("txtNJabas")));
-            entidad.setPeso_bruto(Double.parseDouble(request.getParameter("txtPBruto")));
+            entProductoTerminado entidad = new entProductoTerminado();
+            entidad.setObjLineaProduccion(new entLineaProduccion(Integer.parseInt(request.getParameter("cbLineaProduccion"))));
+            entidad.setObjEnvase(new entEnvase(Integer.parseInt(request.getParameter("cbEnvase"))));
+            entidad.setObjCategoria(new entCategoria(Integer.parseInt(request.getParameter("cbCategoria"))));
+            entidad.setObjLote(new entLote(Integer.parseInt(request.getParameter("idLote"))));           
+            entidad.setObjCalibre(new entCalibre(Integer.parseInt(request.getParameter("idCalibre"))));            
+            entidad.setObjColor(new entColor(Integer.parseInt(request.getParameter("idColor"))));
+            entidad.setEstado(0);
+            entidad.setSeleccionador(request.getParameter("idSeleccionador"));
+            entidad.setEmbalador(request.getParameter("idEmpaquetador"));
+            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
+           
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
             
-            entidad.setIs_campo(true);
-            if(request.getParameter("rbCampo").equals("0"))
-                 entidad.setIs_campo(false);
-            
-            entidad.setIs_racimo(true);
-            if(request.getParameter("rbRacimo").equals("0"))
-                 entidad.setIs_racimo(false);
 
             
-            if(!request.getParameter("IdDescarte").equals("0") )
-            {
-                entidad.setId_descarte(Integer.parseInt(request.getParameter("IdDescarte")));
-                 if(clsGestor.actualizarDescarte(entidad))
-                 {
-                     out.print(0);
-                 }
-                 else
-                     out.print(-1);
-            }
-             else
-             {
-                 int id=clsGestor.insertarDescarte(entidad);
+           
+                 int id=clsGestor.insertarProductoTerminado(entidad);
                     if(id>0)
                     {
                         out.print(id);
                     }
                     else
                         out.print(-1);
-             }
+            
             
         }
 }

@@ -18,6 +18,10 @@ public class entCategoria
     private String nombre;
     private Boolean estado;
     private String codigo_control;
+
+    public entCategoria(int id_categoria) {
+        this.id_categoria = id_categoria;
+    }
     private String usuario_responsable;
     private Date fecha_modificacion;
 

@@ -697,4 +697,14 @@ public class clsGestor {
 //        return LineaProduccionDAO.actualizar(entidad);
 //    }
     // </editor-fold>  
+    
+    //<editor-fold defaultstate="collapsed" desc="entProductoTerminado">
+
+    public  static int insertarProductoTerminado(entProductoTerminado entidad) throws Exception
+    {
+      return ProductoTerminadoDAO.insertar(entidad);
+    }
+   
+    // </editor-fold>
+    
 }

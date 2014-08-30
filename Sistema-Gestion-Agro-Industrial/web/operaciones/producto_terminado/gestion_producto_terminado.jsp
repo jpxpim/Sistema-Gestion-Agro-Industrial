@@ -117,8 +117,8 @@ else
                                                                             <div class="formSep">
                                                                                     <div class="input-prepend">
                                                                                     <label>Linea Producción</label>
-                                                                                    <select id="cbLineaProduccion" name="cbLineaProduccion" title="Por favor selecione una Linea Producción!" required>
-                                                                                        <option value="0">Selecione una Opción</option>
+                                                                                    <select id="cbLineaProduccion" name="cbLineaProduccion" >
+                                                                                        <option value="">Selecione una Opción</option>
                                                                                         <%List<entLineaProduccion> listLineaProduccion=clsGestor.ListarLineaProduccion(true);
                                                                                             if(listLineaProduccion!=null)
                                                                                                 for(entLineaProduccion entidad : listLineaProduccion)
@@ -128,8 +128,8 @@ else
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                         <label>Envase</label>
-                                                                                        <select id="cbEnvase" name="cbEnvase" title="Por favor selecione un Envase!" required>
-                                                                                        <option value="0">Selecione una Opción</option>
+                                                                                        <select id="cbEnvase" name="cbEnvase" >
+                                                                                        <option value="">Selecione una Opción</option>
                                                                                         <%List<entEnvase> listEnvase=clsGestor.ListarEnvase(true);
                                                                                             if(listEnvase!=null)
                                                                                                 for(entEnvase entidad : listEnvase)
@@ -139,7 +139,7 @@ else
                                                                                     </div>
                                                                                       <div class="input-prepend">
                                                                                         <label>Categoria</label>
-                                                                                        <select id="cbCategoria" name="cbCategoria" title="Por favor selecione una Categoria!" required>
+                                                                                        <select id="cbCategoria" name="cbCategoria">
                                                                                         <option value="">Selecione una Opción</option>
                                                                                         <%List<entCategoria> listCategoria=clsGestor.ListarCategoria(true);
                                                                                             if(listCategoria!=null)
@@ -204,12 +204,32 @@ else
                                      
 <script type="text/javascript">
 var actulizar=false;   
+var validGrabar=true; 
 var validLote=false;
 var validColor=false;
 var validSeleccionador=false;
 var validEmpaquetador=false;
-
+$(document).ready(function() {
+$('#cbLineaProduccion').on('change', function() {
+    if(this.value!="" && this.value!=null)
+    {
+        $("#txtLote").select(); 
+    }
+});
+$('#cbCategoria').on('change', function() {
+    if(this.value!="" && this.value!=null)
+    {
+        $("#txtLote").select(); 
+    }
+});
+$('#cbEnvase').on('change', function() {
+    if(this.value!="" && this.value!=null)
+    {
+        $("#txtLote").select(); 
+    }
+});
 $("#txtLote").keyup(function(){
+        $(this).val($(this).val().trim());
     validLote=false;
     $("#idLote").val(''); 
    if(2<$(this).val().length && 11>$(this).val().length)
@@ -223,6 +243,7 @@ $("#txtLote").keyup(function(){
         }
         if(validLote)
         {
+            $("#txtColor").focus(); 
             $("#txtColor").select(); 
             $('#validLote').html('<i id="validLote" class="splashy-thumb_up"/>');
         }
@@ -233,6 +254,7 @@ $("#txtLote").keyup(function(){
 });
 
 $("#txtColor").keyup(function(){
+    $(this).val($(this).val().trim());
    var colorEstado=false;
    var calibreEstado=false;
     validColor=false;
@@ -261,7 +283,8 @@ $("#txtColor").keyup(function(){
            if(calibreEstado && colorEstado)
            {
                validColor=true;
-               $("#txtSeleccionador").select(); 
+               $("#txtSeleccionador").focus(); 
+               $("#txtSeleccionador").select();                
                $('#validColor').html('<i id="validColor" class="splashy-thumb_up"/>');
            }
            else
@@ -274,6 +297,7 @@ $("#txtColor").keyup(function(){
 });
 
 $("#txtSeleccionador").keyup(function(){
+    $(this).val($(this).val().trim());
     validSeleccionador=false;
     $("#idSeleccionador").val(''); 
    if(8==$(this).val().length)
@@ -281,13 +305,14 @@ $("#txtSeleccionador").keyup(function(){
         for (i = 0; i <empleado.entidad.length; i++) { 
             if(empleado.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
             {
-                $("#idSeleccionador").val(empleado.entidad[i].id_empleado); 
+                $("#idSeleccionador").val(empleado.entidad[i].codigo_control); 
                 validSeleccionador=true;
             }   
         }
         if(validSeleccionador)
         {
-            $("#txtEmpaquetador").select(); 
+            $("#txtEmpaquetador").focus(); 
+            $("#txtEmpaquetador").select();             
             $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-thumb_up"/>');
         }
         else
@@ -296,7 +321,8 @@ $("#txtSeleccionador").keyup(function(){
      
 });
 
-$("#txtEmpaquetador").keyup(function(){
+$("#txtEmpaquetador").keyup(function(){    
+    $(this).val($(this).val().trim());
     validEmpaquetador=false;
     $("#idEmpaquetador").val(''); 
    if(8==$(this).val().length)
@@ -304,25 +330,39 @@ $("#txtEmpaquetador").keyup(function(){
         for (i = 0; i <empleado.entidad.length; i++) { 
             if(empleado.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
             {
-                $("#idEmpaquetador").val(empleado.entidad[i].id_empleado); 
+                $("#idEmpaquetador").val(empleado.entidad[i].codigo_control); 
                 validEmpaquetador=true;
             }   
         }
         if(validEmpaquetador)
         {
             $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_up"/>');
-            grabar();
+            comprobar();
         }
         else
             $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_down"/>');
    }
      
 });
-function grabar()
+});
+
+function comprobar()
 {
     if(!actulizar)
     {
-        if(!validLote)
+         if($("#cbLineaProduccion :selected").val()=="" && $("#cbTransportista :selected").val()==null)
+        {
+             $.sticky("Selecione una Linea de Porducción", {autoclose : 5000, position: "top-center", type: "st-error" });
+        }
+        else if($("#cbCategoria :selected").val()=="" && $("#cbTransportista :selected").val()==null)
+        {
+             $.sticky("Selecione una Categoria", {autoclose : 5000, position: "top-center", type: "st-error" });
+        }
+         else if($("#cbEnvase :selected").val()=="" && $("#cbTransportista :selected").val()==null)
+        {
+             $.sticky("Selecione un Envase", {autoclose : 5000, position: "top-center", type: "st-error" });
+        }
+        else if(!validLote)
         {
             $("#txtLote").select(); 
         }
@@ -340,16 +380,48 @@ function grabar()
         }
         else
         {
-            alert($("#idLote").val());
-            clear_all();
+            
+            if(validGrabar)
+            {
+                grabar();
+                validGrabar=false;
+            }
+            
         }
         
     }
-    
-
 };
+function grabar(){
+    $("#abrirCarga").click();
+  var url = "operaciones/producto_terminado/insert.jsp"; 
+    $.ajax({
+    type: "POST",
+    url: url,
+    data: $("#reg_form").serialize(), 
+    success: function(data)
+    {
+       if(data==-1)
+         $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
+        else if(data==0)
+        {
+            clear_all();
+           $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
+
+       }
+        else if(data>0)
+        {
+           clear_all();
+           $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
+
+        }
+         $("#cerrarCarga").trigger("click");
+    }
+    }); 
+};
+
 function clear_all()
 {
+     validGrabar=true;
     $("#txtLote").val(""); 
     $("#idLote").val(""); 
     
