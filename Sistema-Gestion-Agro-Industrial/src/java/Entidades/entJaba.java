@@ -23,6 +23,10 @@ public class entJaba
             
     public entJaba (){}
 
+    public entJaba(int id_jaba) {
+        this.id_jaba = id_jaba;
+    }
+
     public int getId_jaba() {
         return id_jaba;
     }

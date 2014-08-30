@@ -595,7 +595,22 @@ public class clsGestor {
     
   
     // </editor-fold>
-     
+    
+//<editor-fold defaultstate="collapsed" desc="entDescarte">
+    public static List<entDescarte> ListarDescarte() throws Exception
+    {
+        return DescarteDAO.Listar();
+    }
+    
+    public  static int insertarDescarte(entDescarte entidad) throws Exception
+    {
+        return DescarteDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarDescarte(entDescarte entidad) throws Exception
+    {
+        return DescarteDAO.actualizar(entidad);
+    }
      
     
 }

@@ -167,14 +167,14 @@ if(list!=null)
                                                                                     <div class="input-prepend">
                                                                                     <label>Número de Jabas</label>
                                                                                     <input type="text" class="span10" id="txtNJabas" name="txtNJabas" />
-                                                                                    <br><br><br>
                                                                                     </div>
+                                                                                    <br><br>
                                                                                     <div class="input-prepend">
                                                                                     <label>Peso Bruto</label>
                                                                                     <input type="text" class="span10" id="txtPBruto"  name="txtPBruto" />
-                                                                                     <br> <br>
-                                                                                     </div> 
                                                                                      
+                                                                                     </div> 
+                                                                                     <br>
                                                                                    
                                                                                
                                                                             </div>
@@ -212,7 +212,7 @@ if(list!=null)
                                                                                             No es Campo
                                                                                     </label>
                                                                                      </div>
-                                                                                <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
+                                                                                <input type="hidden" id="IdDescarte"  name="IdDescarte" value="0" />
 
                                                                             </div>
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
@@ -250,7 +250,7 @@ if(list!=null)
                             <thead>
                                     <tr>
                                             <th>Nombre</th>
-                                            <th>Nº Hectareas</th>
+                                            <th>Cod. Control</th>
                                             <th>Centro de Costo</th>
                                             <th>Productor</th>
                                             <th>Tipo Cultivo</th>
@@ -269,7 +269,7 @@ if(list!=null)
                                                                                                         
                             <tr>
                                 <td><%=entidad.getNombre()%></td>
-                                <td><%=entidad.getHectareas()%></td>
+                                <td><%=entidad.getCodigo_control()%></td>
                                 <td><%=entidad.getCentro_costo()%></td>
                                 <td><%=entidad.getObjProductor().getNombre()%></td>
                                 <td><%=entidad.getObjTipoCultivo().getNombre()%></td>
@@ -313,8 +313,7 @@ $(function () {
 $( "#cbLote" ).hide();
 $('#tablaLote').dataTable({
    "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
-    "sScrollY": "200px",
-     "sScrollX": "90%",
+
     "bDestroy": true,
     "bDeferRender": true
 });
@@ -356,8 +355,8 @@ ignore: ".ignore",
                  });    
     },
 rules: {
-        txtNJabas: { required: true, minlength: 3 },
-        txtPBruto: { required: true, minlength: 3 },
+        txtNJabas: { required: true, number: true },
+        txtPBruto: { required: true, number: true },
         rbRacimo: { required: true },
         rbCampo: { required: true },
         cbLote: { required: true }
@@ -382,14 +381,14 @@ function clear_form() {
   $('#txtCodigo').val("");
     $('#txtPBruto').val("");
 
-  $("#IdVivero").val("0");  
+  $("#IdDescarte").val("0");  
 
 
 };
 function edit_form(id,nombre,descripcion,codigo,estado) {
     $('#txtNJabas').val(nombre);
     $('#txtPBruto').val(descripcion);
-    $('#IdVivero').val(id);
+    $('#IdDescarte').val(id);
      $('#txtCodigo').val(codigo);
     if(estado.toLowerCase()=="true")
      $('input:radio[name=rbEstado]')[0].checked = true;

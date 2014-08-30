@@ -23,6 +23,10 @@ public class entParihuela
     
     public entParihuela(){}
 
+    public entParihuela(int id_parihuela) {
+        this.id_parihuela = id_parihuela;
+    }
+
     public int getId_parihuela() {
         return id_parihuela;
     }
