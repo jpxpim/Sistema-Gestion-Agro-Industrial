@@ -129,7 +129,7 @@ if(objSession!=null)
                                                                                     <input type="text" class="span10" id="txtNombre" name="txtNombre" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Codigo de Conrol</label>
+                                                                                    <label>Codigo de Control</label>
                                                                                     <input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
                                                                                      </div> 
                                                                                      <div class="input-prepend">
