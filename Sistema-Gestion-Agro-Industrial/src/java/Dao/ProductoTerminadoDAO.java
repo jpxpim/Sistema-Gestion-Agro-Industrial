@@ -6,7 +6,14 @@
 
 package Dao;
 
+import Entidades.entCalibre;
+import Entidades.entCategoria;
+import Entidades.entColor;
+import Entidades.entEnvase;
+import Entidades.entLineaProduccion;
+import Entidades.entLote;
 import Entidades.entProductoTerminado;
+import Entidades.entReceta;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +31,7 @@ import java.util.List;
  */
 public class ProductoTerminadoDAO {
     
-public static List<entProductoTerminado> Listar(boolean activo) throws Exception
+public static List<entProductoTerminado> Listar(int id_dia_recepcion) throws Exception
     {
         List<entProductoTerminado> lista = null;
         Connection conn =null;
@@ -33,10 +40,11 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
         try {
                     String sql="SELECT P.ID_PRODUCTO_TERMINADO,P.ID_DIA_RECEPCION,P.SELECCIONADOR,P.EMBALADOR,P.CODIGO_CONTROL,\n" +
                     "P.FECHA_PRODUCCION,P.ESTADO,P.USUARIO_RESPONSABLE,P.FECHA_MODIFICACION,\n" +
+                    "R.ID_RECETA,R.NOMBRE,R.ESTADO,\n"+
                     "E.ID_ENVASE,E.CODIGO_CONTROL,E.NOMBRE,E.PESO,E.PESO_CARGA,E.ESTADO,\n" +
-                    "C.ID_CALIBRE,C.CODIGO_CONTROL,C.NOMBRE,C.ID_CULTIVO,C.ESTADO,\n" +
+                    "C.ID_CALIBRE,C.CODIGO_CONTROL,C.NOMBRE,C.ESTADO,\n" +
                     "CAT.ID_CATEGORIA,CAT.NOMBRE,CAT.ESTADO,CAT.CODIGO_CONTROL,\n" +
-                    "COL.ID_COLOR,COL.CODIGO_CONTROL,COL.NOMBRE,COL.ID_CULTIVO,COL.ESTADO,\n" +
+                    "COL.ID_COLOR,COL.CODIGO_CONTROL,COL.NOMBRE,COL.ESTADO,\n" +
                     "L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,L.ESTADO,\n" +
                     "LP.ID_LINEA_PRODUCCION,LP.NOMBRE,LP.ESTADO\n" +
                     "FROM PRODUCTO_TERMINADO P\n" +
@@ -46,8 +54,8 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
                     "JOIN CATEGORIA CAT ON P.ID_CATEGORIA=CAT.ID_CATEGORIA\n" +
                     "JOIN COLOR COL ON P.ID_COLOR=COL.ID_COLOR\n" +
                     "JOIN LOTE L ON P.ID_LOTE=P.ID_LOTE\n" +
-                    "JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION"; 
-
+                    "JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION"
+                            + " where P.ID_DIA_RECEPCION="+id_dia_recepcion; 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
@@ -56,14 +64,67 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
             {
                 if(lista==null)
                     lista= new ArrayList<entProductoTerminado>();                    
-                    
                     entProductoTerminado entidad = new entProductoTerminado();
-                    entidad.setId_empleado(dr.getInt(1));
-                    entidad.setDni(dr.getString(2));
-                    entidad.setNombre(dr.getString(3));
-                    entidad.setApellido(dr.getString(4));  
-                    entidad.setEstado(dr.getBoolean(5)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+                    //Receta
+                    entReceta objReceta = new entReceta();
+                    objReceta.setId_receta(dr.getInt(10));
+                    objReceta.setNombre(dr.getString(11));
+                    objReceta.setEstado(dr.getBoolean(12));
+                    //Envase
+                    entEnvase objEnvase = new entEnvase();
+                    objEnvase.setId_envase(dr.getInt(13));
+                    objEnvase.setCodigo_control(dr.getString(14));
+                    objEnvase.setNombre(dr.getString(15));
+                    objEnvase.setPeso(dr.getDouble(16));
+                    objEnvase.setPeso_carga(dr.getDouble(17));
+                    objEnvase.setEstado(dr.getBoolean(18));
+                    //Calibre
+                    entCalibre objCalibre = new entCalibre();
+                    objCalibre.setId_calibre(dr.getInt(19));
+                    objCalibre.setCodigo_control(dr.getString(20));
+                    objCalibre.setNombre(dr.getString(21));
+                    objCalibre.setEstado(dr.getBoolean(22));
+                    //Categoria
+                    entCategoria objCategoria = new entCategoria();
+                    objCategoria.setId_categoria(dr.getInt(23));
+                    objCategoria.setNombre(dr.getString(24));
+                    objCategoria.setEstado(dr.getBoolean(25));
+                    objCategoria.setCodigo_control(dr.getString(26));
+                    //Color
+                    entColor objColor = new entColor();
+                    objColor.setId_color(dr.getInt(27));
+                    objColor.setCodigo_control(dr.getString(28));
+                    objColor.setNombre(dr.getString(29));
+                    objColor.setEstado(dr.getBoolean(30));
+                    //lote
+                    //"L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,L.ESTADO,\n" +
+                    entLote objLote = new entLote();
+                    objLote.setId_lote(dr.getInt(31));
+                    objLote.setCodigo_control(dr.getString(32));
+                    objLote.setNombre(dr.getString(33));
+                    objLote.setEstado(dr.getBoolean(34));
+                    //linea produccion
+                    entLineaProduccion objLineaProduccion = new entLineaProduccion();
+                    objLineaProduccion.setId_linea_produccion(dr.getInt(35));
+                    objLineaProduccion.setNombre(dr.getString(36));
+                    objLineaProduccion.setEstado(dr.getBoolean(37));
+                    //entidad
+                    entidad.setId_producto_terminado(dr.getInt(1));
+                    entidad.setId_dia_recepcion(dr.getInt(2));
+                    entidad.setSeleccionador(dr.getString(3));
+                    entidad.setEmbalador(dr.getString(4));  
+                    entidad.setCodigo_control(dr.getString(5)); 
+                    entidad.setFecha_produccion(dr.getTimestamp(6)); 
+                    entidad.setEstado(dr.getInt(7));  
+                    entidad.setUsuario_responsable(dr.getString(8)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(9)); 
+                    entidad.setObjCalibre(objCalibre);
+                    entidad.setObjCategoria(objCategoria);
+                    entidad.setObjColor(objColor);
+                    entidad.setObjEnvase(objEnvase);
+                    entidad.setObjLineaProduccion(objLineaProduccion);
+                    entidad.setObjLote(objLote);
+                    entidad.setObjReceta(objReceta);
                     lista.add(entidad);
             }
 
@@ -81,7 +142,7 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
         return lista;
     }        
     
-    public  static int insertar(entProductoTerminado entidad) throws Exception
+public  static int insertar(entProductoTerminado entidad) throws Exception
     {
         int rpta = 0;
         Connection conn =null;
@@ -94,6 +155,7 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
                    + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getId_dia_recepcion());
             stmt.setInt(2, entidad.getObjEnvase().getId_envase());
@@ -111,21 +173,28 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
             
             if (rs.next()){
                 rpta=rs.getInt(1);
+                Calendar c = new GregorianCalendar();
+                String dia="";
+                String mes="";
+                if(c.get(Calendar.DATE)>9) dia = Integer.toString(c.get(Calendar.DATE));
+                else dia="0"+Integer.toString(c.get(Calendar.DATE));
+                if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
+                else mes="0"+Integer.toString(c.get(Calendar.MONTH));
+                String anio = ""+Integer.toString(c.get(Calendar.YEAR));
+                String codigo=""+rpta+dia+mes+anio;
+                sql = "UPDATE PRODUCTO_TERMINADO SET CODIGO_CONTROL=? WHERE ID_PRODUCTO_TERMINADO=?";
+                 CallableStatement ctmt = conn.prepareCall(sql);    
+                 ctmt.setString(1, codigo);
+                 ctmt.setInt(2, rpta);
+                 ctmt.executeUpdate();
+                 ctmt.close();
             }
-            Calendar c = new GregorianCalendar();
-            String dia="";
-            String mes="";
-            if(c.get(Calendar.DATE)>9) dia = Integer.toString(c.get(Calendar.DATE));
-            else dia="0"+Integer.toString(c.get(Calendar.DATE));
-            if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
-            else mes="0"+Integer.toString(c.get(Calendar.MONTH));
-            String anio = Integer.toString(c.get(Calendar.YEAR));
-            sql = "UPDATE PRODUCTO_TERMINADO SET CODIGO_CONTROL="+dia+mes+anio+" WHERE ID_PRODUCTO_TERMINADO="+rpta;
-            stmt = conn.prepareCall(sql);
-            stmt.executeUpdate();
-            
             rs.close();
+            conn.commit();
         } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
             throw new Exception("Insertar"+e.getMessage(), e);
         }
         finally{
@@ -138,4 +207,45 @@ public static List<entProductoTerminado> Listar(boolean activo) throws Exception
         return rpta;
     } 
     
+
+
+public static boolean actualizar(entProductoTerminado entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+             String sql="UPDATE producto_terminado SET ID_DIA_RECEPCION = ?,ID_ENVASE= ?,ID_CALIBRE=?,ID_CATEGORIA= ?,"
+                     + "ID_COLOR = ?,ID_LOTE= ?,ID_LINEA_PRODUCCION=?,SELECCIONADOR= ?,"
+                     + "EMBALADOR = ?,ESTADO= ?,"
+                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_producto_terminado = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);             
+            stmt.setInt(1, entidad.getId_dia_recepcion());
+            stmt.setInt(2, entidad.getObjEnvase().getId_envase());
+            stmt.setInt(3, entidad.getObjCalibre().getId_calibre());
+            stmt.setInt(4, entidad.getObjCategoria().getId_categoria());
+            stmt.setInt(5, entidad.getObjColor().getId_color());
+            stmt.setInt(6, entidad.getObjLote().getId_lote());
+            stmt.setInt(7, entidad.getObjLineaProduccion().getId_linea_produccion());
+            stmt.setString(8, entidad.getSeleccionador());
+            stmt.setString(9, entidad.getEmbalador());
+            stmt.setInt(10, entidad.getEstado());            
+            stmt.setString(11, entidad.getUsuario_responsable());
+            stmt.setInt(12,entidad.getId_producto_terminado());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }
 }

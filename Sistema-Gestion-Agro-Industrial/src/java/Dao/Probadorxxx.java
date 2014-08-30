@@ -18,6 +18,7 @@ import Entidades.entLote;
 import Entidades.entModulo;
 import Entidades.entPatron;
 import Entidades.entPrePoda;
+import Entidades.entProductoTerminado;
 import Entidades.entSector;
 import Entidades.entSubSector;
 import Entidades.entTipoCultivo;
@@ -41,8 +42,9 @@ public class Probadorxxx {
      */
     public static void main(String[] args) throws Exception {
             entDiaRecepcion entidad = new entDiaRecepcion();
-entidad.setUsuario_responsable_inicio("XD");
+            entidad.setUsuario_responsable_inicio("XD");
         System.out.print(""+DiaRecepcionDAO.insertar(entidad));
+        ProductoTerminadoDAO.Listar(11);
     }
     
 }
