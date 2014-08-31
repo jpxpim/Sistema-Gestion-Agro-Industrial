@@ -223,7 +223,7 @@ function SetRecepccion(parametro)
                         type: 'POST',
                         success: function () {     
                                 $.ajax({
-                                url: 'operaciones/descarte/gestion_descarte.jsp',
+                                url: 'operaciones/producto_terminado/gestion_producto_terminado.jsp',
                                 type: 'POST',
                                 success: function (data) {     
                                          $('#frame').html(data);
@@ -245,7 +245,7 @@ function SetRecepccion(parametro)
  function getion()
 {    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
     $.ajax({
-        url: 'operaciones/descarte/gestion_descarte.jsp',
+        url: 'operaciones/producto_terminado/gestion_producto_terminado.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#frame').html(data);
