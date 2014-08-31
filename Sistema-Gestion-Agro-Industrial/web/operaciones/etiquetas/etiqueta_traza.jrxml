@@ -231,12 +231,6 @@
 				</textElement>
 				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement x="35" y="189" width="104" height="29" uuid="00146443-1551-4a5b-8520-e95af39ccefa"/>
-				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
-					<jr:codeExpression><![CDATA["20140112-1"]]></jr:codeExpression>
-				</jr:Code39>
-			</componentElement>
 			<staticText>
 				<reportElement x="136" y="32" width="22" height="19" backcolor="#000000" uuid="5ab693c1-070d-4098-b9ca-2a8b35f39bf0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -479,12 +473,6 @@
 				</textElement>
 				<text><![CDATA[NET WEIGHT 8.2 Kg / 18.0 Lb]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement x="187" y="189" width="104" height="29" uuid="51da086a-f808-498d-831d-430abaecf2c3"/>
-				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
-					<jr:codeExpression><![CDATA["20140112-1"]]></jr:codeExpression>
-				</jr:Code39>
-			</componentElement>
 			<staticText>
 				<reportElement x="165" y="66" width="103" height="10" backcolor="#000000" uuid="7ef4e226-0b5e-4ad8-94e4-b71362dd101a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">

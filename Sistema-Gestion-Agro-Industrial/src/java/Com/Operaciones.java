@@ -19,7 +19,8 @@ public class Operaciones {
       return Math.round(NDecimal*Math.pow(10,decimales))/Math.pow(10,decimales);
     } 
     
-    public static String getCodigoControl(int rpta)
+
+    public static String getCodigoControl()
     {
         Calendar c = new GregorianCalendar();
         String dia="";
@@ -29,6 +30,10 @@ public class Operaciones {
         if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
         else mes="0"+Integer.toString(c.get(Calendar.MONTH));
         String anio = ""+Integer.toString(c.get(Calendar.YEAR));
-        return dia+mes+anio+rpta;
+        String hora=Integer.toString(c.get(Calendar.HOUR));
+        String min=Integer.toString(c.get(Calendar.MINUTE));
+        String seg=Integer.toString(c.get(Calendar.SECOND));
+        String mili=Integer.toString(c.get(Calendar.MILLISECOND));
+        return ""+dia+mes+anio.substring(2)+hora+min+seg+mili;
     }
 }

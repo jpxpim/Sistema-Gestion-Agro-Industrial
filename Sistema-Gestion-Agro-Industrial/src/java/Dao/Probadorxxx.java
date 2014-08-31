@@ -6,6 +6,7 @@
 
 package Dao;
 
+import Com.Operaciones;
 import Entidades.entCampania;
 import Entidades.entCampaniaLote;
 import Entidades.entCultivo;
@@ -43,7 +44,7 @@ public class Probadorxxx {
     public static void main(String[] args) throws Exception {
             entDiaRecepcion entidad = new entDiaRecepcion();
             entidad.setUsuario_responsable_inicio("XD");
-        System.out.print(""+ProductoTerminadoDAO.Listar(11,1).size());
+        System.out.print(Operaciones.getCodigoControl());
         ;
     }
     

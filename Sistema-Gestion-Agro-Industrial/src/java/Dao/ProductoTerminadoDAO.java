@@ -255,7 +255,7 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
                 
                 sql = "UPDATE PRODUCTO_TERMINADO SET CODIGO_CONTROL=? WHERE ID_PRODUCTO_TERMINADO=?";
                  CallableStatement ctmt = conn.prepareCall(sql);    
-                 ctmt.setString(1, Operaciones.getCodigoControl(rpta));
+                 ctmt.setString(1, Operaciones.getCodigoControl());
                  ctmt.setInt(2, rpta);
                  ctmt.executeUpdate();
                  ctmt.close();
