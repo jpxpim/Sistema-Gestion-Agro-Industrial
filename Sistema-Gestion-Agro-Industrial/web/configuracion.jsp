@@ -134,6 +134,7 @@ if(objSession!=null)
                                     <div class="row-fluid">
                                          <form  method="get" id="reg_form">
                                             <div class="span4">
+                                                <h3 class="heading">Sistema</h3>  
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
@@ -212,6 +213,7 @@ if(objSession!=null)
                                                     </div>
                                             </div>
                                              <div class="span4">
+                                                 <h3 class="heading">Conexion</h3>  
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
@@ -248,6 +250,7 @@ if(objSession!=null)
                                                     </div>
                                             </div>
                                              <div class="span4">
+                                                 <h3 class="heading">Empresa</h3>  
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
