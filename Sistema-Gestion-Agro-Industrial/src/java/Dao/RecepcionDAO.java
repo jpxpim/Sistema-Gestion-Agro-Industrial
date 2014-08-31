@@ -31,6 +31,86 @@ import java.util.List;
  */
 public class RecepcionDAO {
 
+    public static List<entRecepcion>  ListarPorDiaRecepcion(int idDiaRecepcion) throws Exception
+    {
+        List<entRecepcion> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr1 = null;
+        try {
+            String sql="select R.ID_RECEPCION,R.NUM_GUIA,R.PLACA,R.MODELO,R.FECHA_RECEPCION,R.PRECINTO,R.ESTADO,R.USUARIO_RESPONSABLE,R.FECHA_MODIFICACION,\n" +
+                "D.ID_DIR_LLEGADA,D.NOMBRE,D.ESTADO,D.USUARIO_RESPONSABLE,D.FECHA_MODIFICACION,\n" +
+                "T.ID_TRANSPORTISTA,T.RAZON_SOCIAL,T.RUC,T.ESTADO,T.USUARIO_RESPONSABLE,T.FECHA_MODIFICACION,\n" +
+                "CH.ID_CHOFER,CH.NOMBRE,CH.BREVETE,CH.ESTADO,CH.USUARIO_RESPONSABLE,CH.FECHA_MODIFICACION\n" +
+                "from recepcion R\n" +
+                "join DIR_LLEGADA D ON R.ID_DIR_LLEGADA=D.ID_DIR_LLEGADA\n" +
+                "JOIN CHOFER CH ON R.ID_CHOFER = CH.ID_CHOFER\n" +
+                "JOIN TRANSPORTISTA T ON CH.ID_TRANSPORTISTA=T.ID_TRANSPORTISTA where R.ID_DIA_RECEPCION="+idDiaRecepcion;         
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr1 = stmt.executeQuery();
+
+            while(dr1.next())
+            {
+                if(lista==null)
+                {lista= new ArrayList<entRecepcion>();}
+                    //Dir Llegada
+                    entDireccionLlegada objDireccionLlegada = new entDireccionLlegada();
+                    objDireccionLlegada.setId_dir_llegada(dr1.getInt(10));
+                    objDireccionLlegada.setNombre(dr1.getString(11)); 
+                    objDireccionLlegada.setEstado(dr1.getBoolean(12));
+                    objDireccionLlegada.setUsuario_responsable(dr1.getString(13));
+                    objDireccionLlegada.setFecha_modificacion(dr1.getTimestamp(14));
+                    //Transportista
+                    entTransportista objTransportista = new entTransportista();
+                    objTransportista.setId_transportista(dr1.getInt(15));
+                    objTransportista.setRazon_social(dr1.getString(16)); 
+                    objTransportista.setRuc(dr1.getString(17)); 
+                    objTransportista.setEstado(dr1.getBoolean(18));
+                    objTransportista.setUsuario_responsable(dr1.getString(19));
+                    objTransportista.setFecha_modificacion(dr1.getTimestamp(20));
+                    //Chofer
+                    entChofer objChofer = new entChofer();
+                    objChofer.setId_chofer(dr1.getInt(21));
+                    objChofer.setNombre(dr1.getString(22)); 
+                    objChofer.setBrevete(dr1.getString(23)); 
+                    objChofer.setEstado(dr1.getBoolean(24));
+                    objChofer.setUsuario_responsable(dr1.getString(25));
+                    objChofer.setFecha_modificacion(dr1.getTimestamp(26));
+                    objChofer.setObjTransportista(objTransportista);
+                    //Recepcion
+                    entRecepcion entidad = new entRecepcion();
+                    entidad.setId_recepcion(dr1.getInt(1));
+                    entidad.setNum_guia(dr1.getString(2));                     
+                    entidad.setPlaca(dr1.getString(3));
+                    entidad.setModelo(dr1.getString(4));
+                    entidad.setFecha_recepcion(dr1.getTimestamp(5));                     
+                    entidad.setPrecinto(dr1.getString(6));
+                    entidad.setEstado(dr1.getInt(7)); 
+                    entidad.setUsuario_responsable(dr1.getString(8)); 
+                    entidad.setFecha_modificacion(dr1.getTimestamp(9)); 
+                    entidad.setObjChofer(objChofer);
+                    entidad.setObjDireccionLlegada(objDireccionLlegada);
+                    
+                    lista.add(entidad);
+
+            }
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr1.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+    
+    
     public static entRecepcion BuscarPorId(int id) throws Exception
      {
         entRecepcion entidad = null;
@@ -185,6 +265,7 @@ public class RecepcionDAO {
         }
         return entidad;
     }
+    
     public static List<entRecepcion> Listar(boolean activo) throws Exception
     {
         List<entRecepcion> lista = null;
@@ -274,8 +355,8 @@ public class RecepcionDAO {
         try {
             
            String sql="INSERT INTO recepcion(id_dir_llegada,id_chofer,num_guia,placa,modelo,fecha_recepcion,precinto,"
-                   + " estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE());";
+                   + " estado,usuario_responsable,fecha_modificacion,id_dia_recepcion)"
+                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?);";
            
             conn = ConexionDAO.getConnection();
             conn.setAutoCommit(false);
@@ -289,6 +370,7 @@ public class RecepcionDAO {
             stmt.setString(7, entidad.getPrecinto());
             stmt.setInt(8, entidad.getEstado());
             stmt.setString(9, entidad.getUsuario_responsable());
+            stmt.setInt(10, entidad.getId_dia_recepcion());
             stmt.executeUpdate();
             ResultSet rs1 = stmt.getGeneratedKeys();            
             if (rs1.next()){

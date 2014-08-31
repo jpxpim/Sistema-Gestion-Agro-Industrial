@@ -428,7 +428,9 @@ function tabla()
                                         setTimeout('$("html").removeClass("js")',1000);
 
                                        
-                                       
+                                        $("#txtCodigo").keyup(function(){
+                                                $(this).val($(this).val().toUpperCase());
+                                        });
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',
@@ -468,7 +470,7 @@ function tabla()
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
                                                 txtHectareas: { required: true, number: true},
-                                                txtCodigo: { required: true, minlength: 3 },
+                                                txtCodigo: { required: true, minlength: 6 , maxlength: 6  },
                                                 txtDescripcion: { required: true, minlength: 3 },
                                                 txtCentro: { required: true, minlength: 3 },       
                                                 txtAnio: { required: true,digits:true, minlength: 4 , maxlength: 4 }, 

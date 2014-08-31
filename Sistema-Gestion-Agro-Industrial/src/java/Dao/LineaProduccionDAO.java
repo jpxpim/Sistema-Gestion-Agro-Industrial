@@ -65,6 +65,70 @@ public class LineaProduccionDAO {
         }
         return lista;
     }
-
+    public  static int insertar(entLineaProduccion entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement  stmt = null;
+        try {
+            
+           String sql="INSERT INTO LINEA_PRODUCCION(NOMBRE,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)"
+                   + " VALUES(?,?,?,GETDATE());";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, entidad.getNombre());
+            stmt.setBoolean(2, entidad.isEstado());
+            stmt.setString(3, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
+    
+    public static boolean actualizar(entLineaProduccion entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+            
+             String sql="UPDATE LINEA_PRODUCCION SET NOMBRE = ?,ESTADO= ?,USUARIO_RESPONSABLE = ?,"
+                     + "FECHA_MODIFICACION = GETDATE() WHERE ID_LINEA_PRODUCCION = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);         
+            stmt.setString(1, entidad.getNombre());
+            stmt.setBoolean(2, entidad.isEstado());
+            stmt.setString(3, entidad.getUsuario_responsable());
+            stmt.setInt(4,entidad.getId_linea_produccion());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }
     
 }

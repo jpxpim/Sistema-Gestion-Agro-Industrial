@@ -338,7 +338,6 @@ function tabla()
                                     function clear_form() {
                                            $('input:radio[name=rbEstado]').attr('checked',false);
                                           $('#txtNombre').val("");
-                                          $('#txtCodigo').val("");
                                             $('#txtPeso').val("");
                                         
                                           $("#IdJaba").val("0");  

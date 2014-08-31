@@ -18,7 +18,7 @@ if(objSession!=null)
     int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(24==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
+            if(59==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));
@@ -92,8 +92,8 @@ if(objSession!=null)
                 <div class="main_content">
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
-                               <ul>
-                                <li>
+                              <ul>
+                               <li>
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
                                  <li>
@@ -116,64 +116,61 @@ if(objSession!=null)
                     </nav>
                 
                     <div class="row-fluid">
-						<div class="span12">
-							<div class="row-fluid">
-								<div class="span4">
-									<div class="row-fluid" id="g-map-top">
-										<div class="span12">
-											  <form  method="get" id="reg_form">
-                                                                                              <div class="location_add_form well">
-												<div class="formSep">
-                                                                                          <div class="input-prepend">
-													<label>Nombres</label>
-                                                                                                        <input type="text" class="span10" id="txtNombre" name="txtNombre" />
-                                                                                          </div>
-                                                                                          <div class="input-prepend">
-													<label>Apellidos</label>
-                                                                                                        <input type="text" class="span10" id="txtApellido" name="txtApellido" />
-                                                                                          </div>                                                                                        
-                                                                                          <div class="input-prepend">
-													<label>Codigo ERP</label>
-													<input type="text" class="span10" id="txtCodigoERP"  name="txtCodigoERP" />
-                                                                                          </div> 
-                                                                                          <div class="input-prepend">
-													<label>Estado</label>
-													<label class="radio inline">
-                                                                                             <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
-                                                                                                Activo
-                                                                                             </label>
-                                                                                             <label class="radio inline">
-                                                                                                    <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                                    Desactivado
-                                                                                             </label>
-                                                                                          </div>
-                                                                                                    <input type="hidden" id="IdEvaluador"  name="IdEvaluador" value="0" />
-                                                                                                        
-												</div>
-                                                                                                <button class="btn btn-invert" type="submit">Grabar</button>
-                                                                                                
-                                                                                                <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
-											</div>
-                                                                                    
-                                                                                    
-                                                                                    </form>
-										</div>
-									</div>
-								</div>	
-								<div class="span8">
-                                                                    <div id="tabla"></div>
-								</div>
-							</div>
-						</div>
+                            <div class="span12">
+                                    <div class="row-fluid">
+                                            <div class="span4">
+                                                    <div class="row-fluid" id="g-map-top">
+                                                            <div class="span12">
+                                                                      <form  method="get" id="reg_form">
+                                                                          <div class="location_add_form well">
+                                                                              <br>
+                                                                            <div class="formSep">
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Nombre</label>
+                                                                                    <input type="text" class="span10" id="txtNombre" name="txtNombre" />
+                                                                                    </div>
+                                                                                <br>
+                                                                                     <div class="input-prepend">
+                                                                                    <label>Estado</label>
+                                                                                    <label class="radio inline">
+                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                        Activo
+                                                                                    </label>
+                                                                                    <label class="radio inline">
+                                                                                            <input type="radio" value="0" id="rbEstado" name="rbEstado" />
+                                                                                            Desactivado
+                                                                                    </label>
+                                                                                     </div>
+                                                                                <br>
+                                                                                <input type="hidden" id="IdLineaProduccion"  name="IdLineaProduccion" value="0" />
+
+                                                                            </div>
+                                                                            <button class="btn btn-invert" type="submit">Grabar</button>
+
+                                                                            <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
+                                                                          </div>
+
+
+                                                                </form>
+                                                            </div>
+                                                    </div>
+                                            </div>	
+                                            <div class="span8">
+                                                <div id="tabla">
+                                                  
+                                                </div>
+                                            </div>
+                                    </div>
+                                            </div>
+                            </div>
                         </div>
-					
-            <!-- Modal Cargando -->	
+	
+               <!-- Modal Cargando -->	
                <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
                 
                      <div class="modal-body">
 
-                         <h3><img src="img/ajax-loader.gif" alt="" /> 
-                       Espere un Momento ...</h3>
+                         <h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3>
                         <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
                          <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
                      </div>
@@ -210,16 +207,18 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
+	  
 
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                     <!-- datatable -->
-			<script src="lib/datatables/jquery.dataTables.min.js"></script>   
+                        <!-- datatable -->
+			<script src="lib/datatables/jquery.dataTables.min.js"></script>
 	
 			<script>
-function modulos()
+
+ function modulos()
 {
      $.ajax({
             url: 'operaciones/sidebar.jsp',
@@ -252,11 +251,11 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};      
+};                           
 function tabla()
 {
      $.ajax({
-        url: 'operaciones/evaluador/list_tabla.jsp',
+        url: 'operaciones/linea_produccion/list_tabla.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -265,22 +264,21 @@ function tabla()
         processData: false
     });          
  };
-   function getReporte()
+ function getReporte()
 {
-     window.location='operaciones/evaluador/reporte.jsp';
+     window.location='operaciones/linea_produccion/reporte.jsp';
  };
                               
-                          
+                           modulos(); 
+                                       tabla();
                             
 				$(document).ready(function() {
 					//* show all elements & remove preloader
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
-
+                                        
                                        
-                                         $("#txtCodigo").keyup(function(){
-                                                $(this).val($(this).val().toUpperCase());
-                                        });
+                               
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',
@@ -288,8 +286,8 @@ function tabla()
 					errorClass: 'error',
 					validClass: 'valid',
                                             submitHandler: function() {       
-                                                 $("#abrirCarga").click();
-                                                    var url = "operaciones/evaluador/insert.jsp"; 
+                                                       $("#abrirCarga").click();
+                                                    var url = "operaciones/linea_produccion/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -319,9 +317,7 @@ function tabla()
                                             },
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
-                                          txtApellido: { required: true, minlength: 3 },
-                                          txtCodigoERP: { required: true, minlength: 3 },
-                                          rbEstado: { required: true }
+                                                rbEstado: { required: true }
 					},
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");
@@ -338,28 +334,23 @@ function tabla()
                                         
 				});
                                     function clear_form() {
-                                          $('input:radio[name=rbEstado]').attr('checked',false);
-                                          $('#txtNombre').val("");
-                                          $('#txtApellido').val("");
-                                          $('#txtCodigoERP').val("");  
-                                          $("#IdEvaluador").val("0");  
+                                           $('input:radio[name=rbEstado]').attr('checked',false);
+                                          $('#txtNombre').val("");                                        
+                                          $("#IdLineaProduccion").val("0");  
                                      
                                            
                                       };
-                                       function edit_form(id,nombre,apellido,codigo,estado) {
-                                          $('#txtNombre').val(nombre);
-                                          $('#txtApellido').val(apellido);
-                                          $('#IdEvaluador').val(id);
-                                          $('#txtCodigoERP').val(codigo);
-                                          if(estado.toLowerCase()=="true")
-                                          $('input:radio[name=rbEstado]')[0].checked = true;
-                                          else
-                                          $('input:radio[name=rbEstado]')[1].checked = true;
+                                       function edit_form(id,nombre,estado) {
+                                            $('#txtNombre').val(nombre);
+                                            $('#IdLineaProduccion').val(id);
+                                            if(estado.toLowerCase()=="true")
+                                             $('input:radio[name=rbEstado]')[0].checked = true;
+                                            else
+                                              $('input:radio[name=rbEstado]')[1].checked = true;
                                           
 
                                       };
-                                       modulos(); 
-                                       tabla();
+                                 
 			</script>
 		
 		</div>

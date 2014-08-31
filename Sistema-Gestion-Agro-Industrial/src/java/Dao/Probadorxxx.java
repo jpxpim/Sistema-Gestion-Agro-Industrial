@@ -43,8 +43,8 @@ public class Probadorxxx {
     public static void main(String[] args) throws Exception {
             entDiaRecepcion entidad = new entDiaRecepcion();
             entidad.setUsuario_responsable_inicio("XD");
-        System.out.print(""+DiaRecepcionDAO.insertar(entidad));
-        ProductoTerminadoDAO.Listar(11);
+        System.out.print(""+ProductoTerminadoDAO.Listar(11,1).size());
+        ;
     }
     
 }

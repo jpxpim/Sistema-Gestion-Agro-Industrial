@@ -23,6 +23,7 @@ if(objSession!=null)
             entidad.setObjParihuela(new entParihuela(Integer.parseInt(request.getParameter("cbParihuela"))));
             entidad.setNum_jabas(Double.parseDouble(request.getParameter("txtNJabas")));
             entidad.setPeso_bruto(Double.parseDouble(request.getParameter("txtPBruto")));
+            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
             
             entidad.setIs_campo(true);
