@@ -177,7 +177,7 @@ else
                                                                                     </div>                                                                                   
 
                                                                             </div>
-                                                                             <button id="btnGrabar" class="btn btn-invert" onclick="comprobar()" type="button">Grabar</button>
+                                                                             <button id="btnGrabar" class="btn btn-invert" onclick="actulizar_data()" type="button">Grabar</button>
                                                                             <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"  value="0"/>
                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Limpiar</button>
                                                                           </div>
@@ -226,20 +226,20 @@ var validEmpaquetador=false;
 $(document).ready(function() {    
     $("#btnGrabar").hide(); 
 $('#cbLineaProduccion').on('change', function() {
-    if(this.value!="" && this.value!=null)
+    if(this.value!="")
     {
         $("#txtLote").select(); 
         tabla();
     }
 });
 $('#cbCategoria').on('change', function() {
-    if(this.value!="" && this.value!=null)
+    if(this.value!="")
     {
         $("#txtLote").select(); 
     }
 });
 $('#cbEnvase').on('change', function() {
-    if(this.value!="" && this.value!=null)
+    if(this.value!="")
     {
         $("#txtLote").select(); 
     }
@@ -263,7 +263,11 @@ $("#txtLote").keyup(function(){
             $('#validLote').html('<i id="validLote" class="splashy-thumb_up"/>');
         }
         else
+        {
             $('#validLote').html('<i id="validLote" class="splashy-thumb_down"/>');
+             $.sticky("<center><h1>Error de lectura de Lote</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+              
+        }
    }
      
 });
@@ -305,9 +309,15 @@ $("#txtColor").keyup(function(){
                $('#validColor').html('<i id="validColor" class="splashy-thumb_up"/>');
            }
            else
-               $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
+            {
+                $.sticky("<center><h1>Error de lectura de Calibre + Color</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+                $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
+            }
         }else
+        {
+                $.sticky("<center><h1>Error de lectura de Calibre + Color</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
                $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
+        }
         
    }
      
@@ -332,7 +342,10 @@ $("#txtSeleccionador").keyup(function(){
             $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-thumb_up"/>');
         }
         else
+        {
+            $.sticky("<center><h1>Error de lectura de Seleccionador</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
             $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-thumb_down"/>');
+        }
    }
      
 });
@@ -356,7 +369,10 @@ $("#txtEmpaquetador").keyup(function(){
             comprobar();
         }
         else
+        {
+            $.sticky("<center><h1>Error de lectura de Empaquetador</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
             $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_down"/>');
+        }
    }
      
 });
@@ -364,34 +380,42 @@ $("#txtEmpaquetador").keyup(function(){
 
 function comprobar()
 {
-   
-         if($("#cbLineaProduccion :selected").val()=="" && $("#cbLineaProduccion :selected").val()==null)
+  
+         if($("#cbLineaProduccion :selected").val()=="")
         {
              $.sticky("Selecione una Linea de Porducción", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
-        else if($("#cbCategoria :selected").val()=="" && $("#cbCategoria :selected").val()==null)
+        else if($("#cbCategoria :selected").val()=="")
         {
              $.sticky("Selecione una Categoria", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
-         else if($("#cbEnvase :selected").val()=="" && $("#cbEnvase :selected").val()==null)
+         else if($("#cbEnvase :selected").val()=="")
         {
              $.sticky("Selecione un Envase", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
         else if(!validLote)
         {
             $("#txtLote").select(); 
+             $.sticky("<center><h1>Error de lectura de Lote</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+             
         }
         else if(!validColor)
         {
             $("#txtColor").select(); 
+            $.sticky("<center><h1>Error de lectura de Calibre + Color</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+             
         }
         else if(!validSeleccionador)
         {
             $("#txtSeleccionador").select(); 
+            $.sticky("<center><h1>Error de lectura de Seleccionador</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+             
         }
         else if(!validEmpaquetador)
         {
             $("#txtEmpaquetador").select(); 
+            $.sticky("<center><h1>Error de lectura de Empaquetador</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+             
         }
         else if(!actulizar)
         {            
@@ -401,18 +425,16 @@ function comprobar()
                 validGrabar=false;
             }          
             
-        }else if(actulizar)
-        {            
-            if(validGrabar)
-            {
-                grabar();
-                validGrabar=false;
-            }          
-            
         }
-        
-   
 };
+function actulizar_data()
+{
+     if(validGrabar)
+    {
+        grabar();
+        validGrabar=false;
+    }     
+}
 
 
 function edit_form(id,idLinea,nLinea,idEnvase,nEnvase,idCategoria,nCategoria,idLote,nLote,idCalibre,idColor,nCalibreColor,seleccionador,empaquetador)
@@ -475,6 +497,10 @@ function grabar(){
 
 function clear_all()
 {
+validLote=false;
+validColor=false;
+validSeleccionador=false;
+validEmpaquetador=false;
      $("#btnGrabar").hide(); 
     actulizar=false;
      validGrabar=true;

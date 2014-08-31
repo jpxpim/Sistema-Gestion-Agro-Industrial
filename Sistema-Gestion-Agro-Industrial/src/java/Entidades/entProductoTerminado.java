@@ -21,7 +21,6 @@ public class entProductoTerminado
     private entCategoria    objCategoria;
     private entColor    objColor;
     private entLote    objLote;
-    private entReceta objReceta;
     private entLineaProduccion objLineaProduccion;
     private String seleccionador;
     private String embalador;
@@ -33,14 +32,6 @@ public class entProductoTerminado
     
 
     public entProductoTerminado (){}
-
-    public entReceta getObjReceta() {
-        return objReceta;
-    }
-
-    public void setObjReceta(entReceta objReceta) {
-        this.objReceta = objReceta;
-    }
 
     public int getEstado() {
         return estado;

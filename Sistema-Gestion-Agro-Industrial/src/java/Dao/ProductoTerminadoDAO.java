@@ -30,7 +30,86 @@ import java.util.List;
  */
 public class ProductoTerminadoDAO {
     
-public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLineaProduccion) throws Exception
+    public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLineaProduccion) throws Exception
+    {
+        List<entProductoTerminado> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql=" SELECT TOP 30 P.ID_PRODUCTO_TERMINADO,P.ID_DIA_RECEPCION,P.SELECCIONADOR,P.EMBALADOR,P.CODIGO_CONTROL,"
+                            + "E.ID_ENVASE,E.NOMBRE,C.ID_CALIBRE,C.CODIGO_CONTROL,CAT.ID_CATEGORIA,CAT.NOMBRE,COL.ID_COLOR,COL.CODIGO_CONTROL,"
+                            + "L.ID_LOTE,L.CODIGO_CONTROL,LP.ID_LINEA_PRODUCCION,LP.NOMBRE FROM PRODUCTO_TERMINADO P JOIN ENVASE E ON P.ID_ENVASE=E.ID_ENVASE "
+                            + "JOIN CALIBRE C ON P.ID_CALIBRE=C.ID_CALIBRE JOIN CATEGORIA CAT ON P.ID_CATEGORIA=CAT.ID_CATEGORIA JOIN COLOR COL "
+                            + "ON P.ID_COLOR=COL.ID_COLOR JOIN LOTE L ON P.ID_LOTE=L.ID_LOTE JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION "
+                            + " where P.ID_DIA_RECEPCION="+id_dia_recepcion+" and LP.ID_LINEA_PRODUCCION="
+                            +idLineaProduccion+" order by P.ID_PRODUCTO_TERMINADO desc"; 
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entProductoTerminado>();                    
+                    entProductoTerminado entidad = new entProductoTerminado();
+                    //Receta
+
+                    //Envase
+                    entEnvase objEnvase = new entEnvase();
+                    objEnvase.setId_envase(dr.getInt(6));
+                    objEnvase.setNombre(dr.getString(7));
+                    //Calibre
+                    entCalibre objCalibre = new entCalibre();
+                    objCalibre.setId_calibre(dr.getInt(8));
+                    objCalibre.setCodigo_control(dr.getString(9));
+                    //Categoria
+                    entCategoria objCategoria = new entCategoria();
+                    objCategoria.setId_categoria(dr.getInt(10));
+                    objCategoria.setNombre(dr.getString(11));
+                    //Color
+                    entColor objColor = new entColor();
+                    objColor.setId_color(dr.getInt(12));
+                    objColor.setCodigo_control(dr.getString(13));
+                    //lote
+                    //"L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,L.ESTADO,\n" +
+                    entLote objLote = new entLote();
+                    objLote.setId_lote(dr.getInt(14));
+                    objLote.setCodigo_control(dr.getString(15));
+                    //linea produccion
+                    entLineaProduccion objLineaProduccion = new entLineaProduccion();
+                    objLineaProduccion.setId_linea_produccion(dr.getInt(16));
+                    objLineaProduccion.setNombre(dr.getString(17));
+                    //entidad
+                    entidad.setId_producto_terminado(dr.getInt(1));
+                    entidad.setId_dia_recepcion(dr.getInt(2));
+                    entidad.setSeleccionador(dr.getString(3));
+                    entidad.setEmbalador(dr.getString(4));  
+                    entidad.setCodigo_control(dr.getString(5)); 
+                    entidad.setObjCalibre(objCalibre);                    
+                    entidad.setObjCategoria(objCategoria);
+                    entidad.setObjColor(objColor);
+                    entidad.setObjEnvase(objEnvase);
+                    entidad.setObjLineaProduccion(objLineaProduccion);
+                    entidad.setObjLote(objLote);
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }        
+   
+public static List<entProductoTerminado> ListarA(int id_dia_recepcion,int idLineaProduccion) throws Exception
     {
         List<entProductoTerminado> lista = null;
         Connection conn =null;
@@ -124,7 +203,7 @@ public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLinea
                     entidad.setObjEnvase(objEnvase);
                     entidad.setObjLineaProduccion(objLineaProduccion);
                     entidad.setObjLote(objLote);
-                    entidad.setObjReceta(objReceta);
+////                    entidad.setObjReceta(objReceta);
                     lista.add(entidad);
             }
 

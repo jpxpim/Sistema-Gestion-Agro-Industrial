@@ -29,6 +29,6 @@ public class Operaciones {
         if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
         else mes="0"+Integer.toString(c.get(Calendar.MONTH));
         String anio = ""+Integer.toString(c.get(Calendar.YEAR));
-        return ""+rpta+dia+mes+anio;
+        return dia+mes+anio+rpta;
     }
 }
