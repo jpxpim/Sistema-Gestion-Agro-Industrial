@@ -194,7 +194,7 @@ if(objSession!=null)
                                                                                                 out.print("<option value='4'>4</option>");
                                                                                             
                                                                                             if(objSession.getObjConfiguracion().getSincro_dash()==5)
-                                                                                                out.print("<option value='5' selected>1</option>");
+                                                                                                out.print("<option value='5' selected>5</option>");
                                                                                             else
                                                                                                 out.print("<option value='5'>5</option>");
                                                                                             %>
