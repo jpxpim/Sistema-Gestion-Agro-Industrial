@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="324" pageHeight="223" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="568ade77-4793-47c8-bebe-8c5adda5386a">
 	<property name="ireport.zoom" value="2.1435888100000056"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="13"/>
+	<property name="ireport.y" value="130"/>
+	<parameter name="codoBarras1" class="java.io.InputStream"/>
+	<parameter name="codoBarras2" class="java.io.InputStream"/>
+	<parameter name="code1" class="java.lang.String"/>
+	<parameter name="code2" class="java.lang.String"/>
 	<title>
 		<band height="219">
 			<rectangle>
@@ -543,6 +547,29 @@
 				</textElement>
 				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
 			</staticText>
+			<image>
+				<reportElement x="36" y="183" width="100" height="28" uuid="57a50698-f4c7-45ae-b548-c3e42843d8d9"/>
+				<imageExpression><![CDATA[$P{codoBarras1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="195" y="183" width="99" height="28" uuid="7ff7d67e-f260-4b3b-9740-2a4bd3e2f7ae"/>
+				<imageExpression><![CDATA[$P{codoBarras2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="36" y="210" width="100" height="9" uuid="3dc63ddd-4852-43f1-a69b-90068c2b2d81"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{code1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="210" width="99" height="9" uuid="7680240d-266c-409e-9ff8-a3c973dbdbf2"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{code2}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 </jasperReport>
