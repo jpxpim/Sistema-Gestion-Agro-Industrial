@@ -78,6 +78,74 @@ public class CalibreDAO {
         }
         return lista;
     }
-
+    public  static int insertar(entCalibre entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement  stmt = null;
+        try {
+            
+           String sql="INSERT INTO CALIBRE(CODIGO_CONTROL,NOMBRE,ID_CULTIVO,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)"
+                   + " VALUES(?,?,?,?,?,GETDATE());";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, entidad.getCodigo_control());
+            stmt.setString(2, entidad.getNombre());
+            stmt.setInt(3, entidad.getObjCultivo().getId_cultivo());
+            stmt.setBoolean(4, entidad.isEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
+    
+    public static boolean actualizar(entCalibre entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+            
+             String sql="UPDATE CALIBRE SET NOMBRE = ?,ID_CULTIVO= ?,CODIGO_CONTROL=?,ESTADO= ?,"
+                     + "USUARIO_RESPONSABLE = ?,FECHA_MODIFICACION = GETDATE() WHERE ID_CALIBRE = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);         
+            stmt.setString(1, entidad.getNombre());
+            stmt.setInt(2, entidad.getObjCultivo().getId_cultivo());
+            stmt.setString(3, entidad.getCodigo_control());
+            stmt.setBoolean(4, entidad.isEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setInt(6,entidad.getId_calibre());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }
     
 }

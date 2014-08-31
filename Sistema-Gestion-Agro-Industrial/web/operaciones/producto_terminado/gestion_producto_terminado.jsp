@@ -107,9 +107,7 @@ else
 <div id="frame">
  <div class="row-fluid">
       <form  method="get" id="reg_form">
-                            <div class="span12">
-                                    <div class="row-fluid">         
-                                              <div class="span4">
+             <div class="span4">
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
@@ -179,9 +177,9 @@ else
                                                                                     </div>                                                                                   
 
                                                                             </div>
-                                                                            <button class="btn btn-invert" type="submit">Grabar</button>
+                                                                             <button id="btnGrabar" class="btn btn-invert" onclick="comprobar()" type="button">Grabar</button>
                                                                             <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"  value="0"/>
-                                                                            <button class="btn btn-invert" onclick="clear_form()" type="button">Limpiar</button>
+                                                                            <button class="btn btn-invert" onclick="clear_all()" type="button">Limpiar</button>
                                                                           </div>
 
 
@@ -189,31 +187,49 @@ else
                                                             </div>
                                                     </div>
                                             </div>
-                                    </div>
-                        </div>
+                            <div class="span8">
+                                        <div id="tabla"> </div>
+                                   </div>
               </form>
  </div>
  
 
-<div class="row-fluid">
-    <div class="span12">
-         <div id="tabla"> </div>
-    </div>
-</div>
-                                                                                    
+                                                                            
                                      
 <script type="text/javascript">
+function tabla()
+{
+     if($("#cbLineaProduccion :selected").val()!="" && $("#cbLineaProduccion :selected").val()!=null)
+    {
+         $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+        var id=$("#cbLineaProduccion :selected").val();
+        $.ajax({
+            url: 'operaciones/producto_terminado/list_tabla.jsp?id='+id,
+            type: 'POST',
+            success: function (data) {     
+                     $('#tabla').html(data);
+            },
+            contentType: false,
+            processData: false
+        });      
+
+    }
+         
+ };
+
 var actulizar=false;   
 var validGrabar=true; 
 var validLote=false;
 var validColor=false;
 var validSeleccionador=false;
 var validEmpaquetador=false;
-$(document).ready(function() {
+$(document).ready(function() {    
+    $("#btnGrabar").hide(); 
 $('#cbLineaProduccion').on('change', function() {
     if(this.value!="" && this.value!=null)
     {
         $("#txtLote").select(); 
+        tabla();
     }
 });
 $('#cbCategoria').on('change', function() {
@@ -232,7 +248,7 @@ $("#txtLote").keyup(function(){
         $(this).val($(this).val().trim());
     validLote=false;
     $("#idLote").val(''); 
-   if(2<$(this).val().length && 11>$(this).val().length)
+   if(6==$(this).val().length)
    {
         for (i = 0; i <lote.entidad.length; i++) { 
             if(lote.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
@@ -244,7 +260,6 @@ $("#txtLote").keyup(function(){
         if(validLote)
         {
             $("#txtColor").focus(); 
-            $("#txtColor").select(); 
             $('#validLote').html('<i id="validLote" class="splashy-thumb_up"/>');
         }
         else
@@ -260,8 +275,11 @@ $("#txtColor").keyup(function(){
     validColor=false;
     $("#idCalibre").val(''); 
     $("#idColor").val(''); 
-   if(5<$(this).val().length && 21>$(this).val().length)
+   if(9==$(this).val().length)
    {
+       $(this).val($(this).val().replace(/"/g, '-'));
+       $(this).val($(this).val().replace(/'/g, '-'));
+
        if($(this).val().indexOf("-")!=-1)
        {
             var elem =$(this).val().split('-');
@@ -283,8 +301,7 @@ $("#txtColor").keyup(function(){
            if(calibreEstado && colorEstado)
            {
                validColor=true;
-               $("#txtSeleccionador").focus(); 
-               $("#txtSeleccionador").select();                
+               $("#txtSeleccionador").focus();              
                $('#validColor').html('<i id="validColor" class="splashy-thumb_up"/>');
            }
            else
@@ -311,8 +328,7 @@ $("#txtSeleccionador").keyup(function(){
         }
         if(validSeleccionador)
         {
-            $("#txtEmpaquetador").focus(); 
-            $("#txtEmpaquetador").select();             
+            $("#txtEmpaquetador").focus();           
             $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-thumb_up"/>');
         }
         else
@@ -348,17 +364,16 @@ $("#txtEmpaquetador").keyup(function(){
 
 function comprobar()
 {
-    if(!actulizar)
-    {
-         if($("#cbLineaProduccion :selected").val()=="" && $("#cbTransportista :selected").val()==null)
+   
+         if($("#cbLineaProduccion :selected").val()=="" && $("#cbLineaProduccion :selected").val()==null)
         {
              $.sticky("Selecione una Linea de Porducción", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
-        else if($("#cbCategoria :selected").val()=="" && $("#cbTransportista :selected").val()==null)
+        else if($("#cbCategoria :selected").val()=="" && $("#cbCategoria :selected").val()==null)
         {
              $.sticky("Selecione una Categoria", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
-         else if($("#cbEnvase :selected").val()=="" && $("#cbTransportista :selected").val()==null)
+         else if($("#cbEnvase :selected").val()=="" && $("#cbEnvase :selected").val()==null)
         {
              $.sticky("Selecione un Envase", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
@@ -378,18 +393,55 @@ function comprobar()
         {
             $("#txtEmpaquetador").select(); 
         }
-        else
-        {
-            
+        else if(!actulizar)
+        {            
             if(validGrabar)
             {
                 grabar();
                 validGrabar=false;
-            }
+            }          
+            
+        }else if(actulizar)
+        {            
+            if(validGrabar)
+            {
+                grabar();
+                validGrabar=false;
+            }          
             
         }
         
-    }
+   
+};
+
+
+function edit_form(id,idLinea,nLinea,idEnvase,nEnvase,idCategoria,nCategoria,idLote,nLote,idCalibre,idColor,nCalibreColor,seleccionador,empaquetador)
+{
+validLote=true;
+validColor=true;
+validSeleccionador=true;
+validEmpaquetador=true;
+     $("#btnGrabar").show(); 
+    actulizar=true;
+     $("#txtLote").val(nLote); 
+    $("#idLote").val(idLote); 
+    
+    $("#txtColor").val(nCalibreColor); 
+    $("#idColor").val(idColor); 
+    $("#idCalibre").val(idCalibre); 
+    
+    $("#txtSeleccionador").val(seleccionador); 
+    $("#idSeleccionador").val(seleccionador); 
+    
+    $("#txtEmpaquetador").val(empaquetador); 
+    $("#idEmpaquetador").val(empaquetador); 
+    
+    $("#IdProductoTerminado").val(id);  
+    
+    $("select#cbLineaProduccion").val(idLinea); 
+    $("select#cbCategoria").val(idCategoria); 
+    $("select#cbEnvase").val(idEnvase); 
+    
 };
 function grabar(){
     $("#abrirCarga").click();
@@ -405,12 +457,14 @@ function grabar(){
         else if(data==0)
         {
             clear_all();
+             tabla();
            $.sticky("Se Actualizo Correctamente.", {autoclose : 5000, position: "top-center" });
 
        }
         else if(data>0)
         {
            clear_all();
+            tabla();
            $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
 
         }
@@ -421,6 +475,8 @@ function grabar(){
 
 function clear_all()
 {
+     $("#btnGrabar").hide(); 
+    actulizar=false;
      validGrabar=true;
     $("#txtLote").val(""); 
     $("#idLote").val(""); 
@@ -518,7 +574,6 @@ var empleado= {
      ]
 };
 $("#reg_form").submit(function(){
-  alert("XD");
   return false;
 });
 </script>

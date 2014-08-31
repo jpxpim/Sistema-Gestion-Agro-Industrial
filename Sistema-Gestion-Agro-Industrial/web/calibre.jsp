@@ -18,7 +18,7 @@ if(objSession!=null)
     int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(24==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
+            if(56==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));
@@ -92,8 +92,8 @@ if(objSession!=null)
                 <div class="main_content">
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
-                               <ul>
-                                <li>
+                              <ul>
+                               <li>
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
                                  <li>
@@ -124,30 +124,32 @@ if(objSession!=null)
 											  <form  method="get" id="reg_form">
                                                                                               <div class="location_add_form well">
 												<div class="formSep">
-                                                                                          <div class="input-prepend">
-													<label>Nombres</label>
+                                                                                                        <div class="input-prepend">
+													<label>Nombre</label>
                                                                                                         <input type="text" class="span10" id="txtNombre" name="txtNombre" />
-                                                                                          </div>
-                                                                                          <div class="input-prepend">
-													<label>Apellidos</label>
-                                                                                                        <input type="text" class="span10" id="txtApellido" name="txtApellido" />
-                                                                                          </div>                                                                                        
-                                                                                          <div class="input-prepend">
-													<label>Codigo ERP</label>
-													<input type="text" class="span10" id="txtCodigoERP"  name="txtCodigoERP" />
-                                                                                          </div> 
-                                                                                          <div class="input-prepend">
+                                                                                                        </div>
+                                                                                                         <div class="input-prepend">
+													<label>Codigo de Control</label>
+													<input type="text" class="span10" id="txtCodigo"  name="txtCodigo" />
+                                                                                                         </div>   
+                                                                                                        <div class="input-prepend">
+													<label>Cultivo</label>
+													<select id="cbCultivo" name="cbCultivo" title="Por favor selecione un Cultivo!" required>
+                                                                                                            <option value="">Selecione una Opción</option>
+                                                                                                        </select>
+                                                                                                         </div>   
+                                                                                                         <div class="input-prepend">
 													<label>Estado</label>
 													<label class="radio inline">
-                                                                                             <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
-                                                                                                Activo
-                                                                                             </label>
-                                                                                             <label class="radio inline">
-                                                                                                    <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                                    Desactivado
-                                                                                             </label>
-                                                                                          </div>
-                                                                                                    <input type="hidden" id="IdEvaluador"  name="IdEvaluador" value="0" />
+                                                                                                        <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                                            Activo
+                                                                                                        </label>
+                                                                                                        <label class="radio inline">
+                                                                                                                <input type="radio" value="0" id="rbEstado" name="rbEstado" />
+                                                                                                                Desactivado
+                                                                                                        </label>
+                                                                                                         </div>
+                                                                                                    <input type="hidden" id="IdCalibre"  name="IdCalibre" value="0" />
                                                                                                         
 												</div>
                                                                                                 <button class="btn btn-invert" type="submit">Grabar</button>
@@ -166,8 +168,7 @@ if(objSession!=null)
 							</div>
 						</div>
                         </div>
-					
-            <!-- Modal Cargando -->	
+		<!-- Modal Cargando -->	
                <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
                 
                      <div class="modal-body">
@@ -177,7 +178,7 @@ if(objSession!=null)
                         <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
                          <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
                      </div>
-                </div>     
+                </div>   	
 
                 </div>
             </div>
@@ -215,11 +216,11 @@ if(objSession!=null)
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
 			<script src="lib/smoke/smoke.js"></script>
-                     <!-- datatable -->
-			<script src="lib/datatables/jquery.dataTables.min.js"></script>   
+                        <!-- datatable -->
+			<script src="lib/datatables/jquery.dataTables.min.js"></script>
 	
 			<script>
-function modulos()
+   function modulos()
 {
      $.ajax({
             url: 'operaciones/sidebar.jsp',
@@ -252,11 +253,11 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};      
+};                  
 function tabla()
 {
      $.ajax({
-        url: 'operaciones/evaluador/list_tabla.jsp',
+        url: 'operaciones/calibre/list_tabla.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -267,20 +268,29 @@ function tabla()
  };
    function getReporte()
 {
-     window.location='operaciones/evaluador/reporte.jsp';
+     window.location='operaciones/calibre/reporte.jsp';
+ };
+ function comboCultivo()
+{
+     $.ajax({
+        url: 'operaciones/cultivo/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbCultivo').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
  };
                               
-                          
-                            
+                         
 				$(document).ready(function() {
 					//* show all elements & remove preloader
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
 
                                        
-                                         $("#txtCodigo").keyup(function(){
-                                                $(this).val($(this).val().toUpperCase());
-                                        });
+                                        
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',
@@ -288,8 +298,8 @@ function tabla()
 					errorClass: 'error',
 					validClass: 'valid',
                                             submitHandler: function() {       
-                                                 $("#abrirCarga").click();
-                                                    var url = "operaciones/evaluador/insert.jsp"; 
+                                             $("#abrirCarga").click();
+                                                    var url = "operaciones/calibre/insert.jsp"; 
 
                                                     $.ajax({
                                                            type: "POST",
@@ -313,15 +323,14 @@ function tabla()
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
-                                                                 $("#cerrarCarga").trigger("click");
+                                                                $("#cerrarCarga").trigger("click");
                                                            }
                                                          });    
                                             },
 					rules: {
-						txtNombre: { required: true, minlength: 3 },
-                                          txtApellido: { required: true, minlength: 3 },
-                                          txtCodigoERP: { required: true, minlength: 3 },
-                                          rbEstado: { required: true }
+						txtNombre: { required: true, minlength: 1 },
+                                                txtCodigo: { required: true, minlength: 4 , maxlength: 4  },
+                                                rbEstado: { required: true }
 					},
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");
@@ -337,29 +346,56 @@ function tabla()
                                    
                                         
 				});
+                                    var comboId=0;
                                     function clear_form() {
-                                          $('input:radio[name=rbEstado]').attr('checked',false);
-                                          $('#txtNombre').val("");
-                                          $('#txtApellido').val("");
-                                          $('#txtCodigoERP').val("");  
-                                          $("#IdEvaluador").val("0");  
-                                     
+                                            $('input:radio[name=rbEstado]').attr('checked',false);
+                                            $('#txtNombre').val("");
+                                            $('#txtCodigo').val("");
+                                            $("select#cbCultivo").val('0'); 
+                                            if(comboId>0)
+                                              $("#cbCultivo option[value='"+comboId+"']").remove();
+                                           $("select#cbCultivo").val(0);    
+                                            $("#IdCalibre").val("0");  
                                            
                                       };
-                                       function edit_form(id,nombre,apellido,codigo,estado) {
-                                          $('#txtNombre').val(nombre);
-                                          $('#txtApellido').val(apellido);
-                                          $('#IdEvaluador').val(id);
-                                          $('#txtCodigoERP').val(codigo);
-                                          if(estado.toLowerCase()=="true")
-                                          $('input:radio[name=rbEstado]')[0].checked = true;
-                                          else
-                                          $('input:radio[name=rbEstado]')[1].checked = true;
-                                          
-
+                                        function edit_form(id,nombre,codigo,idCultivo,mCultivo,estado) {
+                                            
+                                            if(comboId>0)
+                                              $("#cbCultivo option[value='"+comboId+"']").remove();
+                                            $('#txtCodigo').val(codigo);
+                                            $('#txtNombre').val(nombre);
+                                            $('#IdCalibre').val(id);                                            
+                                             
+                                             
+                                            if(estado.toLowerCase()=="true")
+                                             $('input:radio[name=rbEstado]')[0].checked = true;
+                                            else
+                                              $('input:radio[name=rbEstado]')[1].checked = true;
+                                            if(buscaCombo(idCultivo))
+                                               $("select#cbCultivo").val(idCultivo); 
+                                            else
+                                            {
+                                                comboId=idCultivo;
+                                                $("#cbCultivo").append('<option value='+idCultivo+'>'+mCultivo+'</option>');
+                                                $("select#cbCultivo").val(idCultivo); 
+                                            }
+                                                
                                       };
-                                       modulos(); 
+                                      
+                                       function buscaCombo(valor) {
+                                           var estado=false;
+                                            $("#cbCultivo option").each(function(){
+                                                if($(this).attr('value')==valor)
+                                                {
+                                                    estado=true;
+                                                }
+                                                    
+                                             });
+                                             return estado;
+                                       };
+                                     modulos(); 
                                        tabla();
+                                       comboCultivo();
 			</script>
 		
 		</div>

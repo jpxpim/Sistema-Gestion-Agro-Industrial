@@ -80,5 +80,72 @@ public class ColorDAO {
         return lista;
     }
 
+    public  static int insertar(entColor entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement stmt = null;
+        try {
+            
+           String sql="INSERT INTO color(nombre,codigo_control,id_cultivo,estado,usuario_responsable,fecha_modificacion)"
+                   + "VALUES(?,?,?,?,GETDATE());";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, entidad.getNombre());
+            stmt.setString(2, entidad.getCodigo_control());
+            stmt.setInt(3, entidad.getObjCultivo().getId_cultivo());
+            stmt.setBoolean(4, entidad.isEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+           
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
     
+    public static boolean actualizar(entColor entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+             String sql="UPDATE color SET nombre = ?,estado= ?,id_cultivo=?,usuario_responsable = ?,"
+                     + "fecha_modificacion = GETDATE(),codigo_control = ? WHERE id_color = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);             
+            stmt.setString(1, entidad.getNombre());
+            stmt.setBoolean(2, entidad.isEstado());
+             stmt.setInt(3, entidad.getObjCultivo().getId_cultivo());
+            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setString(5, entidad.getCodigo_control());
+            stmt.setInt(6,entidad.getId_color());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }   
 }

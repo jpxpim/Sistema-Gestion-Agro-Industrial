@@ -280,7 +280,9 @@ function tabla()
                                         setTimeout('$("html").removeClass("js")',1000);
 
                                        
-                                        
+                                         $("#txtCodigo").keyup(function(){
+                                                $(this).val($(this).val().toUpperCase());
+                                        });
                                         
                                       $('#reg_form').validate({
                                         lang: 'es',

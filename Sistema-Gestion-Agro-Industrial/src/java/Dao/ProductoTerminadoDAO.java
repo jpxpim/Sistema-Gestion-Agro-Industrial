@@ -22,8 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -32,7 +30,7 @@ import java.util.List;
  */
 public class ProductoTerminadoDAO {
     
-public static List<entProductoTerminado> Listar(int id_dia_recepcion) throws Exception
+public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLineaProduccion) throws Exception
     {
         List<entProductoTerminado> lista = null;
         Connection conn =null;
@@ -54,9 +52,10 @@ public static List<entProductoTerminado> Listar(int id_dia_recepcion) throws Exc
                     "JOIN CALIBRE C ON P.ID_CALIBRE=C.ID_CALIBRE\n" +
                     "JOIN CATEGORIA CAT ON P.ID_CATEGORIA=CAT.ID_CATEGORIA\n" +
                     "JOIN COLOR COL ON P.ID_COLOR=COL.ID_COLOR\n" +
-                    "JOIN LOTE L ON P.ID_LOTE=P.ID_LOTE\n" +
+                    "JOIN LOTE L ON P.ID_LOTE=L.ID_LOTE\n" +
                     "JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION"
-                            + " where P.ID_DIA_RECEPCION="+id_dia_recepcion; 
+                            + " where P.ID_DIA_RECEPCION="+id_dia_recepcion+" and LP.ID_LINEA_PRODUCCION="
+                            +idLineaProduccion+" order by P.ID_PRODUCTO_TERMINADO desc"; 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();

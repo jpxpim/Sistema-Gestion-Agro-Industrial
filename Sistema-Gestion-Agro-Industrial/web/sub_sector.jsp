@@ -141,7 +141,7 @@ if(objSession!=null)
 													<input type="text" class="span10" id="txtGrower"  name="txtGrower" />
                                                                                                          </div>   
                                                                                                         <div class="input-prepend">
-													<label>Cultivo</label>
+													<label>Sector</label>
 													<select id="cbSector" name="cbSector" title="Por favor selecione un Sector!" required>
                                                                                                             <option value="">Selecione una Opción</option>
                                                                                                         </select>

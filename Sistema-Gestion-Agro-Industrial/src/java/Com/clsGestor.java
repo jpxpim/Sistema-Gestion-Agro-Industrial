@@ -636,15 +636,15 @@ public class clsGestor {
         return CalibreDAO.Listar(activo);
     }
     
-//    public  static int insertarCalibre(entCalibre entidad) throws Exception
-//    {
-//        return CalibreDAO.insertar(entidad);
-//    }
-//    
-//    public static boolean actualizarCalibre(entCalibre entidad) throws Exception
-//    {
-//        return CalibreDAO.actualizar(entidad);
-//    }
+    public  static int insertarCalibre(entCalibre entidad) throws Exception
+    {
+        return CalibreDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarCalibre(entCalibre entidad) throws Exception
+    {
+        return CalibreDAO.actualizar(entidad);
+    }
     // </editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="entColor">
@@ -653,15 +653,15 @@ public class clsGestor {
         return ColorDAO.Listar(activo);
     }
     
-//    public  static int insertarColor(entColor entidad) throws Exception
-//    {
-//        return ColorDAO.insertar(entidad);
-//    }
-//    
-//    public static boolean actualizarColor(entColor entidad) throws Exception
-//    {
-//        return ColorDAO.actualizar(entidad);
-//    }
+    public  static int insertarColor(entColor entidad) throws Exception
+    {
+        return ColorDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarColor(entColor entidad) throws Exception
+    {
+        return ColorDAO.actualizar(entidad);
+    }
     // </editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="entEmpleado">
@@ -687,15 +687,15 @@ public class clsGestor {
         return LineaProduccionDAO.Listar(activo);
     }
     
-//    public  static int insertarLineaProduccion(entLineaProduccion entidad) throws Exception
-//    {
-//        return LineaProduccionDAO.insertar(entidad);
-//    }
-//    
-//    public static boolean actualizarLineaProduccion(entLineaProduccion entidad) throws Exception
-//    {
-//        return LineaProduccionDAO.actualizar(entidad);
-//    }
+    public  static int insertarLineaProduccion(entLineaProduccion entidad) throws Exception
+    {
+        return LineaProduccionDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarLineaProduccion(entLineaProduccion entidad) throws Exception
+    {
+        return LineaProduccionDAO.actualizar(entidad);
+    }
     // </editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="entProductoTerminado">
@@ -704,7 +704,14 @@ public class clsGestor {
     {
       return ProductoTerminadoDAO.insertar(entidad);
     }
-   
+    public static List<entProductoTerminado> ListarProductoTerminado(int id_dia_recepcion,int idLineaProduccion) throws Exception
+    {
+        return ProductoTerminadoDAO.Listar(id_dia_recepcion,idLineaProduccion);
+    }
+      public static boolean actualizarProductoTerminado(entProductoTerminado entidad) throws Exception
+    {
+        return ProductoTerminadoDAO.actualizar(entidad);
+    }
     // </editor-fold>
     
 }

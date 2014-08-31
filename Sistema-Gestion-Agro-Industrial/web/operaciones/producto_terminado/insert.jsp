@@ -38,8 +38,18 @@ if(objSession!=null)
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
             
 
-            
-           
+            if(!request.getParameter("IdProductoTerminado").equals("0") )
+            {
+                entidad.setId_producto_terminado(Integer.parseInt(request.getParameter("IdProductoTerminado")));
+                 if(clsGestor.actualizarProductoTerminado(entidad))
+                 {
+                     out.print(0);
+                 }
+                 else
+                     out.print(-1);
+            }
+             else
+             {
                  int id=clsGestor.insertarProductoTerminado(entidad);
                     if(id>0)
                     {
@@ -47,6 +57,9 @@ if(objSession!=null)
                     }
                     else
                         out.print(-1);
+             }
+           
+                 
             
             
         }
