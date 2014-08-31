@@ -17,6 +17,7 @@ import java.util.List;
 public class entRecepcion {
     
     private int id_recepcion;
+    private int id_dia_recepcion;
     private entDireccionLlegada objDireccionLlegada;
     private entChofer objChofer;
     private String num_guia;
@@ -36,6 +37,16 @@ public class entRecepcion {
     this.lista=new ArrayList<entDetalleRecepcion>();
     }
 
+    public int getId_dia_recepcion() {
+        return id_dia_recepcion;
+    }
+
+    public void setId_dia_recepcion(int id_dia_recepcion) {
+        this.id_dia_recepcion = id_dia_recepcion;
+    }
+
+    
+    
     public Date getFecha_recepcion() {
         return fecha_recepcion;
     }
