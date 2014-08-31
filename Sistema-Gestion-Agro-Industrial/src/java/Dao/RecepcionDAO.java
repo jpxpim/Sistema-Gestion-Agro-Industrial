@@ -31,6 +31,162 @@ import java.util.List;
  */
 public class RecepcionDAO {
 
+    public static entRecepcion BuscarPorDiaRecepcion(int idDiaRecepcion) throws Exception
+     {
+        entRecepcion entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr1 = null;
+        try {
+            String sql="select R.ID_RECEPCION,R.NUM_GUIA,R.PLACA,R.MODELO,R.FECHA_RECEPCION,R.PRECINTO,R.ESTADO,R.USUARIO_RESPONSABLE,R.FECHA_MODIFICACION,\n" +
+                "D.ID_DIR_LLEGADA,D.NOMBRE,D.ESTADO,D.USUARIO_RESPONSABLE,D.FECHA_MODIFICACION,\n" +
+                "T.ID_TRANSPORTISTA,T.RAZON_SOCIAL,T.RUC,T.ESTADO,T.USUARIO_RESPONSABLE,T.FECHA_MODIFICACION,\n" +
+                "CH.ID_CHOFER,CH.NOMBRE,CH.BREVETE,CH.ESTADO,CH.USUARIO_RESPONSABLE,CH.FECHA_MODIFICACION\n" +
+                "from recepcion R\n" +
+                "join DIR_LLEGADA D ON R.ID_DIR_LLEGADA=D.ID_DIR_LLEGADA\n" +
+                "JOIN CHOFER CH ON R.ID_CHOFER = CH.ID_CHOFER\n" +
+                "JOIN TRANSPORTISTA T ON CH.ID_TRANSPORTISTA=T.ID_TRANSPORTISTA\n" +
+                "WHERE R.ID_DIA_RECEPCION="+idDiaRecepcion; 
+
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareCall(sql);
+            dr1 = stmt.executeQuery();
+
+            if(dr1.next())
+            {
+                    //Dir Llegada
+                    entDireccionLlegada objDireccionLlegada = new entDireccionLlegada();
+                    objDireccionLlegada.setId_dir_llegada(dr1.getInt(10));
+                    objDireccionLlegada.setNombre(dr1.getString(11)); 
+                    objDireccionLlegada.setEstado(dr1.getBoolean(12));
+                    objDireccionLlegada.setUsuario_responsable(dr1.getString(13));
+                    objDireccionLlegada.setFecha_modificacion(dr1.getTimestamp(14));
+                    //Transportista
+                    entTransportista objTransportista = new entTransportista();
+                    objTransportista.setId_transportista(dr1.getInt(15));
+                    objTransportista.setRazon_social(dr1.getString(16)); 
+                    objTransportista.setRuc(dr1.getString(17)); 
+                    objTransportista.setEstado(dr1.getBoolean(18));
+                    objTransportista.setUsuario_responsable(dr1.getString(19));
+                    objTransportista.setFecha_modificacion(dr1.getTimestamp(20));
+                    //Chofer
+                    entChofer objChofer = new entChofer();
+                    objChofer.setId_chofer(dr1.getInt(21));
+                    objChofer.setNombre(dr1.getString(22)); 
+                    objChofer.setBrevete(dr1.getString(23)); 
+                    objChofer.setEstado(dr1.getBoolean(24));
+                    objChofer.setUsuario_responsable(dr1.getString(25));
+                    objChofer.setFecha_modificacion(dr1.getTimestamp(26));
+                    objChofer.setObjTransportista(objTransportista);
+                    //Recepcion
+                    entidad = new entRecepcion();
+                    entidad.setId_recepcion(dr1.getInt(1));
+                    entidad.setNum_guia(dr1.getString(2));                     
+                    entidad.setPlaca(dr1.getString(3));
+                    entidad.setModelo(dr1.getString(4));
+                    entidad.setFecha_recepcion(dr1.getTimestamp(5));                     
+                    entidad.setPrecinto(dr1.getString(6));
+                    entidad.setEstado(dr1.getInt(7)); 
+                    entidad.setUsuario_responsable(dr1.getString(8)); 
+                    entidad.setFecha_modificacion(dr1.getTimestamp(9)); 
+                    entidad.setObjChofer(objChofer);
+                    entidad.setObjDireccionLlegada(objDireccionLlegada);
+                    
+                    List<entDetalleRecepcion> listaDetalle = null;
+                    sql="SELECT DR.ID_DET_RECEPCION,DR.NUM_JABAS,DR.PESO_BRUTO,\n" +
+                    "J.ID_JABA,J.NOMBRE,J.PESO,J.ESTADO,J.USUARIO_RESPONSABLE,J.FECHA_MODIFICACION,\n" +
+                    "P.ID_PARIHUELA,P.NOMBRE,P.PESO,P.ESTADO,P.USUARIO_RESPONSABLE,P.FECHA_MODIFICACION,\n" +
+                    "C.ID_CATEGORIA,C.NOMBRE,C.CODIGO_CONTROL,C.ESTADO,C.USUARIO_RESPONSABLE,C.FECHA_MODIFICACION,\n" +
+                    "L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,\n" +
+                    "R.ID_RECEPCION,R.NUM_GUIA,R.ESTADO\n" +
+                    "FROM DET_RECEPCION DR\n" +
+                    "JOIN JABA J ON DR.ID_JABA= J.ID_JABA\n" +
+                    "JOIN PARIHUELA P ON DR.ID_PARIHUELA=P.ID_PARIHUELA\n" +
+                    "JOIN CATEGORIA C ON DR.ID_CATEGORIA=C.ID_CATEGORIA\n" +
+                    "JOIN LOTE L ON DR.ID_LOTE = L.ID_LOTE\n" +
+                    "JOIN RECEPCION R ON DR.ID_RECEPCION=R.ID_RECEPCION\n" +
+                    "WHERE DR.ID_RECEPCION="+entidad.getId_recepcion()+" order by  DR.ID_DET_RECEPCION asc";
+                    CallableStatement ct1 = conn.prepareCall(sql);
+                    ResultSet dr2 = ct1.executeQuery();
+                        while(dr2.next())
+                        {           
+                            if(listaDetalle==null)
+                            listaDetalle= new ArrayList<entDetalleRecepcion>();
+                            
+                            entDetalleRecepcion objDetalleRecepcion = new entDetalleRecepcion();
+                            
+                            //jaba
+                            entJaba objJaba = new entJaba();
+                            objJaba.setId_jaba(dr2.getInt(4));
+                            objJaba.setNombre(dr2.getString(5));
+                            objJaba.setPeso(dr2.getDouble(6));
+                            objJaba.setEstado(dr2.getBoolean(7));
+                            objJaba.setUsuario_responsable(dr2.getString(8));
+                            objJaba.setFecha_modificacion(dr2.getTimestamp(9));
+                            //Parihuela
+                            entParihuela objParihuela=new entParihuela();
+                            objParihuela.setId_parihuela(dr2.getInt(10));
+                            objParihuela.setNombre(dr2.getString(11));
+                            objParihuela.setPeso(dr2.getDouble(12));
+                            objParihuela.setEstado(dr2.getBoolean(13));
+                            objParihuela.setUsuario_responsable(dr2.getString(14));
+                            objParihuela.setFecha_modificacion(dr2.getTimestamp(15));
+                            //Categoria
+                            entCategoria objCategoria = new entCategoria();
+                            objCategoria.setId_categoria(dr2.getInt(16));
+                            objCategoria.setNombre(dr2.getString(17));
+                            objCategoria.setCodigo_control(dr2.getString(18));
+                            objCategoria.setEstado(dr2.getBoolean(19));
+                            objCategoria.setUsuario_responsable(dr2.getString(20));
+                            objCategoria.setFecha_modificacion(dr2.getTimestamp(21));
+                            //Lote
+                            entLote objLote = new entLote();
+                            objLote.setId_lote(dr2.getInt(22));
+                            objLote.setNombre(dr2.getString(23));
+                            objLote.setCodigo_control(dr2.getString(24));
+                            
+                            //Recepcion
+                            entRecepcion objRecepcion = new entRecepcion();
+                            objRecepcion.setId_recepcion(dr2.getInt(25));
+                            objRecepcion.setNum_guia(dr2.getString(26));
+                            objRecepcion.setEstado(dr2.getInt(27));
+                            
+                            //Det Recepcion
+                            objDetalleRecepcion.setId_det_recepcion(dr2.getInt(1));
+                            objDetalleRecepcion.setNum_jabas(dr2.getDouble(2));
+                            objDetalleRecepcion.setPeso_bruto(dr2.getDouble(3));
+                            objDetalleRecepcion.setObjCategoria(objCategoria);
+                            objDetalleRecepcion.setObjJaba(objJaba);
+                            objDetalleRecepcion.setObjLote(objLote);
+                            objDetalleRecepcion.setObjParihuela(objParihuela);
+                            
+                            listaDetalle.add(objDetalleRecepcion);
+                        }
+                    entidad.setLista(listaDetalle);
+                    ct1.close();
+                    dr2.close();
+            }
+
+         conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr1.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
+    }
+    
+    
     public static entRecepcion BuscarPorId(int id) throws Exception
      {
         entRecepcion entidad = null;
@@ -274,8 +430,8 @@ public class RecepcionDAO {
         try {
             
            String sql="INSERT INTO recepcion(id_dir_llegada,id_chofer,num_guia,placa,modelo,fecha_recepcion,precinto,"
-                   + " estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE());";
+                   + " estado,usuario_responsable,fecha_modificacion,id_dia_recepcion)"
+                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?);";
            
             conn = ConexionDAO.getConnection();
             conn.setAutoCommit(false);
@@ -289,6 +445,7 @@ public class RecepcionDAO {
             stmt.setString(7, entidad.getPrecinto());
             stmt.setInt(8, entidad.getEstado());
             stmt.setString(9, entidad.getUsuario_responsable());
+            stmt.setInt(10, entidad.getId_dia_recepcion());
             stmt.executeUpdate();
             ResultSet rs1 = stmt.getGeneratedKeys();            
             if (rs1.next()){
