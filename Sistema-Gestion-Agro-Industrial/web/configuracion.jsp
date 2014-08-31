@@ -256,7 +256,7 @@ if(objSession!=null)
                                                                      
                                                                 <div class="location_add_form well">
                                                                      <div class="input-prepend">
-                                                                        <label>Productos Empresa</label>
+                                                                        <label>Empresa Productora</label>
                                                                         <select id="cbEmpresa" name="cbEmpresa" title="Por favor selecione una Empresa!" required data-placeholder="selecione una Empresa...">
 									<option value=""></option> 
                                                                         <%   
