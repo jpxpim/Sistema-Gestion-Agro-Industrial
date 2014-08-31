@@ -10,46 +10,28 @@ import java.util.Date;
 
 /**
  *
- * @author rosemary
+ * @author EdHam
  */
-public class entColor {
-     private int id_color;
-    private entCultivo objCultivo;
-    private String codigo_control;
+public class entLineaProduccion {
+    private int id_linea_produccion;
     private String nombre;
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
 
-    public entColor() {
+    public entLineaProduccion() {
     }
 
-    public entColor(int id_color) {
-        this.id_color = id_color;
+    public entLineaProduccion(int id_linea_produccion) {
+        this.id_linea_produccion = id_linea_produccion;
     }
 
-    public int getId_color() {
-        return id_color;
+    public int getId_linea_produccion() {
+        return id_linea_produccion;
     }
 
-    public void setId_color(int id_color) {
-        this.id_color = id_color;
-    }
-
-    public entCultivo getObjCultivo() {
-        return objCultivo;
-    }
-
-    public void setObjCultivo(entCultivo objCultivo) {
-        this.objCultivo = objCultivo;
-    }
-
-    public String getCodigo_control() {
-        return codigo_control;
-    }
-
-    public void setCodigo_control(String codigo_control) {
-        this.codigo_control = codigo_control;
+    public void setId_linea_produccion(int id_linea_produccion) {
+        this.id_linea_produccion = id_linea_produccion;
     }
 
     public String getNombre() {

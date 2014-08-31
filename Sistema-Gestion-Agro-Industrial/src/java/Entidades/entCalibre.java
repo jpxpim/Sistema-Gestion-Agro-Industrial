@@ -10,10 +10,10 @@ import java.util.Date;
 
 /**
  *
- * @author rosemary
+ * @author EdHam
  */
-public class entColor {
-     private int id_color;
+public class entCalibre {
+    private int id_calibre;
     private entCultivo objCultivo;
     private String codigo_control;
     private String nombre;
@@ -21,19 +21,19 @@ public class entColor {
     private String usuario_responsable;
     private Date fecha_modificacion;
 
-    public entColor() {
+    public entCalibre() {
     }
 
-    public entColor(int id_color) {
-        this.id_color = id_color;
+    public entCalibre(int id_calibre) {
+        this.id_calibre = id_calibre;
     }
 
-    public int getId_color() {
-        return id_color;
+    public int getId_calibre() {
+        return id_calibre;
     }
 
-    public void setId_color(int id_color) {
-        this.id_color = id_color;
+    public void setId_calibre(int id_calibre) {
+        this.id_calibre = id_calibre;
     }
 
     public entCultivo getObjCultivo() {

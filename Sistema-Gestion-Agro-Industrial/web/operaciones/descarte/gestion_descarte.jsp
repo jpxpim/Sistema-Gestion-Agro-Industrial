@@ -101,10 +101,8 @@ else
 {
 
     
-SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-List<entRecepcion> list=clsGestor.ListarRecepcion(false);
-if(list!=null)
-{%>
+
+%>
 <div id="frame">
  <div class="row-fluid">
       <form  method="get" id="reg_form">
@@ -259,7 +257,7 @@ if(list!=null)
                            <tbody>    
                             <%
                             List<entLote> listLote=clsGestor.ListarLote(false);
-                            if(list!=null)
+                            if(listLote!=null)
                             for(entLote entidad : listLote)
                             {
                             %>
@@ -460,7 +458,7 @@ tabla();
 
 </script>
   </div>
-<%}
+<%
 }}%>  
                                                                         
                                                                        

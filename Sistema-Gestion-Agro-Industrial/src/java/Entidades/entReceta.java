@@ -10,46 +10,28 @@ import java.util.Date;
 
 /**
  *
- * @author rosemary
+ * @author EdHam
  */
-public class entColor {
-     private int id_color;
-    private entCultivo objCultivo;
-    private String codigo_control;
+public class entReceta {
+    private int id_receta;
     private String nombre;
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
 
-    public entColor() {
+    public entReceta() {
     }
 
-    public entColor(int id_color) {
-        this.id_color = id_color;
+    public entReceta(int id_receta) {
+        this.id_receta = id_receta;
     }
 
-    public int getId_color() {
-        return id_color;
+    public int getId_receta() {
+        return id_receta;
     }
 
-    public void setId_color(int id_color) {
-        this.id_color = id_color;
-    }
-
-    public entCultivo getObjCultivo() {
-        return objCultivo;
-    }
-
-    public void setObjCultivo(entCultivo objCultivo) {
-        this.objCultivo = objCultivo;
-    }
-
-    public String getCodigo_control() {
-        return codigo_control;
-    }
-
-    public void setCodigo_control(String codigo_control) {
-        this.codigo_control = codigo_control;
+    public void setId_receta(int id_receta) {
+        this.id_receta = id_receta;
     }
 
     public String getNombre() {

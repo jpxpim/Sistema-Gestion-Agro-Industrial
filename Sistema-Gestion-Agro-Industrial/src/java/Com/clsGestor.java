@@ -596,7 +596,7 @@ public class clsGestor {
   
     // </editor-fold>
     
-//<editor-fold defaultstate="collapsed" desc="entDescarte">
+    //<editor-fold defaultstate="collapsed" desc="entDescarte">
     public static List<entDescarte> ListarDescarte() throws Exception
     {
         return DescarteDAO.Listar();
@@ -611,6 +611,90 @@ public class clsGestor {
     {
         return DescarteDAO.actualizar(entidad);
     }
-     
+    // </editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="entEnvase">
+    public static List<entEnvase> ListarEnvase(boolean activo) throws Exception
+    {
+        return EnvaseDAO.Listar(activo);
+    }
+    
+//    public  static int insertarEnvase(entEnvase entidad) throws Exception
+//    {
+//        return EnvaseDAO.insertar(entidad);
+//    }
+//    
+//    public static boolean actualizarEnvase(entEnvase entidad) throws Exception
+//    {
+//        return EnvaseDAO.actualizar(entidad);
+//    }
+    // </editor-fold> 
+    
+    //<editor-fold defaultstate="collapsed" desc="entCalibre">
+    public static List<entCalibre> ListarCalibre(boolean activo) throws Exception
+    {
+        return CalibreDAO.Listar(activo);
+    }
+    
+//    public  static int insertarCalibre(entCalibre entidad) throws Exception
+//    {
+//        return CalibreDAO.insertar(entidad);
+//    }
+//    
+//    public static boolean actualizarCalibre(entCalibre entidad) throws Exception
+//    {
+//        return CalibreDAO.actualizar(entidad);
+//    }
+    // </editor-fold>  
+    
+    //<editor-fold defaultstate="collapsed" desc="entColor">
+    public static List<entColor> ListarColor(boolean activo) throws Exception
+    {
+        return ColorDAO.Listar(activo);
+    }
+    
+//    public  static int insertarColor(entColor entidad) throws Exception
+//    {
+//        return ColorDAO.insertar(entidad);
+//    }
+//    
+//    public static boolean actualizarColor(entColor entidad) throws Exception
+//    {
+//        return ColorDAO.actualizar(entidad);
+//    }
+    // </editor-fold>  
+    
+    //<editor-fold defaultstate="collapsed" desc="entEmpleado">
+    public static List<entEmpleado> ListarEmpleado(boolean activo) throws Exception
+    {
+        return EmpleadoDAO.Listar(activo);
+    }
+    
+//    public  static int insertarEmpleado(entEmpleado entidad) throws Exception
+//    {
+//        return EmpleadoDAO.insertar(entidad);
+//    }
+//    
+//    public static boolean actualizarEmpleado(entEmpleado entidad) throws Exception
+//    {
+//        return EmpleadoDAO.actualizar(entidad);
+//    }
+    // </editor-fold>  
+    
+    //<editor-fold defaultstate="collapsed" desc="entLineaProduccion">
+    public static List<entLineaProduccion> ListarLineaProduccion(boolean activo) throws Exception
+    {
+        return LineaProduccionDAO.Listar(activo);
+    }
+    
+//    public  static int insertarLineaProduccion(entLineaProduccion entidad) throws Exception
+//    {
+//        return LineaProduccionDAO.insertar(entidad);
+//    }
+//    
+//    public static boolean actualizarLineaProduccion(entLineaProduccion entidad) throws Exception
+//    {
+//        return LineaProduccionDAO.actualizar(entidad);
+//    }
+    // </editor-fold>  
 }

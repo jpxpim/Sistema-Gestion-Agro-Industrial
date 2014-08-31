@@ -10,38 +10,40 @@ import java.util.Date;
 
 /**
  *
- * @author rosemary
+ * @author EdHam
  */
-public class entColor {
-     private int id_color;
-    private entCultivo objCultivo;
+public class entEnvase {
+    private int id_envase;
+    private entReceta objReceta;
     private String codigo_control;
     private String nombre;
+    private double peso;
+    private double peso_carga;
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
 
-    public entColor() {
+    public entEnvase() {
     }
 
-    public entColor(int id_color) {
-        this.id_color = id_color;
+    public entEnvase(int id_envase) {
+        this.id_envase = id_envase;
     }
 
-    public int getId_color() {
-        return id_color;
+    public int getId_envase() {
+        return id_envase;
     }
 
-    public void setId_color(int id_color) {
-        this.id_color = id_color;
+    public void setId_envase(int id_envase) {
+        this.id_envase = id_envase;
     }
 
-    public entCultivo getObjCultivo() {
-        return objCultivo;
+    public entReceta getObjReceta() {
+        return objReceta;
     }
 
-    public void setObjCultivo(entCultivo objCultivo) {
-        this.objCultivo = objCultivo;
+    public void setObjReceta(entReceta objReceta) {
+        this.objReceta = objReceta;
     }
 
     public String getCodigo_control() {
@@ -52,12 +54,20 @@ public class entColor {
         this.codigo_control = codigo_control;
     }
 
-    public String getNombre() {
-        return nombre;
+    public double getPeso() {
+        return peso;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public double getPeso_carga() {
+        return peso_carga;
+    }
+
+    public void setPeso_carga(double peso_carga) {
+        this.peso_carga = peso_carga;
     }
 
     public boolean isEstado() {
@@ -82,6 +92,14 @@ public class entColor {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
 }
