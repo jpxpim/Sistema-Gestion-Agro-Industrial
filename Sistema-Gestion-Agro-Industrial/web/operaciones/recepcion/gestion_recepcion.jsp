@@ -20,8 +20,8 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
     SimpleDateFormat  e=new SimpleDateFormat("MM/dd/yyyy");
     String boton="Limpiar";
     String chofer="Chofer";
-    String transportista="Empresa Tramsportista";
-    String direccion="Dirección de Llegada";
+    String transportista="Empresa Transportista";
+    String direccion="Dirección de Origen";
     String idChofer="";
     String idDireccion="";
     String precinto="";
@@ -103,7 +103,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                         <input type="text" class="span10" id="IdChofer" name="IdChofer" value="<%=idChofer%>" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Dirección de Llegada
+                                                                                    <label>Dirección de Origen
                                                                                         <a data-toggle='modal' data-backdrop='static' href='#ModalDireccion'><i class='splashy-zoom'></i></a>
                                                                                     </label>
                                                                                         <blockquote><div id="direccion"><%=direccion%></div></blockquote>
@@ -163,7 +163,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                                     </label>
                                                                                     <label class="radio inline">
                                                                                             <input type="radio" value="0" id="rbEstado" name="rbEstado" <%=inactivo%> />
-                                                                                            Inactivado
+                                                                                            Inactivo
                                                                                     </label>
                                                                                      </div>
 
@@ -171,7 +171,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
 
                                                                             <button class="btn btn-invert" onclick="clear_form()" type="button"><%=boton%></button>
-                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Regresar</button>
+                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Cancelar</button>
                                                                              <button class="btn btn-inverse" onclick="getOcultar()" type="button">Ocultar</button>
                                                                           </div>
 
