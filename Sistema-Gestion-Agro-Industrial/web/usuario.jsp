@@ -334,7 +334,7 @@ function tabla()
                           
 function restablecer(id,nombre)
 {
-    smoke.confirm('Desea Restablecer contraseña por defecto al usario: '+nombre,function(e){
+    smoke.confirm('Desea Restablecer contraseña por defecto al usuario: '+nombre,function(e){
         if (!e){        
             $("#abrirCarga").click();
             $.ajax({
