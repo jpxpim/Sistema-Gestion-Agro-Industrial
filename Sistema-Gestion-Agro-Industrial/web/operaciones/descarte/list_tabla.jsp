@@ -8,7 +8,7 @@ entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsua
 if(objSession!=null)
 {
 SimpleDateFormat  fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
-List<entDescarte> list=clsGestor.ListarDescarte();
+List<entDescarte> list=clsGestor.ListarPorDiaRecepcionDescarte(objSession.getObjDiaRecepcion().getId_dia_recepcion());
 if(list!=null)
 {%>
 <div id="tabla">

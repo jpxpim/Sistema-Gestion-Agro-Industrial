@@ -26,6 +26,7 @@ if(objSession!=null)
             entidad.setNum_guia(request.getParameter("txtGuia"));
             entidad.setPrecinto(request.getParameter("txtPrecinto"));
              entidad.setPlaca(request.getParameter("txtPlaca"));
+             entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
             entidad.setObjChofer(new entChofer(Integer.parseInt(request.getParameter("IdChofer"))));
             entidad.setObjDireccionLlegada(new entDireccionLlegada(Integer.parseInt(request.getParameter("IdDireccion"))));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());

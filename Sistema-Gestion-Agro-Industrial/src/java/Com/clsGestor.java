@@ -559,6 +559,12 @@ public class clsGestor {
     // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entRecepcion">
+    
+    public static List<entRecepcion>  ListarPorDiaRecepcionRecepcion(int idDiaRecepcion) throws Exception
+    {
+        return RecepcionDAO.ListarPorDiaRecepcion(idDiaRecepcion);
+    }
+    
     public static List<entRecepcion> ListarRecepcion(boolean activo) throws Exception
     {
         return RecepcionDAO.Listar(activo);
@@ -597,6 +603,10 @@ public class clsGestor {
     // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entDescarte">
+    public static List<entDescarte> ListarPorDiaRecepcionDescarte(int idDiaRecepcion) throws Exception
+    {
+        return DescarteDAO.ListarPorDiaRecepcion(idDiaRecepcion);
+    }
     public static List<entDescarte> ListarDescarte() throws Exception
     {
         return DescarteDAO.Listar();

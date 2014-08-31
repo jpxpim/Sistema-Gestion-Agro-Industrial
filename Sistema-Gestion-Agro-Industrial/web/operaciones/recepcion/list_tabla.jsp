@@ -102,7 +102,7 @@ else
 {  
     
 SimpleDateFormat  fecha=new SimpleDateFormat("dd/MM/yyyy");
-List<entRecepcion> list=clsGestor.ListarRecepcion(false);
+List<entRecepcion> list=clsGestor.ListarPorDiaRecepcionRecepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
 if(list!=null)
 {%>
 <div id="frame">

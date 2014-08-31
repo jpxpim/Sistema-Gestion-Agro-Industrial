@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class entDescarte {
     private int id_descarte;
+    private int id_dia_recepcion;
     private entJaba objJaba; 
     private entParihuela objParihuela;
     private entLote objLote;
@@ -89,6 +90,14 @@ public class entDescarte {
 
     public boolean getIs_racimo() {
         return is_racimo;
+    }
+
+    public int getId_dia_recepcion() {
+        return id_dia_recepcion;
+    }
+
+    public void setId_dia_recepcion(int id_dia_recepcion) {
+        this.id_dia_recepcion = id_dia_recepcion;
     }
 
     public void setIs_racimo(boolean is_racimo) {
