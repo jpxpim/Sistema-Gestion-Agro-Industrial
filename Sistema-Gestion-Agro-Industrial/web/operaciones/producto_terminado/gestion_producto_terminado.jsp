@@ -118,7 +118,7 @@ else
                                                                                     <div class="input-prepend">
                                                                                     <label>Linea Producción</label>
                                                                                     <select id="cbLineaProduccion" name="cbLineaProduccion" title="Por favor selecione una Linea Producción!" required>
-                                                                                        <option value="">Selecione una Opción</option>
+                                                                                        <option value="0">Selecione una Opción</option>
                                                                                         <%List<entLineaProduccion> listLineaProduccion=clsGestor.ListarLineaProduccion(true);
                                                                                             if(listLineaProduccion!=null)
                                                                                                 for(entLineaProduccion entidad : listLineaProduccion)
@@ -129,7 +129,7 @@ else
                                                                                     <div class="input-prepend">
                                                                                         <label>Envase</label>
                                                                                         <select id="cbEnvase" name="cbEnvase" title="Por favor selecione un Envase!" required>
-                                                                                        <option value="">Selecione una Opción</option>
+                                                                                        <option value="0">Selecione una Opción</option>
                                                                                         <%List<entEnvase> listEnvase=clsGestor.ListarEnvase(true);
                                                                                             if(listEnvase!=null)
                                                                                                 for(entEnvase entidad : listEnvase)
@@ -153,7 +153,6 @@ else
                                                                                         <div class="input-prepend">
                                                                                             <input type="text" id="txtLote" name="txtLote" /><span id="validLote" class="add-on"><i class="splashy-pencil"/></span>
                                                                                         </div>         
-                                                                                    <div id="Lote"></div>
                                                                                     <input type="hidden" id="idLote"  name="idLote" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
@@ -161,7 +160,6 @@ else
                                                                                         <div class="input-prepend">
                                                                                             <input type="text" id="txtColor" name="txtColor" /><span id="validColor" class="add-on"><i class="splashy-pencil"/></span>
                                                                                         </div>
-                                                                                    <div id="Color"></div>
                                                                                     <input type="hidden" id="idCalibre"  name="idCalibre" />
                                                                                     <input type="hidden" id="idColor"  name="idColor" />
                                                                                     </div>
@@ -170,7 +168,6 @@ else
                                                                                         <div class="input-prepend">
                                                                                             <input type="text" id="txtSeleccionador" name="txtSeleccionador" /><span id="validSeleccionador" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
-                                                                                    <div id="Seleccionador"></div>
                                                                                     <input type="hidden" id="idSeleccionador"  name="idSeleccionador" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
@@ -178,7 +175,6 @@ else
                                                                                         <div class="input-prepend">
                                                                                             <input type="text" id="txtEmpaquetador" name="txtEmpaquetador" /><span id="validEmpaquetador" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
-                                                                                    <div id="Empaquetador"></div>
                                                                                     <input type="hidden" id="idEmpaquetador"  name="idEmpaquetador" />
                                                                                     </div>                                                                                   
 
@@ -216,10 +212,10 @@ var validEmpaquetador=false;
 $("#txtLote").keyup(function(){
     validLote=false;
     $("#idLote").val(''); 
-   if(2<$(this).val().length || 11>$(this).val().length)
+   if(2<$(this).val().length && 11>$(this).val().length)
    {
         for (i = 0; i <lote.entidad.length; i++) { 
-            if(lote.entidad[i].codigo_control==$(this).val())
+            if(lote.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
             {
                 $("#idLote").val(lote.entidad[i].id_lote); 
                 validLote=true;
@@ -242,45 +238,48 @@ $("#txtColor").keyup(function(){
     validColor=false;
     $("#idCalibre").val(''); 
     $("#idColor").val(''); 
-   if(5<$(this).val().length || 21>$(this).val().length)
+   if(5<$(this).val().length && 21>$(this).val().length)
    {
-         var elem =$(this).val().split('-');
-       
-        
-        for (i = 0; i <calibre.entidad.length; i++) { 
-            if(calibre.entidad[i].codigo_control==elem[0])
-            {
-                $("#idCalibre").val(calibre.entidad[i].id_calibre); 
-                calibreEstado=true;
-            }
-        }
-        for (i = 0; i <color.entidad.length; i++) { 
-            if(color.entidad[i].codigo_control==elem[1])
-            {
-                $("#idColor").val(color.entidad[i].id_color);
-                colorEstado=true;
-            }
-        }
-        if(calibreEstado && colorEstado)
-        {
-            validColor=true;
-            $("#txtSeleccionador").select(); 
-            $('#validColor').html('<i id="validColor" class="splashy-thumb_up"/>');
-        }
-        else
-            $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
+       if($(this).val().indexOf("-")!=-1)
+       {
+            var elem =$(this).val().split('-');
+
+           for (i = 0; i <calibre.entidad.length; i++) { 
+               if(calibre.entidad[i].codigo_control.toUpperCase()==elem[0].toUpperCase())
+               {
+                   $("#idCalibre").val(calibre.entidad[i].id_calibre); 
+                   calibreEstado=true;
+               }
+           }
+           for (i = 0; i <color.entidad.length; i++) { 
+               if(color.entidad[i].codigo_control.toUpperCase()==elem[1].toUpperCase())
+               {
+                   $("#idColor").val(color.entidad[i].id_color);
+                   colorEstado=true;
+               }
+           }
+           if(calibreEstado && colorEstado)
+           {
+               validColor=true;
+               $("#txtSeleccionador").select(); 
+               $('#validColor').html('<i id="validColor" class="splashy-thumb_up"/>');
+           }
+           else
+               $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
+        }else
+               $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
         
    }
      
 });
 
 $("#txtSeleccionador").keyup(function(){
-    validLote=false;
+    validSeleccionador=false;
     $("#idSeleccionador").val(''); 
    if(8==$(this).val().length)
    {
         for (i = 0; i <empleado.entidad.length; i++) { 
-            if(empleado.entidad[i].codigo_control==$(this).val())
+            if(empleado.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
             {
                 $("#idSeleccionador").val(empleado.entidad[i].id_empleado); 
                 validSeleccionador=true;
@@ -298,12 +297,12 @@ $("#txtSeleccionador").keyup(function(){
 });
 
 $("#txtEmpaquetador").keyup(function(){
-    validLote=false;
+    validEmpaquetador=false;
     $("#idEmpaquetador").val(''); 
    if(8==$(this).val().length)
    {
         for (i = 0; i <empleado.entidad.length; i++) { 
-            if(empleado.entidad[i].codigo_control==$(this).val())
+            if(empleado.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
             {
                 $("#idEmpaquetador").val(empleado.entidad[i].id_empleado); 
                 validEmpaquetador=true;
@@ -312,18 +311,66 @@ $("#txtEmpaquetador").keyup(function(){
         if(validEmpaquetador)
         {
             $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_up"/>');
+            grabar();
         }
         else
             $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_down"/>');
    }
      
 });
-
 function grabar()
 {
-    if()
-}
+    if(!actulizar)
+    {
+        if(!validLote)
+        {
+            $("#txtLote").select(); 
+        }
+        else if(!validColor)
+        {
+            $("#txtColor").select(); 
+        }
+        else if(!validSeleccionador)
+        {
+            $("#txtSeleccionador").select(); 
+        }
+        else if(!validEmpaquetador)
+        {
+            $("#txtEmpaquetador").select(); 
+        }
+        else
+        {
+            alert($("#idLote").val());
+            clear_all();
+        }
+        
+    }
+    
 
+};
+function clear_all()
+{
+    $("#txtLote").val(""); 
+    $("#idLote").val(""); 
+    
+    $("#txtColor").val(""); 
+    $("#idColor").val(""); 
+    $("#idCalibre").val(""); 
+    
+    $("#txtSeleccionador").val(""); 
+    $("#idSeleccionador").val(""); 
+    
+    $("#txtEmpaquetador").val(""); 
+    $("#idEmpaquetador").val(""); 
+    
+    $("#IdProductoTerminado").val("0");  
+    
+    $('#validLote').html('<i id="validLote" class="splashy-pencil"/>');
+    $('#validColor').html('<i id="validColor" class="splashy-pencil"/>');
+    $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-pencil"/>');
+    $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-pencil"/>');
+    $("#txtLote").select(); 
+};
 var calibre = {
      'entidad': [ 
     <%
