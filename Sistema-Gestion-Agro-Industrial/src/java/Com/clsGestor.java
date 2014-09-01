@@ -86,7 +86,7 @@ public class clsGestor {
     
 // </editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="entVivero">
+    //<editor-fold defaultstate="collapsed" desc="entVariedad">
     public static List<entVariedad> ListarVariedad(boolean activo) throws Exception
     {
         return VariedadDAO.Listar(activo);
@@ -100,6 +100,24 @@ public class clsGestor {
     public static boolean actualizarVariedad(entVariedad entidad) throws Exception
     {
         return VariedadDAO.actualizar(entidad);
+    }
+    
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entCliente">
+    public static List<entCliente> ListarCliente(boolean activo) throws Exception
+    {
+        return ClienteDAO.Listar(activo);
+    }
+    
+    public  static int insertarCliente(entCliente entidad) throws Exception
+    {
+        return ClienteDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarCliente(entCliente entidad) throws Exception
+    {
+        return ClienteDAO.actualizar(entidad);
     }
     
 // </editor-fold>

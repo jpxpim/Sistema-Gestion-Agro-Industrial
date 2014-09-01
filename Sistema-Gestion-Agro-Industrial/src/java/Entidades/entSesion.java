@@ -25,6 +25,7 @@ public class entSesion {
     private entRaleo objRaleo;
     private entRecepcion objRecepcion;
     private entConfiguracion objConfiguracion;
+    private entPaleta objPaleta;
     List<entModulo> listModulos;
     
     public entSesion() {
@@ -35,6 +36,7 @@ public class entSesion {
         this.objRecepcion=null;
         this.objUsuario=null;
         this.objConfiguracion=null;
+        this.objPaleta=null;
     }
 
     public boolean isDia_recepcion() {
@@ -134,6 +136,14 @@ public class entSesion {
 
     public void setObjConfiguracion(entConfiguracion objConfiguracion) {
         this.objConfiguracion = objConfiguracion;
+    }
+
+    public entPaleta getObjPaleta() {
+        return objPaleta;
+    }
+
+    public void setObjPaleta(entPaleta objPaleta) {
+        this.objPaleta = objPaleta;
     }
 
 }

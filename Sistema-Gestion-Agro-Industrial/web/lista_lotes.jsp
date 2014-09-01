@@ -21,7 +21,7 @@ if(objSession!=null)
         int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
         {
-            if(59==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
+            if(58==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));

@@ -30,7 +30,7 @@ public class ClienteDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_cliente,nombre,estado,usuario_responsable,fecha_modificacion"
+            String sql="select id_cliente,nombre,ruc,direccion,estado,usuario_responsable,fecha_modificacion"
                     + " from cliente ";
             if(activo)
                         sql+=" where estado=1"; 
@@ -47,9 +47,11 @@ public class ClienteDAO {
                     entCliente entidad = new entCliente();
                     entidad.setId_cliente(dr.getInt(1));
                     entidad.setNombre(dr.getString(2)); 
-                    entidad.setEstado(dr.getBoolean(3)); 
-                    entidad.setUsuario_responsable(dr.getString(4)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(5)); 
+                    entidad.setRuc(dr.getString(3)); 
+                    entidad.setDireccion(dr.getString(4)); 
+                    entidad.setEstado(dr.getBoolean(5)); 
+                    entidad.setUsuario_responsable(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
                     lista.add(entidad);
             }
 
@@ -74,14 +76,16 @@ public class ClienteDAO {
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO cliente(nombre,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,GETDATE());";
+           String sql="INSERT INTO cliente(nombre,ruc,direccion,estado,usuario_responsable,fecha_modificacion)"
+                   + " VALUES(?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, entidad.getNombre());
-            stmt.setBoolean(2, entidad.getEstado());
-            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setString(2, entidad.getRuc());
+            stmt.setString(3, entidad.getDireccion());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             
@@ -108,15 +112,17 @@ public class ClienteDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE cliente SET nombre = ?,estado= ?,"
+             String sql="UPDATE cliente SET nombre = ?,ruc = ?,direccion = ?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_cliente = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
-            stmt.setString(1, entidad.getNombre());
-            stmt.setBoolean(2, entidad.getEstado());
-            stmt.setString(3, entidad.getUsuario_responsable());
-            stmt.setInt(4,entidad.getId_cliente());
+            stmt.setString(1, entidad.getNombre());            
+            stmt.setString(2, entidad.getRuc());
+            stmt.setString(3, entidad.getDireccion());
+            stmt.setBoolean(4, entidad.getEstado());
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.setInt(6,entidad.getId_cliente());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

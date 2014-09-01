@@ -24,6 +24,10 @@ public class entCalibre {
     public entCalibre() {
     }
 
+    public entCalibre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public entCalibre(int id_calibre) {
         this.id_calibre = id_calibre;
     }

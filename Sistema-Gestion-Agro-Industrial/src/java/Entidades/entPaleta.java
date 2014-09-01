@@ -6,6 +6,7 @@
 
 package Entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,10 @@ public class entPaleta {
     private List<entDetallePaleta> listaDetallePaleta;
     private List <entDetalleEstadoPaleta> listaDetalleEstadoPaleta;
     
-    public entPaleta(){}
+    public entPaleta(){
+        this.id_paleta=0;
+        this.listaDetallePaleta = new  ArrayList<entDetallePaleta>();
+    }
 
     public List<entDetalleEstadoPaleta> getListaDetalleEstadoPaleta() {
         return listaDetalleEstadoPaleta;

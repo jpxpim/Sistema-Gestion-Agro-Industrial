@@ -116,8 +116,9 @@ public class ProductoTerminadoDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-                    String sql="SELECT ID_PRODUCTO_TERMINADO,CODIGO_CONTROL,ID_LOTE FROM PRODUCTO_TERMINADO "
-                            + "where ID_PRODUCTO_TERMINADO not in (select ID_PRODUCTO_TERMINADO from DET_PALETA) "
+                    String sql="SELECT PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.ID_LOTE,C.NOMBRE FROM "
+                            + "PRODUCTO_TERMINADO PT join CALIBRE C ON PT.ID_CALIBRE=C.ID_CALIBRE where "
+                            + "PT.ID_PRODUCTO_TERMINADO not in (select ID_PRODUCTO_TERMINADO from DET_PALETA) "
                             + "AND ID_DIA_RECEPCION="+id_dia_recepcion; 
                     
             conn = ConexionDAO.getConnection();
@@ -129,13 +130,17 @@ public class ProductoTerminadoDAO {
                 if(lista==null)
                     lista= new ArrayList<entProductoTerminado>();                    
                     entProductoTerminado entidad = new entProductoTerminado();
-
+                    
+                    entCalibre objCalibre = new entCalibre();
+                    objCalibre.setNombre(dr.getString(4));
+                    
                     entLote objLote = new entLote();
                     objLote.setId_lote(dr.getInt(3));
                     
                     entidad.setId_producto_terminado(dr.getInt(1));
                     entidad.setCodigo_control(dr.getString(2)); 
                     entidad.setObjLote(objLote);
+                    entidad.setObjCalibre(objCalibre);
                     lista.add(entidad);
             }
 

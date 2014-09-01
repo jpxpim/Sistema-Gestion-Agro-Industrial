@@ -1,4 +1,6 @@
 
+<%@page import="Entidades.entPaleta"%>
+<%@page import="Entidades.entCliente"%>
 <%@page import="Entidades.entProductoTerminado"%>
 <%@page import="Entidades.entLineaProduccion"%>
 <%@page import="Entidades.entEmpleado"%>
@@ -79,9 +81,9 @@ if(!objSession.isDia_recepcion())
     </div>
 </div>
 <% 
-         }
-         else
-         {
+}
+else
+{
 %>
 <div id="frame">
     <div class="row-fluid">
@@ -104,6 +106,11 @@ if(!objSession.isDia_recepcion())
 else
 {
 
+    if(objSession.getObjPaleta()==null)
+        objSession.setObjPaleta(new entPaleta());
+    else if(objSession.getObjPaleta().getId_paleta()>0)
+        objSession.setObjPaleta(new entPaleta());
+    
 %>
 <div id="frame">
  <div class="row-fluid">
@@ -115,71 +122,27 @@ else
                                                                           <div class="location_add_form well">
                                                                             <div class="formSep">
                                                                                     <div class="input-prepend">
-                                                                                    <label>Linea Producción</label>
-                                                                                    <select id="cbLineaProduccion" name="cbLineaProduccion" >
+                                                                                        <label>Cliente</label>
+                                                                                        <select id="cbCliente" name="cbCliente" >
                                                                                         <option value="">Selecione una Opción</option>
-                                                                                        <%List<entLineaProduccion> listLineaProduccion=clsGestor.ListarLineaProduccion(true);
-                                                                                            if(listLineaProduccion!=null)
-                                                                                                for(entLineaProduccion entidad : listLineaProduccion)
-                                                                                                    out.print("<option value='"+entidad.getId_linea_produccion()+"'>"+entidad.getNombre()+"</option>");                                         
+                                                                                        <%List<entCliente> listCliente=clsGestor.ListarCliente(true);
+                                                                                            if(listCliente!=null)
+                                                                                                for(entCliente entidad : listCliente)
+                                                                                                    out.print("<option value='"+entidad.getId_cliente()+"'>"+entidad.getNombre()+"</option>");                                         
                                                                                          %>
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                        <label>Envase</label>
-                                                                                        <select id="cbEnvase" name="cbEnvase" >
-                                                                                        <option value="">Selecione una Opción</option>
-                                                                                        <%List<entEnvase> listEnvase=clsGestor.ListarEnvase(true);
-                                                                                            if(listEnvase!=null)
-                                                                                                for(entEnvase entidad : listEnvase)
-                                                                                                    out.print("<option value='"+entidad.getId_envase()+"'>"+entidad.getNombre()+"</option>");                                         
-                                                                                         %>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                      <div class="input-prepend">
-                                                                                        <label>Categoria</label>
-                                                                                        <select id="cbCategoria" name="cbCategoria">
-                                                                                        <option value="">Selecione una Opción</option>
-                                                                                        <%List<entCategoria> listCategoria=clsGestor.ListarCategoria(true);
-                                                                                            if(listCategoria!=null)
-                                                                                                for(entCategoria entidad : listCategoria)
-                                                                                                    out.print("<option value='"+entidad.getId_categoria()+"'>"+entidad.getNombre()+"</option>");                                         
-                                                                                         %>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Lote</label>
+                                                                                    <label>Codigo (9 digitos)</label>
                                                                                         <div class="input-prepend">
-                                                                                            <input type="text" id="txtLote" name="txtLote" /><span id="validLote" class="add-on"><i class="splashy-pencil"/></span>
-                                                                                        </div>         
-                                                                                    <input type="hidden" id="idLote"  name="idLote" />
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Calibre + Color</label>
-                                                                                        <div class="input-prepend">
-                                                                                            <input type="text" id="txtColor" name="txtColor" /><span id="validColor" class="add-on"><i class="splashy-pencil"/></span>
+                                                                                            <input type="text" id="txtCodigo" name="txtCodigo" /><span id="validCodigo" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
-                                                                                    <input type="hidden" id="idCalibre"  name="idCalibre" />
-                                                                                    <input type="hidden" id="idColor"  name="idColor" />
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Seleccionador</label>
-                                                                                        <div class="input-prepend">
-                                                                                            <input type="text" id="txtSeleccionador" name="txtSeleccionador" /><span id="validSeleccionador" class="add-on"><i  class="splashy-pencil"/></span>
-                                                                                        </div>
-                                                                                    <input type="hidden" id="idSeleccionador"  name="idSeleccionador" />
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Empaquetador</label>
-                                                                                        <div class="input-prepend">
-                                                                                            <input type="text" id="txtEmpaquetador" name="txtEmpaquetador" /><span id="validEmpaquetador" class="add-on"><i  class="splashy-pencil"/></span>
-                                                                                        </div>
-                                                                                    <input type="hidden" id="idEmpaquetador"  name="idEmpaquetador" />
+                                                                                    <di id="contador" >digitos = <span class="label label-warning">0</span></di>
                                                                                     </div>                                                                                   
 
                                                                             </div>
                                                                              <button id="btnGrabar" class="btn btn-invert" onclick="actulizar_data()" type="button">Grabar</button>
-                                                                            <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"  value="0"/>
+                                                                            
                                                                             <button class="btn btn-invert" onclick="clear_all()" type="button">Limpiar</button>
                                                                           </div>
 
@@ -192,35 +155,35 @@ else
                                         <div id="tabla"> </div>
                                    </div>
               </form>
+
+                                                                                        
  </div>
-                                                                            
-                                     
+ <form  method="get" id="detalle_form">
+    <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"/>
+    <input type="hidden" id="Codigo"  name="Codigo"/>
+    <input type="hidden" id="nCalibre"  name="nCalibre"/>
+    <input type="hidden" id="nVariedad"  name="nVariedad"/>
+    <input type="hidden" id="cLote"  name="cLote"/>
+</form>                                                                           
+<div id="producto_terminado"></div>                          
 <script type="text/javascript">
-
-var calibre = {
-     'entidad': [ 
-    <%
-    List<entCalibre> listCalibre = clsGestor.ListarCalibre(true);
-    if(listCalibre!=null)
-    {
-      size=listCalibre.size();
-     for(int i=0;i<size;i++)
-        if(i==(size-1))
-        {
-            out.print("{'id_calibre': "+listCalibre.get(i).getId_calibre()+",'nombre': '"+listCalibre.get(i).getNombre()+"','codigo_control': '"+listCalibre.get(i).getCodigo_control()+"'}");
-        }else
-        {
-            out.print("{'id_calibre': "+listCalibre.get(i).getId_calibre()+",'nombre': '"+listCalibre.get(i).getNombre()+"','codigo_control': '"+listCalibre.get(i).getCodigo_control()+"'},");
-        }
-    }%>
-     ]
-};
-
-
+function tabla()
+{
+     $.ajax({
+        url: 'operaciones/paleta/list_detalle_paleta_temp.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#tabla').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+var validGrabaDetalle=true;
 var lote= {
      'entidad': [ 
     <%
-    List<entLote> listLote = clsGestor.ListarLote(true);
+    List<entLote> listLote = clsGestor.ListarLote(false);
     if(listLote!=null)
     {
       size=listLote.size();
@@ -246,16 +209,152 @@ var producto= {
      for(int i=0;i<size;i++)
         if(i==(size-1))
         {
-            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'}");
+            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'n_calibre': '"+listProductoTerminado.get(i).getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'}");
         }else
         {
-             out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'},");
+             out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'n_calibre': '"+listProductoTerminado.get(i).getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'},");
         }
     }%>
      ]
 };
 
+$(document).ready(function() {  
+    
+$("#txtCodigo").keyup(function(){    
+    $(this).val($(this).val().trim().toUpperCase());    
+   if(9>$(this).val().length)
+   {
+       $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">'+$(this).val().length+'</span></di>');
+      $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
+   }
+   if(9==$(this).val().length)
+   {
+        $('#contador').html(' <di id="contador" >digitos = <span class="label label-success">'+$(this).val().length+'</span></di>');
+        if(compruebaData($(this).val()))
+       {           
+           $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_up"/>');
+           if(validGrabaDetalle)
+            {
+                validGrabaDetalle=false;
+                grabarDetalle();
+            }
+ 
+           
+       }
+       else
+            otraBusqueda($(this).val());
+           
+   }
+   else if(9<$(this).val().length)
+   {
+      $('#contador').html(' <di id="contador" >digitos = <span class="label label-important">'+$(this).val().length+'</span></di>');
+     $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
+   }
+       
+     
+});
+
+
+});
+
+function otraBusqueda(codigo)
+{
+    $.ajax({
+            url: 'operaciones/producto_terminado/data_producto_terminado.jsp',
+            type: 'POST',
+            success: function (data) {     
+                     $('#producto_terminado').html(data);
+                      if(compruebaData(codigo))
+                      {
+                        $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_up"/>');
+                        if(validGrabaDetalle)
+                        {
+                            validGrabaDetalle=false;
+                            grabarDetalle();
+                        }
+                         
+                      }
+                      else
+                      {
+                           $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
+                           $.sticky("<center><h1>Código no encontrado</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+           
+                      }
+                      
+            },
+            contentType: false,
+            processData: false
+    });
+    
+}
+function compruebaData(data)
+{
+   var valida=false;
+   var maxI =producto.entidad.length-1;
+   for (i = 0; i <=maxI; i++) { 
+        if(producto.entidad[i].codigo_control.toUpperCase()==data.toUpperCase())
+        {
+            var maxJ =lote.entidad.length-1;
+            for (j = 0; j <=maxJ; j++) { 
+                if(lote.entidad[j].id_lote==producto.entidad[i].id_lote)
+                {
+                    $("#IdProductoTerminado").val(producto.entidad[i].id_producto_terminado); 
+                    $("#Codigo").val(producto.entidad[i].codigo_control); 
+                    $("#nCalibre").val(producto.entidad[i].n_calibre); 
+                    $("#nVariedad").val(lote.entidad[j].variedad); 
+                    $("#cLote").val(lote.entidad[j].codigo_control); 
+                    i=maxI;
+                    j=maxJ;
+                    valida=true;
+                }   
+            }
+        }   
+    }
+    return valida;
+}; 
+
+function grabarDetalle(){  
+  var url = "operaciones/paleta/add_list_detalle_paleta_temp.jsp"; 
+    $.ajax({
+    type: "POST",
+    url: url,
+    data: $("#detalle_form").serialize(), 
+        success: function(data)
+        {
+            if(data==0)
+            {
+                clear_all();
+                $.sticky("<center><h1>Código Repetido</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+            }
+            else if(data==1)
+            {
+                $("#txtCodigo").val(""); 
+                $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
+                $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
+                clear_all();
+                tabla();
+            }
+            
+           
+        }
+    }); 
+};
+function clear_all()
+{
+    $("#IdProductoTerminado").val(""); 
+    $("#Codigo").val(""); 
+    $("#nCalibre").val(""); 
+    $("#nVariedad").val(""); 
+    $("#cLote").val(""); 
+    
+    validGrabaDetalle=true;
+};
+tabla();
+
 $("#reg_form").submit(function(){
+  return false;
+});
+$("#detalle_form").submit(function(){
   return false;
 });
 </script>

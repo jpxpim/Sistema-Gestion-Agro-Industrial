@@ -16,10 +16,16 @@ public class entCliente {
     
     private int id_cliente;
     private String nombre;
+    private String ruc;
+    private String direccion;
     private Boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;    
     public entCliente (){}
+
+    public entCliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
 
     public Boolean getEstado() {
         return estado;
@@ -59,6 +65,22 @@ public class entCliente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
     
     
