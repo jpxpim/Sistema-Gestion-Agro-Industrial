@@ -1,6 +1,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entLineaProduccion"%>
+<%@page import="Entidades.entChofer"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(false);
+List<entChofer> list=clsGestor.ListarChofer(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Linea Produccion "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE LINEA PRODUCCION </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Chofer "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE CHOFER </h1></center>
 <table border="1">
     
     <tr>
@@ -26,6 +26,12 @@ if(list!=null)
              <center> <strong>Nombre</strong> </center>
         </td>
          <td>
+             <center> <strong>Brevete</strong> </center>
+        </td>
+         <td>
+             <center> <strong>Transportista</strong> </center>
+        </td>
+        <td>
              <center> <strong>Fecha Registro</strong> </center>
         </td>
          <td>
@@ -36,17 +42,19 @@ if(list!=null)
          
         
      
-         for(entLineaProduccion entidad : list)
+         for(entChofer entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_linea_produccion()%></td>
+        <td><%=entidad.getId_chofer()%></td>
             <td><%=entidad.getNombre()%></td>
+             <td><%=entidad.getBrevete()%></td>
+             <td><%=entidad.getObjTransportista().getRazon_social()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
-                   if(entidad.isEstado())
+                   if(entidad.getEstado())
                    out.print("Activado");
                    else
                        out.print("Desactivado");

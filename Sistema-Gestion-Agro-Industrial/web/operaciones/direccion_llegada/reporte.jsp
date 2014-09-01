@@ -1,6 +1,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entLineaProduccion"%>
+<%@page import="Entidades.entDireccionLlegada"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(false);
+List<entDireccionLlegada> list=clsGestor.ListarDireccionLlegada(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Linea Produccion "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE LINEA PRODUCCION </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Direccion Origen "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE DIRECCION ORIGEN </h1></center>
 <table border="1">
     
     <tr>
@@ -25,7 +25,7 @@ if(list!=null)
          <td>
              <center> <strong>Nombre</strong> </center>
         </td>
-         <td>
+        <td>
              <center> <strong>Fecha Registro</strong> </center>
         </td>
          <td>
@@ -36,17 +36,17 @@ if(list!=null)
          
         
      
-         for(entLineaProduccion entidad : list)
+         for(entDireccionLlegada entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_linea_produccion()%></td>
+        <td><%=entidad.getId_dir_llegada()%></td>
             <td><%=entidad.getNombre()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
-                   if(entidad.isEstado())
+                   if(entidad.getEstado())
                    out.print("Activado");
                    else
                        out.print("Desactivado");
