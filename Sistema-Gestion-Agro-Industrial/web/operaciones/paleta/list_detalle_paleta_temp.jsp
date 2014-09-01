@@ -34,7 +34,7 @@ if(objSession.getObjPaleta()!=null)
             <td><%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getEmbalador()%></td>
             <td><%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getSeleccionador()%></td>
             <td>
-               
+                   <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
             </td>
         </tr>
 
@@ -49,6 +49,7 @@ if(objSession.getObjPaleta()!=null)
 $(function () { 
 
    $('#lista').dataTable(); 
+   size=$('#lista >tbody >tr').length;
  
 });
 </script>
