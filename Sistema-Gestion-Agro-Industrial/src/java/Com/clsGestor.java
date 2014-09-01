@@ -722,6 +722,10 @@ public class clsGestor {
     {
         return ProductoTerminadoDAO.actualizar(entidad);
     }
+    public static List<entProductoTerminado> ListarPorDiaRecepccionProductoTerminado(int id_dia_recepcion) throws Exception
+    {
+        return ProductoTerminadoDAO.ListarPorDiaRecepccion(id_dia_recepcion);
+    }
     // </editor-fold>
     
 }

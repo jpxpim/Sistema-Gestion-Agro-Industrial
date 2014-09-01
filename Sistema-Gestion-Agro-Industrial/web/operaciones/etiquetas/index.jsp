@@ -5,7 +5,7 @@
 --%>
 
 
-<%@page import="codigoBarras.getCodigo"%>
+<%@page import="Com.Operaciones"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="net.sf.jasperreports.engine.JREmptyDataSource"%>
 <%@page import="java.util.List"%>
@@ -25,8 +25,8 @@ File reportFile = new File(application.getRealPath("/etiqueta_traza.jasper"));
 
  Map parametros = new HashMap();
        parametros.clear();
-       parametros.put("codoBarras1",getCodigo.generateBarras("31071433824492", 120, 400) );
-       parametros.put("codoBarras2", getCodigo.generateBarras("31071433824492", 120,400));
+       parametros.put("codoBarras1",Operaciones.generateBarras("31071433824492", 120, 400) );
+       parametros.put("codoBarras2", Operaciones.generateBarras("31071433824492", 120,400));
        parametros.put("code1", "31071433824492");
        parametros.put("code2", "31071433824492");
 

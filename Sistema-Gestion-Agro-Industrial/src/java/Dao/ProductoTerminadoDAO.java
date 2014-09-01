@@ -109,6 +109,49 @@ public class ProductoTerminadoDAO {
         return lista;
     }        
    
+ public static List<entProductoTerminado> ListarPorDiaRecepccion(int id_dia_recepcion) throws Exception
+    {
+        List<entProductoTerminado> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="SELECT ID_PRODUCTO_TERMINADO,CODIGO_CONTROL,ID_LOTE FROM PRODUCTO_TERMINADO "
+                            + "where ID_PRODUCTO_TERMINADO not in (select ID_PRODUCTO_TERMINADO from DET_PALETA) "
+                            + "AND ID_DIA_RECEPCION="+id_dia_recepcion; 
+                    
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entProductoTerminado>();                    
+                    entProductoTerminado entidad = new entProductoTerminado();
+
+                    entLote objLote = new entLote();
+                    objLote.setId_lote(dr.getInt(3));
+                    
+                    entidad.setId_producto_terminado(dr.getInt(1));
+                    entidad.setCodigo_control(dr.getString(2)); 
+                    entidad.setObjLote(objLote);
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }       
 public static List<entProductoTerminado> ListarA(int id_dia_recepcion,int idLineaProduccion) throws Exception
     {
         List<entProductoTerminado> lista = null;
