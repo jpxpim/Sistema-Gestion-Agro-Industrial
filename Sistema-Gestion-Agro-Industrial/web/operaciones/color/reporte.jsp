@@ -1,4 +1,4 @@
-<%@page import="Entidades.entSubSector"%>
+<%@page import="Entidades.entColor"%>
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entSesion"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entSubSector> list=clsGestor.ListarSubSector(false);
+List<entColor> list=clsGestor.ListarColor(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Sub-Sector "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE SUB-SECTOR </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Color "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE COLOR </h1></center>
 <table border="1">
     
     <tr>
@@ -26,16 +26,10 @@ if(list!=null)
              <center> <strong>Nombre</strong> </center>
         </td>
          <td>
-             <center> <strong>Descripcion</strong> </center>
-        </td>
-         <td>
              <center> <strong>Codigo Control</strong> </center>
         </td>
         <td>
-             <center> <strong>Sector</strong> </center>
-        </td>
-        <td>
-             <center> <strong>Grower SENASA</strong> </center>
+             <center> <strong>Cultivo</strong> </center>
         </td>
          <td>
              <center> <strong>Fecha Registro</strong> </center>
@@ -48,21 +42,19 @@ if(list!=null)
          
         
      
-         for(entSubSector entidad : list)
+         for(entColor entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_sub_sector()%></td>
+        <td><%=entidad.getId_color()%></td>
             <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getDescripcion()%></td>
              <td><%=entidad.getCodigo_control()%></td>
-             <td><%=entidad.getObjSector().getNombre()%></td>
-             <td><%=entidad.getGrower_senasa()%></td>
+             <td><%=entidad.getObjCultivo().getNombre()%></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
-                   if(entidad.getEstado())
+                   if(entidad.isEstado())
                    out.print("Activado");
                    else
                        out.print("Desactivado");
