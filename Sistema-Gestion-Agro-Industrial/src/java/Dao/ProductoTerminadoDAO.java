@@ -14,6 +14,7 @@ import Entidades.entEnvase;
 import Entidades.entLineaProduccion;
 import Entidades.entLote;
 import Entidades.entProductoTerminado;
+import Entidades.entProductoTerminadoTemp;
 import Entidades.entReceta;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -30,6 +31,54 @@ import java.util.List;
  */
 public class ProductoTerminadoDAO {
     
+     public static entProductoTerminadoTemp buscarOrigen(String Codigo) throws Exception
+    {
+        entProductoTerminadoTemp entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="select PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.EMBALADOR,PT.SELECCIONADOR,"
+                            + "PT.FECHA_PRODUCCION,L.CODIGO_CONTROL,LP.NOMBRE,E.NOMBRE,CA.NOMBRE,P.FECHA_PRODUCCION,"
+                            + "P.CODIGO_CONTROL from PALETA P JOIN DET_PALETA DP ON P.ID_PALETA=DP.ID_PALETA RIGHT "
+                            + "JOIN PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO JOIN "
+                            + "LOTE L ON L.ID_LOTE=PT.ID_LOTE JOIN LINEA_PRODUCCION LP ON PT.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION "
+                            + "JOIN ENVASE E ON E.ID_ENVASE=PT.ID_ENVASE JOIN CATEGORIA C ON C.ID_CATEGORIA=PT.ID_CATEGORIA "
+                            + "JOIN CALIBRE CA ON CA.ID_CALIBRE=PT.ID_CALIBRE JOIN COLOR CO ON CO.ID_COLOR=PT.ID_COLOR WHERE "
+                            + "PT.CODIGO_CONTROL='"+Codigo+"'"; 
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                entidad = new entProductoTerminadoTemp();
+                entidad.setId_producto_terminado(dr.getInt(1));
+                entidad.setCodigo_control(dr.getString(2));
+                entidad.setEmbalador(dr.getString(3));
+                entidad.setSeleccionador(dr.getString(4));
+                entidad.setFecha_produccion(dr.getTimestamp(5)); 
+                entidad.setCodigo_control_lote(dr.getString(6));
+                entidad.setNombre_linea_produccion(dr.getString(7));
+                entidad.setNombre_envase(dr.getString(8));
+                entidad.setNombre_calibre(dr.getString(9));
+                entidad.setCodigo_control_paleta(dr.getString(11));
+                entidad.setFecha_produccion_paleta(dr.getTimestamp(10)); 
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
+    }  
     public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLineaProduccion) throws Exception
     {
         List<entProductoTerminado> lista = null;
@@ -282,11 +331,10 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             
            String sql="INSERT INTO producto_terminado(id_dia_recepcion,id_envase,id_calibre,id_categoria"
                    + ",id_color,id_lote,id_linea_produccion,seleccionador,embalador"
-                   + ",fecha_produccion,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?,?,GETDATE());";
+                   + ",fecha_produccion,estado,usuario_responsable,fecha_modificacion,CODIGO_CONTROL)"
+                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?,?,GETDATE(),?);";
            
             conn = ConexionDAO.getConnection();
-            conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getId_dia_recepcion());
             stmt.setInt(2, entidad.getObjEnvase().getId_envase());
@@ -299,25 +347,14 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             stmt.setString(9, entidad.getEmbalador());
             stmt.setInt(10, entidad.getEstado());
             stmt.setString(11, entidad.getUsuario_responsable());
+            stmt.setString(12, Operaciones.getCodigoControl(true,entidad.getObjLineaProduccion().getId_linea_produccion()));
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            
+            ResultSet rs = stmt.getGeneratedKeys();            
             if (rs.next()){
                 rpta=rs.getInt(1);
-                
-                sql = "UPDATE PRODUCTO_TERMINADO SET CODIGO_CONTROL=? WHERE ID_PRODUCTO_TERMINADO=?";
-                 CallableStatement ctmt = conn.prepareCall(sql);    
-                 ctmt.setString(1, Operaciones.getCodigoControl());
-                 ctmt.setInt(2, rpta);
-                 ctmt.executeUpdate();
-                 ctmt.close();
             }
             rs.close();
-            conn.commit();
         } catch (Exception e) {
-             if (conn != null) {
-                    conn.rollback();
-                }
             throw new Exception("Insertar"+e.getMessage(), e);
         }
         finally{

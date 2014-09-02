@@ -744,6 +744,26 @@ public class clsGestor {
     {
         return ProductoTerminadoDAO.ListarPorDiaRecepccion(id_dia_recepcion);
     }
+    public static entProductoTerminadoTemp buscarOrigenProductoTerminado(String Codigo) throws Exception
+    {
+        return ProductoTerminadoDAO.buscarOrigen(Codigo);
+    }
     // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entPaleta">
+//    public static List<entPaleta> ListarPaleta(boolean activo) throws Exception
+//    {
+//        return PaletaDAO.Listar(activo);
+//    }
+//    
+    public  static int insertarPaleta(entPaleta entidad) throws Exception
+    {
+        return PaletaDAO.insertar(entidad);
+    }
+//    
+//    public static boolean actualizarPaleta(entPaleta entidad) throws Exception
+//    {
+//        return PaletaDAO.actualizar(entidad);
+//    }
+    // </editor-fold>  
 }

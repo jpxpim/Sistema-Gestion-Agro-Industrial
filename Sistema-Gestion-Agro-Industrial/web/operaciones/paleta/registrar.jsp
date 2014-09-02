@@ -135,7 +135,19 @@ else
                                                                                         <input type="hidden" id="idCliente"  name="idCliente" value="" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Codigo (14 digitos)</label>
+                                                                                    <label>Estado</label>
+                                                                                    <label class="radio inline">
+                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
+                                                                                        Completa
+                                                                                    </label>
+                                                                                    <label class="radio inline">
+                                                                                            <input type="radio" value="2" id="rbEstado" name="rbEstado" />
+                                                                                            Incompleta
+                                                                                    </label>
+                                                                                     </div>
+                                                                                    <br>
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Codigo (15 digitos)</label>
                                                                                         <div class="input-prepend">
                                                                                             <input type="text" id="txtCodigo" name="txtCodigo" /><span id="validCodigo" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
@@ -146,6 +158,7 @@ else
                                                                              <button id="btnGrabar" class="btn btn-invert" onclick="grabar_data()" type="button">Grabar</button>
                                                                             
                                                                             <button class="btn btn-invert" onclick="clear_list()" type="button">Limpiar Lista</button>
+                                                                            <a id="buscar" data-toggle='modal' data-backdrop='static' class="btn" href='#ModalProductoTerminado'>Buscar Origen</a>
                                                                           </div>
                                                                           <div id="paleta"></div>
 
@@ -161,7 +174,10 @@ else
 
                                                                                         
  </div>
- <!-- Modal Lote Cliente -->	
+    
+   
+    
+ <!-- Modal Cliente -->	
 <div class="modal hide fade" id="ModalCliente" >
     <div class="modal-header">
         <button class="close" data-dismiss="modal">×</button>
@@ -207,6 +223,21 @@ else
         <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
     </div>
 </div>                 
+
+ <!-- Modal Producto Terminado -->	
+<div class="modal hide fade" id="ModalProductoTerminado" >
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Buscar Origen de Producto</h3>
+    </div>
+    <div class="modal-body">
+        <div id="origen"></div>
+    </div>
+    <div class="modal-footer">
+        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+        
+    </div>
+</div>                 
    
  <form  method="get" id="detalle_form">
     <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"/>
@@ -218,14 +249,47 @@ else
 </form>                                                                           
 <div id="producto_terminado"></div>                          
 <script type="text/javascript">
-var size=0;   
+var size='0';   
+$('#buscar').hide();
 function grabar_data()
 {
-    $.sticky(size, {autoclose : 5000, position: "top-center", type: "st-error" });
-     
+   
+   
+  
     if($('input#idCliente').val()=='' || $('input#idCliente').val()==null)        
      $.sticky("<center><h1>Seleccione un Cliente</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
-           
+    else
+    {
+        if($('input:radio[name=rbEstado]')[0].checked==false && $('input:radio[name=rbEstado]')[1].checked==false)
+         $.sticky("<center><h1>Seleccione un Estado</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+        else
+        {
+            if(size==0)
+                $.sticky("<center><h1>Ingrese al menos un Items</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+            else
+            {
+                var url = "operaciones/paleta/insert.jsp"; 
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#reg_form").serialize(), 
+                    success: function(data)
+                    {
+                        if(data==0)
+                         $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
+                        else if(data>0)
+                        {
+                            clear_all();
+                           $.sticky("Se Regisro Correctamente.", {autoclose : 5000, position: "top-center" });
+                        }
+                        
+                    }
+                }); 
+                
+            }
+        }
+        
+    }
 };
 function selectCampaniaLote(id,nombre)
 {
@@ -262,7 +326,7 @@ function tabla()
         }, {ok:"No", cancel:"Si"});
                     
  };
- 
+
 var validGrabaDetalle=true;
 var lote= {
      'entidad': [ 
@@ -303,15 +367,30 @@ var producto= {
 };
 
 $(document).ready(function() {  
-    
-$("#txtCodigo").keyup(function(){    
+$('#buscar').click(function(){
+    $('#origen').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+                       
+    $.ajax({
+        url: 'operaciones/producto_terminado/buscar_origen.jsp?codigo='+$("#txtCodigo").val(),
+        type: 'POST',
+        success: function (data) {     
+               $('#origen').html(data);  
+        },
+        contentType: false,
+        processData: false
+    }); 
+});
+
+$("#txtCodigo").keyup(function(){   
+    $('#buscar').hide();
     $(this).val($(this).val().trim().toUpperCase());    
-   if(14>$(this).val().length)
+   if(15>$(this).val().length)
    {
+       
        $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">'+$(this).val().length+'</span></di>');
       $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
    }
-   if(14==$(this).val().length)
+   if(15==$(this).val().length)
    {
         $('#contador').html(' <di id="contador" >digitos = <span class="label label-success">'+$(this).val().length+'</span></di>');
         if(compruebaData($(this).val()))
@@ -329,7 +408,7 @@ $("#txtCodigo").keyup(function(){
             otraBusqueda($(this).val());
            
    }
-   else if(14<$(this).val().length)
+   else if(15<$(this).val().length)
    {
       $('#contador').html(' <di id="contador" >digitos = <span class="label label-important">'+$(this).val().length+'</span></di>');
      $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
@@ -377,6 +456,7 @@ function otraBusqueda(codigo)
                       }
                       else
                       {
+                          $('#buscar').show();
                            $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
                            $.sticky("<center><h1>Código no encontrado</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
            
@@ -430,14 +510,14 @@ function grabarDetalle(){
                 $("#txtCodigo").val(""); 
                 $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
                 $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
-                clear_all();
+                clear_detalle();
                 $.sticky("<center><h1>Paleta Mixta</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" }); 
                 $('#paleta').html('<div id="paleta"><span class="label label-important">Paleta Mixta</span></div>');
                
             }   
             else if(data==-1)
             {
-                clear_all();
+                clear_detalle();
                 $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
                 $.sticky("<center><h1>Código Repetido</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
             }            
@@ -448,7 +528,7 @@ function grabarDetalle(){
                 $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
                 $('#paleta').html('<div id="paleta"></div>');
                
-                clear_all();
+                clear_detalle();
                 tabla();
             }
             else if(data>0)
@@ -456,7 +536,7 @@ function grabarDetalle(){
                 $("#txtCodigo").val(""); 
                 $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
                 $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
-                clear_all();
+                clear_detalle();
                 $.sticky("<center><h1>El Maximo de items permitods es"+data+"</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" }); 
                 $('#paleta').html('<div id="paleta"><span class="label label-success">Paleta Cerrada</span></div>');
                
@@ -466,9 +546,9 @@ function grabarDetalle(){
         }
     }); 
 };
-function clear_all()
+function clear_detalle()
 {
-    
+    $('#buscar').hide();
     $("#IdProductoTerminado").val(""); 
     $("#Codigo").val(""); 
     $("#nCalibre").val(""); 
@@ -478,6 +558,27 @@ function clear_all()
     
     
     validGrabaDetalle=true;
+};
+function clear_all()
+{
+     $.ajax({
+        url: 'operaciones/paleta/delete_list_detalle_paleta_temp.jsp',
+        type: 'POST',
+        success: function () {   
+                $('#paleta').html('<div id="paleta"></div>');
+                tabla();
+               $('input:radio[name=rbEstado]').attr('checked',false);
+               $('#idCliente').val("");            
+               $('#CampaniaLote').html("<di id='CampaniaLote'><blockquote><p>Cliente <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalCliente'><i class='splashy-zoom'></i></a></span></p></blockquote></di>");  
+               $("#txtCodigo").val(""); 
+               $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
+               $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');    
+               clear_detalle();
+        },
+        contentType: false,
+        processData: false
+    });
+    
 };
 tabla();
 

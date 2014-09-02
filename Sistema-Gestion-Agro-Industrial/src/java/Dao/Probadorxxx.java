@@ -7,25 +7,7 @@
 package Dao;
 
 import Com.Operaciones;
-import Entidades.entCampania;
-import Entidades.entCampaniaLote;
-import Entidades.entCultivo;
-import Entidades.entDiaRecepcion;
-import Entidades.entEdadCultivo;
-import Entidades.entEvaluador;
-import Entidades.entFormulario;
-import Entidades.entFormularioUsuario;
-import Entidades.entLote;
-import Entidades.entModulo;
-import Entidades.entPatron;
-import Entidades.entPrePoda;
-import Entidades.entProductoTerminado;
-import Entidades.entSector;
-import Entidades.entSubSector;
-import Entidades.entTipoCultivo;
-import Entidades.entUsuario;
-import Entidades.entVariedad;
-import Entidades.entVivero;
+import Entidades.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,9 +24,33 @@ public class Probadorxxx {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-            entDiaRecepcion entidad = new entDiaRecepcion();
-            entidad.setUsuario_responsable_inicio("XD");
-        System.out.print(Operaciones.getCodigoControl());
+//            entDiaRecepcion entidad = new entDiaRecepcion();
+//            entidad.setUsuario_responsable_inicio("XD");
+//        System.out.print(Operaciones.getCodigoControl(true,1));
+//        
+//         System.out.print("\n");
+//         System.out.print(Operaciones.getCodigoControl(false,0));
+        
+//        for(int i=0; i<1;i++)
+//        {
+//            entProductoTerminado entidad = new entProductoTerminado();
+//            entidad.setObjLineaProduccion(new entLineaProduccion(3));//1,2,3
+//            entidad.setObjEnvase(new entEnvase(4));//1,4
+//            entidad.setObjCategoria(new entCategoria(4));//1,2,3,4
+//            entidad.setObjLote(new entLote(6));   //2,3,4,5,6        
+//            entidad.setObjCalibre(new entCalibre(2));//1,2            
+//            entidad.setObjColor(new entColor(2));//1,2
+//            entidad.setEstado(0);
+//            entidad.setSeleccionador("43097784");
+//            entidad.setEmbalador("43097784");
+//            entidad.setId_dia_recepcion(15);
+//           
+//            entidad.setUsuario_responsable("Admin");
+//            System.out.print(""+ProductoTerminadoDAO.insertar(entidad));
+//            
+//        }
+        
+        System.out.print(""+ProductoTerminadoDAO.buscarOrigen("140966071418502").getFecha_produccion_paleta());
         ;
     }
     

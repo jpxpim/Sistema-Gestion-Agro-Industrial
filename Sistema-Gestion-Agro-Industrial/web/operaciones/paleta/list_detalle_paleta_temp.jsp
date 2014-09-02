@@ -51,7 +51,7 @@ if(objSession.getObjPaleta()!=null)
 $(function () { 
 
    $('#lista').dataTable(); 
-   size=$('#lista >tbody >tr').length;
+   size='<%=objSession.getObjPaleta().getListaDetallePaleta().size()%>';
  
 });
 </script>

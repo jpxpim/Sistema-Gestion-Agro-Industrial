@@ -56,6 +56,7 @@ if(objSession!=null)
                 {
                     if(objSession.getObjPaleta().getListaDetallePaleta().size()<nCajas)
                     {
+                        objSession.getObjPaleta().setCompleto(true);
                         objSession.getObjPaleta().getListaDetallePaleta().add(entidad);                      
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("SessionUsuario", objSession); 
@@ -71,6 +72,7 @@ if(objSession!=null)
                 }
                 else
                 {
+                    objSession.getObjPaleta().setCompleto(false);
                     objSession.getObjPaleta().getListaDetallePaleta().add(entidad);                      
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("SessionUsuario", objSession); 

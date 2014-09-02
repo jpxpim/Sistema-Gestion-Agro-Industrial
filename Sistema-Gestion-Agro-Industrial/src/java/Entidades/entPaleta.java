@@ -17,16 +17,21 @@ import java.util.List;
 public class entPaleta {
     
     private int id_paleta;
+    private int id_dia_recepcion;
     private Date fecha_produccion;
     private entCliente objCliente;
     private int id_estado_paleta;
+    private int posicion_paleta;
+    private String codigo_control;
     private String usuario_responsable;
     private Date fecha_modificacion;
+    private boolean completo;
     private List<entDetallePaleta> listaDetallePaleta;
     private List <entDetalleEstadoPaleta> listaDetalleEstadoPaleta;
     
     public entPaleta(){
         this.id_paleta=0;
+        this.completo=false;
         this.listaDetallePaleta = new  ArrayList<entDetallePaleta>();
     }
 
@@ -94,6 +99,38 @@ public class entPaleta {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public int getPosicion_paleta() {
+        return posicion_paleta;
+    }
+
+    public void setPosicion_paleta(int posicion_paleta) {
+        this.posicion_paleta = posicion_paleta;
+    }
+
+    public String getCodigo_control() {
+        return codigo_control;
+    }
+
+    public void setCodigo_control(String codigo_control) {
+        this.codigo_control = codigo_control;
+    }
+
+    public boolean isCompleto() {
+        return completo;
+    }
+
+    public void setCompleto(boolean completo) {
+        this.completo = completo;
+    }
+
+    public int getId_dia_recepcion() {
+        return id_dia_recepcion;
+    }
+
+    public void setId_dia_recepcion(int id_dia_recepcion) {
+        this.id_dia_recepcion = id_dia_recepcion;
     }
     
     

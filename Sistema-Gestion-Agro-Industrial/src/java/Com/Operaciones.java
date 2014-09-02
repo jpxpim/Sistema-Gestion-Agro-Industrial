@@ -17,6 +17,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import org.jfree.chart.ChartUtilities;
 
@@ -33,21 +34,50 @@ public class Operaciones {
     } 
     
 
-    public static String getCodigoControl()
+//    public static String getCodigoControl(boolean tipo,int idLinea)
+//    {
+//        Calendar c = new GregorianCalendar();
+//        String dia="";
+//        String mes="";
+//        String linea="";
+//        
+//        if(idLinea>99) linea = ""+idLinea;
+//        else if(idLinea<100 &&idLinea>9) linea = "0"+idLinea;
+//        else linea="00"+idLinea;
+//        
+//        if(c.get(Calendar.DATE)>9) dia = ""+c.get(Calendar.DATE);
+//        else dia="0"+c.get(Calendar.DATE);
+//        if(c.get(Calendar.MONTH)>9) mes = ""+c.get(Calendar.MONTH);
+//        else mes="0"+c.get(Calendar.MONTH);
+//        
+//        String anio = ""+c.get(Calendar.YEAR);
+//        String hora=""+c.get(Calendar.HOUR);
+//        String min=""+c.get(Calendar.MINUTE);
+//        String seg=""+c.get(Calendar.SECOND);
+//        
+//        String mili=""+c.get(Calendar.MILLISECOND);        
+//       
+//        String codigo=dia+mes+anio.substring(2)+c.get(Calendar.HOUR)+min+seg+linea;
+//         if(!tipo)
+//             codigo=dia+mes+anio.substring(2)+hora+min+seg+mili;
+//        
+//        return codigo;
+//    }
+    
+      public static String getCodigoControl(boolean tipo,int idLinea)
     {
-        Calendar c = new GregorianCalendar();
-        String dia="";
-        String mes="";
-        if(c.get(Calendar.DATE)>9) dia = Integer.toString(c.get(Calendar.DATE));
-        else dia="0"+Integer.toString(c.get(Calendar.DATE));
-        if(c.get(Calendar.MONTH)>9) mes = Integer.toString(c.get(Calendar.MONTH));
-        else mes="0"+Integer.toString(c.get(Calendar.MONTH));
-        String anio = ""+Integer.toString(c.get(Calendar.YEAR));
-        String hora=Integer.toString(c.get(Calendar.HOUR));
-        String min=Integer.toString(c.get(Calendar.MINUTE));
-        String seg=Integer.toString(c.get(Calendar.SECOND));
-        String mili=Integer.toString(c.get(Calendar.MILLISECOND));
-        return ""+dia+mes+anio.substring(2)+hora+min+seg+mili;
+        String linea="";
+        if(idLinea>9) 
+            linea = ""+idLinea;
+        else 
+            linea="0"+idLinea;
+        
+        String codigo=""+new Date().getTime();
+        
+        if(tipo)
+            codigo=codigo+linea;
+        
+        return codigo;
     }
     
      public static InputStream generateBarras(String text, int h, int w) throws Exception {
