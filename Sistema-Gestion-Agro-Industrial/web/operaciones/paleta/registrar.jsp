@@ -120,17 +120,19 @@ else
                                                             <div class="span12">
                                                                      
                                                                           <div class="location_add_form well">
+                                                                           
                                                                             <div class="formSep">
-                                                                                    <div class="input-prepend">
-                                                                                        <label>Cliente</label>
-                                                                                        <select id="cbCliente" name="cbCliente" >
-                                                                                        <option value="">Selecione una Opción</option>
-                                                                                        <%List<entCliente> listCliente=clsGestor.ListarCliente(true);
-                                                                                            if(listCliente!=null)
-                                                                                                for(entCliente entidad : listCliente)
-                                                                                                    out.print("<option value='"+entidad.getId_cliente()+"'>"+entidad.getNombre()+"</option>");                                         
-                                                                                         %>
-                                                                                        </select>
+                                                                                     <div class="input-prepend">
+                                                                                        <di id='CampaniaLote'>
+                                                                                                <blockquote >
+                                                                                                    <p>Cliente
+                                                                                                          <span class='add-on'>
+                                                                                                              <a data-toggle='modal' data-backdrop='static' href='#ModalCliente'><i class='splashy-zoom'></i></a>
+                                                                                                          </span> 
+                                                                                                    </p>
+                                                                                                </blockquote>
+                                                                                          </di>
+                                                                                        <input type="hidden" id="idCliente"  name="idCliente" value="" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
                                                                                     <label>Codigo (9 digitos)</label>
@@ -141,9 +143,9 @@ else
                                                                                     </div>                                                                                   
 
                                                                             </div>
-                                                                             <button id="btnGrabar" class="btn btn-invert" onclick="actulizar_data()" type="button">Grabar</button>
+                                                                             <button id="btnGrabar" class="btn btn-invert" onclick="grabar_data()" type="button">Grabar</button>
                                                                             
-                                                                            <button class="btn btn-invert" onclick="clear_all()" type="button">Limpiar</button>
+                                                                            <button class="btn btn-invert" onclick="clear_list()" type="button">Limpiar Lista</button>
                                                                           </div>
 
 
@@ -158,6 +160,53 @@ else
 
                                                                                         
  </div>
+ <!-- Modal Lote Cliente -->	
+<div class="modal hide fade" id="ModalCliente" >
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Buscar Campaña de un Lote</h3>
+    </div>
+    <div class="modal-body">
+        <table id="tablaCliente" class="table table-striped location_table">
+            <thead>
+                    <tr>
+                           <th>Id</th>
+                           <th>Nombre</th>
+                           <th>RUC</th>
+                           <th>Dirección</th>                         
+                           <th>Acciones</th>
+                    </tr>
+            </thead> 
+            <tbody>    
+            <%
+             List<entCliente> listCliente=clsGestor.ListarCliente(true);
+            if(listCliente!=null)
+            for(entCliente entidad : listCliente)
+            {
+            %>
+
+                <tr>
+                    <td><%=entidad.getId_cliente()%></td>
+                    <td><%=entidad.getNombre()%></td>
+                    <td><%=entidad.getRuc()%></td>
+                    <td><%=entidad.getDireccion()%></td>                 
+                    <td>
+                        <a href="javascript:void(0)" data-dismiss="modal" onclick="selectCampaniaLote(<%=entidad.getId_cliente()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-success btn-mini">Seleccionar</a>
+
+                    </td>
+                </tr>                                                            
+            <%
+            }
+            %>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+    </div>
+</div>                 
+   
  <form  method="get" id="detalle_form">
     <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"/>
     <input type="hidden" id="Codigo"  name="Codigo"/>
@@ -167,6 +216,21 @@ else
 </form>                                                                           
 <div id="producto_terminado"></div>                          
 <script type="text/javascript">
+var size=0;   
+function grabar_data()
+{
+    $.sticky(size, {autoclose : 5000, position: "top-center", type: "st-error" });
+     
+    if($('input#idCliente').val()=='' || $('input#idCliente').val()==null)        
+     $.sticky("<center><h1>Seleccione un Cliente</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+           
+};
+function selectCampaniaLote(id,nombre)
+{
+  $('#idCliente').val(id);  
+                                            
+ $('#CampaniaLote').html("<di id='CampaniaLote'><blockquote><p>"+nombre+"  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalCliente'><i class='splashy-zoom'></i></a></span></p></blockquote></di>");  
+};
 function tabla()
 {
      $.ajax({
@@ -179,6 +243,24 @@ function tabla()
         processData: false
     });          
  };
+ function removerItem(pos,codigo)
+{
+    smoke.confirm('Desea Quitar producto con codigo '+codigo,function(e){
+                if (!e){
+                    $.ajax({
+                        url: 'operaciones/paleta/delete_item_list_detalle_paleta_temp.jsp?pos='+pos,
+                        type: 'POST',
+                        success: function () {     
+                                tabla();
+                        },
+                        contentType: false,
+                        processData: false
+                    });   
+                }
+        }, {ok:"No", cancel:"Si"});
+                    
+ };
+ 
 var validGrabaDetalle=true;
 var lote= {
      'entidad': [ 
@@ -257,6 +339,23 @@ $("#txtCodigo").keyup(function(){
 
 });
 
+function clear_list()
+{
+    smoke.confirm('Desea Limpiar la Lista',function(e){
+                if (!e){
+                     $.ajax({
+                        url: 'operaciones/paleta/delete_list_detalle_paleta_temp.jsp',
+                        type: 'POST',
+                        success: function () {     
+                            alert("XD");
+                                 tabla();
+                        },
+                        contentType: false,
+                        processData: false
+                    });
+                }
+        }, {ok:"No", cancel:"Si"});
+};
 function otraBusqueda(codigo)
 {
     $.ajax({
@@ -324,6 +423,7 @@ function grabarDetalle(){
             if(data==0)
             {
                 clear_all();
+                $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
                 $.sticky("<center><h1>Código Repetido</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
             }
             else if(data==1)
