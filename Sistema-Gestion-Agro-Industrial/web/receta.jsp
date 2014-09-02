@@ -3,12 +3,19 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
+<%@page import="Entidades.entDetalleReceta"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
+    objSession.setListDetalleReceta(new ArrayList<entDetalleReceta>());
+    HttpSession sesion = request.getSession();
+    sesion.setAttribute("SessionUsuario", objSession);
+    sesion.setMaxInactiveInterval(-1);
+  
     if(objSession.getListModulos()==null)
         response.sendRedirect("intranet.jsp");
     
