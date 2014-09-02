@@ -24,9 +24,9 @@ if(objSession!=null)
             <td colspan="2"><%=entidad.getCodigo_control_paleta()%></td>
         </tr>
         <tr>
-            <th>Fecha Paleta</th>
+            <th>Fecha Creación Paleta</th>
             <td><%=fecha.format(entidad.getFecha_produccion_paleta())%></td>
-            <th>Hora Paleta</th>
+            <th>Hora Creación Paleta</th>
            <td><%=hora.format(entidad.getFecha_produccion_paleta())%></td>
         </tr>
         <%}%>
@@ -69,7 +69,7 @@ if(objSession!=null)
 <%}else{
 %>
 <div id="origen">
-    <center><h3>No Encontrador</h3></center>
+    <center><h3>Producto no encontrado</h3></center>
 </div>
 
 <%}}}%>
