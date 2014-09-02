@@ -27,7 +27,7 @@ public class entSesion {
     private entConfiguracion objConfiguracion;
     private entPaleta objPaleta;
     List<entModulo> listModulos;
-    
+    List<entInsumo> listInsumo;
     public entSesion() {
         this.posicion=0;
         this.dia_recepcion=false;
