@@ -125,11 +125,11 @@ if(objSession!=null)
                                                                           <div class="location_add_form well">
                                                                             <div class="formSep">
                                                                                     <div class="input-prepend">
-                                                                                    <label>Nombre</label>
+                                                                                    <label>Razón Social</label>
                                                                                     <input type="text" class="span10" id="txtRazon" name="txtRazon" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Peso</label>
+                                                                                    <label>RUC</label>
                                                                                     <input type="text" class="span10" id="txtRuc"  name="txtRuc" />
                                                                                      </div> 
                                                                                      <div class="input-prepend">

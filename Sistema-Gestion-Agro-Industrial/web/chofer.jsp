@@ -133,7 +133,7 @@ if(objSession!=null)
                                                                                                         <input type="text" class="span10" id="txtBrevete"  name="txtBrevete" />
                                                                                                          </div>   
                                                                                                         <div class="input-prepend">
-													<label>Transportista</label>
+													<label>Empresa Transportista</label>
 													<select id="cbTransportista" name="cbTransportista" title="Por favor selecione un Transportista!" required>
                                                                                                             <option value="">Selecione una Opción</option>
                                                                                                         </select>
