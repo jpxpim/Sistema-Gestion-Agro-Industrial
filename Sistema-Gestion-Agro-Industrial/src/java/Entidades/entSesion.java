@@ -27,16 +27,25 @@ public class entSesion {
     private entConfiguracion objConfiguracion;
     private entPaleta objPaleta;
     List<entModulo> listModulos;
-    List<entInsumo> listInsumo;
+    List<entDetalleReceta> listDetalleReceta;
     public entSesion() {
         this.posicion=0;
         this.dia_recepcion=false;
+        this.listDetalleReceta=null;
         this.objDiaRecepcion=null;
         this.listModulos=null;
         this.objRecepcion=null;
         this.objUsuario=null;
         this.objConfiguracion=null;
         this.objPaleta=null;
+    }
+
+    public List<entDetalleReceta> getListDetalleReceta() {
+        return listDetalleReceta;
+    }
+
+    public void setListDetalleReceta(List<entDetalleReceta> listDetalleReceta) {
+        this.listDetalleReceta = listDetalleReceta;
     }
 
     public boolean isDia_recepcion() {
