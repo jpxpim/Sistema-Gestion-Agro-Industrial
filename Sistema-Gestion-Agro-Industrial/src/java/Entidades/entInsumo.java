@@ -17,8 +17,14 @@ public class entInsumo {
     private String cod_erp;
     private String nombre;
      private Date fecha_modificacion;
-
+    public boolean seleccionado_session;
+     public boolean agregado_session;
+     public boolean eliminado_session;
+     
     public entInsumo() {
+        this.seleccionado_session=false;
+        this.agregado_session=false;
+        this.eliminado_session=false;
     }
 
     public int getId_insumo() {
@@ -52,5 +58,30 @@ public class entInsumo {
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
     }
-     
+
+    public boolean isSeleccionado_session() {
+        return seleccionado_session;
+    }
+
+    public void setSeleccionado_session(boolean seleccionado_session) {
+        this.seleccionado_session = seleccionado_session;
+    }
+
+    public boolean isAgregado_session() {
+        return agregado_session;
+    }
+
+    public void setAgregado_session(boolean agregado_session) {
+        this.agregado_session = agregado_session;
+    }
+
+    public boolean isEliminado_session() {
+        return eliminado_session;
+    }
+
+    public void setEliminado_session(boolean eliminado_session) {
+        this.eliminado_session = eliminado_session;
+    }
+
+   
 }

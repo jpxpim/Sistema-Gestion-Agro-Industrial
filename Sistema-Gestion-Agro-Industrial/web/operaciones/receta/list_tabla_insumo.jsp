@@ -30,7 +30,7 @@ if(list!=null)
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getCod_erp()%></td>
             <td>
-                <a href="javascript:void(0)" onclick="selecionar(<%=entidad.getId_insumo()%>,'<%=entidad.getNombre()%>','<%=entidad.getCod_erp()%>')" class="comp_edit btn btn-primary btn-mini">Seleccionar</a>
+                <a data-dismiss="modal" href="javascript:void(0)" onclick="selecionar(<%=entidad.getId_insumo()%>,'<%=entidad.getNombre()%>','<%=entidad.getCod_erp()%>')" class="comp_edit btn btn-primary btn-mini">Seleccionar</a>
 
             </td>
         </tr>
@@ -46,11 +46,8 @@ if(list!=null)
 $(function () { 
 
    $('#listaInsumo').dataTable({
-                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
-                                            "sPaginationType": "bootstrap",
-                                            "sScrollY": "250px",
-                                            "bDestroy": true,
-                                            "bDeferRender": true
+                                           "sDom": "<'row'<'span5'><'span5'f>r>t<'row'<'span5'i><'span5'>S>",
+                                            "sPaginationType": "bootstrap"
                                                     }); 
  
 });

@@ -252,6 +252,10 @@ if(objSession!=null)
 	
 			<script>
 
+ function selecionar(id,nombre,codigo)
+{
+    
+};
  function modulos()
 {
      $.ajax({
@@ -285,7 +289,8 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};                           
+};   
+
 function tabla()
 {
      $.ajax({
@@ -327,7 +332,7 @@ $('#buscarInsumo').click(function(){
     $('#insumo').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
                        
     $.ajax({
-        url: 'operaciones/receta/list_tabla_detalle_temp.jsp',
+        url: 'operaciones/receta/list_tabla_insumo.jsp',
         type: 'POST',
         success: function (data) {     
                $('#insumo').html(data);  
