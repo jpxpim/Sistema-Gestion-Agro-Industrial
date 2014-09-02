@@ -154,7 +154,9 @@ if(objSession!=null)
                                                                                                      
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <center><button class="btn btn-invert" onclick="clear_form()" type="button">Agregar</button></center>
+                                                                                                    <center>
+                                                                                                        <a id="buscarInsumo" data-toggle='modal' data-backdrop='static' class="btn" href='#ModalInsumo'>Agregar</a>
+                                                                                                    </center>
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </table>
@@ -182,6 +184,21 @@ if(objSession!=null)
                             </div>
                         </div>
 	
+                             <!-- Modal Lote Campaña -->	
+<div class="modal hide fade" id="ModalInsumo" >
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Seleccionar Insumo</h3>
+    </div>
+    <div class="modal-body">
+        <div id="insumo"></div>
+
+    </div>
+    <div class="modal-footer">
+        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+    </div>
+</div>                 
+       
                <!-- Modal Cargando -->	
                <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
                 
@@ -281,6 +298,18 @@ function tabla()
         processData: false
     });          
  };
+ function detalle()
+{
+     $.ajax({
+        url: 'operaciones/receta/list_tabla_detalle_temp.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#detalle').html(data);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
  function getReporte()
 {
      window.location='operaciones/receta/reporte.jsp';
@@ -288,13 +317,25 @@ function tabla()
                               
                            modulos(); 
                                        tabla();
-                            
+                             detalle();
 				$(document).ready(function() {
 					//* show all elements & remove preloader
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
                                         
-                                       
+$('#buscarInsumo').click(function(){
+    $('#insumo').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+                       
+    $.ajax({
+        url: 'operaciones/receta/list_tabla_detalle_temp.jsp',
+        type: 'POST',
+        success: function (data) {     
+               $('#insumo').html(data);  
+        },
+        contentType: false,
+        processData: false
+    }); 
+});                             
                                
                                         
                                       $('#reg_form').validate({

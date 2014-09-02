@@ -766,4 +766,15 @@ public class clsGestor {
 //        return PaletaDAO.actualizar(entidad);
 //    }
     // </editor-fold>  
+    
+    //<editor-fold defaultstate="collapsed" desc="entInsumo">
+    public static List<entInsumo> ListarInsumo( ) throws Exception
+    {
+        return InsumoDAO.Listar();
+    }
+    // </editor-fold>  
+    
+    
+    
+    
 }
