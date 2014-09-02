@@ -135,7 +135,7 @@ else
                                                                                         <input type="hidden" id="idCliente"  name="idCliente" value="" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Codigo (9 digitos)</label>
+                                                                                    <label>Codigo (14 digitos)</label>
                                                                                         <div class="input-prepend">
                                                                                             <input type="text" id="txtCodigo" name="txtCodigo" /><span id="validCodigo" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
@@ -147,6 +147,7 @@ else
                                                                             
                                                                             <button class="btn btn-invert" onclick="clear_list()" type="button">Limpiar Lista</button>
                                                                           </div>
+                                                                          <div id="paleta"></div>
 
 
                                                                 
@@ -212,6 +213,7 @@ else
     <input type="hidden" id="Codigo"  name="Codigo"/>
     <input type="hidden" id="nCalibre"  name="nCalibre"/>
     <input type="hidden" id="nVariedad"  name="nVariedad"/>
+    <input type="hidden" id="nCajas"  name="nCajas"/>
     <input type="hidden" id="cLote"  name="cLote"/>
 </form>                                                                           
 <div id="producto_terminado"></div>                          
@@ -291,10 +293,10 @@ var producto= {
      for(int i=0;i<size;i++)
         if(i==(size-1))
         {
-            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'n_calibre': '"+listProductoTerminado.get(i).getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'}");
+            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'numero_cajas': "+listProductoTerminado.get(i).getId_dia_recepcion()+",'n_calibre': '"+listProductoTerminado.get(i).getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'}");
         }else
         {
-             out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'n_calibre': '"+listProductoTerminado.get(i).getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'},");
+             out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjLote().getId_lote()+",'numero_cajas': "+listProductoTerminado.get(i).getId_dia_recepcion()+",'n_calibre': '"+listProductoTerminado.get(i).getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getCodigo_control()+"'},");
         }
     }%>
      ]
@@ -304,12 +306,12 @@ $(document).ready(function() {
     
 $("#txtCodigo").keyup(function(){    
     $(this).val($(this).val().trim().toUpperCase());    
-   if(9>$(this).val().length)
+   if(14>$(this).val().length)
    {
        $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">'+$(this).val().length+'</span></di>');
       $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
    }
-   if(9==$(this).val().length)
+   if(14==$(this).val().length)
    {
         $('#contador').html(' <di id="contador" >digitos = <span class="label label-success">'+$(this).val().length+'</span></di>');
         if(compruebaData($(this).val()))
@@ -327,7 +329,7 @@ $("#txtCodigo").keyup(function(){
             otraBusqueda($(this).val());
            
    }
-   else if(9<$(this).val().length)
+   else if(14<$(this).val().length)
    {
       $('#contador').html(' <di id="contador" >digitos = <span class="label label-important">'+$(this).val().length+'</span></di>');
      $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
@@ -346,9 +348,9 @@ function clear_list()
                      $.ajax({
                         url: 'operaciones/paleta/delete_list_detalle_paleta_temp.jsp',
                         type: 'POST',
-                        success: function () {     
-                            alert("XD");
-                                 tabla();
+                        success: function () {   
+                                $('#paleta').html('<div id="paleta"></div>');
+                                tabla();
                         },
                         contentType: false,
                         processData: false
@@ -402,6 +404,8 @@ function compruebaData(data)
                     $("#nCalibre").val(producto.entidad[i].n_calibre); 
                     $("#nVariedad").val(lote.entidad[j].variedad); 
                     $("#cLote").val(lote.entidad[j].codigo_control); 
+                    $("#nCajas").val(producto.entidad[i].numero_cajas);
+                    
                     i=maxI;
                     j=maxJ;
                     valida=true;
@@ -420,19 +424,42 @@ function grabarDetalle(){
     data: $("#detalle_form").serialize(), 
         success: function(data)
         {
-            if(data==0)
+            if(data==-2)
+            {
+                 tabla();
+                $("#txtCodigo").val(""); 
+                $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
+                $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
+                clear_all();
+                $.sticky("<center><h1>Paleta Mixta</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" }); 
+                $('#paleta').html('<div id="paleta"><span class="label label-important">Paleta Mixta</span></div>');
+               
+            }   
+            else if(data==-1)
             {
                 clear_all();
                 $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
                 $.sticky("<center><h1>Código Repetido</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+            }            
+            else if(data==0)
+            {
+                $("#txtCodigo").val(""); 
+                $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
+                $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
+                $('#paleta').html('<div id="paleta"></div>');
+               
+                clear_all();
+                tabla();
             }
-            else if(data==1)
+            else if(data>0)
             {
                 $("#txtCodigo").val(""); 
                 $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
                 $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
                 clear_all();
-                tabla();
+                $.sticky("<center><h1>El Maximo de items permitods es"+data+"</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" }); 
+                $('#paleta').html('<div id="paleta"><span class="label label-success">Paleta Cerrada</span></div>');
+               
             }
             
            
@@ -441,11 +468,14 @@ function grabarDetalle(){
 };
 function clear_all()
 {
+    
     $("#IdProductoTerminado").val(""); 
     $("#Codigo").val(""); 
     $("#nCalibre").val(""); 
     $("#nVariedad").val(""); 
     $("#cLote").val(""); 
+    $("#nCajas").val(""); 
+    
     
     validGrabaDetalle=true;
 };

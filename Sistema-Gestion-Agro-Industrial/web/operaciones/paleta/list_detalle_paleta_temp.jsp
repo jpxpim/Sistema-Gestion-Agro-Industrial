@@ -16,8 +16,9 @@ if(objSession.getObjPaleta()!=null)
                 <td>N°</td>
                 <th>Código Control</th>
                 <th>Código Lote</th>
-                <th>Nombre Calibre</th>
-                <th>Nombre Variedad</th>
+                <th>Calibre</th>
+                <th>Variedad</th>
+                <th>Prod/Paleta</th>
                 <th>Acciones</th>
             </tr>
     </thead> 
@@ -33,6 +34,7 @@ if(objSession.getObjPaleta()!=null)
             <td><%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getUsuario_responsable()%></td>
             <td><%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getEmbalador()%></td>
             <td><%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getSeleccionador()%></td>
+            <td><%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getId_dia_recepcion()%></td>
             <td>
                    <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjPaleta().getListaDetallePaleta().get(i).getObjProductoTerminado().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
             </td>

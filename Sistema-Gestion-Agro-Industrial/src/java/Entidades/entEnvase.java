@@ -19,11 +19,20 @@ public class entEnvase {
     private String nombre;
     private double peso;
     private double peso_carga;
+    private int cant_cajas_paleta;
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
 
     public entEnvase() {
+    }
+
+    public int getCant_cajas_paleta() {
+        return cant_cajas_paleta;
+    }
+
+    public void setCant_cajas_paleta(int cant_cajas_paleta) {
+        this.cant_cajas_paleta = cant_cajas_paleta;
     }
 
     public entEnvase(int id_envase) {

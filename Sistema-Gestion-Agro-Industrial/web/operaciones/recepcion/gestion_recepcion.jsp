@@ -77,7 +77,7 @@ if(request.getParameter("id") != null && request.getParameter("id") != "" )
                estado="$('input:radio[name=rbEstado]')[0].checked = true;";
                
             }
-            else if(objSession.getObjRecepcion().getEstado()==2)
+            else if(objSession.getObjRecepcion().getEstado()==0)
             {
                  estado="$('input:radio[name=rbEstado]')[1].checked = true;";
                  inactivo="checked='true'";
