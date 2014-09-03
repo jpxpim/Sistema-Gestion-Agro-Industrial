@@ -3,11 +3,31 @@
     Created on : 22/04/2014, 06:06:51 AM
     Author     : Toditos
 --%>
+<%@page import="Entidades.entFormulario"%>
 <%@page import="Entidades.entSesion"%>
 <%   
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {     
+     if(objSession.getListModulos()==null)
+        response.sendRedirect("intranet.jsp");
+    
+    entFormulario formHijo=null;
+    entFormulario formPadre=null;
+    boolean pagina=false;
+    int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
+        for(int j=0;j<posJ;j++)
+        {
+            if(62==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
+            {
+                formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
+                formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));
+                pagina=true;
+                j=posJ;
+            }
+        }
+    if(!pagina)
+        response.sendRedirect("intranet.jsp");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -72,12 +92,26 @@ if(objSession!=null)
             <div id="contentwrapper">
                 <div class="main_content">
                     <nav>
-                        <div id="jCrumbs" class="breadCrumb module">
+                         <div id="jCrumbs" class="breadCrumb module">
                               <ul>
-                                <li>
-                                   <i class="icon-home"></i>
+                               <li>
+                                    <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
-                               
+                                 <li>
+                                    <a href="#"><%=formHijo.getObjModulo().getEtiqueta()%></a>
+                                </li>
+                                <%
+                                    if(formPadre==null)
+                                    {
+                                        out.print("<li><a href='#'>"+formHijo.getEtiqueta()+"</a></li>");
+                                        
+                                    }
+                                    else
+                                    {
+                                        out.print("<li><a href="+formPadre.getUrl()+">"+formPadre.getEtiqueta()+"</a></li>");
+                                        out.print("<li>"+formHijo.getEtiqueta()+"</li>");
+                                    }
+                                %>     
                             </ul>
                         </div>
                     </nav>
@@ -100,7 +134,7 @@ if(objSession!=null)
                      <div class="row-fluid">
 						<div class="span12">
 							<div class="row-fluid">
-								<div class="span6">
+								<div class="span12">
 									
 
                                                                         <div id="prueba"></div>

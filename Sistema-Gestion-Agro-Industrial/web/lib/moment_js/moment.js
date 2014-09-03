@@ -11,9 +11,9 @@
         round = Math.round, i,
         // internal storage for language config files
         languages = {},
-        currentLanguage = 'en',
+        currentLanguage = 'es',
 
-        // check for nodeJS
+        // check for nodS
         hasModule = (typeof module !== 'undefined'),
 
         // parameters to check for on the lang config

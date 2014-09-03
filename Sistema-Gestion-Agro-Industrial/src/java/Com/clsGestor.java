@@ -748,6 +748,10 @@ public class clsGestor {
     {
         return ProductoTerminadoDAO.buscarOrigen(Codigo);
     }
+    public static List<entProductoTerminado> GraficoAcumulativoDiaProduccionProductoTerminado()throws Exception
+    {
+        return ProductoTerminadoDAO.GraficoAcumulativoDiaProduccion();
+    }
     // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entPaleta">

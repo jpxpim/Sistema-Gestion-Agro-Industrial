@@ -88,7 +88,7 @@ public class ColorDAO {
         try {
             
            String sql="INSERT INTO color(nombre,codigo_control,id_cultivo,estado,usuario_responsable,fecha_modificacion)"
-                   + "VALUES(?,?,?,?,GETDATE());";
+                   + "VALUES(?,?,?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

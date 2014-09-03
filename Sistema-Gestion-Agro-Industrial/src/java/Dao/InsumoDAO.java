@@ -42,8 +42,8 @@ public class InsumoDAO {
                 
                     entInsumo entidad = new entInsumo();
                     entidad.setId_insumo(dr.getInt(1));
-                    entidad.setNombre(dr.getString(2)); 
-                    entidad.setCod_erp(dr.getString(3)); 
+                    entidad.setNombre(dr.getString(3)); 
+                    entidad.setCod_erp(dr.getString(2)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(4)); 
                     lista.add(entidad);
             }

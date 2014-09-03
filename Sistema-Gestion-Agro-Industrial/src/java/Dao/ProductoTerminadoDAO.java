@@ -22,7 +22,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -332,7 +334,7 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
            String sql="INSERT INTO producto_terminado(id_dia_recepcion,id_envase,id_calibre,id_categoria"
                    + ",id_color,id_lote,id_linea_produccion,seleccionador,embalador"
                    + ",fecha_produccion,estado,usuario_responsable,fecha_modificacion,CODIGO_CONTROL)"
-                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?,?,GETDATE(),?);";
+                   + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,GETDATE(),?);";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -345,9 +347,10 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             stmt.setInt(7, entidad.getObjLineaProduccion().getId_linea_produccion());
             stmt.setString(8, entidad.getSeleccionador());
             stmt.setString(9, entidad.getEmbalador());
-            stmt.setInt(10, entidad.getEstado());
-            stmt.setString(11, entidad.getUsuario_responsable());
-            stmt.setString(12, Operaciones.getCodigoControl(true,entidad.getObjLineaProduccion().getId_linea_produccion()));
+            stmt.setTimestamp(10, new Timestamp(entidad.getFecha_produccion().getTime()));
+            stmt.setInt(11, entidad.getEstado());
+            stmt.setString(12, entidad.getUsuario_responsable());
+            stmt.setString(13, Operaciones.getCodigoControl(true,entidad.getObjLineaProduccion().getId_linea_produccion()));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();            
             if (rs.next()){
@@ -408,4 +411,82 @@ public static boolean actualizar(entProductoTerminado entidad) throws Exception
         }
         return rpta;
     }
+
+
+
+
+public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion()throws Exception
+{
+        List<entProductoTerminado> lista = null;
+        int contador=0;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="SELECT TOP 1 PT.FECHA_PRODUCCION,DR.HORA_INICIO FROM PRODUCTO_TERMINADO PT\n" +
+                        "JOIN DIA_RECEPCION DR ON PT.ID_DIA_RECEPCION=DR.ID_DIA_RECEPCION WHERE PT.ID_DIA_RECEPCION=\n" +
+                        "(select top 1 ID_DIA_RECEPCION from DIA_RECEPCION order by ID_DIA_RECEPCION DESC)\n" +
+                        "ORDER BY PT.FECHA_PRODUCCION DESC";
+
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+               final long ONE_MINUTE_IN_MILLIS=60000;  
+               
+               long fin = dr.getTimestamp(1).getTime();
+               long inicio=dr.getTimestamp(2).getTime();
+               long temp=0;
+               
+               while(fin>=inicio)
+               {
+                   temp=inicio + (10 * ONE_MINUTE_IN_MILLIS);
+                    sql="SELECT COUNT(*) FROM PRODUCTO_TERMINADO WHERE FECHA_PRODUCCION BETWEEN ? AND ?";
+                    CallableStatement csContador = conn.prepareCall(sql);
+                    csContador.setTimestamp(1, new Timestamp(inicio));
+                    csContador.setTimestamp(2, new Timestamp(temp));
+                    
+                    ResultSet drContador = csContador.executeQuery();
+                       if(drContador.next())
+                       {  
+                           if(lista==null)
+                                 lista= new ArrayList<entProductoTerminado>();  
+                           contador+=drContador.getInt(1);
+                            entProductoTerminado entidad = new entProductoTerminado();                    
+                            entidad.setId_producto_terminado(drContador.getInt(1));
+                            entidad.setFecha_produccion(new Date(temp));                                    
+                            lista.add(entidad);
+
+                       }
+                    csContador.close();
+                    drContador.close();
+                    inicio=temp;
+                }
+
+            }
+
+        conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+         if(lista!=null)
+             lista.get(0).setId_dia_recepcion(contador); 
+         
+        return lista;
+    }
+      
 }
