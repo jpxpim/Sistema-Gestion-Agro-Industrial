@@ -30,7 +30,7 @@ if(list!=null)
             <td><%=entidad.getNombre()%></td>
             <td><%=entidad.getCod_erp()%></td>
             <td>
-                <a data-dismiss="modal" href="javascript:void(0)" onclick="selecionar(<%=entidad.getId_insumo()%>,'<%=entidad.getNombre()%>','<%=entidad.getCod_erp()%>')" class="comp_edit btn btn-primary btn-mini">Seleccionar</a>
+                <a data-dismiss="modal" href="javascript:void(0)" onclick="selecionar(<%=entidad.getId_insumo()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-primary btn-mini">Seleccionar</a>
 
             </td>
         </tr>

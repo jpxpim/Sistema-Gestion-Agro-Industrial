@@ -1,19 +1,19 @@
 <%@page import="Entidades.entSesion"%>
-<%@page import="Entidades.entVivero"%>
+<%@page import="Entidades.entReceta"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
-<select id="cbVivero" name="cbVivero" title="Por favor selecione un Vivero!" required>
+<select id="cbReceta" name="cbReceta" title="Por favor selecione una Receta!" required>
    <option value="">Selecione una Opción</option>
 
 <%
     entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {   
-    List<entVivero> list=clsGestor.ListarVivero(true);
+    List<entReceta> list=clsGestor.ListarReceta(true);
     if(list!=null)
 
-        for(entVivero entidad : list)
-            out.print("<option value='"+entidad.getId_vivero()+"'>"+entidad.getNombre()+"</option>");
+        for(entReceta entidad : list)
+            out.print("<option value='"+entidad.getId_receta()+"'>"+entidad.getNombre()+"</option>");
 }
  %>
 </select>

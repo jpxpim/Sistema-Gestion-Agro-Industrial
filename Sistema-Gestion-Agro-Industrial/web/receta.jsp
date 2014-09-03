@@ -145,7 +145,9 @@ if(objSession!=null)
                                                                                             <input type="radio" value="0" id="rbEstado" name="rbEstado" />
                                                                                             Desactivado
                                                                                     </label>
-                                                                                    <div class="input-prepend">
+                                                                                     </div>
+                                                                                
+                                                                                    <div id="verTabla" class="input-prepend">
                                                                                         <br>
                                                                                         <table>
                                                                                             <tr>
@@ -155,15 +157,24 @@ if(objSession!=null)
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <center>
-                                                                                                        <a id="buscarInsumo" data-toggle='modal' data-backdrop='static' class="btn" href='#ModalInsumo'>Agregar</a>
+                                                                                                        <a id="buscarInsumo" data-toggle='modal' data-backdrop='static' class="btn" href='#ModalInsumo'>Buscar</a>
                                                                                                     </center>
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </table>
-                                                                                      
+                                                                                       <input type="text" class="span10" id="txtTabla" name="txtTabla" />
                                                                                     </div>  
-                                                                                     </div>
-                                                                                <input type="hidden" id="IdVivero"  name="IdVivero" value="0" />
+                                                                                <div id="verCantidad" class="input-prepend" style=" display: none;">
+                                                                                    <br>
+                                                                                    <label id="tInsumo">Agregar Insumo</label>
+                                                                                    <input type="text" class="span4" id="txtCantidad" name="txtCantidad" />
+                                                                                    <input type="text" class="span4" id="idInsumo" name="idInsumo" />
+                                                                                    <input type="text" class="span4" id="nInsumo" name="nInsumo" />
+                                                                                     
+                                                                                    <button class="btn btn-invert" onclick="addDetalle()" type="button">Agregar</button>
+                                                                                    <button class="btn btn-invert" onclick="cancelar()" type="button">Cancelar</button>
+                                                                                    </div>
+                                                                                <input type="hidden" id="IdReceta"  name="IdReceta" value="0" />
 
                                                                             </div>
                                                                             <button class="btn btn-invert" type="submit">Grabar</button>
@@ -177,7 +188,7 @@ if(objSession!=null)
                                                     </div>
                                             </div>	
                                             <div class="span7">
-                                               
+                                                <div id="tabla"></div>
                                             </div>
                                     </div>
                                             </div>
@@ -252,9 +263,65 @@ if(objSession!=null)
 	
 			<script>
 
- function selecionar(id,nombre,codigo)
+function addDetalle()
 {
+    if(!isNaN($('#txtCantidad').val()))
+    {
+        $('#detalle').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
     
+        $.ajax({
+            url: 'operaciones/receta/add_tabla_insumo.jsp?id='+$('#idInsumo').val()+'&nombre='+$('#nInsumo').val()+'&cantidad='+$('#txtCantidad').val(),
+            type: 'POST',
+            success: function (data) {     
+                 if(data==0)
+                    $.sticky("Insumo Repetido.", {autoclose : 5000, position: "top-center" });
+                 else
+                 {
+                     cancelar();
+                 }
+                  detalle();
+            },
+            contentType: false,
+            processData: false
+        });  
+    }
+    else
+        $.sticky("Por favor ingrese un número", {autoclose : 5000, position: "top-center" });  
+     
+};
+function cancelar()
+{
+    $('#txtCantidad').val("");
+     $('#idInsumo').val("");
+     $('#nInsumo').val("");
+     $('#verTabla').show();
+     $('#verCantidad').hide();
+     
+     
+};
+function selecionar(id,nombre)
+{
+    $('#tInsumo').html('<label id="tInsumo">Cantidad de '+nombre+'</label>');
+     $('#idInsumo').val(id);
+     $('#nInsumo').val(nombre);
+     $('#verTabla').hide();
+     $('#verCantidad').show();
+     
+     
+};
+function quitarItem(pos)
+{
+     $('#detalle').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+    
+    $.ajax({
+            url: 'operaciones/receta/remover_tabla_insumo.jsp?pos='+pos,
+            type: 'POST',
+            success: function () {  
+                detalle();
+            },
+            contentType: false,
+            processData: false
+        });
 };
  function modulos()
 {
@@ -325,7 +392,9 @@ function tabla()
                              detalle();
 				$(document).ready(function() {
 					//* show all elements & remove preloader
-                                        
+                                        $('#txtTabla').hide();
+                                        $('#idInsumo').hide();
+                                        $('#nInsumo').hide();
                                         setTimeout('$("html").removeClass("js")',1000);
                                         
 $('#buscarInsumo').click(function(){
@@ -348,6 +417,7 @@ $('#buscarInsumo').click(function(){
 					onkeyup: false,
 					errorClass: 'error',
 					validClass: 'valid',
+                                        ignore: ".ignore",
                                             submitHandler: function() {       
                                                        $("#abrirCarga").click();
                                                     var url = "operaciones/receta/insert.jsp"; 
@@ -380,8 +450,12 @@ $('#buscarInsumo').click(function(){
                                             },
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
+                                                txtTabla: { required: true, min:1 },
                                                 rbEstado: { required: true }
 					},
+                                        messages: {
+                                        'txtTabla'	: { min:  'Ingrese al menos un Insumo' }
+                                        },
 					highlight: function(element) {
 						$(element).closest('div').addClass("f_error");
 					},
@@ -399,23 +473,32 @@ $('#buscarInsumo').click(function(){
                                     function clear_form() {
                                            $('input:radio[name=rbEstado]').attr('checked',false);
                                           $('#txtNombre').val("");
-                                          $('#txtCodigo').val("");
-                                            $('#txtDescripcion').val("");
                                         
-                                          $("#IdVivero").val("0");  
-                                     
+                                          $("#IdReceta").val("0");  
+                                           $('#verTabla').show();
+                                            $('#verCantidad').hide();
                                            
                                       };
-                                       function edit_form(id,nombre,descripcion,codigo,estado) {
+                                       function edit_form(id,nombre,estado) {
+                                           $('#verTabla').show();
+                                            $('#verCantidad').hide();
                                             $('#txtNombre').val(nombre);
-                                            $('#txtDescripcion').val(descripcion);
-                                            $('#IdVivero').val(id);
-                                             $('#txtCodigo').val(codigo);
+                                            $('#IdReceta').val(id);
                                             if(estado.toLowerCase()=="true")
                                              $('input:radio[name=rbEstado]')[0].checked = true;
                                             else
                                               $('input:radio[name=rbEstado]')[1].checked = true;
-                                          
+                                          $('#detalle').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+    
+                                            $.ajax({
+                                                    url: 'operaciones/receta/cargar_tabla_insumo.jsp?id='+id,
+                                                    type: 'POST',
+                                                    success: function () {  
+                                                        detalle();
+                                                    },
+                                                    contentType: false,
+                                                    processData: false
+                                                });
 
                                       };
                                  

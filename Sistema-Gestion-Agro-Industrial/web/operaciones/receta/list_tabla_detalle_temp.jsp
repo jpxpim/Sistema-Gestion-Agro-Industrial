@@ -14,13 +14,13 @@ if(list!=null)
  <thead>
       <tr>
         <th>
-           N 
+           ID 
         </th>
         <th>
            Nombre 
         </th>
         <th>
-           Codigo
+           Cantida
         </th>
         <th>
            Acción
@@ -28,19 +28,20 @@ if(list!=null)
     </tr>
  </thead>
  <tbody>
- <%for(int i=0;i<list.size();i++){%>
+ <%for(int i=0;i<list.size();i++)
+ if(!list.get(i).isEliminado_session()){%>
      <tr>
          <td>
-             asd
+             <%=list.get(i).getObjInsumo().getId_insumo()%>
          </td>
          <td>
-             asd
+            <%=list.get(i).getObjInsumo().getNombre()%>
          </td>
          <td>
-             as
+             <%=list.get(i).getCantidad()%>
          </td>
           <td>
-            <center> <a href="javascript:void(0)" onclick="edit_form()" class="comp_edit btn btn-inverse btn-mini">Quitar</a></center>
+            <center> <a href="javascript:void(0)" onclick="quitarItem(<%=i%>)" class="comp_edit btn btn-inverse btn-mini">Quitar</a></center>
          </td>
      </tr>            
  <%}%>
@@ -48,7 +49,9 @@ if(list!=null)
 
 </table>
 </div>
-
+ <script>
+     $('#txtTabla').val('<%=list.size()%>');
+ </script>
 <%} }%>  
                                                                         
                                                                        

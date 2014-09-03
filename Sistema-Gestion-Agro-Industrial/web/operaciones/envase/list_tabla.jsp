@@ -1,12 +1,12 @@
  <%@page import="Entidades.entSesion"%>
+<%@page import="Entidades.entEnvase"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entReceta"%>
 <%@page import="java.util.List"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-List<entReceta> list=clsGestor.ListarReceta(false);
+List<entEnvase> list=clsGestor.ListarEnvase(false);
 if(list!=null)
 {%>
 <div id="tabla">
@@ -15,19 +15,29 @@ if(list!=null)
             <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Cod. Control</th>
+                    <th>Peso</th>
+                    <th>P. Carga</th>
+                    <th>C.T.P.</th>
+                    <th>Receta</th>
                     <th>Estado</th>
                     <th>Acciones</th>
             </tr>
-    </thead> 
-     <tbody>      
+    </thead>   
+     <tbody>     
     <%
-    for(entReceta entidad : list)
+    for(entEnvase entidad : list)
     {
     %>
-                                                                   
+                                                               
         <tr>
-            <td><%=entidad.getId_receta()%></td>
+            <td><%=entidad.getId_envase()%></td>
             <td><%=entidad.getNombre()%></td>
+            <td><%=entidad.getCodigo_control()%></td>
+            <td><%=entidad.getPeso()%></td>
+            <td><%=entidad.getPeso_carga()%></td>
+             <td><%=entidad.getCant_cajas_paleta()%></td>
+             <td><%=entidad.getObjReceta().getNombre()%></td>
             <td>
                  <%
                    if(entidad.isEstado())
@@ -39,11 +49,10 @@ if(list!=null)
 
             </td>
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_receta()%>,'<%=entidad.getNombre()%>','<%=entidad.isEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_envase()%>,'<%=entidad.getNombre()%>','<%=entidad.getCodigo_control()%>','<%=entidad.getPeso()%>','<%=entidad.getPeso_carga()%>','<%=entidad.getCant_cajas_paleta()%>',<%=entidad.getObjReceta().getId_receta()%>,'<%=entidad.getObjReceta().getNombre()%>','<%=entidad.isEstado()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>
-
 
     <%
     }
@@ -56,7 +65,7 @@ $(function () {
 
    $('#lista').dataTable({
                                            "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
-                                            "sScrollY": "210px",
+                                            "sScrollY": "320px",
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     }); 

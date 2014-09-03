@@ -15,8 +15,15 @@ public class entDetalleReceta {
     private int id_receta;
     private entInsumo objInsumo;
     private double cantidad;
+     private boolean seleccionado_session;
+     private boolean agregado_session;
+     private boolean eliminado_session;
 
     public entDetalleReceta() {
+        this.id_det_receta=0;
+        this.seleccionado_session=false;
+        this.agregado_session=false;
+        this.eliminado_session=false;
     }
 
     public int getId_det_receta() {
@@ -49,6 +56,30 @@ public class entDetalleReceta {
 
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public boolean isSeleccionado_session() {
+        return seleccionado_session;
+    }
+
+    public void setSeleccionado_session(boolean seleccionado_session) {
+        this.seleccionado_session = seleccionado_session;
+    }
+
+    public boolean isAgregado_session() {
+        return agregado_session;
+    }
+
+    public void setAgregado_session(boolean agregado_session) {
+        this.agregado_session = agregado_session;
+    }
+
+    public boolean isEliminado_session() {
+        return eliminado_session;
+    }
+
+    public void setEliminado_session(boolean eliminado_session) {
+        this.eliminado_session = eliminado_session;
     }
     
 }

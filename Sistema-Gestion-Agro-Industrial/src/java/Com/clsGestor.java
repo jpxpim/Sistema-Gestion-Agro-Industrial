@@ -647,15 +647,15 @@ public class clsGestor {
         return EnvaseDAO.Listar(activo);
     }
     
-//    public  static int insertarEnvase(entEnvase entidad) throws Exception
-//    {
-//        return EnvaseDAO.insertar(entidad);
-//    }
-//    
-//    public static boolean actualizarEnvase(entEnvase entidad) throws Exception
-//    {
-//        return EnvaseDAO.actualizar(entidad);
-//    }
+    public  static int insertarEnvase(entEnvase entidad) throws Exception
+    {
+        return EnvaseDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarEnvase(entEnvase entidad) throws Exception
+    {
+        return EnvaseDAO.actualizar(entidad);
+    }
     // </editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="entCalibre">
@@ -774,6 +774,24 @@ public class clsGestor {
     }
     // </editor-fold>  
     
+    //<editor-fold defaultstate="collapsed" desc="entReceta">
+    public static List<entReceta> ListarReceta(boolean activo) throws Exception
+    {
+        return RecetaDAO.Listar(activo);
+    }
+     public static List<entDetalleReceta> ListarDetalleReceta(int IdReceta) throws Exception
+    {
+        return RecetaDAO.ListarDetalle(IdReceta);
+    }
+     public  static int insertarReceta(entReceta entidad) throws Exception
+    {
+        return RecetaDAO.insertar(entidad);
+    }
+      public  static boolean actualizarReceta(entReceta entidad) throws Exception
+    {
+        return RecetaDAO.actualizar(entidad);
+    }
+    // </editor-fold>  
     
     
     

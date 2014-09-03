@@ -31,7 +31,7 @@ public class EnvaseDAO {
         ResultSet dr = null;
         try {
             String sql="select E.ID_ENVASE,E.CODIGO_CONTROL,E.NOMBRE,E.PESO,E.PESO_CARGA,E.ESTADO,E.USUARIO_RESPONSABLE,"
-                    + "E.FECHA_MODIFICACION,E.ID_RECETA,R.NOMBRE,R.ESTADO,R.USUARIO_RESPONSABLE,R.FECHA_MODIFICACION "
+                    + "E.FECHA_MODIFICACION,E.ID_RECETA,R.NOMBRE,R.ESTADO,R.USUARIO_RESPONSABLE,R.FECHA_MODIFICACION,E.CANT_CAJAS_PALETA "
                     + "from ENVASE E JOIN RECETA R ON E.ID_RECETA=R.ID_RECETA ";
             if(activo)
                         sql+=" where E.ESTADO=1"; 
@@ -61,6 +61,7 @@ public class EnvaseDAO {
                     entidad.setEstado(dr.getBoolean(6)); 
                     entidad.setUsuario_responsable(dr.getString(7)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(8)); 
+                    entidad.setCant_cajas_paleta(dr.getInt(14)); 
                     entidad.setObjReceta(objReceta);
                     lista.add(entidad);
             }
@@ -79,5 +80,81 @@ public class EnvaseDAO {
         return lista;
     }
 
+      public  static int insertar(entEnvase entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement stmt = null;
+        try {
+            
+           String sql="INSERT INTO ENVASE(ID_RECETA,CODIGO_CONTROL,NOMBRE,PESO,PESO_CARGA,CANT_CAJAS_PALETA,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)"
+                   + "VALUES(?,?,?,?,?,?,?,?,GETDATE());";
+           
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1,entidad.getObjReceta().getId_receta());
+            stmt.setString(2, entidad.getCodigo_control());
+            stmt.setString(3, entidad.getNombre());
+            stmt.setDouble(4, entidad.getPeso());
+            stmt.setDouble(5, entidad.getPeso_carga());
+            stmt.setInt(6,entidad.getCant_cajas_paleta());
+            stmt.setBoolean(7, entidad.isEstado());
+            stmt.setString(8, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+           
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                rpta=rs.getInt(1);
+            }
+            rs.close();
+        } catch (Exception e) {
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
+    
+    public static boolean actualizar(entEnvase entidad) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+            //,,,,,,,,
+             String sql="UPDATE ENVASE SET ID_RECETA = ?,CODIGO_CONTROL= ?,NOMBRE= ?,"
+                     + "PESO= ?,PESO_CARGA= ?,CANT_CAJAS_PALETA = ?,ESTADO = ?,"
+                     + "USUARIO_RESPONSABLE = ?,FECHA_MODIFICACION = GETDATE() WHERE ID_ENVASE = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);             
+           stmt.setInt(1,entidad.getObjReceta().getId_receta());
+            stmt.setString(2, entidad.getCodigo_control());
+            stmt.setString(3, entidad.getNombre());
+            stmt.setDouble(4, entidad.getPeso());
+            stmt.setDouble(5, entidad.getPeso_carga());
+            stmt.setInt(6,entidad.getCant_cajas_paleta());
+            stmt.setBoolean(7, entidad.isEstado());
+            stmt.setString(8, entidad.getUsuario_responsable());
+            stmt.setInt(9,entidad.getId_envase());
+                
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }    
     
 }

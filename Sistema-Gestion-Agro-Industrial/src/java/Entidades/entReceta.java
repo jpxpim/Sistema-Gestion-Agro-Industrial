@@ -7,6 +7,7 @@
 package Entidades;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -18,7 +19,7 @@ public class entReceta {
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
-
+    List<entDetalleReceta> list;
     public entReceta() {
     }
 
@@ -26,6 +27,7 @@ public class entReceta {
         this.id_receta = id_receta;
     }
 
+ 
     public int getId_receta() {
         return id_receta;
     }
@@ -64,6 +66,14 @@ public class entReceta {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public List<entDetalleReceta> getList() {
+        return list;
+    }
+
+    public void setList(List<entDetalleReceta> list) {
+        this.list = list;
     }
     
 }
