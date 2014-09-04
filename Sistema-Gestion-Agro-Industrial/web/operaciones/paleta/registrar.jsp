@@ -574,6 +574,15 @@ function clear_all()
         type: 'POST',
         success: function () {   
                 $('#paleta').html('<div id="paleta"></div>');
+                 $.ajax({
+                            url: 'operaciones/producto_terminado/data_producto_terminado.jsp',
+                            type: 'POST',
+                            success: function (data) {     
+                                     $('#producto_terminado').html(data);         
+                            },
+                            contentType: false,
+                            processData: false
+                    });
                 tabla();
                 $("#txtCodigo").val(""); 
                $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
