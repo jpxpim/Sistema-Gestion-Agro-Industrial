@@ -414,14 +414,14 @@ function combo(id,idCampania,nCampania)
 
 
                                         $('#tablaCapania').dataTable({
-                                           "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+                                           "sPaginationType": "bootstrap",
                                             "sScrollY": "200px",
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     });
                                                     
                                            $('#tablaLote').dataTable({
-                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
+                                           "sPaginationType": "bootstrap",
                                             "sScrollY": "200px",
                                              "sScrollX": "90%",
                                             "bDestroy": true,

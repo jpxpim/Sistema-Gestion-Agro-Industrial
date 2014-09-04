@@ -55,8 +55,8 @@ if(list!=null)
 $(function () { 
 
    $('#lista').dataTable({
-                                           "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
-                                            "sScrollY": "210px",
+                                           "sPaginationType": "bootstrap",
+                                            "sScrollY": "170px",
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     }); 

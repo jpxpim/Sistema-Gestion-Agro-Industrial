@@ -46,7 +46,7 @@ if(list!=null)
 $(function () { 
 
    $('#listaInsumo').dataTable({
-                                           "sDom": "<'row'<'span5'><'span5'f>r>t<'row'<'span5'i><'span5'>S>",
+                                           "sPaginationType": "bootstrap",
                                             "sPaginationType": "bootstrap"
                                                     }); 
  

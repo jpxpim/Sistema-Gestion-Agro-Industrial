@@ -420,7 +420,7 @@ function selectCampaniaLote(id,nombre)
                                         
                                         
                                         $('#tablaCapania').dataTable({
-                                           "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+                                          "sPaginationType": "bootstrap",
                                             "sScrollY": "200px",
                                             "bDestroy": true,
                                             "bDeferRender": true

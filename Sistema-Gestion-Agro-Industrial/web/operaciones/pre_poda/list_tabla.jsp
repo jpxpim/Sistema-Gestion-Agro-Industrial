@@ -81,7 +81,7 @@ if(list!=null)
 $(function () { 
 
    $('#lista').dataTable({
-       "sDom": "<'row'<'span6'><'span6'f>r>t<'row'<'span6'i><'span6'>S>",
+       "sPaginationType": "bootstrap",
         "sScrollY": "320px",
         "bDestroy": true,
         "bDeferRender": true

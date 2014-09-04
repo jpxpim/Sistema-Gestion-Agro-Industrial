@@ -850,11 +850,11 @@ $(function () {
   $( "#idLoteCanpania" ).hide();
   
 $('#tablaEvaluador').dataTable({
-      "sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+      "sPaginationType": "bootstrap",
                                             "bDeferRender": true
 }); 
 $('#tablaCampaniaLote').dataTable({
-"sDom": "<'row'<'span4'><'span4'f>r>t<'row'<'span4'i><'span4'>S>",
+"sPaginationType": "bootstrap",
                                             "bDeferRender": true
 }); 
 
