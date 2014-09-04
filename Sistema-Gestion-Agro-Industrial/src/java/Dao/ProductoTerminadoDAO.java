@@ -415,7 +415,7 @@ public static boolean actualizar(entProductoTerminado entidad) throws Exception
 
 
 
-public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion()throws Exception
+public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion(int idLinea,int tiempo)throws Exception
 {
         List<entProductoTerminado> lista = null;
         int contador=0;
@@ -443,8 +443,10 @@ public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion()throws
                
                while(fin>=inicio)
                {
-                   temp=inicio + (10 * ONE_MINUTE_IN_MILLIS);
-                    sql="SELECT COUNT(*) FROM PRODUCTO_TERMINADO WHERE FECHA_PRODUCCION BETWEEN ? AND ?";
+                   temp=inicio + (tiempo * ONE_MINUTE_IN_MILLIS);
+                    sql="SELECT COUNT(*) FROM PRODUCTO_TERMINADO WHERE (FECHA_PRODUCCION BETWEEN ? AND ?)";
+                       if(idLinea>0)
+                           sql+=" AND ID_LINEA_PRODUCCION="+idLinea;
                     CallableStatement csContador = conn.prepareCall(sql);
                     csContador.setTimestamp(1, new Timestamp(inicio));
                     csContador.setTimestamp(2, new Timestamp(temp));
@@ -488,5 +490,213 @@ public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion()throws
          
         return lista;
     }
-      
+     
+public static List<entProductoTerminado> GraficoEnvasexLineaProduccion(int idLineaProduccion) throws Exception
+{
+    List<entProductoTerminado> lista = null;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select COUNT(*),E.CODIGO_CONTROL from PRODUCTO_TERMINADO PT JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE\n" +
+                    "join LINEA_PRODUCCION LP ON LP.ID_LINEA_PRODUCCION=PT.ID_LINEA_PRODUCCION\n" +
+                    "WHERE PT.ID_DIA_RECEPCION=(select top 1 ID_DIA_RECEPCION from DIA_RECEPCION order by ID_DIA_RECEPCION DESC)\n";
+                    if(idLineaProduccion>0)
+                    sql+="AND LP.ID_LINEA_PRODUCCION="+idLineaProduccion+"\n";
+                    sql+= "GROUP BY E.CODIGO_CONTROL";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        while(dr.next())
+        {
+            if(lista==null)
+                lista= new ArrayList<entProductoTerminado>();
+            //ProductoTerminado
+            entProductoTerminado entidad = new entProductoTerminado(); 
+            entidad.setId_producto_terminado(dr.getInt(1));
+            entidad.setCodigo_control(dr.getString(2));
+            lista.add(entidad);
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return lista;
+}  
+
+ public static List<entProductoTerminado> GraficoVariedadxLineaProduccion(int idLineaProduccion) throws Exception
+{
+    List<entProductoTerminado> lista = null;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select COUNT(PT.ID_PRODUCTO_TERMINADO),V.CODIGO_CONTROL from PRODUCTO_TERMINADO PT JOIN LOTE L\n" +
+                    "ON L.ID_LOTE=PT.ID_LOTE JOIN VARIEDAD V ON L.ID_VARIEDAD=V.ID_VARIEDAD JOIN LINEA_PRODUCCION LP\n" +
+                    "ON LP.ID_LINEA_PRODUCCION=PT.ID_LINEA_PRODUCCION\n" +
+                    "WHERE PT.ID_DIA_RECEPCION=(select top 1 ID_DIA_RECEPCION from DIA_RECEPCION order by ID_DIA_RECEPCION DESC)\n";
+                    if(idLineaProduccion>0)
+                    sql+="AND LP.ID_LINEA_PRODUCCION="+idLineaProduccion+"\n";
+                    sql+="GROUP BY V.CODIGO_CONTROL";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        while(dr.next())
+        {
+            if(lista==null)
+                lista= new ArrayList<entProductoTerminado>();
+            //ProductoTerminado
+            entProductoTerminado entidad = new entProductoTerminado(); 
+            entidad.setId_producto_terminado(dr.getInt(1));
+            entidad.setCodigo_control(dr.getString(2));
+            lista.add(entidad);
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return lista;
+}  
+
+public static List<entProductoTerminado> GraficoCalibredxLineaProduccion(int idLineaProduccion) throws Exception
+{
+    List<entProductoTerminado> lista = null;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select COUNT(*),C.CODIGO_CONTROL from PRODUCTO_TERMINADO PT JOIN CALIBRE C ON PT.ID_CALIBRE=C.ID_CALIBRE\n" +
+                    "join LINEA_PRODUCCION LP ON LP.ID_LINEA_PRODUCCION=PT.ID_LINEA_PRODUCCION\n" +
+                    "WHERE PT.ID_DIA_RECEPCION=(select top 1 ID_DIA_RECEPCION from DIA_RECEPCION order by ID_DIA_RECEPCION DESC)\n";
+                    if(idLineaProduccion>0)
+                    sql+="AND LP.ID_LINEA_PRODUCCION="+idLineaProduccion+"\n";
+                    sql+="GROUP BY C.CODIGO_CONTROL";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        while(dr.next())
+        {
+            if(lista==null)
+                lista= new ArrayList<entProductoTerminado>();
+            //ProductoTerminado
+            entProductoTerminado entidad = new entProductoTerminado(); 
+            entidad.setId_producto_terminado(dr.getInt(1));
+            entidad.setCodigo_control(dr.getString(2));
+            lista.add(entidad);
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return lista;
+}
+
+public static List<entProductoTerminado> GraficoSelecionador() throws Exception
+{
+    List<entProductoTerminado> lista = null;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select TOP 5 COUNT(PT.ID_PRODUCTO_TERMINADO),E.NOMBRE,E.APELLIDO from PRODUCTO_TERMINADO PT\n" +
+                    "JOIN EMPLEADO E ON E.DNI=PT.SELECCIONADOR group by PT.SELECCIONADOR,E.NOMBRE,E.APELLIDO \n" +
+                    "ORDER BY  COUNT(PT.ID_PRODUCTO_TERMINADO) DESC";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        while(dr.next())
+        {
+            if(lista==null)
+                lista= new ArrayList<entProductoTerminado>();
+            //ProductoTerminado
+            entProductoTerminado entidad = new entProductoTerminado(); 
+            entidad.setId_producto_terminado(dr.getInt(1));
+            entidad.setCodigo_control(dr.getString(2)+" "+dr.getString(3));
+            lista.add(entidad);
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return lista;
+}  
+public static List<entProductoTerminado> GraficoEmbalador() throws Exception
+{
+    List<entProductoTerminado> lista = null;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select TOP 5 COUNT(PT.ID_PRODUCTO_TERMINADO),E.NOMBRE,E.APELLIDO from PRODUCTO_TERMINADO PT\n" +
+                    "JOIN EMPLEADO E ON E.DNI=PT.EMBALADOR group by PT.SELECCIONADOR,E.NOMBRE,E.APELLIDO \n" +
+                    "ORDER BY  COUNT(PT.ID_PRODUCTO_TERMINADO) DESC";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        while(dr.next())
+        {
+            if(lista==null)
+                lista= new ArrayList<entProductoTerminado>();
+            //ProductoTerminado
+            entProductoTerminado entidad = new entProductoTerminado(); 
+            entidad.setId_producto_terminado(dr.getInt(1));
+            entidad.setCodigo_control(dr.getString(2)+" "+dr.getString(3));
+            lista.add(entidad);
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return lista;
+}  
 }

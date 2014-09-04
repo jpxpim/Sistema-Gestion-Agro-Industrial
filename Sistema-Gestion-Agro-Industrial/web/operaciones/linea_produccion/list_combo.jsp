@@ -1,19 +1,19 @@
 <%@page import="Entidades.entSesion"%>
-<%@page import="Entidades.entCategoria"%>
+<%@page import="Entidades.entLineaProduccion"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
-<select id="cbCategoria" name="cbCategoria" title="Por favor selecione un Categoria!" required>
+<select id="cbLineaProduccion" name="cbLineaProduccion" title="Por favor selecione un LineaProduccion!" required>
    <option value="">Selecione una Opción</option>
 
 <%
     entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {   
-    List<entCategoria> list=clsGestor.ListarCategoria(true);
+    List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(true);
     if(list!=null)
 
-        for(entCategoria entidad : list)
-            out.print("<option value='"+entidad.getId_categoria()+"'>"+entidad.getNombre()+"</option>");
+        for(entLineaProduccion entidad : list)
+            out.print("<option value='"+entidad.getId_linea_produccion()+"'>"+entidad.getNombre()+"</option>");
 }
  %>
 </select>

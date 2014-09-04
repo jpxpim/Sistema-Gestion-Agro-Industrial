@@ -138,70 +138,30 @@ if(objSession!=null)
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
-                                                                          <div class="location_add_form well">                                                                              
+                                                                          <div class="location_add_form well">   
                                                                                     <div class="input-prepend">
-                                                                                        <label>Tiempo de Alerta en minutos</label>
-                                                                                        <select name="cbTiempoAlerta" id="cbTiempoAlerta" class="input-mini" >
-                                                                                            <%
-                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==1)
-                                                                                                out.print("<option value='1' selected>1</option>");
-                                                                                            else
-                                                                                                out.print("<option value='1'>1</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==2)
-                                                                                                out.print("<option value='2' selected>2</option>");
-                                                                                            else
-                                                                                                out.print("<option value='2'>2</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==3)
-                                                                                                out.print("<option value='3' selected>3</option>");
-                                                                                            else
-                                                                                                out.print("<option value='3'>3</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==4)
-                                                                                                out.print("<option value='4' selected>4</option>");
-                                                                                            else
-                                                                                                out.print("<option value='4'>4</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getTiempo_alerta()==5)
-                                                                                                out.print("<option value='5' selected>1</option>");
-                                                                                            else
-                                                                                                out.print("<option value='5'>5</option>");
-                                                                                            %>
-                                                                                        </select>                                                                                    
+                                                                                        <p class="sepH_a">Tiempo de Alerta (1+): <strong class="alerta_val"></strong></p>
+                                                                                        <br>
+                                                                                        <div class="alerta"></div>
+                                                                                        <input type="hidden" name="txtAlerta" id="txtAlerta"/>                                                                                  
                                                                                     </div> 
+                                                                                     <br><br>
                                                                                     <div class="input-prepend">
-                                                                                        <label>Sincronización de Dashboard en minutos</label>
-                                                                                        <select name="cbDash" id="cbDash" class="input-mini" >
-                                                                                            <%
-                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==1)
-                                                                                                out.print("<option value='1' selected>1</option>");
-                                                                                            else
-                                                                                                out.print("<option value='1'>1</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==2)
-                                                                                                out.print("<option value='2' selected>2</option>");
-                                                                                            else
-                                                                                                out.print("<option value='2'>2</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==3)
-                                                                                                out.print("<option value='3' selected>3</option>");
-                                                                                            else
-                                                                                                out.print("<option value='3'>3</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==4)
-                                                                                                out.print("<option value='4' selected>4</option>");
-                                                                                            else
-                                                                                                out.print("<option value='4'>4</option>");
-                                                                                            
-                                                                                            if(objSession.getObjConfiguracion().getSincro_dash()==5)
-                                                                                                out.print("<option value='5' selected>5</option>");
-                                                                                            else
-                                                                                                out.print("<option value='5'>5</option>");
-                                                                                            %>
-                                                                                        </select>                                                                                    
+                                                                                        <p class="sepH_a">Sincronización de Control Maestro (1+): <strong class="sincronizacion_val"></strong></p>
+                                                                                        <br>
+                                                                                        <div class="sincronizacion"></div>
+                                                                                        <input type="hidden" name="txtSincronizacion" id="txtSincronizacion"/>                                                                             
                                                                                     </div> 
+                                                                                      <br><br>
                                                                                     <div class="input-prepend">
+                                                                                            <p class="sepH_a">Tiempo Agrupacion de Producción (1+): <strong class="intervalo_val"></strong></p>
+                                                                                            <br>
+                                                                                            <div class="intervalo"></div>
+                                                                                            <input type="hidden" name="txtIntervalo" id="txtIntervalo"/>
+
+                                                                                    </div>
+                                                                                      <br><br>
+                                                                                     <div class="input-prepend">
                                                                                     <label>Clave por Defecto de Usuarios</label>
                                                                                     <input type="text" class="span10" id="txtClave" name="txtClave" value='<%=objSession.getObjConfiguracion().getUsuario_clave()%>' />
                                                                                     </div>
@@ -442,34 +402,46 @@ function getMododulos(posicion)
                                             allow_single_deselect: true
                                             });
                                             
-                                       
-                                        var select1 = $( "#cbTiempoAlerta" );
-                                        var slider1 = $( "<br><br><div id='ui_slider1'></div>" ).insertAfter( select1 ).slider({
+                                         //slider intervalo   
+                                        $( ".intervalo" ).slider({
+                                                value:<%=objSession.getObjConfiguracion().getIntervalo_agrupacion_produccion()%>,
                                                 min: 1,
-                                                max: 5,
-                                                range: "min",
-                                                value: select1[ 0 ].selectedIndex + 1,
+                                                max: 60,
+                                                step: 1,
                                                 slide: function( event, ui ) {
-                                                        select1[ 0 ].selectedIndex = ui.value - 1;
+                                                        $( ".intervalo_val" ).text( ui.value );
+                                                        $( "#txtIntervalo" ).val( ui.value );
                                                 }
                                         });
-                                        $( "#cbTiempoAlerta" ).change(function() {
-                                                slider1.slider( "value", this.selectedIndex + 1 );
-                                        });
-                                        
-                                        var select2 = $( "#cbDash" );
-                                        var slider2 = $( "<br><br><div id='ui_slider2'></div>" ).insertAfter( select2 ).slider({
+                                        $( ".intervalo_val" ).text( $( ".intervalo" ).slider( "value" ) );
+                                        $( "#txtIntervalo" ).val( $( ".intervalo" ).slider( "value" ) );
+                                        //slider sincronizacion
+                                        $( ".sincronizacion" ).slider({
+                                                value:<%=objSession.getObjConfiguracion().getSincro_dash()%>,
                                                 min: 1,
-                                                max: 5,
-                                                range: "min",
-                                                value: select2[ 0 ].selectedIndex + 1,
+                                                max: 15,
+                                                step: 1,
                                                 slide: function( event, ui ) {
-                                                        select2[ 0 ].selectedIndex = ui.value - 1;
+                                                        $( ".sincronizacion_val" ).text(ui.value );
+                                                        $( "#txtSincronizacion" ).val( ui.value );
                                                 }
                                         });
-                                        $( "#cbDash" ).change(function() {
-                                                slider2.slider( "value", this.selectedIndex + 1 );
+                                        $( ".sincronizacion_val" ).text( $( ".sincronizacion" ).slider( "value" ) );
+                                        $( "#txtSincronizacion" ).val($( ".sincronizacion" ).slider( "value" ) );
+                                        //slider alerta
+                                       $( ".alerta" ).slider({
+                                                value:<%=objSession.getObjConfiguracion().getTiempo_alerta()%>,
+                                                min: 1,
+                                                max: 15,
+                                                step: 1,
+                                                slide: function( event, ui ) {
+                                                        $( ".alerta_val" ).text( ui.value );
+                                                        $( "#txtAlerta" ).val(  ui.value );
+                                                }
                                         });
+                                        $( ".alerta_val" ).text(  $( ".alerta" ).slider( "value" ) );
+                                        $( "#txtAlerta" ).val(  $( ".alerta" ).slider( "value" ) );
+                                    
                         
                         
                         
@@ -505,7 +477,6 @@ function getMododulos(posicion)
 					rules: {
 						txtNombreBD: { required: true, minlength: 3 },
                                                 txtIPBD: { required: true, minlength: 3 },
-                                                txtPuertoBD: { required: true, minlength: 2 },
                                                 txtClave: { required: true, minlength: 6 },
                                                 txtContraseniaBD: { required: true, minlength: 4 },
                                                 txtUsuarioBD: { required: true, minlength: 2 },

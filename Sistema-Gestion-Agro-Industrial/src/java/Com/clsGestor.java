@@ -297,6 +297,7 @@ public class clsGestor {
     {
         return LoteDAO.GraficoHectareasVariedad();
     }    
+    
      
 // </editor-fold>
      
@@ -748,10 +749,30 @@ public class clsGestor {
     {
         return ProductoTerminadoDAO.buscarOrigen(Codigo);
     }
-    public static List<entProductoTerminado> GraficoAcumulativoDiaProduccionProductoTerminado()throws Exception
+    public static List<entProductoTerminado> GraficoAcumulativoDiaProduccionProductoTerminado(int idLinea,int tiempo)throws Exception
     {
-        return ProductoTerminadoDAO.GraficoAcumulativoDiaProduccion();
+        return ProductoTerminadoDAO.GraficoAcumulativoDiaProduccion(idLinea, tiempo);
     }
+    public static List<entProductoTerminado> GraficoEnvasexLineaProduccionProduccionProductoTerminado(int idLineaProduccion) throws Exception
+    {
+        return ProductoTerminadoDAO.GraficoEnvasexLineaProduccion(idLineaProduccion);
+    }
+     public static List<entProductoTerminado> GraficoVariedadxLineaProduccionProductoTerminado(int idLineaProduccion) throws Exception
+    {   
+        return ProductoTerminadoDAO.GraficoVariedadxLineaProduccion(idLineaProduccion);
+    }
+    public static List<entProductoTerminado> GraficoCalibredxLineaProduccionProductoTerminado(int idLineaProduccion) throws Exception
+    {   
+        return ProductoTerminadoDAO.GraficoCalibredxLineaProduccion(idLineaProduccion);
+    }
+    public static List<entProductoTerminado> GraficoSelecionadorProductoTerminado() throws Exception
+    {
+      return ProductoTerminadoDAO.GraficoSelecionador();  
+    } 
+    public static List<entProductoTerminado> GraficoEmbaladorProductoTerminado() throws Exception
+    {
+      return ProductoTerminadoDAO.GraficoEmbalador();  
+    } 
     // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entPaleta">

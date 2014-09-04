@@ -26,6 +26,7 @@ public class entConfiguracion {
     private int usuario_cierre_recepcion_3;
     private int minutos_bloqueo;
     private int max_intentos_login;
+    private int intervalo_agrupacion_produccion;
     
     public entConfiguracion ()
     {
@@ -151,6 +152,14 @@ public class entConfiguracion {
 
     public void setUsuario_cierre_recepcion_3(int usuario_cierre_recepcion_3) {
         this.usuario_cierre_recepcion_3 = usuario_cierre_recepcion_3;
+    }
+
+    public int getIntervalo_agrupacion_produccion() {
+        return intervalo_agrupacion_produccion;
+    }
+
+    public void setIntervalo_agrupacion_produccion(int intervalo_agrupacion_produccion) {
+        this.intervalo_agrupacion_produccion = intervalo_agrupacion_produccion;
     }
 
   

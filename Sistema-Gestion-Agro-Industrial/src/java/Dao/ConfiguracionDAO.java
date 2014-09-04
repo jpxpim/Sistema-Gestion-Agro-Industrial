@@ -26,7 +26,7 @@ public class ConfiguracionDAO {
         try {
             String sql="select ID_CONFIGURACION,NOM_BD_ERP_EXT,IP_BD_ERP_EXT,PUERTO_ERP_EXT,USUARIO_BD_ERP_EXT,"
                     + " CONTRA_BD_ERP_EXT,TIEMPO_ALERTA,USUARIO_CLAVE,SINCRO_DASH,PRODUCTOR_EMPRESA,USUARIO_CIERRE_RECEPCION_1,"
-                    + " USUARIO_CIERRE_RECEPCION_2,USUARIO_CIERRE_RECEPCION_3 from CONFIGURACION ";
+                    + " USUARIO_CIERRE_RECEPCION_2,USUARIO_CIERRE_RECEPCION_3,INTERVALO_AGRUPACION_PRODUCCION from CONFIGURACION ";
             
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -48,6 +48,7 @@ public class ConfiguracionDAO {
                     entidad.setUsuario_cierre_recepcion_1(dr.getInt(11));
                     entidad.setUsuario_cierre_recepcion_2(dr.getInt(12));
                     entidad.setUsuario_cierre_recepcion_3(dr.getInt(13));
+                    entidad.setIntervalo_agrupacion_produccion(dr.getInt(14));
             }
 
         } catch (Exception e) {
@@ -74,7 +75,8 @@ public class ConfiguracionDAO {
 
              String sql="UPDATE configuracion SET NOM_BD_ERP_EXT = ?,IP_BD_ERP_EXT= ?,PUERTO_ERP_EXT=?,USUARIO_BD_ERP_EXT= ?,"
                      + "CONTRA_BD_ERP_EXT = ?,TIEMPO_ALERTA = ?,USUARIO_CLAVE = ?,SINCRO_DASH = ?,PRODUCTOR_EMPRESA= ?,"
-                     + "  USUARIO_CIERRE_RECEPCION_1=?, USUARIO_CIERRE_RECEPCION_2=?, USUARIO_CIERRE_RECEPCION_3=? WHERE ID_CONFIGURACION = ?;";
+                     + "  USUARIO_CIERRE_RECEPCION_1=?, USUARIO_CIERRE_RECEPCION_2=?, USUARIO_CIERRE_RECEPCION_3=?,"
+                     + "INTERVALO_AGRUPACION_PRODUCCION=? WHERE ID_CONFIGURACION = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
@@ -90,7 +92,8 @@ public class ConfiguracionDAO {
             stmt.setInt(10,entidad.getUsuario_cierre_recepcion_1());
             stmt.setInt(11,entidad.getUsuario_cierre_recepcion_2());
             stmt.setInt(12,entidad.getUsuario_cierre_recepcion_3());
-            stmt.setInt(13,entidad.getId_configuracion());
+            stmt.setInt(13,entidad.getIntervalo_agrupacion_produccion());
+            stmt.setInt(14,entidad.getId_configuracion());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {
