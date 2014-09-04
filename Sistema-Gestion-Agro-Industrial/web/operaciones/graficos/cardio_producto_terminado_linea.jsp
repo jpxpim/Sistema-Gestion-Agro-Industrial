@@ -11,13 +11,13 @@ if(objSession!=null)
 if(request.getParameter("id") != null && request.getParameter("id") != "" &&
         request.getParameter("intervalo") != null && request.getParameter("intervalo") != "" )
 {
-List<entProductoTerminado> list=clsGestor.GraficoAcumulativoDiaProduccionProductoTerminado(Integer.parseInt(request.getParameter("id")),Integer.parseInt(request.getParameter("intervalo"))); 
+List<entProductoTerminado> list=clsGestor.GraficoAcumulativoDiaProduccionProductoTerminado(Integer.parseInt(request.getParameter("id")),Integer.parseInt(request.getParameter("intervalo")),false); 
 if(list!=null)
 {
 int size=list.size();
 %>
 
-<div id="cardio_producto_terminado_linea" style="height:270px;width:90%;margin:15px auto 0"></div>
+<div id="cardio_producto_terminado_linea" style="height:170px;width:100%;"></div>
 <script type="text/javascript">
 $(function () { 
              $('#totaCajas').html('<span id="totaCajas" class="pull-right label label-info ttip_t" >N Cajas: <%=list.get(0).getId_dia_recepcion()%></span>');

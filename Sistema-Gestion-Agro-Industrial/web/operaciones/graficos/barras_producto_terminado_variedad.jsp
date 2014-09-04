@@ -11,7 +11,7 @@ if(list!=null)
 {
 int size=list.size();
 %>
-<div id="barras_producto_terminado_variedad" style="height:270px;width:90%;margin:15px auto 0"></div>
+<div id="barras_producto_terminado_variedad" style="height:200px;width:90%;margin:15px auto 0"></div>
 
 <script type="text/javascript">
 $(function () { 

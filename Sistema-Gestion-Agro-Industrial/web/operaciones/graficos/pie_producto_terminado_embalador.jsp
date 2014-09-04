@@ -9,7 +9,7 @@ if(list!=null)
 {
 int size=list.size();
 %>
-<div id="pie_producto_terminado_embalador" style="height:250px;width:90%;margin:15px auto 0"></div>
+<div id="pie_producto_terminado_embalador" style="height:200px;width:90%;margin:15px auto 0"></div>
 
 <script type="text/javascript">
 $(function () { 

@@ -172,8 +172,7 @@ public class ProductoTerminadoDAO {
                             + "PRODUCTO_TERMINADO PT "
                             + " join CALIBRE C ON PT.ID_CALIBRE=C.ID_CALIBRE"
                             + " JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE where "
-                            + "PT.ID_PRODUCTO_TERMINADO not in (select ID_PRODUCTO_TERMINADO from DET_PALETA) "
-                            + "AND ID_DIA_RECEPCION="+id_dia_recepcion; 
+                            + "PT.ESTADO=0 AND ID_DIA_RECEPCION="+id_dia_recepcion; 
                     
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -348,7 +347,7 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             stmt.setString(8, entidad.getSeleccionador());
             stmt.setString(9, entidad.getEmbalador());
             stmt.setTimestamp(10, new Timestamp(entidad.getFecha_produccion().getTime()));
-            stmt.setInt(11, entidad.getEstado());
+            stmt.setInt(11, 0);
             stmt.setString(12, entidad.getUsuario_responsable());
             stmt.setString(13, Operaciones.getCodigoControl(true,entidad.getObjLineaProduccion().getId_linea_produccion()));
             stmt.executeUpdate();
@@ -415,7 +414,7 @@ public static boolean actualizar(entProductoTerminado entidad) throws Exception
 
 
 
-public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion(int idLinea,int tiempo)throws Exception
+public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion(int idLinea,int tiempo,boolean acumulativo)throws Exception
 {
         List<entProductoTerminado> lista = null;
         int contador=0;
@@ -457,8 +456,12 @@ public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion(int idL
                            if(lista==null)
                                  lista= new ArrayList<entProductoTerminado>();  
                            contador+=drContador.getInt(1);
-                            entProductoTerminado entidad = new entProductoTerminado();                    
-                            entidad.setId_producto_terminado(drContador.getInt(1));
+                           
+                            entProductoTerminado entidad = new entProductoTerminado();     
+                            if(acumulativo)
+                                entidad.setId_producto_terminado(contador);
+                                else
+                                entidad.setId_producto_terminado(drContador.getInt(1));
                             entidad.setFecha_produccion(new Date(temp));                                    
                             lista.add(entidad);
 
@@ -621,6 +624,50 @@ public static List<entProductoTerminado> GraficoCalibredxLineaProduccion(int idL
     return lista;
 }
 
+
+public static List<entProductoTerminado> GraficoCategoriaxLineaProduccion(int idLineaProduccion) throws Exception
+{
+    List<entProductoTerminado> lista = null;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select COUNT(*),C.CODIGO_CONTROL from PRODUCTO_TERMINADO PT JOIN CATEGORIA C ON PT.ID_CATEGORIA=C.ID_CATEGORIA    \n" +
+                    "join LINEA_PRODUCCION LP ON LP.ID_LINEA_PRODUCCION=PT.ID_LINEA_PRODUCCION    \n" +
+                    "WHERE PT.ID_DIA_RECEPCION=(select top 1 ID_DIA_RECEPCION from DIA_RECEPCION order by ID_DIA_RECEPCION DESC) \n";
+                    if(idLineaProduccion>0)
+                    sql+="AND LP.ID_LINEA_PRODUCCION="+idLineaProduccion+"\n";
+                    sql+="GROUP BY C.CODIGO_CONTROL";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        while(dr.next())
+        {
+            if(lista==null)
+                lista= new ArrayList<entProductoTerminado>();
+            //ProductoTerminado
+            entProductoTerminado entidad = new entProductoTerminado(); 
+            entidad.setId_producto_terminado(dr.getInt(1));
+            entidad.setCodigo_control(dr.getString(2));
+            lista.add(entidad);
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return lista;
+}
+
 public static List<entProductoTerminado> GraficoSelecionador() throws Exception
 {
     List<entProductoTerminado> lista = null;
@@ -699,4 +746,6 @@ public static List<entProductoTerminado> GraficoEmbalador() throws Exception
     }
     return lista;
 }  
+ 
+
 }

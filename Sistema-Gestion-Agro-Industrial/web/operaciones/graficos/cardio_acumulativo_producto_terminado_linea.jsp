@@ -1,24 +1,28 @@
 
+<%@page import="Entidades.entSesion"%>
 <%@page import="Entidades.entProductoTerminado"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
-<div id="prueba">
+<div id="producto_acumulado_terminado_linea">
 <%
-List<entProductoTerminado> list=clsGestor.GraficoAcumulativoDiaProduccionProductoTerminado(); 
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{
+if(request.getParameter("id") != null && request.getParameter("id") != "" &&
+        request.getParameter("intervalo") != null && request.getParameter("intervalo") != "" )
+{
+List<entProductoTerminado> list=clsGestor.GraficoAcumulativoDiaProduccionProductoTerminado(Integer.parseInt(request.getParameter("id")),Integer.parseInt(request.getParameter("intervalo")),true); 
 if(list!=null)
 {
 int size=list.size();
 %>
-<div class="heading clearfix">
-    <h3 class="pull-left">Another Chart</h3>
-    <span class="pull-right label label-info ttip_t" >N Cajas: <%=list.get(0).getId_dia_recepcion()%></span>
-</div>
-<div id="fl_b" style="height:270px;width:90%;margin:15px auto 0"></div>
+
+<div id="cardio_producto_acumulado_terminado_linea"  style="height:170px;width:100%;"></div>
 <script type="text/javascript">
 $(function () { 
-   
+             $('#totaCajasAcumulativas').html('<span id="totaCajasAcumulativas" class="pull-right label label-info ttip_t" >N Cajas: <%=list.get(0).getId_dia_recepcion()%></span>');
 	// Setup the placeholder reference
-            var elem = $('#fl_b');
+            var elem = $('#cardio_producto_acumulado_terminado_linea');
 			
 			var oilprices = [
                              <% for(int i=0;i<size;i++)
@@ -36,9 +40,9 @@ $(function () {
 				return v.toFixed(axis.tickDecimals) +"?";
 			}
 			
-			fl_b_plot = $.plot(elem,
+			cardio_producto_acumulado_terminado_linea_plot = $.plot(elem,
 			    [
-					{ data: oilprices, label: "Cajas (und.)",lines: { fill: true} }
+					{ data: oilprices, label: "Cajas (und.)"}
 				],
 				{ 
 					series: {
@@ -81,12 +85,12 @@ $(function () {
                 
                 if(event.isTrigger) {
 
-                    var date = fl_b_plot.getData()[0].data[items[0].dataIndex];
+                    var date = cardio_producto_acumulado_terminado_linea_plot.getData()[0].data[items[0].dataIndex];
                     // formated by Moment.js
                     var date_formated = moment(date[0]).format('MMMM D, h:mm:ss a');
                     
-                    var oilprices_label = fl_b_plot.getData()[0].label,
-                        oilprices_val = fl_b_plot.getData()[0].data[items[0].dataIndex];
+                    var oilprices_label = cardio_producto_acumulado_terminado_linea_plot.getData()[0].label,
+                        oilprices_val = cardio_producto_acumulado_terminado_linea_plot.getData()[0].data[items[0].dataIndex];
 
                     // Setup new content
                     content = date_formated + '<br/>' + oilprices_label +': '+ oilprices_val[1] ;
@@ -111,8 +115,8 @@ $(function () {
 
 <%
 }else
-    out.print("No se enontraron datos.");
-
+    out.print("<center><h3>No se enontraron datos.</h3></center>");
+}}
 %>
 
 

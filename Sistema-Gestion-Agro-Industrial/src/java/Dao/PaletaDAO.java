@@ -50,7 +50,7 @@ public class PaletaDAO {
                     CallableStatement stmt2 = conn.prepareCall(sql);    
                     stmt2.setInt(1, entidad.getId_estado_paleta());
                     stmt2.setInt(7, entidad.getListaDetallePaleta().get(i).getId_det_paleta());
-                    stmt2.executeUpdate();
+                    stmt2.execute();
                     stmt2.close();
                 }
                 PreparedStatement  stmt = null;    
@@ -61,8 +61,7 @@ public class PaletaDAO {
                 stmt = conn.prepareStatement(sql0, Statement.RETURN_GENERATED_KEYS);
                 stmt.setInt(1, entidad.getId_paleta());
                 stmt.setInt(2, entidad.getId_estado_paleta());
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
+                stmt.execute();
                 
             }
            conn.commit();
@@ -128,14 +127,22 @@ public class PaletaDAO {
                 
                 for(entDetallePaleta detalle : entidad.getListaDetallePaleta())
                 {
-                sql="INSERT INTO DET_PALETA(ID_PALETA,ID_PRODUCTO_TERMINADO,ESTADO,ID_PALETA_ORIGEN,FECHA_MODIFICACION)"
-                    + " VALUES(?,?,1,0,GETDATE());";
-                PreparedStatement psInsertaDetalle = conn.prepareStatement(sql);
-                psInsertaDetalle.setInt(1, rpta);
-                psInsertaDetalle.setInt(2,detalle.getObjProductoTerminado().getId_producto_terminado());
-                psInsertaDetalle.execute();
-                psInsertaDetalle.close();
+                    sql="INSERT INTO DET_PALETA(ID_PALETA,ID_PRODUCTO_TERMINADO,ESTADO,ID_PALETA_ORIGEN,FECHA_MODIFICACION)"
+                        + " VALUES(?,?,1,0,GETDATE());";
+                    PreparedStatement psInsertaDetalle = conn.prepareStatement(sql);
+                    psInsertaDetalle.setInt(1, rpta);
+                    psInsertaDetalle.setInt(2,detalle.getObjProductoTerminado().getId_producto_terminado());
+                    psInsertaDetalle.execute();
+                    psInsertaDetalle.close();
+
+                    sql="update PRODUCTO_TERMINADO set ESTADO=1 where ID_PRODUCTO_TERMINADO=?;";
+                    PreparedStatement psEstadoProducto = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                    psEstadoProducto.setInt(1, detalle.getObjProductoTerminado().getId_producto_terminado());
+                    psEstadoProducto.execute();
+                    psEstadoProducto.close();
                 }
+                
+                
             }
             rs.close();
             conn.commit();

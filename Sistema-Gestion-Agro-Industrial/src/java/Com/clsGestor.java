@@ -617,7 +617,10 @@ public class clsGestor {
     {
       return DiaRecepcionDAO.actualizar(entidad);
     }
-    
+    public static boolean pedienteDiaRecepcion() throws Exception
+    {
+        return DiaRecepcionDAO.pediente();
+    }
   
     // </editor-fold>
     
@@ -749,9 +752,9 @@ public class clsGestor {
     {
         return ProductoTerminadoDAO.buscarOrigen(Codigo);
     }
-    public static List<entProductoTerminado> GraficoAcumulativoDiaProduccionProductoTerminado(int idLinea,int tiempo)throws Exception
+    public static List<entProductoTerminado> GraficoAcumulativoDiaProduccionProductoTerminado(int idLinea,int tiempo,boolean acumulativo)throws Exception
     {
-        return ProductoTerminadoDAO.GraficoAcumulativoDiaProduccion(idLinea, tiempo);
+        return ProductoTerminadoDAO.GraficoAcumulativoDiaProduccion(idLinea, tiempo, acumulativo);
     }
     public static List<entProductoTerminado> GraficoEnvasexLineaProduccionProduccionProductoTerminado(int idLineaProduccion) throws Exception
     {
@@ -765,6 +768,10 @@ public class clsGestor {
     {   
         return ProductoTerminadoDAO.GraficoCalibredxLineaProduccion(idLineaProduccion);
     }
+    public static List<entProductoTerminado> GraficoCategoriaxLineaProduccionProductoTerminado(int idLineaProduccion) throws Exception
+    {   
+        return ProductoTerminadoDAO.GraficoCategoriaxLineaProduccion(idLineaProduccion);
+    }
     public static List<entProductoTerminado> GraficoSelecionadorProductoTerminado() throws Exception
     {
       return ProductoTerminadoDAO.GraficoSelecionador();  
@@ -773,6 +780,7 @@ public class clsGestor {
     {
       return ProductoTerminadoDAO.GraficoEmbalador();  
     } 
+    
     // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entPaleta">
