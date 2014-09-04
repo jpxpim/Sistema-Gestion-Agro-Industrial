@@ -108,7 +108,7 @@ public class SesionDAO {
                         
                          sql="select ID_CONFIGURACION,NOM_BD_ERP_EXT,IP_BD_ERP_EXT,PUERTO_ERP_EXT,USUARIO_BD_ERP_EXT,"
                     + " CONTRA_BD_ERP_EXT,TIEMPO_ALERTA,USUARIO_CLAVE,SINCRO_DASH,PRODUCTOR_EMPRESA,USUARIO_CIERRE_RECEPCION_1,"
-                    + " USUARIO_CIERRE_RECEPCION_2,USUARIO_CIERRE_RECEPCION_3 from CONFIGURACION ";
+                    + " USUARIO_CIERRE_RECEPCION_2,USUARIO_CIERRE_RECEPCION_3,INTERVALO_AGRUPACION_PRODUCCION from CONFIGURACION ";
                     
                         CallableStatement csConfiguraciom = conn.prepareCall(sql);
                         ResultSet rsConfiguracion = csConfiguraciom.executeQuery();                        
@@ -128,6 +128,7 @@ public class SesionDAO {
                             objConfiguracion.setUsuario_cierre_recepcion_1(rsConfiguracion.getInt(11));
                             objConfiguracion.setUsuario_cierre_recepcion_2(rsConfiguracion.getInt(12));
                             objConfiguracion.setUsuario_cierre_recepcion_3(rsConfiguracion.getInt(13));
+                            objConfiguracion.setIntervalo_agrupacion_produccion(rsConfiguracion.getInt(14));
                             entidad.setObjConfiguracion(objConfiguracion);
                         }
                        csConfiguraciom.close();

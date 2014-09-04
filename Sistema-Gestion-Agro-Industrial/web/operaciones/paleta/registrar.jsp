@@ -254,9 +254,9 @@ $('#buscar').hide();
 function grabar_data()
 {
    
-   
-  
-    if($('input#idCliente').val()=='' || $('input#idCliente').val()==null)        
+
+
+     if($('input#idCliente').val()=='' || $('input#idCliente').val()==null)        
      $.sticky("<center><h1>Seleccione un Cliente</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
     else
     {
@@ -268,28 +268,36 @@ function grabar_data()
                 $.sticky("<center><h1>Ingrese al menos un Items</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
             else
             {
-                var url = "operaciones/paleta/insert.jsp"; 
-                $.ajax({
-                type: "POST",
-                url: url,
-                data: $("#reg_form").serialize(), 
-                    success: function(data)
-                    {
-                        if(data==0)
-                         $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
-                        else if(data>0)
-                        {
-                            clear_all();
-                           $.sticky("Se Regisro Correctamente.", {autoclose : 5000, position: "top-center" });
-                        }
-                        
+                smoke.confirm('Desea Grabar Paleta',function(e){
+                    if (!e){
+                        var url = "operaciones/paleta/insert.jsp"; 
+                        $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#reg_form").serialize(), 
+                            success: function(data)
+                            {
+                                if(data==0)
+                                 $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
+                                else if(data>0)
+                                {
+                                    clear_all();
+                                   $.sticky("Se Regisro Correctamente.", {autoclose : 5000, position: "top-center" });
+                                }
+
+                            }
+                        }); 
                     }
-                }); 
+                }, {ok:"No", cancel:"Si"});
+  
                 
             }
         }
         
     }
+
+
+
 };
 function selectCampaniaLote(id,nombre)
 {
@@ -566,11 +574,17 @@ function clear_all()
         type: 'POST',
         success: function () {   
                 $('#paleta').html('<div id="paleta"></div>');
+                 $.ajax({
+                            url: 'operaciones/producto_terminado/data_producto_terminado.jsp',
+                            type: 'POST',
+                            success: function (data) {     
+                                     $('#producto_terminado').html(data);         
+                            },
+                            contentType: false,
+                            processData: false
+                    });
                 tabla();
-               $('input:radio[name=rbEstado]').attr('checked',false);
-               $('#idCliente').val("");            
-               $('#CampaniaLote').html("<di id='CampaniaLote'><blockquote><p>Cliente <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalCliente'><i class='splashy-zoom'></i></a></span></p></blockquote></di>");  
-               $("#txtCodigo").val(""); 
+                $("#txtCodigo").val(""); 
                $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
                $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');    
                clear_detalle();

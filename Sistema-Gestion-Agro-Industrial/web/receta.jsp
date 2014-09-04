@@ -398,7 +398,7 @@ function tabla()
                                         setTimeout('$("html").removeClass("js")',1000);
                                         
 $('#buscarInsumo').click(function(){
-    $('#insumo').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+    $('#insumo').html('<center><h3 id="insumo"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
                        
     $.ajax({
         url: 'operaciones/receta/list_tabla_insumo.jsp',

@@ -6,8 +6,9 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-    if(request.getParameter("cbTiempoAlerta") != null && request.getParameter("cbTiempoAlerta") != ""  &&
-            request.getParameter("cbDash") != null && request.getParameter("cbDash") != "" &&
+    if(request.getParameter("txtIntervalo") != null && request.getParameter("txtIntervalo") != ""  &&
+            request.getParameter("txtSincronizacion") != null && request.getParameter("txtSincronizacion") != "" &&
+            request.getParameter("txtAlerta") != null && request.getParameter("txtAlerta") != "" &&
             request.getParameter("txtClave") != null && request.getParameter("txtClave") != "" &&
             request.getParameter("txtNombreBD") != null && request.getParameter("txtNombreBD") != "" &&
             request.getParameter("txtIPBD") != null && request.getParameter("txtIPBD") != "" &&
@@ -18,8 +19,9 @@ if(objSession!=null)
             request.getParameter("cbUsuario1") != null && request.getParameter("cbUsuario1") != "" )
     {
         entConfiguracion entidad = objSession.getObjConfiguracion();
-        entidad.setTiempo_alerta(Integer.parseInt(request.getParameter("cbTiempoAlerta")));
-        entidad.setSincro_dash(Integer.parseInt(request.getParameter("cbDash")));
+        entidad.setTiempo_alerta(Integer.parseInt(request.getParameter("txtAlerta")));
+        entidad.setSincro_dash(Integer.parseInt(request.getParameter("txtSincronizacion")));
+        entidad.setIntervalo_agrupacion_produccion(Integer.parseInt(request.getParameter("txtIntervalo")));
         entidad.setProductor_empresa(Integer.parseInt(request.getParameter("cbEmpresa")));
         entidad.setUsuario_cierre_recepcion_1(Integer.parseInt(request.getParameter("cbUsuario1")));
         entidad.setUsuario_clave(request.getParameter("txtClave"));

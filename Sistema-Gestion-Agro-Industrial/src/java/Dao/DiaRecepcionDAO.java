@@ -122,4 +122,36 @@ public class DiaRecepcionDAO
         return rpta;
     } 
         
+    public static boolean pediente() throws Exception
+    {
+    boolean rpta = false;
+    Connection conn =null;
+    CallableStatement stmt = null;
+    ResultSet dr = null;
+    try {
+        String sql="select top 1 ID_DIA_RECEPCION from DIA_RECEPCION where ES_CERRADO=0 "
+                + "order by ID_DIA_RECEPCION DESC";
+
+        conn = ConexionDAO.getConnection();
+        stmt = conn.prepareCall(sql);
+        dr = stmt.executeQuery();
+
+        if(dr.next())
+        {
+           rpta=true;
+        }
+
+    } catch (Exception e) {
+        throw new Exception("Listar "+e.getMessage(), e);
+    }
+    finally{
+        try {
+            dr.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    return rpta;
+}     
 }

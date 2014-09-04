@@ -1,19 +1,19 @@
 <%@page import="Entidades.entSesion"%>
-<%@page import="Entidades.entSubSector"%>
+<%@page import="Entidades.entEnvase"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="java.util.List"%>
-<select id="cbSubSector" name="cbSubSector" title="Por favor selecione un Sub Sector!" required>
+<select id="cbEnvase" name="cbEnvase" title="Por favor selecione un Envase!" required>
    <option value="">Selecione una Opción</option>
 
 <%
     entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {   
-    List<entSubSector> list=clsGestor.ListarSubSector(true);
+    List<entEnvase> list=clsGestor.ListarEnvase(true);
     if(list!=null)
 
-        for(entSubSector entidad : list)
-            out.print("<option value='"+entidad.getId_sub_sector()+"'>"+entidad.getNombre()+"</option>");
+        for(entEnvase entidad : list)
+            out.print("<option value='"+entidad.getId_envase()+"'>"+entidad.getNombre()+"</option>");
 }
  %>
 </select>
