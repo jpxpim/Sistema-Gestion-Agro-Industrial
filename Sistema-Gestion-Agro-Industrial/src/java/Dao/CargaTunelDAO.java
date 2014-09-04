@@ -7,18 +7,17 @@
 package Dao;
 
 import Entidades.entCargaTunel;
-import Entidades.entChofer;
 import Entidades.entCliente;
 import Entidades.entDetalleCargaTunel;
-import Entidades.entDireccionLlegada;
 import Entidades.entPaleta;
-import Entidades.entRecepcion;
-import Entidades.entTransportista;
 import Entidades.entTunel;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -193,4 +192,135 @@ public class CargaTunelDAO
         }
         return entidad;
     }
+
+public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement  stmt = null;
+        try {
+            
+           String sql="insert into carga_tunel (id_carga_tunel,id_tunel,inicio_carga,temperatura_carga,fin_carga,estado,usuario_responsable,fecha_modificacion)\n" +
+                      "values (?,?,?,?,?,?,?,GETDATE())";
+           
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, entidad.getId_carga_tunel());
+            stmt.setInt(2, entidad.getObjTunel().getId_tunel());
+            stmt.setTimestamp(3, new Timestamp(entidad.getInicio_carga().getTime()));
+            stmt.setDouble(4, entidad.getTemperatura_carga());
+            stmt.setTimestamp(5, new Timestamp(entidad.getFin_carga().getTime()));
+            stmt.setBoolean(6, entidad.getEstado());
+            stmt.setString(7, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next())
+            {
+                rpta=rs.getInt(1);
+                for(int i=0; i<entidad.getListaDetalleCargaTunel().size();i++)
+                {
+                sql="INSERT INTO DET_CARGA_TUNEL(ID_CARGA_TUNEL,ID_PALETA)"
+                            + " VALUES(?,?);";
+                    PreparedStatement pst1 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                    pst1.setInt(1,rpta);
+                    pst1.setInt(2,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                    pst1.executeUpdate();
+                sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                    + " VALUES(?,2,GETDATE());";
+                PreparedStatement psEstado = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                psEstado.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                psEstado.execute();
+                psEstado.close(); 
+                sql="UPDATE PALETA SET POSICION_PALETA=? "
+                    + " WHERE ID_PALETA=?";
+                CallableStatement stmt2 = conn.prepareCall(sql);    
+                stmt2.setInt(1, 2);
+                stmt2.setInt(7, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                stmt2.executeUpdate();
+                stmt2.close();
+                
+                }
+                
+            }
+            rs.close();
+            conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+       }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
+
+public static boolean actualizarDescargaTunel(entCargaTunel entidad) throws Exception
+    {
+        boolean rpta1 = false;
+        Connection conn =null;
+        CallableStatement stmt1 = null;
+        try {
+             String sql="update CARGA_TUNEL set INICIO_DESCARGA=?,FIN_DESCARGA=?,TEMPERATURA_DESCARGA=?,USUARIO_RESPONSABLE=?,fecha_modificacion = GETDATE() "
+                     + " WHERE id_carga_tunel = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt1 = conn.prepareCall(sql); 
+            stmt1.setTimestamp(1, new Timestamp(entidad.getInicio_descarga().getTime()));
+            stmt1.setTimestamp(2, new Timestamp(entidad.getFin_descarga().getTime()));
+            stmt1.setDouble(3, entidad.getTemperatura_descarga());
+            stmt1.setString(4, entidad.getUsuario_responsable());
+            stmt1.setInt(5,entidad.getId_carga_tunel());                
+            rpta1 = stmt1.executeUpdate() == 1;
+            if(rpta1)
+            {   
+                for(int i=0; i<entidad.getListaDetalleCargaTunel().size();i++)
+                {
+                    sql="UPDATE PALETA SET POSICION_PALETA=3,FECHA_MODIFICACION=GETDATE() "
+                         + " WHERE ID_PALETA = ?;";
+                    CallableStatement stmt2 = conn.prepareCall(sql);    
+                    stmt2.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                    stmt2.executeUpdate();
+                    stmt2.close();
+                
+                PreparedStatement  stmt = null;    
+                String sql0="INSERT INTO det_POSICION_paleta(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                       + " VALUES(?,?,GETDATE());";
+
+                conn = ConexionDAO.getConnection();
+                stmt = conn.prepareStatement(sql0, Statement.RETURN_GENERATED_KEYS);
+                stmt.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                stmt.setInt(2, 3);
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+                }
+                
+            }
+           conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt1.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta1;
+    }
+    
+    
+    
+    
 }
