@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Date"%>
 <%@page import="Entidades.entCargaTunel"%>
 <%@page import="Entidades.entPaleta"%>
 <%@page import="Entidades.entTunel"%>
@@ -112,12 +113,13 @@ else
     else if(objSession.getObjCargaTunel().getId_carga_tunel()>0)        
         objSession.setObjCargaTunel(new entCargaTunel());
     
-    
+  SimpleDateFormat e=new SimpleDateFormat("MM-dd-yyyy");  
+  String fecha=e.format(new Date());
 %>
 <div id="frame">
  <div class="row-fluid">
       <form  method="get" id="reg_form">
-             <div class="span4">
+             <div class="span3">
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
@@ -138,21 +140,37 @@ else
                                                                                         <input type="hidden" id="cTunel"  name="cTunel" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Estado</label>
-                                                                                    <label class="radio inline">
-                                                                                    <input type="radio" value="1"  id="rbEstado" name="rbEstado" />
-                                                                                        Completa
-                                                                                    </label>
-                                                                                    <label class="radio inline">
-                                                                                            <input type="radio" value="2" id="rbEstado" name="rbEstado" />
-                                                                                            Incompleta
-                                                                                    </label>
-                                                                                     </div>
+                                                                                     <label for="txtFechaInicio" class="col-md-2 control-label">Inicio de Carga</label>
+                                                                                    <div class="input-group date form_datetime_inicio col-md-5"  data-link-field="txtFechaInicio">
+                                                                                        <input class="form-control span10" size="16" type="text" id="textFInicio" name="textFInicio" value="" readonly>
+                                                                                        <span class="input-group-addon"></span>
+                                                                                                            <span class="input-group-addon add-on"><span class="glyphicon-th splashy-calendar_day_down"></span></span>
+                                                                                    </div>
+                                                                                                <input type="hidden" id="txtFechaInicio" name="txtFechaInicio" value="" /><br/>
+                                                                                    
+                                                                                     </div> 
+                                                                                    <div class="input-prepend">
+                                                                                     <label for="txtFechaFin" class="col-md-2 control-label">Fin de Carga</label>
+                                                                                    <div class="input-group date form_datetime_fin col-md-5"  data-link-field="txtFechaFin">
+                                                                                        <input class="form-control span10" size="16" type="text" id="textFFin" name="textFFin" value="" readonly>
+                                                                                        <span class="input-group-addon"></span>
+                                                                                                            <span class="input-group-addon add-on"><span class="glyphicon-th splashy-calendar_day_down"></span></span>
+                                                                                    </div>
+                                                                                                <input type="hidden" id="txtFechaFin" name="txtFechaFin" value="" /><br/>
+                                                                                    
+                                                                                     </div> 
+                                                                                    
+                                                                                    <div class="input-prepend">
+                                                                                    <label>Temperatura de Carga</label>
+                                                                                    <input type="text" id="txtGrados" name="txtGrados" class="span10" value="18.00"/>
+
+                                                                                   
+                                                                                     </div> 
                                                                                     <br>
                                                                                     <div class="input-prepend">
                                                                                     <label>Codigo (13 digitos)</label>
                                                                                         <div class="input-prepend">
-                                                                                            <input type="text" id="txtCodigo" name="txtCodigo" /><span id="validCodigo" class="add-on"><i  class="splashy-pencil"/></span>
+                                                                                            <input  type="text" id="txtCodigo" class="span10"  name="txtCodigo" disabled/><span id="validCodigo" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
                                                                                     <di id="contador" >digitos = <span class="label label-warning">0</span></di>
                                                                                     </div>                                                                                   
@@ -160,17 +178,15 @@ else
                                                                             </div>
                                                                              <button id="btnGrabar" class="btn btn-invert" onclick="grabar_data()" type="button">Grabar</button>
                                                                             
-                                                                            <button class="btn btn-invert" onclick="clear_list()" type="button">Limpiar Lista</button>
-                                                                            <a id="buscar" data-toggle='modal' data-backdrop='static' class="btn" href='#ModalPaleta'>Buscar Origen</a>
+                                                                            <button class="btn btn-invert" onclick="confir_lear_list()" type="button">Limpiar Lista</button>
                                                                           </div>
-                                                                          <div id="carga_tunel"></div>
 
 
                                                                 
                                                             </div>
                                                     </div>
                                             </div>
-                            <div class="span8">
+                            <div class="span9">
                                         <div id="tabla"> </div>
                                    </div>
               </form>
@@ -231,21 +247,7 @@ else
     </div>
 </div>                 
 
- <!-- Modal Producto Terminado -->	
-<div class="modal hide fade" id="ModalPaleta" >
-    <div class="modal-header">
-        <button class="close" data-dismiss="modal">×</button>
-        <h3>Buscar Origen de Producto</h3>
-    </div>
-    <div class="modal-body">
-        <div id="origen"></div>
-    </div>
-    <div class="modal-footer">
-        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
-        
-    </div>
-</div>                 
-   
+
  <form  method="get" id="detalle_form">
     <input type="hidden" id="IdPaleta"  name="IdPaleta"/>
     <input type="hidden" id="Codigo"  name="Codigo"/>
@@ -280,8 +282,34 @@ var paleta= {
 };
 
 $(document).ready(function() {  
-
-
+  $('.form_datetime_inicio').datetimepicker({
+        language:  'es',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1,
+         format: 'yyyy-mm-dd hh:ii'
+    });
+    $('.form_datetime_fin').datetimepicker({
+        language:  'es',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1,
+          format: 'yyyy-mm-dd hh:ii'
+    });
+$("#txtGrados").spinner({
+    decimals: 2,
+    stepping: 1.00,
+    max: 40,
+    min: 5
+});
 $("#txtCodigo").keyup(function(){   
 
     $(this).val($(this).val().trim().toUpperCase());    
@@ -360,8 +388,6 @@ function compruebaData(data)
    for (i = 0; i <=maxI; i++) { 
         if(paleta.entidad[i].codigo_control.toUpperCase()==data.toUpperCase())
         {
-            i=maxI;
-            valida=true;
              $('#IdPaleta').val(paleta.entidad[i].id_paleta);
              $('#Codigo').val(paleta.entidad[i].codigo_control);
              $('#FProduccion').val(paleta.entidad[i].fecha_produccion);
@@ -369,38 +395,49 @@ function compruebaData(data)
              $('#Posicicion').val(paleta.entidad[i].posicion_paleta);
              $('#Cliente').val(paleta.entidad[i].nombre_cliente);
             
+            i=maxI;
+            valida=true;
         }   
     }
     return valida;
 }; 
 
-function grabarDetalle(){  
-  var url = "operaciones/carga_tunel/carga/add_list_detalle_carga_tunel_temp.jsp"; 
-    $.ajax({
-    type: "POST",
-    url: url,
-    data: $("#detalle_form").serialize(), 
-        success: function(data)
-        {
-            if(data==0)
+function grabarDetalle(){ 
+
+  if(size<$('input#cTunel').val())
+  {
+      var url = "operaciones/carga_tunel/carga/add_list_detalle_carga_tunel_temp.jsp"; 
+        $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#detalle_form").serialize(), 
+            success: function(data)
             {
-                 $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
-                $.sticky("<center><h1>Código Repetido</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
-               
-            }   
-            else if(data==1)
-            {
-                $("#txtCodigo").val(""); 
-                $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
-                $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
-                $('#paleta').html('<div id="paleta"></div>');
-                tabla();
-            }            
-            validGrabaDetalle=true;
-            
-           
-        }
-    }); 
+                if(data==0)
+                {
+                     $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_down"/>');
+                    $.sticky("<center><h1>Código Repetido</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+
+                }   
+                else if(data==1)
+                {
+                    $("#txtCodigo").val(""); 
+                    $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
+                    $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
+
+                    tabla();
+                }            
+                clear_detalle();
+
+
+            }
+        }); 
+    }
+    else
+    {
+        validGrabaDetalle=true;
+        $.sticky("<center><h1>Excedió el Limite de Paletas</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+    }
 };
 function tabla()
 {
@@ -431,7 +468,74 @@ function tabla()
         }, {cancel:"No",ok:"Si"});
                     
  };
- tabla();
+ function clear_detalle()
+{
+    $('#IdPaleta').val("");
+    $('#Codigo').val("");
+    $('#FProduccion').val("");
+    $('#Estado').val("");
+    $('#Posicicion').val("");
+    $('#Cliente').val("");
+    validGrabaDetalle=true;
+};
+function selectTunel(id,nombre,total)
+{  
+     
+    clear_list();
+  $('#idTunel').val(id);  
+ $('#cTunel').val(total);                                             
+ $('#Tunel').html("<di id='Tunel'><blockquote><p>"+nombre+"  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad: "+total+"</p></blockquote></blockquote></di>");  
+$('#txtCodigo').removeAttr('disabled');
+};
+function clear_list()
+{
+    $.ajax({
+    url: 'operaciones/carga_tunel/carga/delete_list_detalle_carga_tunel_temp.jsp',
+    type: 'POST',
+    success: function () {   
+            
+            tabla();
+    },
+    contentType: false,
+    processData: false
+    });              
+};
+function confir_lear_list()
+{
+    smoke.confirm('Desea Limpiar la Lista',function(e){
+                if (e){
+                     clear_list();
+                }
+        }, {cancel:"No",ok:"Si"});
+};
+function grabar_data()
+{
+    if($('input#idTunel').val()!=null && $('input#idTunel').val()!="")
+    {
+        var inicio = new Date( $('input#textFInicio').val());
+        var fin = new Date( $('input#textFFin').val());
+
+         if(inicio<fin)
+         {
+             if(size>0)
+             {
+                 $('input#txtFechaInicio').val(inicio.getTime());
+                 $('input#txtFechaFin').val(fin.getTime());
+                 
+              alert(inicio+" - "+fin);
+              alert( $('input#txtFechaInicio').val()+" - "+$('input#txtFechaFin').val());
+             }
+             else
+              $.sticky("<center><h1>Por lo menos Ingrese una Paleta</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+         }
+        else
+          $.sticky("<center><h1>La fecha de Inicio debe ser menor a la fecha de Fin</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+    }
+    else
+        $.sticky("<center><h1>Seleccione un Tunel</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+};
+
+ clear_list();
 $("#reg_form").submit(function(){
   return false;
 });
