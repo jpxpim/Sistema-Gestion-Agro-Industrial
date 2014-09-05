@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class CargaTunelDAO 
 {
-public static List<entCargaTunel>  ListarCargaTunel(int opcion) throws Exception
+public static List<entCargaTunel>  Listar(int opcion) throws Exception
 {
         List<entCargaTunel> lista = null;
         Connection conn =null;
@@ -89,7 +89,7 @@ public static List<entCargaTunel>  ListarCargaTunel(int opcion) throws Exception
         return lista;
     }
     
-public static entCargaTunel  BuscarCargaTunelPorID(int id) throws Exception
+public static entCargaTunel  BuscarPorID(int id) throws Exception
 {
         entCargaTunel entidad = null;
         Connection conn =null;
@@ -193,26 +193,27 @@ public static entCargaTunel  BuscarCargaTunelPorID(int id) throws Exception
         return entidad;
     }
 
-public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
+public  static int insertar(entCargaTunel entidad) throws Exception
 {
         int rpta = 0;
         Connection conn =null;
         PreparedStatement  stmt = null;
         try {
             
-           String sql="insert into carga_tunel (id_carga_tunel,id_tunel,inicio_carga,temperatura_carga,fin_carga,estado,usuario_responsable,fecha_modificacion)\n" +
+           String sql="insert into carga_tunel (ID_DIA_RECEPCION,ID_TUNEL,INICIO_CARGA,TEMPERATURA_CARGA,FIN_CARGA,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)\n" +
                       "values (?,?,?,?,?,?,?,GETDATE())";
            
             conn = ConexionDAO.getConnection();
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, entidad.getId_carga_tunel());
+            stmt.setInt(1, entidad.getId_dia_recepcion());
             stmt.setInt(2, entidad.getObjTunel().getId_tunel());
             stmt.setTimestamp(3, new Timestamp(entidad.getInicio_carga().getTime()));
             stmt.setDouble(4, entidad.getTemperatura_carga());
             stmt.setTimestamp(5, new Timestamp(entidad.getFin_carga().getTime()));
             stmt.setBoolean(6, entidad.getEstado());
             stmt.setString(7, entidad.getUsuario_responsable());
+            
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next())
@@ -226,20 +227,36 @@ public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
                     pst1.setInt(1,rpta);
                     pst1.setInt(2,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
                     pst1.executeUpdate();
+                    
                 sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
-                    + " VALUES(?,2,GETDATE());";
+                    + " VALUES(?,2,GETDATE());";                
                 PreparedStatement psEstado = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 psEstado.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
                 psEstado.execute();
                 psEstado.close(); 
-                sql="UPDATE PALETA SET POSICION_PALETA=? "
-                    + " WHERE ID_PALETA=?";
-                CallableStatement stmt2 = conn.prepareCall(sql);    
-                stmt2.setInt(1, 2);
-                stmt2.setInt(7, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
-                stmt2.executeUpdate();
-                stmt2.close();
-               
+                
+                sql="update PALETA set POSICION_PALETA=2 where ID_PALETA=?;";
+                            PreparedStatement psEstadoPaleta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                            psEstadoPaleta.setInt(1,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                            psEstadoPaleta.execute();
+                            psEstadoPaleta.close();  
+                sql="select ID_PRODUCTO_TERMINADO from DET_PALETA where ID_PALETA="
+                        +entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta();
+                
+                    CallableStatement csIdProducto = conn.prepareCall(sql);
+                    ResultSet rsidProducto = csIdProducto.executeQuery();
+
+                    while (rsidProducto.next()){
+                        sql="update PRODUCTO_TERMINADO set ESTADO=2 where ID_PRODUCTO_TERMINADO=?;";
+                            PreparedStatement psEstadoProducto = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                            psEstadoProducto.setInt(1, rsidProducto.getInt(1));
+                            psEstadoProducto.execute();
+                            psEstadoProducto.close();
+                          
+                    }
+                    csIdProducto.close();
+                     rsidProducto.close();
+//                
                 }
                 
             }
@@ -261,7 +278,7 @@ public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
         return rpta;
     } 
 
-public static boolean actualizarDescargaTunel(entCargaTunel entidad) throws Exception
+public static boolean actualizarDescarga(entCargaTunel entidad) throws Exception
 {
         boolean rpta1 = false;
         Connection conn =null;

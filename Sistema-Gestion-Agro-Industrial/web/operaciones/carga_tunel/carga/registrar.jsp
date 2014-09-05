@@ -424,7 +424,7 @@ function grabarDetalle(){
                     $("#txtCodigo").val(""); 
                     $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
                     $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');
-
+                    
                     tabla();
                 }            
                 clear_detalle();
@@ -520,10 +520,28 @@ function grabar_data()
              if(size>0)
              {
                  $('input#txtFechaInicio').val(inicio.getTime());
-                 $('input#txtFechaFin').val(fin.getTime());
-                 
-              alert(inicio+" - "+fin);
-              alert( $('input#txtFechaInicio').val()+" - "+$('input#txtFechaFin').val());
+                 $('input#txtFechaFin').val(fin.getTime());                 
+                 smoke.confirm('Desea Grabar Paleta',function(e){
+                    if (e){
+                        var url = "operaciones/carga_tunel/carga/insert.jsp"; 
+                        $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#reg_form").serialize(), 
+                            success: function(data)
+                            {
+                                if(data==0)
+                                 $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
+                                else if(data>0)
+                                {
+                                    clear_all();
+                                   $.sticky("Se Regisro Correctamente.", {autoclose : 5000, position: "top-center" });
+                                }
+
+                            }
+                        }); 
+                    }
+                }, {cancel:"No",ok:"Si"});
              }
              else
               $.sticky("<center><h1>Por lo menos Ingrese una Paleta</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
@@ -534,7 +552,32 @@ function grabar_data()
     else
         $.sticky("<center><h1>Seleccione un Tunel</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
 };
-
+function clear_all()
+{
+    $.ajax({
+        url: 'operaciones/paleta/data_paleta.jsp',
+        type: 'POST',
+        success: function (data) {     
+                  $('#data_paleta').html(data);     
+                  clear_list();
+                  $("#txtCodigo").val(""); 
+                  $('#contador').html(' <di id="contador" >digitos = <span class="label label-warning">0</span></di>');
+                  $('#validCodigo').html('<i id="validCodigo" class="splashy-pencil"/>');  
+                  $('input#idTunel').val("");
+                  $('input#textFInicio').val("");
+                  $('input#textFFin').val("");
+                  $('input#txtFechaInicio').val("");
+                  $('input#txtFechaFin').val("");  
+                 $('#cTunel').val("");                                             
+                 $('#Tunel').html("<di id='Tunel'><blockquote><p>Cliente  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
+        
+                   $('#txtCodigo').attr('disabled', true);
+                 
+        },
+        contentType: false,
+        processData: false
+    });
+};
  clear_list();
 $("#reg_form").submit(function(){
   return false;

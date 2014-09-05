@@ -1,29 +1,29 @@
 
 
-<%@page import="Entidades.entCliente"%>
+<%@page import="java.util.Date"%>
+<%@page import="Entidades.entTunel"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entPaleta"%>
+<%@page import="Entidades.entCargaTunel"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-        if(request.getParameter("idCliente") != null && request.getParameter("idCliente") != "" &&
-            request.getParameter("rbEstado") != null && request.getParameter("rbEstado") != "")
+        if(request.getParameter("idTunel") != null && request.getParameter("idTunel") != "" &&
+            request.getParameter("txtFechaInicio") != null && request.getParameter("txtFechaInicio") != "" &&
+            request.getParameter("txtFechaFin") != null && request.getParameter("txtFechaFin") != "" &&
+            request.getParameter("txtGrados") != null && request.getParameter("txtGrados") != "")
         {
-            entPaleta entidad = objSession.getObjPaleta();
-            entidad.setObjCliente(new entCliente(Integer.parseInt(request.getParameter("idCliente"))));            
-            if(!entidad.isCompleto())
-            {
-                if(request.getParameter("idCliente").equals("1"))
-                    entidad.setCompleto(true);
-            }
+            entCargaTunel entidad = objSession.getObjCargaTunel();
+            entidad.setObjTunel(new entTunel(Integer.parseInt(request.getParameter("idTunel"))));            
             
-            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
+            entidad.setInicio_carga(new Date(Long.parseLong(request.getParameter("txtFechaInicio"))));
+            entidad.setFin_carga(new Date(Long.parseLong(request.getParameter("txtFechaFin"))));
+            entidad.setTemperatura_carga(Double.parseDouble(request.getParameter("txtGrados")));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
-            
-
-            int id=clsGestor.insertarPaleta(entidad);
+            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
+            entidad.setEstado(true);
+            int id=clsGestor.insertarCargaTunel(entidad);
             if(id>0)
             {
                 out.print(id);

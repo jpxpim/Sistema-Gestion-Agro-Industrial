@@ -25,6 +25,10 @@ public class entTunel {
     private Date fecha_modificacion;
 
     public entTunel (){}
+
+    public entTunel(int id_tunel) {
+        this.id_tunel = id_tunel;
+    }
     
     public int getId_tunel() {
         return id_tunel;

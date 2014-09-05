@@ -848,4 +848,14 @@ public class clsGestor {
     
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entCargaTunel">
+  
+    public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
+    {
+        return CargaTunelDAO.insertar(entidad);
+    }
+
+    
+// </editor-fold>
+    
 }

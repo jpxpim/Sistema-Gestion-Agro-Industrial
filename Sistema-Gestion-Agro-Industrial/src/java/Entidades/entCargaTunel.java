@@ -18,6 +18,7 @@ public class entCargaTunel {
 
     private int id_carga_tunel;
     private entTunel objTunel;
+    private int id_dia_recepcion;
     private Date inicio_carga;
     private Date fin_carga;
     private Double temperatura_carga;
@@ -128,6 +129,14 @@ public class entCargaTunel {
 
     public void setListaDetalleCargaTunel(List<entDetalleCargaTunel> listaDetalleCargaTunel) {
         this.listaDetalleCargaTunel = listaDetalleCargaTunel;
+    }
+
+    public int getId_dia_recepcion() {
+        return id_dia_recepcion;
+    }
+
+    public void setId_dia_recepcion(int id_dia_recepcion) {
+        this.id_dia_recepcion = id_dia_recepcion;
     }
     
     
