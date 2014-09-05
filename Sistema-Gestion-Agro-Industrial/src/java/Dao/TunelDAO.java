@@ -30,7 +30,7 @@ public class TunelDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_tunel,nombre,descripcion,pos_x,pos_y_pos_h,estado,usuario_responsable,fecha_modificacion"
+            String sql="select id_tunel,nombre,descripcion,pos_x,pos_y,pos_h,estado,usuario_responsable,fecha_modificacion"
                     + " from tunel ";
             if(activo)
                         sql+=" where estado=1"; 

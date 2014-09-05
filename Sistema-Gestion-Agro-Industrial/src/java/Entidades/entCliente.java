@@ -27,6 +27,10 @@ public class entCliente {
         this.id_cliente = id_cliente;
     }
 
+    public entCliente(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Boolean getEstado() {
         return estado;
     }

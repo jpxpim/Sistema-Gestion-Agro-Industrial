@@ -7,6 +7,7 @@
 package Dao;
 
 import Com.Operaciones;
+import Entidades.entCliente;
 import Entidades.entDetallePaleta;
 import Entidades.entPaleta;
 import java.sql.CallableStatement;
@@ -16,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -37,7 +40,7 @@ public class PaletaDAO {
             conn.setAutoCommit(false);
             stmt1 = conn.prepareCall(sql); 
             stmt1.setInt(1, entidad.getObjCliente().getId_cliente());
-            stmt1.setInt(2, entidad.getId_estado_paleta());
+            stmt1.setInt(2, entidad.getEstado_paleta());
             stmt1.setString(9, entidad.getUsuario_responsable());
             stmt1.setInt(10,entidad.getId_paleta());                
             rpta1 = stmt1.executeUpdate() == 1;
@@ -48,7 +51,7 @@ public class PaletaDAO {
                     sql="UPDATE DET_PALETA SET ESTADO= ?,FECHA_MODIFICACION=GETDATE() "
                          + " WHERE ID_DET_PALETA = ?;";
                     CallableStatement stmt2 = conn.prepareCall(sql);    
-                    stmt2.setInt(1, entidad.getId_estado_paleta());
+                    stmt2.setInt(1, entidad.getEstado_paleta());
                     stmt2.setInt(7, entidad.getListaDetallePaleta().get(i).getId_det_paleta());
                     stmt2.execute();
                     stmt2.close();
@@ -60,7 +63,7 @@ public class PaletaDAO {
                 conn = ConexionDAO.getConnection();
                 stmt = conn.prepareStatement(sql0, Statement.RETURN_GENERATED_KEYS);
                 stmt.setInt(1, entidad.getId_paleta());
-                stmt.setInt(2, entidad.getId_estado_paleta());
+                stmt.setInt(2, entidad.getEstado_paleta());
                 stmt.execute();
                 
             }
@@ -161,5 +164,48 @@ public class PaletaDAO {
         }
         return rpta;
     } 
+    
+     public static List<entPaleta> ListarPorDiaRecepccion(int id_dia_recepcion) throws Exception
+    {
+        List<entPaleta> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="select P.ID_PALETA,P.CODIGO_CONTROL,P.FECHA_PRODUCCION,p.ESTADO_PALETA,P.POSICION_PALETA,C.NOMBRE from \n" +
+                               "PALETA P JOIN CLIENTE C ON P.ID_CLIENTE=C.ID_CLIENTE where P.ID_DIA_RECEPCION="+id_dia_recepcion; 
+                    
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entPaleta>();                    
+                    entPaleta entidad = new entPaleta();
+                 
+                    entidad.setId_paleta(dr.getInt(1));
+                    entidad.setCodigo_control(dr.getString(2)); 
+                    entidad.setFecha_produccion(dr.getTimestamp(3));
+                    entidad.setEstado_paleta(dr.getInt(4));
+                    entidad.setPosicion_paleta(dr.getInt(5));
+                    entidad.setObjCliente(new entCliente(dr.getString(6)));
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }       
     
 }

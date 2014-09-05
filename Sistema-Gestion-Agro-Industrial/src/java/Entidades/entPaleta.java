@@ -20,7 +20,7 @@ public class entPaleta {
     private int id_dia_recepcion;
     private Date fecha_produccion;
     private entCliente objCliente;
-    private int id_estado_paleta;
+    private int estado_paleta;
     private int posicion_paleta;
     private String codigo_control;
     private String usuario_responsable;
@@ -77,12 +77,12 @@ public class entPaleta {
         this.objCliente = objCliente;
     }
 
-    public int getId_estado_paleta() {
-        return id_estado_paleta;
+    public int getEstado_paleta() {
+        return estado_paleta;
     }
 
-    public void setId_estado_paleta(int id_estado_paleta) {
-        this.id_estado_paleta = id_estado_paleta;
+    public void setEstado_paleta(int estado_paleta) {
+        this.estado_paleta = estado_paleta;
     }
 
     public String getUsuario_responsable() {

@@ -788,7 +788,11 @@ public class clsGestor {
 //    {
 //        return PaletaDAO.Listar(activo);
 //    }
-//    
+    public static List<entPaleta> ListarPorDiaRecepccionPaleta(int id_dia_recepcion) throws Exception
+    {
+        return PaletaDAO.ListarPorDiaRecepccion(id_dia_recepcion);
+    }
+    
     public  static int insertarPaleta(entPaleta entidad) throws Exception
     {
         return PaletaDAO.insertar(entidad);
@@ -826,6 +830,22 @@ public class clsGestor {
     }
     // </editor-fold>  
     
+    //<editor-fold defaultstate="collapsed" desc="entTunel">
+    public static List<entTunel> ListarTunel(boolean activo) throws Exception
+    {
+        return TunelDAO.Listar(activo);
+    }
     
+    public  static int insertarTunel(entTunel entidad) throws Exception
+    {
+        return TunelDAO.insertar(entidad);
+    }
+   
+    public static boolean actualizarTunel(entTunel entidad) throws Exception
+    {
+        return TunelDAO.actualizar(entidad);
+    }
+    
+// </editor-fold>
     
 }

@@ -158,7 +158,7 @@ public class CargaTunelDAO
                             entPaleta objPaleta = new entPaleta();
                             objPaleta.setId_paleta(dr2.getInt(3));
                             objPaleta.setCodigo_control(dr2.getString(4));
-                            objPaleta.setId_estado_paleta(dr2.getInt(5));
+                            objPaleta.setEstado_paleta(dr2.getInt(5));
                             objPaleta.setFecha_produccion(dr2.getTimestamp(6));
                             objPaleta.setId_dia_recepcion(dr2.getInt(7));
                             objPaleta.setPosicion_paleta(dr2.getInt(8));
