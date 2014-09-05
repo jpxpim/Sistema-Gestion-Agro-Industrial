@@ -27,8 +27,8 @@ import java.util.List;
  */
 public class CargaTunelDAO 
 {
-    public static List<entCargaTunel>  ListarCargaTunel(int opcion) throws Exception
-    {
+public static List<entCargaTunel>  ListarCargaTunel(int opcion) throws Exception
+{
         List<entCargaTunel> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
@@ -89,8 +89,8 @@ public class CargaTunelDAO
         return lista;
     }
     
-    public static entCargaTunel  BuscarCargaTunelPorID(int id) throws Exception
-    {
+public static entCargaTunel  BuscarCargaTunelPorID(int id) throws Exception
+{
         entCargaTunel entidad = null;
         Connection conn =null;
         CallableStatement stmt = null;
@@ -194,7 +194,7 @@ public class CargaTunelDAO
     }
 
 public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
-    {
+{
         int rpta = 0;
         Connection conn =null;
         PreparedStatement  stmt = null;
@@ -239,7 +239,7 @@ public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
                 stmt2.setInt(7, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
                 stmt2.executeUpdate();
                 stmt2.close();
-                
+               
                 }
                 
             }
@@ -262,7 +262,7 @@ public  static int insertarCargaTunel(entCargaTunel entidad) throws Exception
     } 
 
 public static boolean actualizarDescargaTunel(entCargaTunel entidad) throws Exception
-    {
+{
         boolean rpta1 = false;
         Connection conn =null;
         CallableStatement stmt1 = null;
@@ -318,9 +318,6 @@ public static boolean actualizarDescargaTunel(entCargaTunel entidad) throws Exce
             }
         }
         return rpta1;
-    }
-    
-    
-    
-    
+    }   
+
 }

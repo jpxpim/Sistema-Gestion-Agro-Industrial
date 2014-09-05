@@ -1,4 +1,4 @@
-<%@page import="Entidades.entDetallePaleta"%>
+<%@page import="Entidades.entDetalleCargaTunel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entidades.entSesion"%>
 <%
@@ -7,7 +7,7 @@ entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsua
 if(objSession!=null)
 {
     
-    objSession.getObjPaleta().setListaDetallePaleta(new ArrayList<entDetallePaleta>());                      
+    objSession.getObjCargaTunel().setListaDetalleCargaTunel(new ArrayList<entDetalleCargaTunel>());                      
     HttpSession sesion = request.getSession();
     sesion.setAttribute("SessionUsuario", objSession); 
     sesion.setMaxInactiveInterval(-1);

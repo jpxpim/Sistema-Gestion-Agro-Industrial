@@ -65,7 +65,8 @@ if(objSession!=null)
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
              	<!-- smoke_js -->
             <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
-	
+<!-- datepicker -->
+            <link rel="stylesheet" href="lib/datepicker/bootstrap-datetimepicker.min.css" />
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
 		
@@ -161,9 +162,14 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
-	  
- <!-- enhanced select (chosen) -->
+
+            <!-- timepicker -->
+            <script src="lib/datepicker/bootstrap-datetimepicker.min.js"></script>
+              <script src="lib/datepicker/bootstrap-datetimepicker.es.js"></script>
+            <!-- enhanced select (chosen) -->
             <script src="lib/chosen/chosen.jquery.min.js"></script>
+              <!-- input spinners -->
+            <script src="js/forms/jquery.spinners.min.js"></script>
 
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
