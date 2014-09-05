@@ -404,10 +404,10 @@ double pTotal=Operaciones.Redondear(p1+p2+p3+p4,2);
 function clear_all()
 {
     smoke.confirm('Desea Volver',function(e){
-        if (!e){            
+        if (e){            
             clear();
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
            
 
 };

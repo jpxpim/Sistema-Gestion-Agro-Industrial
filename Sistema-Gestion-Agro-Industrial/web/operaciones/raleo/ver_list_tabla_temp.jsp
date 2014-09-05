@@ -394,10 +394,10 @@ double rango3Porcentaje=Operaciones.Redondear((double)rango3*100/(double)rangoTo
 function clear_all()
 {
     smoke.confirm('Desea Volver',function(e){
-        if (!e){            
+        if (e){            
             clear();
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
            
 
 };

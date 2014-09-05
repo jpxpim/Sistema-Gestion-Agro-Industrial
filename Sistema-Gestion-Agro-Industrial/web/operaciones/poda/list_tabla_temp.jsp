@@ -792,20 +792,20 @@ if(objSession.getObjPoda()!=null)
 function clear_all()
 {
     smoke.confirm('Desea Cancelar Todo',function(e){
-        if (!e){            
+        if (e){            
             clear();
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
            
 
 };
 function restaurar(id)
 {
     smoke.confirm('Desea Restaurar Todo',function(e){
-        if (!e){            
+        if (e){            
             editar(id);
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
            
 
 };
@@ -1025,7 +1025,7 @@ success: $.noop // Odd workaround for errorPlacement not firing!
             submitHandler: function() {    
                 
                 smoke.confirm('Desea <%=Titulo%> ',function(e){
-                if (!e){   
+                if (e){   
                     $("#abrirCarga").click();                    
                     var url = "operaciones/poda/insert.jsp"; 
 
@@ -1052,7 +1052,7 @@ success: $.noop // Odd workaround for errorPlacement not firing!
                            }
                          });    
                                          }
-                }, {ok:"No", cancel:"Si"});
+                }, {cancel:"No",ok:"Si"});
      
             },
         rules: {

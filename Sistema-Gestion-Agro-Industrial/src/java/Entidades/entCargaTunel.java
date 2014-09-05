@@ -6,6 +6,7 @@
 
 package Entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class entCargaTunel {
     private List<entDetalleCargaTunel> listaDetalleCargaTunel;
     private String usuario_responsable;
     private Date fecha_modificacion; 
-    public entCargaTunel (){}
+    public entCargaTunel (){
+        this.listaDetalleCargaTunel=new ArrayList<entDetalleCargaTunel>();
+    }
 
     public String getUsuario_responsable() {
         return usuario_responsable;

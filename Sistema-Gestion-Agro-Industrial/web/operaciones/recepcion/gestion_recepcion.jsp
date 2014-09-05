@@ -252,7 +252,7 @@ function getOcultar()
 function clear_all()
 {
     smoke.confirm('Desea Cancelar Todo',function(e){
-        if (!e){            
+        if (e){            
             $.ajax({
             url: 'operaciones/recepcion/limpiar_tabla_temp.jsp',
             type: 'POST',
@@ -263,7 +263,7 @@ function clear_all()
             processData: false
             });  
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
            
 
 };

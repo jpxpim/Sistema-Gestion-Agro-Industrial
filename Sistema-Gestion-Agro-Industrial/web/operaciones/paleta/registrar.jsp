@@ -269,7 +269,7 @@ function grabar_data()
             else
             {
                 smoke.confirm('Desea Grabar Paleta',function(e){
-                    if (!e){
+                    if (e){
                         var url = "operaciones/paleta/insert.jsp"; 
                         $.ajax({
                         type: "POST",
@@ -288,7 +288,7 @@ function grabar_data()
                             }
                         }); 
                     }
-                }, {ok:"No", cancel:"Si"});
+                }, {cancel:"No",ok:"Si"});
   
                 
             }
@@ -320,7 +320,7 @@ function tabla()
  function removerItem(pos,codigo)
 {
     smoke.confirm('Desea Quitar producto con codigo '+codigo,function(e){
-                if (!e){
+                if (e){
                     $.ajax({
                         url: 'operaciones/paleta/delete_item_list_detalle_paleta_temp.jsp?pos='+pos,
                         type: 'POST',
@@ -331,7 +331,7 @@ function tabla()
                         processData: false
                     });   
                 }
-        }, {ok:"No", cancel:"Si"});
+        }, {cancel:"No",ok:"Si"});
                     
  };
 
@@ -431,7 +431,7 @@ $("#txtCodigo").keyup(function(){
 function clear_list()
 {
     smoke.confirm('Desea Limpiar la Lista',function(e){
-                if (!e){
+                if (e){
                      $.ajax({
                         url: 'operaciones/paleta/delete_list_detalle_paleta_temp.jsp',
                         type: 'POST',
@@ -443,7 +443,7 @@ function clear_list()
                         processData: false
                     });
                 }
-        }, {ok:"No", cancel:"Si"});
+        }, {cancel:"No",ok:"Si"});
 };
 function otraBusqueda(codigo)
 {

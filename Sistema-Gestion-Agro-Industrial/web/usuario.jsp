@@ -335,7 +335,7 @@ function tabla()
 function restablecer(id,nombre)
 {
     smoke.confirm('Desea Restablecer contraseña por defecto al usario: '+nombre,function(e){
-        if (!e){        
+        if (e){        
             $("#abrirCarga").click();
             $.ajax({
             url: 'operaciones/usuario/restablecer.jsp?id='+id,
@@ -357,7 +357,7 @@ function restablecer(id,nombre)
             processData: false
             });  
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
 };
 
 $(document).ready(function() {

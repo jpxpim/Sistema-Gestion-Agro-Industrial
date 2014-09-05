@@ -216,14 +216,14 @@ function SetRecepccion(parametro)
     else if(parametro==2)
     texto="Desea continuar con el dia de Producción ";
     smoke.confirm(texto,function(e){
-                if (!e){
+                if (e){
                        $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
                         $.ajax({
                         url: 'operaciones/dia_recepcion/gestionar.jsp?parametro='+parametro,
                         type: 'POST',
                         success: function () {     
                                 $.ajax({
-                                url: 'operaciones/carga_tunel/registrar.jsp',
+                                url: 'operaciones/carga_tunel/carga/registrar.jsp',
                                 type: 'POST',
                                 success: function (data) {     
                                          $('#frame').html(data);
@@ -236,7 +236,7 @@ function SetRecepccion(parametro)
                         processData: false
                         });
                 }
-        }, {ok:"No", cancel:"Si"});
+        },{cancel:"No",ok:"Si"});
     
     
   
@@ -245,7 +245,7 @@ function SetRecepccion(parametro)
  function getion()
 {    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
     $.ajax({
-        url: 'operaciones/carga_tunel/registrar.jsp',
+        url: 'operaciones/carga_tunel/carga/registrar.jsp',
         type: 'POST',
         success: function (data) {     
                  $('#frame').html(data);

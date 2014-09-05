@@ -175,10 +175,10 @@ if(objSession!=null)
                             
       function cerrarSesion(){
         smoke.confirm('Desea Cerrar Sesión',function(e){
-                if (!e){
+                if (e){
                         window.location='operaciones/sesion/cerrar_sesion.jsp';
                 }
-        }, {ok:"No", cancel:"Si"});
+        }, {cancel:"No",ok:"Si"});
         }
 </script>
 

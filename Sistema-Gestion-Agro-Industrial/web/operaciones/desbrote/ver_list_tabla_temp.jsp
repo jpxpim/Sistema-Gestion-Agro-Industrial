@@ -761,10 +761,10 @@ double t3=contarsi4Promedio+contarsi5Promedio+contarsi6Promedio+contarsi7Promedi
 function clear_all()
 {
     smoke.confirm('Desea Volver',function(e){
-        if (!e){            
+        if (e){            
             clear();
         }
-    }, {ok:"No", cancel:"Si"});
+    }, {cancel:"No",ok:"Si"});
            
 
 };

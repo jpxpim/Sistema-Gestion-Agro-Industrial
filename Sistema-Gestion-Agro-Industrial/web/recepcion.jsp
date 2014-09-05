@@ -230,7 +230,7 @@ function SetRecepccion(parametro)
     else if(parametro==2)
     texto="Desea continuar con el dia de Producción ";
     smoke.confirm(texto,function(e){
-                if (!e){
+                if (e){
                        $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
                         $.ajax({
                         url: 'operaciones/dia_recepcion/gestionar.jsp?parametro='+parametro,
@@ -250,7 +250,7 @@ function SetRecepccion(parametro)
                         processData: false
                         });
                 }
-        }, {ok:"No", cancel:"Si"});
+        }, {cancel:"No",ok:"Si"});
     
     
   

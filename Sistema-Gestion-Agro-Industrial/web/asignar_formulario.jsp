@@ -380,7 +380,7 @@ function addFormulario(id,padre,etiqueta,tipo)
             titulo='Agregar '+etiqueta+' a '+Nombre;
     
     smoke.confirm(titulo,function(e){
-                if (!e){
+                if (e){
                      $("#abrirCarga").click();
                         var url = "operaciones/formulario_usuario/insert.jsp?idusuario="
                                 +IdUsuario+"&idFormulario="+id+"&idPadre="+padre+"&tipo="+tipo; 
@@ -411,7 +411,7 @@ function addFormulario(id,padre,etiqueta,tipo)
                              }); 
                             
                 }
-        }, {ok:"No", cancel:"Si"});
+        }, {cancel:"No",ok:"Si"});
 };                   
        modulos();                   
                             
