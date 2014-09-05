@@ -139,7 +139,7 @@ if(objSession!=null)
                                                                                    </select>
                                                                                 </td>
                                                                                 <td>
-                                                                                         <p class="sepH_a">Tiempo Agrupacion de Producción (1+): <strong class="intervalo_val"></strong></p>                                                                                          
+                                                                                         <p class="sepH_a">Tiempo Agrupacion de Producción (1m+): <strong class="intervalo_val"></strong></p>                                                                                          
                                                                                             <div class="intervalo"></div>
                                                                                             <input type="hidden" name="txtIntervalo" id="txtIntervalo"/>
                                                                                 </td>
@@ -171,7 +171,7 @@ if(objSession!=null)
                                                                                    </select>
                                                                                 </td>
                                                                                 <td>
-                                                                                         <p class="sepH_a">Tiempo Agrupacion de Producción (1+): <strong class="intervalo_acumulativo_acumulativo_val"></strong></p>                                                                                          
+                                                                                         <p class="sepH_a">Tiempo Agrupacion de Producción (1m+): <strong class="intervalo_acumulativo_acumulativo_val"></strong></p>                                                                                          
                                                                                             <div class="intervalo_acumulativo_acumulativo"></div>
                                                                                             <input type="hidden" name="txtIntervaloAcumulativo" id="txtIntervaloAcumulativo"/>
                                                                                 </td>

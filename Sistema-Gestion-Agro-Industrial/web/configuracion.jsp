@@ -140,21 +140,21 @@ if(objSession!=null)
                                                                      
                                                                           <div class="location_add_form well">   
                                                                                     <div class="input-prepend">
-                                                                                        <p class="sepH_a">Tiempo de Alerta (1+): <strong class="alerta_val"></strong></p>
+                                                                                        <p class="sepH_a">Tiempo de Alerta (1m+): <strong class="alerta_val"></strong></p>
                                                                                         <br>
                                                                                         <div class="alerta"></div>
                                                                                         <input type="hidden" name="txtAlerta" id="txtAlerta"/>                                                                                  
                                                                                     </div> 
                                                                                      <br><br>
                                                                                     <div class="input-prepend">
-                                                                                        <p class="sepH_a">Sincronización de Control Maestro (1+): <strong class="sincronizacion_val"></strong></p>
+                                                                                        <p class="sepH_a">Sincronización de Control Maestro (1m+): <strong class="sincronizacion_val"></strong></p>
                                                                                         <br>
                                                                                         <div class="sincronizacion"></div>
                                                                                         <input type="hidden" name="txtSincronizacion" id="txtSincronizacion"/>                                                                             
                                                                                     </div> 
                                                                                       <br><br>
                                                                                     <div class="input-prepend">
-                                                                                            <p class="sepH_a">Tiempo Agrupacion de Producción (1+): <strong class="intervalo_val"></strong></p>
+                                                                                            <p class="sepH_a">Tiempo Agrupacion de Producción (1m+): <strong class="intervalo_val"></strong></p>
                                                                                             <br>
                                                                                             <div class="intervalo"></div>
                                                                                             <input type="hidden" name="txtIntervalo" id="txtIntervalo"/>
