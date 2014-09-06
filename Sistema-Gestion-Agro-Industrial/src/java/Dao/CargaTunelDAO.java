@@ -200,19 +200,18 @@ public  static int insertar(entCargaTunel entidad) throws Exception
         PreparedStatement  stmt = null;
         try {
             
-           String sql="insert into carga_tunel (ID_DIA_RECEPCION,ID_TUNEL,INICIO_CARGA,TEMPERATURA_CARGA,FIN_CARGA,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)\n" +
+           String sql="insert into carga_tunel (ID_TUNEL,INICIO_CARGA,TEMPERATURA_CARGA,FIN_CARGA,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)\n" +
                       "values (?,?,?,?,?,?,?,GETDATE())";
            
             conn = ConexionDAO.getConnection();
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, entidad.getId_dia_recepcion());
-            stmt.setInt(2, entidad.getObjTunel().getId_tunel());
-            stmt.setTimestamp(3, new Timestamp(entidad.getInicio_carga().getTime()));
-            stmt.setDouble(4, entidad.getTemperatura_carga());
-            stmt.setTimestamp(5, new Timestamp(entidad.getFin_carga().getTime()));
-            stmt.setBoolean(6, entidad.getEstado());
-            stmt.setString(7, entidad.getUsuario_responsable());
+            stmt.setInt(1, entidad.getObjTunel().getId_tunel());
+            stmt.setTimestamp(2, new Timestamp(entidad.getInicio_carga().getTime()));
+            stmt.setDouble(3, entidad.getTemperatura_carga());
+            stmt.setTimestamp(4, new Timestamp(entidad.getFin_carga().getTime()));
+            stmt.setBoolean(5, entidad.getEstado());
+            stmt.setString(6, entidad.getUsuario_responsable());
             
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();

@@ -21,7 +21,6 @@ if(objSession!=null)
             entidad.setFin_carga(new Date(Long.parseLong(request.getParameter("txtFechaFin"))));
             entidad.setTemperatura_carga(Double.parseDouble(request.getParameter("txtGrados")));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
-            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
             entidad.setEstado(true);
             int id=clsGestor.insertarCargaTunel(entidad);
             if(id>0)
