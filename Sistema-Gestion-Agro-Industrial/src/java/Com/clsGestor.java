@@ -788,9 +788,9 @@ public class clsGestor {
 //    {
 //        return PaletaDAO.Listar(activo);
 //    }
-    public static List<entPaleta> ListarPorDiaRecepccionPaleta(int id_dia_recepcion) throws Exception
+    public static List<entPaleta> ListarPackingPaleta() throws Exception
     {
-        return PaletaDAO.ListarPorDiaRecepccion(id_dia_recepcion);
+        return PaletaDAO.ListarPacking();
     }
     
     public  static int insertarPaleta(entPaleta entidad) throws Exception

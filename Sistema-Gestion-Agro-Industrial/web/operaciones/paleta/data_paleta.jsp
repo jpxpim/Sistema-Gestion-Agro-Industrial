@@ -11,7 +11,7 @@ if(objSession!=null)
 paleta= {
      'entidad': [ 
     <%
-    List<entPaleta> listPaleta = clsGestor.ListarPorDiaRecepccionPaleta(objSession.getObjDiaRecepcion().getId_dia_recepcion());
+    List<entPaleta> listPaleta = clsGestor.ListarPackingPaleta();
     if(listPaleta!=null)
     {
       int size=listPaleta.size();
