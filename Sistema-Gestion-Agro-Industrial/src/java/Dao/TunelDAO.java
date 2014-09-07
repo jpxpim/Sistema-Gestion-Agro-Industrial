@@ -23,7 +23,7 @@ import java.util.List;
 public class TunelDAO {
     
     
-    public static List<entTunel> Listar(boolean activo) throws Exception
+    public static List<entTunel> Listar(boolean activo,int carga) throws Exception
     {
         List<entTunel> lista = null;
         Connection conn =null;
@@ -32,8 +32,22 @@ public class TunelDAO {
         try {
             String sql="select id_tunel,nombre,descripcion,pos_x,pos_y,pos_h,estado,usuario_responsable,fecha_modificacion"
                     + " from tunel ";
-            if(activo)
+                    if(activo)
+                    {
                         sql+=" where estado=1"; 
+                        if(carga==1)
+                            sql+=" and CARGADO=1"; 
+                        else if(carga==0)
+                            sql+=" and CARGADO=0"; 
+                    }
+                    else
+                    {
+                        if(carga==1)
+                            sql+=" where and CARGADO=1"; 
+                        else if(carga==0)
+                            sql+=" where and CARGADO=0"; 
+                    }
+            
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -78,8 +92,8 @@ public class TunelDAO {
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO tunel(nombre,descripcion,pos_x,pos_y,pos_h,estado,usuario_responsable,fecha_modificacion)"
-                   + " VALUES(?,?,?,?,?,?,?,GETDATE());";
+           String sql="INSERT INTO tunel(nombre,descripcion,pos_x,pos_y,pos_h,estado,usuario_responsable,fecha_modificacion,CARGADO)"
+                   + " VALUES(?,?,?,?,?,?,?,GETDATE(),0);";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

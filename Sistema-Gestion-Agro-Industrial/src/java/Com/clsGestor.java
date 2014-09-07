@@ -831,9 +831,9 @@ public class clsGestor {
     // </editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="entTunel">
-    public static List<entTunel> ListarTunel(boolean activo) throws Exception
+    public static List<entTunel> ListarTunel(boolean activo,int carga) throws Exception
     {
-        return TunelDAO.Listar(activo);
+        return TunelDAO.Listar(activo,carga);
     }
     
     public  static int insertarTunel(entTunel entidad) throws Exception
@@ -854,8 +854,10 @@ public class clsGestor {
     {
         return CargaTunelDAO.insertar(entidad);
     }
-
-    
+    public static entCargaTunel  buscarxTunelCargaTunel(int idTunel) throws Exception
+    {
+        return CargaTunelDAO.buscarxTunel(idTunel);
+    }
 // </editor-fold>
     
 }

@@ -9,7 +9,7 @@
     entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {   
-    List<entTunel> list=clsGestor.ListarTunel(true);
+    List<entTunel> list=clsGestor.ListarTunel(true,2);
     if(list!=null)
 
         for(entTunel entidad : list)

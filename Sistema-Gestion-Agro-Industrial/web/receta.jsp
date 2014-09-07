@@ -323,6 +323,8 @@ function quitarItem(pos)
             processData: false
         });
 };
+
+
  function modulos()
 {
      $.ajax({
@@ -477,7 +479,17 @@ $('#buscarInsumo').click(function(){
                                           $("#IdReceta").val("0");  
                                            $('#verTabla').show();
                                             $('#verCantidad').hide();
-                                           
+                                            $('#detalle').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+    
+                                            $.ajax({
+                                                    url: 'operaciones/receta/limpiar_tabla_insumo.jsp',
+                                                    type: 'POST',
+                                                    success: function () {  
+                                                        detalle();
+                                                    },
+                                                    contentType: false,
+                                                    processData: false
+                                                });
                                       };
                                        function edit_form(id,nombre,estado) {
                                            $('#verTabla').show();

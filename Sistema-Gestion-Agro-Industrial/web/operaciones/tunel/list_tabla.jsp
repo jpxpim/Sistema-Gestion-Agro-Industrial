@@ -6,7 +6,7 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-List<entTunel> list=clsGestor.ListarTunel(false);
+List<entTunel> list=clsGestor.ListarTunel(false,2);
 if(list!=null)
 {%>
 <div id="tabla">

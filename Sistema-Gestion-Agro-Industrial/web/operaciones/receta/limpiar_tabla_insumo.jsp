@@ -10,18 +10,11 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-        if(request.getParameter("id") != null && request.getParameter("id") != "" )
-        {
             objSession.setListDetalleReceta(new ArrayList<entDetalleReceta>() );
-            List<entDetalleReceta> list=clsGestor.ListarDetalleReceta(Integer.parseInt(request.getParameter("id")));
-            if(list!=null)
-            {
-                objSession.setListDetalleReceta(list);
-            }
-             HttpSession sesion = request.getSession();
+          
+            HttpSession sesion = request.getSession();
             sesion.setAttribute("SessionUsuario", objSession);
             sesion.setMaxInactiveInterval(-1);
 
-        }
 }
  %>
