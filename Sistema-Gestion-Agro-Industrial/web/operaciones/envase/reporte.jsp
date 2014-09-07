@@ -1,4 +1,4 @@
-<%@page import="Entidades.entSubSector"%>
+<%@page import="Entidades.entEnvase"%>
 <%@page import="java.util.Date"%>
 <%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entSesion"%>
@@ -11,11 +11,11 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entSubSector> list=clsGestor.ListarSubSector(false);
+List<entEnvase> list=clsGestor.ListarEnvase(false);
 if(list!=null)
 {%>
-<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Sub-Sector "+e.format(new Date())+".xls\"");%>
-<center><h1>REPORTE SUB-SECTOR </h1></center>
+<%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Envase "+e.format(new Date())+".xls\"");%>
+<center><h1>REPORTE ENVASE </h1></center>
 <table border="1">
     
     <tr>
@@ -26,16 +26,19 @@ if(list!=null)
              <center> <strong>Nombre</strong> </center>
         </td>
          <td>
-             <center> <strong>Descripcion</strong> </center>
+             <center> <strong>Codigo de Control</strong> </center>
         </td>
          <td>
-             <center> <strong>Codigo Control</strong> </center>
+             <center> <strong>Peso</strong> </center>
         </td>
         <td>
-             <center> <strong>Sector</strong> </center>
+             <center> <strong>Peso de Carga</strong> </center>
         </td>
         <td>
-             <center> <strong>Grower SENASA</strong> </center>
+             <center> <strong>Cajas por Paleta</strong> </center>
+        </td>
+        <td>
+             <center> <strong>Receta</strong> </center>
         </td>
          <td>
              <center> <strong>Fecha Registro</strong> </center>
@@ -48,21 +51,22 @@ if(list!=null)
          
         
      
-         for(entSubSector entidad : list)
+         for(entEnvase entidad : list)
         {
         %>
        
              <tr>
-        <td><%=entidad.getId_sub_sector()%></td>
+        <td><%=entidad.getId_envase() %></td>
             <td><%=entidad.getNombre()%></td>
-            <td><%=entidad.getDescripcion()%></td>
-             <td><%=entidad.getCodigo_control()%></td>
-             <td><%=entidad.getObjSector().getNombre()%></td>
-             <td><%=entidad.getGrower_senasa()%></td>
+            <td><%=entidad.getCodigo_control() %></td>
+             <td><%=entidad.getPeso()%></td>
+             <td><%=entidad.getPeso_carga() %></td>
+             <td><%=entidad.getCant_cajas_paleta() %></td>
+             <td><%=entidad.getObjReceta().getNombre() %></td>
              <td><%=e.format(entidad.getFecha_modificacion())%></td>
             <td>
                  <%
-                   if(entidad.getEstado())
+                   if(entidad.isEstado())
                    out.print("Activado");
                    else
                        out.print("Desactivado");
