@@ -538,10 +538,10 @@ function clear_all()
                   $('input#textFFin').val("");
                   $('input#txtFechaInicio').val("");
                   $('input#txtFechaFin').val("");  
-                 $('#cTunel').val("");                                             
-                 $('#Tunel').html("<di id='Tunel'><blockquote><p>Cliente  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
-        
-                   $('#txtCodigo').attr('disabled', true);
+                  $('#cTunel').val("");                                             
+                  $('#Tunel').html("<di id='Tunel'><blockquote><p>Cliente  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
+                  $('input#txtGrados').val("18.00");
+                  $('#txtCodigo').attr('disabled', true);
                  
         },
         contentType: false,

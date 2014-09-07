@@ -17,15 +17,14 @@ if(objSession!=null)
             entCargaTunel entidad = objSession.getObjCargaTunel();
             entidad.setObjTunel(new entTunel(Integer.parseInt(request.getParameter("idTunel"))));            
             
-            entidad.setInicio_carga(new Date(Long.parseLong(request.getParameter("txtFechaInicio"))));
-            entidad.setFin_carga(new Date(Long.parseLong(request.getParameter("txtFechaFin"))));
-            entidad.setTemperatura_carga(Double.parseDouble(request.getParameter("txtGrados")));
+            entidad.setInicio_descarga(new Date(Long.parseLong(request.getParameter("txtFechaInicio"))));
+            entidad.setFin_descarga(new Date(Long.parseLong(request.getParameter("txtFechaFin"))));
+            entidad.setTemperatura_descarga(Double.parseDouble(request.getParameter("txtGrados")));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
             entidad.setEstado(true);
-            int id=clsGestor.insertarCargaTunel(entidad);
-            if(id>0)
+            if(clsGestor.actualizarDescargaCargaTunel(entidad))
             {
-                out.print(id);
+                out.print(1);
             }
             else
                 out.print(0);

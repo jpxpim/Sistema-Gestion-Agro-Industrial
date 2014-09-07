@@ -5,14 +5,12 @@
 --%>
 
 
-<%@page import="codigoBarras.getCodigo"%>
+
 <%@page import="java.io.InputStream"%>
 <%@page import="net.sf.jasperreports.engine.JREmptyDataSource"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
-<%@page import="java.util.HashMap"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +23,7 @@ File reportFile = new File(application.getRealPath("/etiqueta_traza.jasper"));
 
  Map parametros = new HashMap();
        parametros.clear();
-
+       parametros.put("codigoBarrasNro1", "31071433824492"); 
        parametros.put("variedad","Red Globe" );
        parametros.put("productor", "Agro Grace");
        parametros.put("ggn", "31071433824492");
@@ -35,9 +33,8 @@ File reportFile = new File(application.getRealPath("/etiqueta_traza.jasper"));
        parametros.put("fecha", "21/01/2014");
        parametros.put("envase", "EBG-02");
        parametros.put("lote", "LV0001");
-       parametros.put("calibre", "xl");
-       parametros.put("codigoBarrasNro1", "31071433824492");      
-       
+       parametros.put("calibre", "xl");   
+       parametros.put("codigoBarrasNro2", "31071433824492");
        parametros.put("variedad2","Red Globe" );
        parametros.put("productor2", "Agro Grace");
        parametros.put("ggn2", "31071433824492");
@@ -48,7 +45,7 @@ File reportFile = new File(application.getRealPath("/etiqueta_traza.jasper"));
        parametros.put("envase2", "EBG-02");
        parametros.put("lote2", "LV0001");
        parametros.put("calibre2", "xl");
-       parametros.put("codigoBarrasNro2", "31071433824492");
+       
        
 
 

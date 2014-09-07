@@ -858,6 +858,11 @@ public class clsGestor {
     {
         return CargaTunelDAO.buscarxTunel(idTunel);
     }
+    
+public static boolean actualizarDescargaCargaTunel(entCargaTunel entidad) throws Exception
+{
+        return CargaTunelDAO.actualizarDescarga(entidad);
+}   
 // </editor-fold>
     
 }

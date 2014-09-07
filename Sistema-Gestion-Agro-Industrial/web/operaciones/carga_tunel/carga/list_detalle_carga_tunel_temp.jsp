@@ -34,7 +34,21 @@ if(objSession.getObjCargaTunel()!=null)
             <td><%=(i+1)%></td>
             <td><%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%></td>            
             <td><%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getObjCliente().getNombre()%></td>            
-            <td><%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()%></td>
+            <td>
+                <%  if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==1)
+                     out.print("Completo");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==2)
+                     out.print("Incompleto");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==3)
+                     out.print("Baja de Frio");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==4)
+                     out.print("Cortesia");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==5)
+                     out.print("Repaletizado");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==6)
+                     out.print("Reempacado");
+                %>
+            </td>    
             <td><%=hora.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>            
             <td><%=fecha.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>
             <td>

@@ -379,19 +379,29 @@ public static boolean actualizarDescarga(entCargaTunel entidad) throws Exception
                          + " WHERE ID_PALETA = ?;";
                     CallableStatement stmt2 = conn.prepareCall(sql);    
                     stmt2.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
-                    stmt2.executeUpdate();
+                    stmt2.execute();
                     stmt2.close();
                 
-                PreparedStatement  stmt = null;    
-                String sql0="INSERT INTO det_POSICION_paleta(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
-                       + " VALUES(?,?,GETDATE());";
-
-                conn = ConexionDAO.getConnection();
-                stmt = conn.prepareStatement(sql0, Statement.RETURN_GENERATED_KEYS);
-                stmt.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
-                stmt.setInt(2, 3);
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
+                
+                sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                    + " VALUES(?,3,GETDATE());";                
+                PreparedStatement psEstado = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                psEstado.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                psEstado.execute();
+                psEstado.close(); 
+                
+                sql="update PALETA set POSICION_PALETA=3 where ID_PALETA=?;";
+                            PreparedStatement psEstadoPaleta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                            psEstadoPaleta.setInt(1,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                            psEstadoPaleta.execute();
+                            psEstadoPaleta.close();  
+                     
+               sql="update TUNEL set CARGADO=0 where ID_TUNEL=?;";
+                    PreparedStatement EstadoTunel = conn.prepareCall(sql);
+                    EstadoTunel.setInt(1, entidad.getObjTunel().getId_tunel());
+                    EstadoTunel.execute();
+                    EstadoTunel.close();
+                
                 }
                 
             }

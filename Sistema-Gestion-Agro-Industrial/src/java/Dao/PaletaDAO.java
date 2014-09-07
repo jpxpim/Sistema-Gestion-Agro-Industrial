@@ -173,7 +173,7 @@ public class PaletaDAO {
         ResultSet dr = null;
         try {
                     String sql="select P.ID_PALETA,P.CODIGO_CONTROL,P.FECHA_PRODUCCION,p.ESTADO_PALETA,P.POSICION_PALETA,C.NOMBRE from \n" +
-                                "PALETA P JOIN CLIENTE C ON P.ID_CLIENTE=C.ID_CLIENTE where POSICION_PALETA!=4"; 
+                                "PALETA P JOIN CLIENTE C ON P.ID_CLIENTE=C.ID_CLIENTE where POSICION_PALETA!=2 and POSICION_PALETA!=4"; 
                     
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
