@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="324" pageHeight="223" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="568ade77-4793-47c8-bebe-8c5adda5386a">
 	<property name="ireport.zoom" value="2.1435888100000056"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="36"/>
-	<parameter name="codoBarras1" class="java.io.InputStream"/>
-	<parameter name="codoBarras2" class="java.io.InputStream"/>
-	<parameter name="code1" class="java.lang.String"/>
-	<parameter name="code2" class="java.lang.String"/>
+	<property name="ireport.x" value="29"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigoBarrasNro1" class="java.io.InputStream"/>
 	<parameter name="variedad" class="java.lang.String"/>
 	<parameter name="productor" class="java.lang.String"/>
 	<parameter name="ggn" class="java.lang.String"/>
@@ -17,6 +14,17 @@
 	<parameter name="envase" class="java.lang.String"/>
 	<parameter name="lote" class="java.lang.String"/>
 	<parameter name="calibre" class="java.lang.String"/>
+	<parameter name="codigoBarrasNro2" class="java.io.InputStream"/>
+	<parameter name="variedad2" class="java.lang.String"/>
+	<parameter name="productor2" class="java.lang.String"/>
+	<parameter name="ggn2" class="java.lang.String"/>
+	<parameter name="fda2" class="java.lang.String"/>
+	<parameter name="grower2" class="java.lang.String"/>
+	<parameter name="categoria2" class="java.lang.String"/>
+	<parameter name="fecha2" class="java.lang.String"/>
+	<parameter name="envase2" class="java.lang.String"/>
+	<parameter name="lote2" class="java.lang.String"/>
+	<parameter name="calibre2" class="java.lang.String"/>
 	<title>
 		<band height="219">
 			<rectangle>
@@ -487,29 +495,6 @@
 				</textElement>
 				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
 			</staticText>
-			<image>
-				<reportElement x="36" y="183" width="100" height="28" uuid="57a50698-f4c7-45ae-b548-c3e42843d8d9"/>
-				<imageExpression><![CDATA[$P{codoBarras1}]]></imageExpression>
-			</image>
-			<image>
-				<reportElement x="195" y="183" width="99" height="28" uuid="7ff7d67e-f260-4b3b-9740-2a4bd3e2f7ae"/>
-				<imageExpression><![CDATA[$P{codoBarras2}]]></imageExpression>
-			</image>
-			<textField>
-				<reportElement x="36" y="210" width="100" height="9" uuid="3dc63ddd-4852-43f1-a69b-90068c2b2d81"/>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{code1}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="195" y="210" width="99" height="9" uuid="7680240d-266c-409e-9ff8-a3c973dbdbf2"/>
-				<textElement textAlignment="Center">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{code2}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="135" y="32" width="21" height="19" uuid="8668a6b5-2b7d-4087-b07f-305edda87644"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -576,6 +561,32 @@
 			<textField>
 				<reportElement x="104" y="122" width="52" height="6" uuid="60164d6c-65c5-4d29-a371-f23af2c469c1"/>
 				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fda}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="175" y="192" width="142" height="23" uuid="ea854384-7b26-4d63-85ce-5476e170b3ae"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["1234"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<componentElement>
+				<reportElement x="13" y="192" width="142" height="23" uuid="928676f3-6e40-4a82-a398-ff2b91dc1ea8"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["1234"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="13" y="182" width="142" height="6" uuid="d13ed6ab-dc92-49af-a17f-cf86693dac07"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="182" width="142" height="6" uuid="29063b32-40ec-42e1-b986-f5fbbb18bded"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Arial" size="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fda}]]></textFieldExpression>
