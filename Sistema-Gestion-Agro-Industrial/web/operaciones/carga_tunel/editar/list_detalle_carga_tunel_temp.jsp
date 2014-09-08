@@ -8,48 +8,10 @@ if(objSession!=null)
 {
    SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat hora=new SimpleDateFormat("HH:mm a"); 
-if(request.getParameter("id") != null && request.getParameter("id") != "")
-{
-    objSession.setObjCargaTunel(clsGestor.buscarxTunelCargaTunel(Integer.parseInt(request.getParameter("id"))));
-
 if(objSession.getObjCargaTunel()!=null)
 {
-    HttpSession sesion = request.getSession();
-    sesion.setAttribute("SessionUsuario", objSession); 
-    sesion.setMaxInactiveInterval(-1);
 %>
 <div id="tabla">
-    <table class="table table-striped table_vam">
-        <thead>
-            <tr>
-                <th>
-                  Temperatura de Carga
-                </th>
-               <td ><%=objSession.getObjCargaTunel().getTemperatura_carga()%></td>          
-               <th>
-                    Hora Inicio Carga
-                </th>
-                <td><%=hora.format(objSession.getObjCargaTunel().getInicio_carga())%></td>
-                 <th>
-                   Fecha Inicio Carga
-                </th>
-               <td><%=fecha.format(objSession.getObjCargaTunel().getInicio_carga())%></td>
-            </tr>
-             <tr>
-                 <td ></td>
-               <td></td>               
-                  <th>
-                   Fecha Inicio Carga
-                </th>
-               <td><%=fecha.format(objSession.getObjCargaTunel().getInicio_carga())%></td>
-               <th>
-                    Hora Fin Carga
-                </th>
-                <td><%=hora.format(objSession.getObjCargaTunel().getFin_carga())%></td>
-            </tr>
-        </thead>
-    </table>
-    
 <table id="lista" class="table table-striped location_table">
     <thead>
             <tr>
@@ -60,7 +22,7 @@ if(objSession.getObjCargaTunel()!=null)
                 <th>Localización</th>
                 <th>Hora</th>
                 <th>Fecha</th>
-                
+                <th>Acciones</th>
             </tr>
     </thead> 
      <tbody>      
@@ -87,8 +49,8 @@ if(objSession.getObjCargaTunel()!=null)
                 else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==6)
                      out.print("Reempacado");
                 %>
-            </td> 
-             <td>
+            </td>    
+            <td>
                 <%  if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==1)
                      out.print("<span class='label label-success'>Paleteizado</span>");
                 else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==2)
@@ -103,7 +65,9 @@ if(objSession.getObjCargaTunel()!=null)
             </td>    
             <td><%=hora.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>            
             <td><%=fecha.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>
-           
+            <td>
+                   <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
+            </td>
         </tr>
 
 
@@ -128,7 +92,7 @@ $(function () {
 });
 </script>
 
-<%}}}%>  
+<%} }%>  
                                                                         
                                                                        
                                                                             

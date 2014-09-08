@@ -864,5 +864,22 @@ public static boolean actualizarDescargaCargaTunel(entCargaTunel entidad) throws
         return CargaTunelDAO.actualizarDescarga(entidad);
 }   
 // </editor-fold>
-    
+
+    //<editor-fold defaultstate="collapsed" desc="Ubigeo">
+       public List<entDepartamento> listarDepartamento() throws Exception
+       {
+           return DepartamentoDAO.listarDepartamento();
+       }
+     public List<entDistrito> listarDistritoXProvincia(int IdProvincia) throws Exception
+     {
+         return DistritoDAO.listarDistritoXProvincia(IdProvincia);
+     }
+     public List<entProvincia> listarProvinciaXDepartamento(int IdDepartamento) throws Exception
+     {
+         return ProvinciaDAO.listarProvinciaXDepartamento(IdDepartamento);
+     }
+     public  entDistrito buscarIdProvincia (int idDistrito) throws Exception
+     {
+         return DistritoDAO.buscarId(idDistrito);
+     }
 }

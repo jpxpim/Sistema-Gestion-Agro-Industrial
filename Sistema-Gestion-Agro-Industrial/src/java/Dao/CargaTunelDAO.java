@@ -307,22 +307,7 @@ public  static int insertar(entCargaTunel entidad) throws Exception
                             psEstadoPaleta.setInt(1,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
                             psEstadoPaleta.execute();
                             psEstadoPaleta.close();  
-                sql="select ID_PRODUCTO_TERMINADO from DET_PALETA where ID_PALETA="
-                        +entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta();
-                
-                    CallableStatement csIdProducto = conn.prepareCall(sql);
-                    ResultSet rsidProducto = csIdProducto.executeQuery();
-
-                    while (rsidProducto.next()){
-                        sql="update PRODUCTO_TERMINADO set ESTADO=2 where ID_PRODUCTO_TERMINADO=?;";
-                            PreparedStatement psEstadoProducto = conn.prepareCall(sql);
-                            psEstadoProducto.setInt(1, rsidProducto.getInt(1));
-                            psEstadoProducto.execute();
-                            psEstadoProducto.close();
-                          
-                    }
-                    csIdProducto.close();
-                     rsidProducto.close();
+    
                      
                    sql="update TUNEL set CARGADO=1 where ID_TUNEL=?;";
                         PreparedStatement EstadoTunel = conn.prepareCall(sql);

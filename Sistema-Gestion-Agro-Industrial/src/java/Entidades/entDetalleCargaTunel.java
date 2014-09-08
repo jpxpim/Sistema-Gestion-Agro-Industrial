@@ -21,6 +21,7 @@ public class entDetalleCargaTunel
     private int pos_y;
     private int pos_h;
     private entCliente objCliente;
+    private boolean eliminado;
 
     public entCliente getObjCliente() {
         return objCliente;
@@ -31,7 +32,9 @@ public class entDetalleCargaTunel
     }
     
     
-    public entDetalleCargaTunel(){}
+    public entDetalleCargaTunel(){
+        this.eliminado=false;
+    }
 
     public int getId_det_carga_tunel() {
         return id_det_carga_tunel;
@@ -95,6 +98,14 @@ public class entDetalleCargaTunel
 
     public void setPos_h(int pos_h) {
         this.pos_h = pos_h;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
     
     

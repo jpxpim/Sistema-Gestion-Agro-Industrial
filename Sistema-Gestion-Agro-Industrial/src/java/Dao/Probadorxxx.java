@@ -55,7 +55,7 @@ public class Probadorxxx {
 //            
 //        }
         
-        //System.out.print(""+CargaTunelDAO.buscarxTunel(1));
+        System.out.print(""+DistritoDAO.buscarId(17).getNombre());
         ;
     }
     
