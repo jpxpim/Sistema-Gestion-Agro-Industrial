@@ -336,7 +336,79 @@ public  static int insertar(entCargaTunel entidad) throws Exception
         return rpta;
     } 
 
+public static boolean actualizarCarga(entCargaTunel entidad) throws Exception
+{
+        boolean rpta = false;
+        Connection conn =null;
+        try {
+             String sql="";
+             
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+      
+                for(int i=0; i<entidad.getListaDetalleCargaTunel().size();i++)
+                {
+                    if(entidad.getListaDetalleCargaTunel().get(i).isEliminado())
+                    {
+                        sql="DELETE FROM DET_CARGA_TUNEL WHERE ID_DET_CARGA_TUNEL = ?;";
+                        CallableStatement stmt2 = conn.prepareCall(sql);    
+                        stmt2.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getId_det_carga_tunel());
+                        stmt2.execute();
+                        stmt2.close();
+                        
+                         sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                            + " VALUES(?,1,GETDATE());";                
+                        PreparedStatement psEstado = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                        psEstado.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                        psEstado.execute();
+                        psEstado.close(); 
 
+                        sql="update PALETA set POSICION_PALETA=1 where ID_PALETA=?;";
+                                    PreparedStatement psEstadoPaleta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                                    psEstadoPaleta.setInt(1,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                                    psEstadoPaleta.execute();
+                                    psEstadoPaleta.close();  
+                    }
+                    if(entidad.getListaDetalleCargaTunel().get(i).getId_det_carga_tunel()==0)
+                    {
+                        sql="INSERT INTO DET_CARGA_TUNEL(ID_CARGA_TUNEL,ID_PALETA)"
+                            + " VALUES(?,?);";
+                            PreparedStatement pst1 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                            pst1.setInt(1,entidad.getId_carga_tunel());
+                            pst1.setInt(2,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                            pst1.executeUpdate();
+
+                        sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                            + " VALUES(?,2,GETDATE());";                
+                        PreparedStatement psEstado = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                        psEstado.setInt(1, entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                        psEstado.execute();
+                        psEstado.close(); 
+
+                        sql="update PALETA set POSICION_PALETA=2 where ID_PALETA=?;";
+                                    PreparedStatement psEstadoPaleta = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                                    psEstadoPaleta.setInt(1,entidad.getListaDetalleCargaTunel().get(i).getObjPaleta().getId_paleta());
+                                    psEstadoPaleta.execute();
+                                    psEstadoPaleta.close();  
+                        
+                    }
+                }
+            rpta=true;
+           conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
 
 public static boolean actualizarDescarga(entCargaTunel entidad) throws Exception
 {

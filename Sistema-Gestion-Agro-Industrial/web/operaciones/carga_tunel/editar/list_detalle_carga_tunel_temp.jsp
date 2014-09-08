@@ -6,6 +6,7 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
+    int conEliminados=0;
    SimpleDateFormat fecha=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat hora=new SimpleDateFormat("HH:mm a"); 
 if(objSession.getObjCargaTunel()!=null)
@@ -29,8 +30,9 @@ if(objSession.getObjCargaTunel()!=null)
     <%
     for(int i=0;i<objSession.getObjCargaTunel().getListaDetalleCargaTunel().size();i++)
     {
-    %>
-                                                                   
+        if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).isEliminado())
+        conEliminados++;
+        else{%>                                                             
         <tr>
             <td><%=(i+1)%></td>
             <td><%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%></td>            
@@ -66,14 +68,13 @@ if(objSession.getObjCargaTunel()!=null)
             <td><%=hora.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>            
             <td><%=fecha.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>
             <td>
-                <%if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).isEliminado()){%>
-                   <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Restarurar</a>
-                <%}else{%>
-                    <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
-                 <%}%>
+               
+                   
+                
+                  <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
             </td>
         </tr>
-
+            <%}%>
 
     <%
     }
@@ -91,7 +92,7 @@ $(function () {
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     }); 
-   size='<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().size()%>';
+   size='<%=(objSession.getObjCargaTunel().getListaDetalleCargaTunel().size()-conEliminados)%>';
  
 });
 </script>

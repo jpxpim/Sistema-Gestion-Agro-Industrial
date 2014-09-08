@@ -858,18 +858,22 @@ public class clsGestor {
     {
         return CargaTunelDAO.buscarxTunel(idTunel);
     }
-    
-public static boolean actualizarDescargaCargaTunel(entCargaTunel entidad) throws Exception
-{
+
+    public static boolean actualizarDescargaCargaTunel(entCargaTunel entidad) throws Exception
+    {
         return CargaTunelDAO.actualizarDescarga(entidad);
-}   
+    }   
+    public static boolean actualizarCarga(entCargaTunel entidad) throws Exception
+    {
+         return CargaTunelDAO.actualizarCarga(entidad);
+}
 // </editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Ubigeo">
-       public List<entDepartamento> listarDepartamento() throws Exception
-       {
-           return DepartamentoDAO.listarDepartamento();
-       }
+   public List<entDepartamento> listarDepartamento() throws Exception
+   {
+       return DepartamentoDAO.listarDepartamento();
+   }
      public List<entDistrito> listarDistritoXProvincia(int IdProvincia) throws Exception
      {
          return DistritoDAO.listarDistritoXProvincia(IdProvincia);
@@ -882,4 +886,5 @@ public static boolean actualizarDescargaCargaTunel(entCargaTunel entidad) throws
      {
          return DistritoDAO.buscarId(idDistrito);
      }
+     
 }
