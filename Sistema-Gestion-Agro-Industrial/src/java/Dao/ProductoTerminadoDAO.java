@@ -210,7 +210,10 @@ public class ProductoTerminadoDAO {
             }
         }
         return lista;
-    }       
+    }    
+ 
+ 
+ 
 public static List<entProductoTerminado> ListarA(int id_dia_recepcion,int idLineaProduccion) throws Exception
     {
         List<entProductoTerminado> lista = null;

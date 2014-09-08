@@ -797,6 +797,10 @@ public class clsGestor {
     {
         return PaletaDAO.insertar(entidad);
     }
+    public static List<entDetallePaleta> ListarPorProductoTerminadoRepaletizadoPaleta() throws Exception
+    {
+        return PaletaDAO.ListarPorProductoTerminadoRepaletizado();
+    }
 //    
 //    public static boolean actualizarPaleta(entPaleta entidad) throws Exception
 //    {
@@ -886,5 +890,5 @@ public class clsGestor {
      {
          return DistritoDAO.buscarId(idDistrito);
      }
-     
+        // </editor-fold> 
 }
