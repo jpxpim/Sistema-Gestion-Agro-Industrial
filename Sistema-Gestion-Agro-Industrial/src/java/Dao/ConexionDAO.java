@@ -27,5 +27,21 @@ public class ConexionDAO {
         }
              return cnn;
     }
+    public static Connection getConnectionBdExterna() throws Exception{
+        Connection cnn = null;
+        try {
+            
+            String pass=ConfiguracionDAO.buscar().getContra_bd_erp_ext();
+            String url2= "jdbc:sqlserver://"+ConfiguracionDAO.buscar().getIp_bd_erp_ext()+"\\MSSQL:"+ConfiguracionDAO.buscar().getPuerto_erp_ext()+";databaseName="+ConfiguracionDAO.buscar().getNom_bd_erp_ext(); 
+            String user=ConfiguracionDAO.buscar().getUsuario_bd_erp_ext();
+            Class.forName(driver);
+            cnn=DriverManager.getConnection(url2,user,pass);
+            System.out.println("conexion establecida");
+        } catch (ClassNotFoundException | SQLException e) {
+             System.out.println("No se pudo establecer la conexion a BD Externa");
+        }
+             return cnn;
+    }
+    
 
 }
