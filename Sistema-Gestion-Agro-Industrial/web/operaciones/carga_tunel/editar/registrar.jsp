@@ -397,9 +397,9 @@ function selectTunel(id,nombre,total)
 function grabar_data()
 {
     if($('input#idTunel').val()!=null && $('input#idTunel').val()!="")
-    {               
+    {                
         smoke.confirm('Desea Grabar Paleta',function(e){
-        if (e){
+            if (e){
                 var url = "operaciones/carga_tunel/editar/insert.jsp"; 
                 $.ajax({
                 type: "POST",
@@ -411,16 +411,15 @@ function grabar_data()
                          $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
                         else if(data>0)
                         {
-                           tablaTunel();
                            clear_all();
                            $.sticky("Se Regisro Correctamente.", {autoclose : 5000, position: "top-center" });
                         }
 
                     }
                 }); 
-            }
+        }
         }, {cancel:"No",ok:"Si"});
-   }
+    }
     else
         $.sticky("<center><h1>Seleccione un Tunel</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
 };
@@ -441,6 +440,8 @@ function removerItem(pos,codigo)
         }, {cancel:"No",ok:"Si"});
                     
  };
+ 
+
 function clear_all()
 {
      $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>'); 
