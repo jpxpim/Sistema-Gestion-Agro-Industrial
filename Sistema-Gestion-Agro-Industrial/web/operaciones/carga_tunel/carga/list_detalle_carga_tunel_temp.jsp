@@ -19,6 +19,7 @@ if(objSession.getObjCargaTunel()!=null)
                 <th>Código Control</th>
                 <th>Cliente</th>
                 <th>Estado</th>
+                <th>Localización</th>
                 <th>Hora</th>
                 <th>Fecha</th>
                 <th>Acciones</th>
@@ -47,6 +48,19 @@ if(objSession.getObjCargaTunel()!=null)
                      out.print("Repaletizado");
                 else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getEstado_paleta()==6)
                      out.print("Reempacado");
+                %>
+            </td>    
+            <td>
+                <%  if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==1)
+                     out.print("<span class='label label-success'>Paleteizado</span>");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==2)
+                     out.print("<span class='label label-success'>Tunel</span>");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==3)
+                     out.print("<span class='label label-warning'>Camara</span>");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==4)
+                     out.print("<span class='label label-success'>Exportada</span>");
+                else if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getPosicion_paleta()==5)
+                     out.print("<span class='label label-important'>Retornada</span>");
                 %>
             </td>    
             <td><%=hora.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>            

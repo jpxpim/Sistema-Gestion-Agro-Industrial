@@ -21,7 +21,7 @@ if(objSession!=null)
             objPaleta.setCodigo_control(request.getParameter("Codigo"));
             objPaleta.setFecha_produccion(new Date(Long.parseLong(request.getParameter("FProduccion"))));
             objPaleta.setEstado_paleta(Integer.parseInt(request.getParameter("Estado")));
-            objPaleta.setPosicion_paleta(Integer.parseInt(request.getParameter("Estado")));
+            objPaleta.setPosicion_paleta(Integer.parseInt(request.getParameter("Posicicion")));
             objPaleta.setObjCliente(new entCliente(request.getParameter("Cliente")));
             
             boolean encontrado=false;

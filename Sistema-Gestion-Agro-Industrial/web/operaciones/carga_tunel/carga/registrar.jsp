@@ -363,6 +363,7 @@ function grabarDetalle(){
 
   if(size<$('input#cTunel').val())
   {
+      
       var url = "operaciones/carga_tunel/carga/add_list_detalle_carga_tunel_temp.jsp"; 
         $.ajax({
         type: "POST",
