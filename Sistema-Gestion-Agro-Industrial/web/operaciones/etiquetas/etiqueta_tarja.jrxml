@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="2" pageWidth="324" pageHeight="223" columnWidth="162" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="568ade77-4793-47c8-bebe-8c5adda5386a">
+	<property name="ireport.zoom" value="2.1435888100000056"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="132"/>
+	<parameter name="codigoBarrasNro1" class="java.lang.String"/>
+	<parameter name="variedad" class="java.lang.String"/>
+	<parameter name="productor" class="java.lang.String"/>
+	<parameter name="ggn" class="java.lang.String"/>
+	<parameter name="fda" class="java.lang.String"/>
+	<parameter name="grower" class="java.lang.String"/>
+	<parameter name="categoria" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="envase" class="java.lang.String"/>
+	<parameter name="lote" class="java.lang.String"/>
+	<parameter name="calibre" class="java.lang.String"/>
+	<parameter name="codigoBarrasNro2" class="java.lang.String"/>
+	<parameter name="variedad2" class="java.lang.String"/>
+	<parameter name="productor2" class="java.lang.String"/>
+	<parameter name="ggn2" class="java.lang.String"/>
+	<parameter name="fda2" class="java.lang.String"/>
+	<parameter name="grower2" class="java.lang.String"/>
+	<parameter name="categoria2" class="java.lang.String"/>
+	<parameter name="fecha2" class="java.lang.String"/>
+	<parameter name="envase2" class="java.lang.String"/>
+	<parameter name="lote2" class="java.lang.String"/>
+	<parameter name="calibre2" class="java.lang.String"/>
+	<title>
+		<band height="219">
+			<rectangle>
+				<reportElement x="116" y="51" width="41" height="20" uuid="5981fe1f-6f46-4399-9cc7-387f498940d3"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="173" y="89" width="144" height="47" uuid="479aa73c-01a9-4a94-be12-4570d8e5ce49"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="89" width="41" height="20" uuid="87c6f528-60c1-4025-90d2-6046c9ec8162"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="173" y="136" width="144" height="46" uuid="aef3edc1-8566-45a6-aaf7-24a95f2ab311"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="70" width="41" height="19" uuid="dcc40a68-ddc9-4d72-9a0f-c5a3e44c8678"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="51" width="41" height="20" uuid="7366c7f3-84e7-4166-aae0-15a79a841efe"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="276" y="32" width="41" height="19" uuid="e750321c-94eb-4fa6-9ba1-f543f357bb54"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="13" y="89" width="144" height="47" uuid="d6ee6bda-f6b4-423e-9675-fc25e4d51934"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="116" y="70" width="41" height="19" uuid="04aa867d-2e7b-47ea-88af-888be1f8a1d5"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="116" y="89" width="41" height="20" uuid="96e0772e-6ab0-4fe8-b1ee-731e17be982c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="13" y="136" width="144" height="46" uuid="596c6359-e962-4a0a-9841-2a99f9c5558a"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="8" y="84" width="103" height="0" uuid="99db84d3-5092-4d8b-b622-4817e0022240"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="116" y="32" width="41" height="19" uuid="b34d8e7f-1e49-45f9-b5e5-23408b67f93d"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<elementGroup>
+				<rectangle>
+					<reportElement x="13" y="40" width="103" height="49" uuid="5ed54980-3da7-4e86-93c2-aacda1a59224"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="116" y="13" width="41" height="19" uuid="6f4197e2-fef4-4fa2-941d-94b2c310fa8e"/>
+					<graphicElement>
+						<pen lineWidth="0.25"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="14" y="152" width="143" height="6" backcolor="#000000" uuid="46224a35-bb59-4997-96cb-503c493d7768"/>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ PACKING HOUSE REGISTERED NUMBER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="13" y="76" width="103" height="11" backcolor="#000000" uuid="9045dcd4-067e-486c-a548-40a92c7e0e95"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<text><![CDATA[NET WEIGHT 8.2 Kg / 18.0 Lb]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="13" y="66" width="103" height="10" backcolor="#000000" uuid="b4059cfa-dabc-4ff8-8143-db08633f2f4c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TABLE GRAPES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="89" width="79" height="8" backcolor="#000000" uuid="9e5776a6-a46f-4e87-a4df-e49e07438056"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ GROWER INFORMATION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="106" width="103" height="6" backcolor="#000000" uuid="589ed987-2fc0-419b-a824-ea5e742fdd51"/>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ ORCHARD REGISTERED NUMBER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="14" y="157" width="143" height="10" backcolor="#000000" uuid="bd8d8250-6b5d-46cf-bcaa-1c962ee81553"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ 003-029-17-PE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="117" y="13" width="19" height="8" backcolor="#000000" uuid="3fe355c9-0f80-46d0-a57b-1b158778aac4"/>
+					<textElement>
+						<font fontName="Arial" size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CAT]]></text>
+				</staticText>
+			</elementGroup>
+			<staticText>
+				<reportElement x="117" y="71" width="19" height="8" backcolor="#000000" uuid="6c3cffc1-3c81-45cd-8e56-4671430b1915"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PACK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="51" width="19" height="8" backcolor="#000000" uuid="dcf2d8b1-a5bc-4be2-a7a3-53788f6ea14d"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="89" width="19" height="8" backcolor="#000000" uuid="0d47d87e-e23b-4a82-8cb3-4021428c5d42"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="136" width="67" height="8" backcolor="#000000" uuid="748e7f19-4b80-47ec-98cf-f15ed0db3ffd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PACKING INFORMATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="143" width="143" height="8" backcolor="#000000" uuid="10b2f283-9e2e-4d12-8353-6b0f431c59bb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="false"/>
+				</textElement>
+				<text><![CDATA[AGRO EXPORTACIONES GRACE SAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="174" width="143" height="8" backcolor="#000000" uuid="73682df6-ea69-4bed-b291-a77f5c430090"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="32" width="19" height="8" backcolor="#000000" uuid="fdc94f22-2d16-4ecd-9fb6-8d67f1c28d0a"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SIZE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="120" width="20" height="8" backcolor="#000000" uuid="6d0fd0cb-01aa-4feb-bd5a-e38dec324ae8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ GGN :                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="127" width="143" height="8" backcolor="#000000" uuid="8d9b891b-cb2e-475c-9de2-f514689a0c14"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="120" width="23" height="8" backcolor="#000000" uuid="6566317a-e9eb-4163-a97c-d1dcb637e223"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FDA :                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="166" width="23" height="8" backcolor="#000000" uuid="883df926-8f74-4f67-b9e8-2b98c37eddfa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ FDA :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="166" width="52" height="8" backcolor="#000000" uuid="5e620292-7666-49db-9222-8c49a92ffd1c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[13427543488]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="166" width="47" height="8" backcolor="#000000" uuid="840ca02d-8278-4f91-8412-025b06fb82fb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4052852339759]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="166" width="20" height="8" backcolor="#000000" uuid="7c3f3fd4-378a-4eb9-b97f-6aec8645a011"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ GGN :                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="157" width="143" height="10" backcolor="#000000" uuid="f8ce40fd-8fe8-4080-9561-7e5865102f56"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ 003-029-17-PE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="120" width="20" height="8" backcolor="#000000" uuid="38e9cbce-3e07-48ae-b422-61c04945de8d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ GGN :                 ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="276" y="13" width="41" height="19" uuid="a045ce76-4cf8-4942-90ae-49a97e6b8d76"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="175" y="143" width="143" height="8" backcolor="#000000" uuid="0e1ff864-8935-425b-a039-f6df8d8b0ec3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="false"/>
+				</textElement>
+				<text><![CDATA[AGRO EXPORTACIONES GRACE SAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="152" width="143" height="6" backcolor="#000000" uuid="dc5ae451-f5c5-4b61-916d-c46b9acc8e50"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PACKING HOUSE REGISTERED NUMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="13" width="19" height="8" backcolor="#000000" uuid="bed1df56-11e0-4ce1-b573-f93c0de73b27"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="89" width="79" height="8" backcolor="#000000" uuid="2312cc0f-91f9-4015-980f-c23aa2f15eef"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ GROWER INFORMATION]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="173" y="40" width="103" height="49" uuid="e31e3aae-20a7-4185-ae81-4a3ca684e85c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="277" y="51" width="19" height="8" backcolor="#000000" uuid="ed5dd9c8-7536-4f55-841f-c2d07efe88d4"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="166" width="52" height="8" backcolor="#000000" uuid="74b75b15-f294-47fd-867b-ff8738285f5a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[13427543488]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="136" width="67" height="8" backcolor="#000000" uuid="91481bd0-aea0-4581-a830-5e8e01bba84c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PACKING INFORMATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="166" width="20" height="8" backcolor="#000000" uuid="cdf57e96-e60d-4137-909e-5df1c714bdd8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ GGN :                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="106" width="103" height="6" backcolor="#000000" uuid="8cac64df-6002-4c59-b081-5149d9b501bd"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ ORCHARD REGISTERED NUMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="166" width="23" height="8" backcolor="#000000" uuid="8d86f06b-d5eb-4573-bca5-018019d55b5d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ FDA :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="32" width="19" height="8" backcolor="#000000" uuid="f79f2dd3-9d3b-4f4e-86a4-fef84a82dc59"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SIZE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="71" width="19" height="8" backcolor="#000000" uuid="bac3049c-9a21-41b6-a2b8-57acc9a47f41"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PACK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="120" width="23" height="8" backcolor="#000000" uuid="a4da9346-da11-481a-94ac-38c95531b35e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ CODE :                 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="166" width="47" height="8" backcolor="#000000" uuid="f6065387-547e-4c81-9ca4-db11206f3559"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4052852339759]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="174" width="143" height="8" backcolor="#000000" uuid="8b25ce37-872a-4dc3-80bd-59522dfac8bd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="66" width="103" height="10" backcolor="#000000" uuid="b4421ef3-0ed8-4d51-b991-1c9fd645e20b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TABLE GRAPES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="89" width="19" height="8" backcolor="#000000" uuid="c55b7a72-237c-4232-a092-c8ee7bcfb2d2"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="76" width="103" height="11" backcolor="#000000" uuid="805f05e7-aabc-4f07-89e2-71a25f89d080"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<text><![CDATA[NET WEIGHT 8.2 Kg / 18.0 Lb]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="127" width="143" height="8" backcolor="#000000" uuid="d4e3504c-fce1-4fe8-862c-9747792c7ae9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ DPTO / PROVINCE :   PIURA / SULLANA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="135" y="32" width="21" height="19" uuid="8668a6b5-2b7d-4087-b07f-305edda87644"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{calibre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="59" width="40" height="12" uuid="0d8b1b85-cdec-4d54-ac6d-79464fbc4345"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="79" width="40" height="11" uuid="496522bd-a455-4751-aba4-2ef8ca544581"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{envase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="97" width="39" height="12" uuid="846000b6-dbb2-4069-98af-c8629ac7ff55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="13" width="21" height="19" uuid="ef5e2f0a-0e4e-4cd4-9a1f-ee77f17e8a1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="40" width="101" height="26" uuid="bc2f41a7-2893-481f-91dc-333e0696d494"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{variedad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="97" width="101" height="9" uuid="eb565020-9f84-4474-9c5c-b7659f00d1b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{productor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="112" width="101" height="9" uuid="df36e846-409f-419c-9897-9552adb34fa9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grower}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="122" width="45" height="6" uuid="6d82467a-cb5a-4007-87b4-197385bd1d81"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ggn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="122" width="52" height="6" uuid="60164d6c-65c5-4d29-a371-f23af2c469c1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fda}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="175" y="192" width="142" height="23" uuid="ea854384-7b26-4d63-85ce-5476e170b3ae"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{codigoBarrasNro2}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<componentElement>
+				<reportElement x="13" y="192" width="142" height="23" uuid="928676f3-6e40-4a82-a398-ff2b91dc1ea8"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false" barHeight="18">
+					<jr:codeExpression><![CDATA[$P{codigoBarrasNro1}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="13" y="182" width="142" height="6" uuid="d13ed6ab-dc92-49af-a17f-cf86693dac07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigoBarrasNro1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="182" width="142" height="6" uuid="29063b32-40ec-42e1-b986-f5fbbb18bded"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigoBarrasNro2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="13" width="21" height="19" uuid="2c4d7268-b5ce-4c8d-b217-64d2951ffab9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{categoria2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="33" width="21" height="19" uuid="f24306f0-880b-437e-bf55-b397c4ebf040"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{calibre2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="59" width="40" height="12" uuid="779498de-4c01-4dd5-ae5a-b434ee0a38b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lote2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="78" width="40" height="11" uuid="9eacf8df-15bd-430b-8a63-09f870812cbd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{envase2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="96" width="39" height="12" uuid="ba0c40c6-4e8c-4426-8034-891684cf2faa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="97" width="101" height="9" uuid="4b470f69-d603-4d3f-97c4-f0f9bd8c2752"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{productor2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="111" width="101" height="9" uuid="2fc5d47f-5b24-4d7c-9793-3b994d260e5f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grower2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="120" width="45" height="6" uuid="b681dcf6-9cde-4213-b339-e1fa40bce8c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ggn2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="263" y="121" width="52" height="6" uuid="a1dab202-9ab9-4939-9496-1a17814e14ab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fda2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="40" width="101" height="26" uuid="8051b17c-6f6f-4c8d-bd6c-0cf78bc3b131"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{variedad2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>
