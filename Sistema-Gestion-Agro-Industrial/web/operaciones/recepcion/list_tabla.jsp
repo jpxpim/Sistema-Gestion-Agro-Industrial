@@ -114,7 +114,7 @@ if(list!=null)
     <thead>
             <tr>
                     <th>Id</th>
-                    <th>D. LLegada</th>
+                    <th>Dirección de Origen</th>
                     <th>Chofer</th>
                     <th>N° Guia</th>
                     <th>Placa</th>
