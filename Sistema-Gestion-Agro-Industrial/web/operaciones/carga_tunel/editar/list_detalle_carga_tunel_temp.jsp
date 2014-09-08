@@ -66,7 +66,11 @@ if(objSession.getObjCargaTunel()!=null)
             <td><%=hora.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>            
             <td><%=fecha.format(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getFecha_produccion())%></td>
             <td>
-                   <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
+                <%if(objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).isEliminado()){%>
+                   <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Restarurar</a>
+                <%}else{%>
+                    <a href="javascript:void(0)" onclick="removerItem(<%=i%>,'<%=objSession.getObjCargaTunel().getListaDetalleCargaTunel().get(i).getObjPaleta().getCodigo_control()%>')" class="comp_edit btn btn-primary btn-mini">Quitar</a>
+                 <%}%>
             </td>
         </tr>
 
