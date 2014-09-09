@@ -805,6 +805,10 @@ public class clsGestor {
     {
         return PaletaDAO.insertarRepaletizado(entidad);
     }
+    public static boolean actualizarDetalleMovimientosPaleta(entDetallePaleta entidad) throws Exception
+    {
+        return PaletaDAO.actualizarDetalleMovimientos(entidad);
+    }
 //    
 //    public static boolean actualizarPaleta(entPaleta entidad) throws Exception
 //    {

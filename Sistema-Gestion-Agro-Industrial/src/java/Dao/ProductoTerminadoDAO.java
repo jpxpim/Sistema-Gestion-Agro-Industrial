@@ -42,7 +42,7 @@ public class ProductoTerminadoDAO {
         try {
                     String sql="select PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.EMBALADOR,PT.SELECCIONADOR,"
                             + "PT.FECHA_PRODUCCION,L.CODIGO_CONTROL,LP.NOMBRE,E.NOMBRE,CA.NOMBRE,P.FECHA_PRODUCCION,"
-                            + "P.CODIGO_CONTROL from PALETA P JOIN DET_PALETA DP ON P.ID_PALETA=DP.ID_PALETA RIGHT "
+                            + "P.CODIGO_CONTROL,P.ESTADO_PALETA from PALETA P JOIN DET_PALETA DP ON P.ID_PALETA=DP.ID_PALETA RIGHT "
                             + "JOIN PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO JOIN "
                             + "LOTE L ON L.ID_LOTE=PT.ID_LOTE JOIN LINEA_PRODUCCION LP ON PT.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION "
                             + "JOIN ENVASE E ON E.ID_ENVASE=PT.ID_ENVASE JOIN CATEGORIA C ON C.ID_CATEGORIA=PT.ID_CATEGORIA "
@@ -66,6 +66,7 @@ public class ProductoTerminadoDAO {
                 entidad.setNombre_calibre(dr.getString(9));
                 entidad.setCodigo_control_paleta(dr.getString(11));
                 entidad.setFecha_produccion_paleta(dr.getTimestamp(10)); 
+                entidad.setEstado_paleta(dr.getInt(12));
             }
 
         } catch (Exception e) {

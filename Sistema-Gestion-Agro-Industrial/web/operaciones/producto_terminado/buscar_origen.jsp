@@ -23,12 +23,42 @@ if(objSession!=null)
             <th colspan="2">Código Paleta</th>
             <td colspan="2"><%=entidad.getCodigo_control_paleta()%></td>
         </tr>
+          <tr>
+            <th colspan="2">Estado</th>           
+             <td colspan="2">
+               <%  if(entidad.getEstado_paleta()==1)
+                     out.print("Completo");
+                else if(entidad.getEstado_paleta()==2)
+                     out.print("Incompleto");
+                else if(entidad.getEstado_paleta()==3)
+                     out.print("Baja de Frio");
+                else if(entidad.getEstado_paleta()==4)
+                     out.print("Cortesia");
+                else if(entidad.getEstado_paleta()==5)
+                     out.print("Repaletizado");
+                else if(entidad.getEstado_paleta()==6)
+                     out.print("Reempacado");%>
+            </td>
+        </tr>
         <tr>
             <th>Fecha Creación Paleta</th>
             <td><%=fecha.format(entidad.getFecha_produccion_paleta())%></td>
             <th>Hora Creación Paleta</th>
            <td><%=hora.format(entidad.getFecha_produccion_paleta())%></td>
         </tr>
+        
+           
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <%}%>
         <tr>
             <th>Id Producto</th>

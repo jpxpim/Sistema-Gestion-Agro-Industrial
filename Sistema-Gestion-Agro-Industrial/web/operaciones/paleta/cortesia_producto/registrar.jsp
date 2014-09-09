@@ -44,7 +44,7 @@ if(objSession!=null)
                                             </div>
             <div class="span8">
                         <div id="origen"> </div>
-                        <center> <button id="grabar" class="btn btn-gebo"  type="button">Baja por Frio</button></center>
+                        <center> <button id="grabar" class="btn btn-success"  type="button">Cortesia</button></center>
                    </div>
               </form>
 
@@ -86,7 +86,7 @@ var lote= {
 var producto= {
      'entidad': [ 
     <%
-    List<entDetallePaleta> listProductoTerminado = clsGestor.ListarPorProductoTerminadoMovimientosPaleta(false);
+    List<entDetallePaleta> listProductoTerminado = clsGestor.ListarPorProductoTerminadoMovimientosPaleta(true);
     if(listProductoTerminado!=null)
     {
       size=listProductoTerminado.size();
@@ -104,9 +104,9 @@ var producto= {
 $(document).ready(function() {  
 $('#grabar').click(function(){
     if($('input#IdProductoTerminado').val()!='' || $('input#IdProductoTerminado').val()!=null){
-         smoke.confirm('Desea dar baja de frio este producto',function(e){
+         smoke.confirm('Desea dar el poroducto como cortesia',function(e){
             if (e){
-                var url = "operaciones/paleta/baja_frio_producto/insert.jsp"; 
+                var url = "operaciones/paleta/cortesia_producto/insert.jsp"; 
                 $.ajax({
                 type: "POST",
                 url: url,
@@ -119,7 +119,7 @@ $('#grabar').click(function(){
                         {
                           
                            $.ajax({
-                                    url: 'operaciones/paleta/data_detalle_palete.jsp?completo=0',
+                                    url: 'operaciones/paleta/data_detalle_palete.jsp?completo=1',
                                     type: 'POST',
                                     success: function (data) {     
                                              $('#detalle_palete').html(data);
@@ -172,7 +172,7 @@ $("#txtCodigo").keyup(function(){
 function otraBusqueda(codigo)
 {
     $.ajax({
-            url: 'operaciones/paleta/data_detalle_palete.jsp?completo=0',
+            url: 'operaciones/paleta/data_detalle_palete.jsp?completo=1',
             type: 'POST',
             success: function (data) {     
                      $('#detalle_palete').html(data);

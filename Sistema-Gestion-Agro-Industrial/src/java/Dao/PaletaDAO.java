@@ -19,7 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -257,6 +256,65 @@ public class PaletaDAO {
         }
         return rpta;
     } 
+     
+      public static boolean actualizarDetalleMovimientos(entDetallePaleta entidad) throws Exception
+    {
+        boolean rpta1 = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+            String sql="update PRODUCTO_TERMINADO set ESTADO=? where ID_PRODUCTO_TERMINADO=?;";
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareCall(sql);             
+            stmt.setInt(1, entidad.getEstado());    
+            stmt.setInt(2, entidad.getObjProductoTerminado().getId_producto_terminado());
+            rpta1 = stmt.executeUpdate() == 1;
+            if(rpta1)
+            {   
+                if(entidad.getId_paleta_origen()==1)
+                {
+                    sql="update PALETA set ESTADO_PALETA=2 where ID_PALETA=?;";
+                    PreparedStatement psEstadoEstado = conn.prepareCall(sql);          
+                    psEstadoEstado.setInt(1, entidad.getId_paleta());
+                    psEstadoEstado.execute();
+                    psEstadoEstado.close();
+
+                    sql="INSERT INTO DET_ESTADO_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                        + " VALUES(?,2,GETDATE());";
+                    PreparedStatement psEstado = conn.prepareCall(sql);
+                    psEstado.setInt(1, entidad.getId_paleta());
+                    psEstado.execute();
+                    psEstado.close();
+                }
+                 sql="update DET_PALETA set ESTADO=? where ID_DET_PALETA=?;";
+                    PreparedStatement psEstadoProducto = conn.prepareCall(sql);
+                    psEstadoProducto.setInt(1, entidad.getEstado());            
+                    psEstadoProducto.setInt(2,entidad.getId_det_paleta() );
+                    psEstadoProducto.execute();
+                    psEstadoProducto.close();
+                
+            }
+           conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                      throw new Exception("Insertar"+e.getMessage(), e);
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                  throw new Exception("Insertar"+e.getMessage(), e);
+            }
+        }
+        return rpta1;
+    }
+   
+         
      public static List<entPaleta> ListarPacking() throws Exception
     {
         List<entPaleta> lista = null;
@@ -359,5 +417,7 @@ public class PaletaDAO {
         return lista;
     }   
      
+     
+  
   
 }

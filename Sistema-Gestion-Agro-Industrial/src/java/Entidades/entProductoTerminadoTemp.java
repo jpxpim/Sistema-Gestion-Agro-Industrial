@@ -25,6 +25,7 @@ public class entProductoTerminadoTemp {
     private String codigo_control_paleta;
     private Date fecha_produccion_paleta;
     private boolean control;
+    private int estado_paleta;
 
     public entProductoTerminadoTemp() {
         this.control=true;
@@ -124,6 +125,14 @@ public class entProductoTerminadoTemp {
 
     public void setControl(boolean control) {
         this.control = control;
+    }
+
+    public int getEstado_paleta() {
+        return estado_paleta;
+    }
+
+    public void setEstado_paleta(int estado_paleta) {
+        this.estado_paleta = estado_paleta;
     }
 
 }

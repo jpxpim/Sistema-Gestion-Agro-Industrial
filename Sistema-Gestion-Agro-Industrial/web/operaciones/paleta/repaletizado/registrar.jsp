@@ -141,7 +141,6 @@ objSession.setObjPaleta(new entPaleta());
 <div id="detalle_palete"></div>                          
 <script type="text/javascript">
 var size='0';   
-$('#buscar').hide();
 function grabar_data()
 {
    
