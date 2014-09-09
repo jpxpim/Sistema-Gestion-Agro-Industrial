@@ -106,10 +106,8 @@ else
 else
 {
 
-    if(objSession.getObjPaleta()==null)
-        objSession.setObjPaleta(new entPaleta());
-    else if(objSession.getObjPaleta().getId_paleta()>0)
-        objSession.setObjPaleta(new entPaleta());
+objSession.setObjPaleta(new entPaleta());
+
     
 %>
 <div id="frame">
@@ -388,7 +386,6 @@ $('#buscar').click(function(){
         processData: false
     }); 
 });
-
 $("#txtCodigo").keyup(function(){   
     $('#buscar').hide();
     $(this).val($(this).val().trim().toUpperCase());    

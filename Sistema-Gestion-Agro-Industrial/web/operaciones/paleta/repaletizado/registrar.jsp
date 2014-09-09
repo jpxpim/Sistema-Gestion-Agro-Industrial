@@ -11,13 +11,8 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-    int size=0;
-
-    if(objSession.getObjPaleta()==null)
-        objSession.setObjPaleta(new entPaleta());
-    else if(objSession.getObjPaleta().getId_paleta()>0)
-        objSession.setObjPaleta(new entPaleta());
-    
+int size=0;
+objSession.setObjPaleta(new entPaleta());
 %>
 <div id="frame">
  <div class="row-fluid">
@@ -131,20 +126,7 @@ if(objSession!=null)
     </div>
 </div>                 
 
- <!-- Modal Producto Terminado -->	
-<div class="modal hide fade" id="ModalProductoTerminado" >
-    <div class="modal-header">
-        <button class="close" data-dismiss="modal">×</button>
-        <h3>Buscar Origen de Producto</h3>
-    </div>
-    <div class="modal-body">
-        <div id="origen"></div>
-    </div>
-    <div class="modal-footer">
-        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
-        
-    </div>
-</div>                 
+              
    
  <form  method="get" id="detalle_form">
     <input type="hidden" id="IdProductoTerminado"  name="IdProductoTerminado"/>
@@ -283,19 +265,6 @@ var producto= {
      ]
 };
 $(document).ready(function() {  
-$('#buscar').click(function(){
-    $('#origen').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
-                       
-    $.ajax({
-        url: 'operaciones/producto_terminado/buscar_origen.jsp?codigo='+$("#txtCodigo").val(),
-        type: 'POST',
-        success: function (data) {     
-               $('#origen').html(data);  
-        },
-        contentType: false,
-        processData: false
-    }); 
-});
 
 $("#txtCodigo").keyup(function(){   
     $('#buscar').hide();
