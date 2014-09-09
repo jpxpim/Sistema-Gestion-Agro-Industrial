@@ -66,6 +66,9 @@ public class DiaRecepcionDAO
         int rpta = 0;
         Connection conn =null;
         PreparedStatement stmt = null;
+        
+            CargarCamposBDExternaDAO.insertarTrabajadoresBDExterna();
+            CargarCamposBDExternaDAO.insertarInsumoBDExterna();
         try {
             
            String sql="INSERT INTO DIA_RECEPCION(HORA_INICIO,HORA_FIN,ES_CERRADO,USUARIO_RESPONSABLE_INICIO,"
@@ -96,9 +99,12 @@ public class DiaRecepcionDAO
       
         public static boolean actualizar(entDiaRecepcion entidad) throws Exception
     {
+        
         boolean rpta = false;
         Connection conn =null;
         CallableStatement stmt = null;
+        //CargarCamposBDExternaDAO.insertarInsumoBDExterna();
+        //CargarCamposBDExternaDAO.insertarTrabajadoresBDExterna();
         try {
              String sql="UPDATE DIA_RECEPCION SET HORA_FIN = GETDATE(),ES_CERRADO= 1,"
                      + "USUARIO_RESPONSABLE_FIN= ? WHERE ID_DIA_RECEPCION = ?;";

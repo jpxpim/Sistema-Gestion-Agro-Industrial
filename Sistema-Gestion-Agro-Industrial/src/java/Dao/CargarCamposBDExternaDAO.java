@@ -30,7 +30,9 @@ public class CargarCamposBDExternaDAO {
         try {
             String sql="select EMPLEADO,NOMBRE,APELLIDO_PATERNO+' '+APELLIDO_MATERNO from PER_TRABAJADOR";
 
+            
             conn = ConexionDAO.getConnectionBdExterna();
+            if (conn==null) return lista;
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
 
@@ -65,14 +67,13 @@ public class CargarCamposBDExternaDAO {
         Connection conn=null;
         int rpta=0;
         try {
-            
-            
-
             List<entEmpleado> lista = CargarCamposBDExternaDAO.ListarEmpleadosBDexterna();
+            if (lista==null)return 0;
+            
             int i=0;
             conn=ConexionDAO.getConnection();
             
-            while (lista.size()<i)
+            while (lista.size()>i)
             {
                 CallableStatement PA = conn.prepareCall("{ call SP_insertarEmpleado(?,?,?,?) }");
                 PA.setString(1, lista.get(i).getDni());
@@ -108,6 +109,7 @@ public class CargarCamposBDExternaDAO {
             String sql="select PRODUCTO,GLOSA from PRODUCTO";
 
             conn = ConexionDAO.getConnectionBdExterna();
+            if (conn==null) return lista;
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
 
@@ -142,14 +144,12 @@ public class CargarCamposBDExternaDAO {
         Connection conn=null;
         int rpta=0;
         try {
-            
-            
-
             List<entInsumo> lista = CargarCamposBDExternaDAO.ListarInsumoBDexterna();
+            if (lista==null)return 0;
             int i=0;
             conn=ConexionDAO.getConnection();
             
-            while (lista.size()<i)
+            while (lista.size()>i)
             {
                 CallableStatement PA = conn.prepareCall("{ call SP_insertarInsumo (?,?,?) }");
                 PA.setString(1, lista.get(i).getCod_erp());
@@ -158,7 +158,7 @@ public class CargarCamposBDExternaDAO {
                 PA.registerOutParameter(3,java.sql.Types.INTEGER);
                 PA.execute();
                 i++;
-                rpta=PA.getInt(4);
+                rpta=PA.getInt(3);
             }
             
         } catch (Exception e) {
