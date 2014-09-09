@@ -56,9 +56,7 @@ if(objSession!=null)
         <!-- notifications -->
             <link rel="stylesheet" href="lib/sticky/sticky.css" />
         <!-- code prettify -->
-            <link rel="stylesheet" href="lib/google-code-prettify/prettify.css" />    
-        <!-- notifications -->
-            <link rel="stylesheet" href="lib/sticky/sticky.css" />    
+            <link rel="stylesheet" href="lib/google-code-prettify/prettify.css" />     
         <!-- splashy icons -->
             <link rel="stylesheet" href="img/splashy/splashy.css" />
 
@@ -194,9 +192,11 @@ if(objSession!=null)
                 </div>
             </div>
             
-		<a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>
+
+            	<!-- sidebar -->
+            <a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>
            <div class="sidebar"  id="sidebar"></div>
-            
+           
              <script src="js/jquery.min.js"></script>
 			<!-- smart resize event -->
 			<script src="js/jquery.debouncedresize.min.js"></script>

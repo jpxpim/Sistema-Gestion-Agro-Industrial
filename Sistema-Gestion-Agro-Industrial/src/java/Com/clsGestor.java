@@ -797,9 +797,9 @@ public class clsGestor {
     {
         return PaletaDAO.insertar(entidad);
     }
-    public static List<entDetallePaleta> ListarPorProductoTerminadoRepaletizadoPaleta() throws Exception
+    public static List<entDetallePaleta> ListarPorProductoTerminadoMovimientosPaleta(boolean incompleto) throws Exception
     {
-        return PaletaDAO.ListarPorProductoTerminadoRepaletizado();
+        return PaletaDAO.ListarPorProductoTerminadoMovimientos(incompleto);
     }
      public  static int insertarRepaletizadoPaleta(entPaleta entidad) throws Exception 
     {

@@ -187,7 +187,7 @@ public class PaletaDAO {
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getObjCliente().getId_cliente());
-            stmt.setInt(2, 2);
+            stmt.setInt(2, 3);
             stmt.setInt(3, estado);
             stmt.setString(4, Operaciones.getCodigoControl(false, 0));
             stmt.setString(5, entidad.getUsuario_responsable());
@@ -206,7 +206,7 @@ public class PaletaDAO {
                 psPosicion.close();
                 
                 sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
-                    + " VALUES(?,1,GETDATE());";
+                    + " VALUES(?,3,GETDATE());";
                 PreparedStatement psEstado = conn.prepareStatement(sql);
                 psEstado.setInt(1, rpta);
                 psEstado.execute();
@@ -299,7 +299,7 @@ public class PaletaDAO {
         }
         return lista;
     }       
-     public static List<entDetallePaleta> ListarPorProductoTerminadoRepaletizado() throws Exception
+     public static List<entDetallePaleta> ListarPorProductoTerminadoMovimientos(boolean incompleto) throws Exception
     {
         List<entDetallePaleta> lista = null;
         Connection conn =null;
@@ -307,10 +307,12 @@ public class PaletaDAO {
         ResultSet dr = null;
         try {
                     String sql="select DP.ID_DET_PALETA,DP.ID_PALETA,PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.ID_LOTE,\n" +
-                                "C.NOMBRE,E.CANT_CAJAS_PALETA from PALETA P JOIN DET_PALETA  DP ON P.ID_PALETA=DP.ID_PALETA \n" +
+                                "C.NOMBRE,E.CANT_CAJAS_PALETA,P.ESTADO_PALETA from PALETA P JOIN DET_PALETA  DP ON P.ID_PALETA=DP.ID_PALETA \n" +
                                 "JOIN PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO join CALIBRE C \n" +
-                                "ON PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE where P.ESTADO_PALETA=2 \n" +
-                                "and P.POSICION_PALETA=2 AND DP.ESTADO=1"; 
+                                "ON PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE where P.POSICION_PALETA=3 \n" +
+                                "AND DP.ESTADO=1";
+                            if(incompleto)
+                           sql+=" and P.ESTADO_PALETA=2"; 
                     
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
@@ -338,6 +340,7 @@ public class PaletaDAO {
                     entDetallePaleta entidad = new entDetallePaleta();
                     entidad.setId_det_paleta(dr.getInt(1));
                     entidad.setId_paleta(dr.getInt(2));
+                    entidad.setId_paleta_origen(dr.getInt(8));
                     entidad.setObjProductoTerminado(objProductoTerminado);
                     lista.add(entidad);
             }
@@ -355,4 +358,6 @@ public class PaletaDAO {
         }
         return lista;
     }   
+     
+  
 }
