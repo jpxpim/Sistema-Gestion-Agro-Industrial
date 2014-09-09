@@ -1,104 +1,17 @@
 
 <%@page import="Entidades.entDetallePaleta"%>
 <%@page import="Entidades.entLote"%>
+<%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entCliente"%>
 <%@page import="java.util.List"%>
 <%@page import="Entidades.entPaleta"%>
-<%@page import="Com.clsGestor"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Entidades.entSesion"%>
 <%@page import="Entidades.entSesion"%>
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
     int size=0;
-if(!objSession.isDia_recepcion())
-{
-    SimpleDateFormat e=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
-    if(objSession.getObjDiaRecepcion()==null)
-    {
-        objSession.setObjDiaRecepcion(clsGestor.verificarDiaRecepcion());
-    }
-
-     if(objSession.getObjDiaRecepcion()==null)
-     {
-          if(objSession.getObjUsuario().isEs_administrador()||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_1() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_2() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_3())
-         {
-%>
-<div id="frame">
-    <div class="row-fluid">
-        <div class="span4">
-            <h3 class="heading">Iniciar Nuevo día de Producción</h3>  
-            <center>
-                <button class="btn btn-invert" onclick="SetRecepccion(0)" type="button">Iniciar</button>
-            </center>
-        </div>
-    </div>
-</div>
-<% 
-         }
-         else
-         {
-%>
-
-<div id="frame">
-    <div class="row-fluid">
-        <div class="6">
-            <h3 class="heading">Espere que el ecargado inicie un nuevo día de Producción</h3> 
-        </div>
-    </div>
-</div>
-<%      
-         }
-  
-     }
-     else
-     {
-        if(objSession.getObjUsuario().isEs_administrador()||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_1() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_2() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_3())
-         {
-%>
-<div id="frame">
-    <div class="row-fluid">
-        <div class="span5">
-            <h3 class="heading">Día de Producción Inicado <%=e.format(objSession.getObjDiaRecepcion().getHora_inicio())%></h3>  
-            <center>
-                <button class="btn btn-invert" onclick="SetRecepccion(1)" type="button">Cerrar</button>
-                <button class="btn btn-invert" onclick="SetRecepccion(2)" type="button">Continuar</button>
-            </center>
-        </div>
-    </div>
-</div>
-<% 
-}
-else
-{
-%>
-<div id="frame">
-    <div class="row-fluid">
-        <div class="span5">
-            <h3 class="heading">Día de Producción Inicado <%=e.format(objSession.getObjDiaRecepcion().getHora_inicio())%></h3>  
-            <center>
-                <button class="btn btn-invert" onclick="SetRecepccion(2)" type="button">Continuar</button>
-            </center>
-        </div>
-    </div>
-</div>
-<%      
-         }
-     }
- 
-    
-    
-//final
-}
-else
-{
 
     if(objSession.getObjPaleta()==null)
         objSession.setObjPaleta(new entPaleta());
@@ -240,8 +153,10 @@ else
     <input type="hidden" id="nVariedad"  name="nVariedad"/>
     <input type="hidden" id="nCajas"  name="nCajas"/>
     <input type="hidden" id="cLote"  name="cLote"/>
+     <input type="hidden" id="IdDetPaleta"  name="IdDetPaleta"/>
+    <input type="hidden" id="IdPaleta"  name="IdPaleta"/>
 </form>                                                                           
-<div id="producto_terminado"></div>                          
+<div id="detalle_palete"></div>                          
 <script type="text/javascript">
 var size='0';   
 $('#buscar').hide();
@@ -359,10 +274,10 @@ var producto= {
      for(int i=0;i<size;i++)
         if(i==(size-1))
         {
-            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjProductoTerminado().getObjLote().getId_lote()+",'numero_cajas': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_dia_recepcion()+",'n_calibre': '"+listProductoTerminado.get(i).getObjProductoTerminado().getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getObjProductoTerminado().getCodigo_control()+"','id_det_palete': "+listProductoTerminado.get(i).getId_det_paleta()+",'id_palete': "+listProductoTerminado.get(i).getId_paleta()+"}");
+            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjProductoTerminado().getObjLote().getId_lote()+",'numero_cajas': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_dia_recepcion()+",'n_calibre': '"+listProductoTerminado.get(i).getObjProductoTerminado().getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getObjProductoTerminado().getCodigo_control()+"','id_det_paleta': "+listProductoTerminado.get(i).getId_det_paleta()+",'id_paleta': "+listProductoTerminado.get(i).getId_paleta()+"}");
         }else
         {
-            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjProductoTerminado().getObjLote().getId_lote()+",'numero_cajas': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_dia_recepcion()+",'n_calibre': '"+listProductoTerminado.get(i).getObjProductoTerminado().getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getObjProductoTerminado().getCodigo_control()+"','id_det_palete': "+listProductoTerminado.get(i).getId_det_paleta()+",'id_palete': "+listProductoTerminado.get(i).getId_paleta()+"},");
+            out.print("{'id_producto_terminado': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_producto_terminado()+",'id_lote': "+listProductoTerminado.get(i).getObjProductoTerminado().getObjLote().getId_lote()+",'numero_cajas': "+listProductoTerminado.get(i).getObjProductoTerminado().getId_dia_recepcion()+",'n_calibre': '"+listProductoTerminado.get(i).getObjProductoTerminado().getObjCalibre().getNombre()+"','codigo_control': '"+listProductoTerminado.get(i).getObjProductoTerminado().getCodigo_control()+"','id_det_paleta': "+listProductoTerminado.get(i).getId_det_paleta()+",'id_paleta': "+listProductoTerminado.get(i).getId_paleta()+"},");
         }
     }%>
      ]
@@ -441,10 +356,10 @@ function clear_list()
 function otraBusqueda(codigo)
 {
     $.ajax({
-            url: 'operaciones/producto_terminado/data_producto_terminado.jsp',
+            url: 'operaciones/paleta/data_detalle_palete.jsp',
             type: 'POST',
             success: function (data) {     
-                     $('#producto_terminado').html(data);
+                     $('#detalle_palete').html(data);
                       if(compruebaData(codigo))
                       {
                         $('#validCodigo').html('<i id="validCodigo" class="splashy-thumb_up"/>');
@@ -486,7 +401,8 @@ function compruebaData(data)
                     $("#nVariedad").val(lote.entidad[j].variedad); 
                     $("#cLote").val(lote.entidad[j].codigo_control); 
                     $("#nCajas").val(producto.entidad[i].numero_cajas);
-                    
+                    $("#IdDetPaleta").val(producto.entidad[i].id_det_paleta);
+                    $("#IdPaleta").val(producto.entidad[i].id_paleta);                   
                     i=maxI;
                     j=maxJ;
                     valida=true;
@@ -568,10 +484,10 @@ function clear_all()
         success: function () {   
                 $('#paleta').html('<div id="paleta"></div>');
                  $.ajax({
-                            url: 'operaciones/producto_terminado/data_producto_terminado.jsp',
+                            url: 'operaciones/paleta/data_detalle_palete.jsp',
                             type: 'POST',
                             success: function (data) {     
-                                     $('#producto_terminado').html(data);         
+                                     $('#detalle_palete').html(data);         
                             },
                             contentType: false,
                             processData: false
@@ -598,7 +514,7 @@ $("#detalle_form").submit(function(){
 </script>
   </div>
 <%
-}}%>  
+}%>  
                                                                         
                                                                        
                                                                             

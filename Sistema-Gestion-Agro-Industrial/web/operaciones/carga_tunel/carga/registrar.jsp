@@ -1,113 +1,22 @@
 
-
+<%@page import="Com.clsGestor"%>
 <%@page import="Entidades.entPaleta"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="Entidades.entCargaTunel"%>
-<%@page import="java.util.Date"%>
 <%@page import="Entidades.entSesion"%>
-<%@page import="Com.clsGestor"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%
+<%   
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
     int size=0;
-if(!objSession.isDia_recepcion())
-{
-    SimpleDateFormat e=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
-    if(objSession.getObjDiaRecepcion()==null)
-    {
-        objSession.setObjDiaRecepcion(clsGestor.verificarDiaRecepcion());
-    }
 
-   
-     if(objSession.getObjDiaRecepcion()==null)
-     {
-          if(objSession.getObjUsuario().isEs_administrador()||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_1() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_2() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_3())
-         {
-%>
-<div id="frame">
-    <div class="row-fluid">
-        <div class="span4">
-            <h3 class="heading">Iniciar Nuevo día de Producción</h3>  
-            <center>
-                <button class="btn btn-invert" onclick="SetRecepccion(0)" type="button">Iniciar</button>
-            </center>
-        </div>
-    </div>
-</div>
-<% 
-         }
-         else
-         {
-%>
-
-<div id="frame">
-    <div class="row-fluid">
-        <div class="6">
-            <h3 class="heading">Espere que el ecargado inicie un nuevo día de Producción</h3> 
-        </div>
-    </div>
-</div>
-<%      
-         }
-  
-     }
-     else
-     {
-        if(objSession.getObjUsuario().isEs_administrador()||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_1() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_2() ||
-            objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_3())
-         {
-%>
-<div id="frame">
-    <div class="row-fluid">
-        <div class="span5">
-            <h3 class="heading">Día de Producción Inicado <%=e.format(objSession.getObjDiaRecepcion().getHora_inicio())%></h3>  
-            <center>
-                <button class="btn btn-invert" onclick="SetRecepccion(1)" type="button">Cerrar</button>
-                <button class="btn btn-invert" onclick="SetRecepccion(2)" type="button">Continuar</button>
-            </center>
-        </div>
-    </div>
-</div>
-<% 
-}
-else
-{
-%>
-<div id="frame">
-    <div class="row-fluid">
-        <div class="span5">
-            <h3 class="heading">Día de Producción Inicado <%=e.format(objSession.getObjDiaRecepcion().getHora_inicio())%></h3>  
-            <center>
-                <button class="btn btn-invert" onclick="SetRecepccion(2)" type="button">Continuar</button>
-            </center>
-        </div>
-    </div>
-</div>
-<%      
-         }
-     }
- 
-    
-    
-//final
-}
-else
-{
 
     if(objSession.getObjCargaTunel()==null)
         objSession.setObjCargaTunel(new entCargaTunel());
     else if(objSession.getObjCargaTunel().getId_carga_tunel()>0)        
         objSession.setObjCargaTunel(new entCargaTunel());
-    
-  SimpleDateFormat e=new SimpleDateFormat("MM-dd-yyyy");  
-  String fecha=e.format(new Date());
+     
 %>
 <div id="frame">
  <div class="row-fluid">
@@ -560,7 +469,7 @@ $("#detalle_form").submit(function(){
 </script>
   </div>
 <%
-}}%>  
+}%>  
                                                                         
                                                                        
                                                                             

@@ -19,11 +19,10 @@ if(objSession!=null)
                     entidad.setCompleto(true);
             }
             
-            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
             
 
-            int id=clsGestor.insertarPaleta(entidad);
+            int id=clsGestor.insertarRepaletizadoPaleta(entidad);
             if(id>0)
             {
                 out.print(id);

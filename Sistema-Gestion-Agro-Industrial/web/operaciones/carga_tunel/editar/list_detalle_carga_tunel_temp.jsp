@@ -13,6 +13,36 @@ if(objSession.getObjCargaTunel()!=null)
 {
 %>
 <div id="tabla">
+     <table class="table table-striped table_vam">
+        <thead>
+            <tr>
+                <th>
+                  Temperatura de Carga
+                </th>
+               <td ><%=objSession.getObjCargaTunel().getTemperatura_carga()%></td>          
+               <th>
+                    Hora Inicio Carga
+                </th>
+                <td><%=hora.format(objSession.getObjCargaTunel().getInicio_carga())%></td>
+                 <th>
+                   Fecha Inicio Carga
+                </th>
+               <td><%=fecha.format(objSession.getObjCargaTunel().getInicio_carga())%></td>
+            </tr>
+             <tr>
+                 <td ></td>
+               <td></td>               
+                  <th>
+                   Fecha Inicio Carga
+                </th>
+               <td><%=fecha.format(objSession.getObjCargaTunel().getInicio_carga())%></td>
+               <th>
+                    Hora Fin Carga
+                </th>
+                <td><%=hora.format(objSession.getObjCargaTunel().getFin_carga())%></td>
+            </tr>
+        </thead>
+    </table>
 <table id="lista" class="table table-striped location_table">
     <thead>
             <tr>

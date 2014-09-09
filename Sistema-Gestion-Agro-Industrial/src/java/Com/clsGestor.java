@@ -801,6 +801,10 @@ public class clsGestor {
     {
         return PaletaDAO.ListarPorProductoTerminadoRepaletizado();
     }
+     public  static int insertarRepaletizadoPaleta(entPaleta entidad) throws Exception 
+    {
+        return PaletaDAO.insertarRepaletizado(entidad);
+    }
 //    
 //    public static boolean actualizarPaleta(entPaleta entidad) throws Exception
 //    {

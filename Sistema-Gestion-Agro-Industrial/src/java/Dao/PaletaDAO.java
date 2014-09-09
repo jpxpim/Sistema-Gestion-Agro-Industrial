@@ -118,7 +118,7 @@ public class PaletaDAO {
                 
                 sql="INSERT INTO DET_ESTADO_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
                     + " VALUES(?,?,GETDATE());";
-                PreparedStatement psPosicion = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement psPosicion = conn.prepareStatement(sql);
                 psPosicion.setInt(1, rpta);
                 psPosicion.setInt(2,estado);
                 psPosicion.execute();
@@ -126,7 +126,7 @@ public class PaletaDAO {
                 
                 sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
                     + " VALUES(?,1,GETDATE());";
-                PreparedStatement psEstado = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement psEstado = conn.prepareStatement(sql);
                 psEstado.setInt(1, rpta);
                 psEstado.execute();
                 psEstado.close();
@@ -142,7 +142,7 @@ public class PaletaDAO {
                     psInsertaDetalle.close();
 
                     sql="update PRODUCTO_TERMINADO set ESTADO=1 where ID_PRODUCTO_TERMINADO=?;";
-                    PreparedStatement psEstadoProducto = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement psEstadoProducto = conn.prepareStatement(sql);
                     psEstadoProducto.setInt(1, detalle.getObjProductoTerminado().getId_producto_terminado());
                     psEstadoProducto.execute();
                     psEstadoProducto.close();
@@ -168,6 +168,95 @@ public class PaletaDAO {
         return rpta;
     } 
     
+     public  static int insertarRepaletizado(entPaleta entidad) throws Exception
+    {
+        int rpta = 0;
+        Connection conn =null;
+        PreparedStatement  stmt = null;
+        try {
+            
+           String sql="INSERT INTO PALETA(ID_DIA_RECEPCION,ID_CLIENTE,FECHA_PRODUCCION,POSICION_PALETA,ESTADO_PALETA"
+                   + ",CODIGO_CONTROL,USUARIO_RESPONSABLE,FECHA_MODIFICACION)"
+                   + " VALUES((select TOP 1 ID_DIA_RECEPCION from DIA_RECEPCION ORDER BY ID_DIA_RECEPCION DESC)"
+                   + ",?,GETDATE(),?,?,?,?,GETDATE());";
+           
+           int estado=2;
+                if(entidad.isCompleto())
+                    estado=1;
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, entidad.getObjCliente().getId_cliente());
+            stmt.setInt(2, 2);
+            stmt.setInt(3, estado);
+            stmt.setString(4, Operaciones.getCodigoControl(false, 0));
+            stmt.setString(5, entidad.getUsuario_responsable());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            
+            if (rs.next()){
+                rpta=rs.getInt(1);
+                
+                sql="INSERT INTO DET_ESTADO_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                    + " VALUES(?,?,GETDATE());";
+                PreparedStatement psPosicion = conn.prepareStatement(sql);
+                psPosicion.setInt(1, rpta);
+                psPosicion.setInt(2,estado);
+                psPosicion.execute();
+                psPosicion.close();
+                
+                sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                    + " VALUES(?,1,GETDATE());";
+                PreparedStatement psEstado = conn.prepareStatement(sql);
+                psEstado.setInt(1, rpta);
+                psEstado.execute();
+                psEstado.close();
+                
+                for(entDetallePaleta detalle : entidad.getListaDetallePaleta())
+                {
+                    sql="INSERT INTO DET_PALETA(ID_PALETA,ID_PRODUCTO_TERMINADO,ESTADO,ID_PALETA_ORIGEN,FECHA_MODIFICACION)"
+                        + " VALUES(?,?,1,?,GETDATE());";
+                    PreparedStatement psInsertaDetalle = conn.prepareStatement(sql);
+                    psInsertaDetalle.setInt(1, rpta);
+                    psInsertaDetalle.setInt(2,detalle.getObjProductoTerminado().getId_producto_terminado());
+                    psInsertaDetalle.setInt(3,detalle.getId_paleta());
+                    psInsertaDetalle.execute();
+                    psInsertaDetalle.close();
+
+                    sql="update PRODUCTO_TERMINADO set ESTADO=1 where ID_PRODUCTO_TERMINADO=?;";
+                    PreparedStatement psEstadoProducto = conn.prepareStatement(sql);
+                    psEstadoProducto.setInt(1, detalle.getObjProductoTerminado().getId_producto_terminado());
+                    psEstadoProducto.execute();
+                    psEstadoProducto.close();
+                    
+                    sql="update DET_PALETA set ESTADO=5 where ID_DET_PALETA=?;";
+                    PreparedStatement psEstadoDetPaleta = conn.prepareStatement(sql);
+                    psEstadoDetPaleta.setInt(1, detalle.getId_det_paleta());
+                    psEstadoDetPaleta.execute();
+                    psEstadoDetPaleta.close();
+                    
+                    
+                }
+                
+                
+            }
+            rs.close();
+            conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    } 
      public static List<entPaleta> ListarPacking() throws Exception
     {
         List<entPaleta> lista = null;
@@ -221,7 +310,7 @@ public class PaletaDAO {
                                 "C.NOMBRE,E.CANT_CAJAS_PALETA from PALETA P JOIN DET_PALETA  DP ON P.ID_PALETA=DP.ID_PALETA \n" +
                                 "JOIN PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO join CALIBRE C \n" +
                                 "ON PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE where P.ESTADO_PALETA=2 \n" +
-                                "and P.POSICION_PALETA=2"; 
+                                "and P.POSICION_PALETA=2 AND DP.ESTADO=1"; 
                     
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

@@ -13,9 +13,12 @@ if(objSession!=null)
         request.getParameter("Codigo") != null && request.getParameter("Codigo") != "" &&
         request.getParameter("nCalibre") != null && request.getParameter("nCalibre") != "" &&
         request.getParameter("nVariedad") != null && request.getParameter("nVariedad") != "" &&
-        request.getParameter("nCajas") != null && request.getParameter("nCajas") != "" &&
+        request.getParameter("IdDetPaleta") != null && request.getParameter("IdDetPaleta") != "" &&
+            request.getParameter("IdPaleta") != null && request.getParameter("IdPaleta") != "" &&
+            request.getParameter("nCajas") != null && request.getParameter("nCajas") != "" &&
         request.getParameter("cLote") != null && request.getParameter("cLote") != "")
         {
+            
             int nCajas=Integer.parseInt(request.getParameter("nCajas"));
             if(objSession.getObjPaleta().getListaDetallePaleta().size()==1)
             {
@@ -32,7 +35,8 @@ if(objSession!=null)
             
             entDetallePaleta entidad = new entDetallePaleta();
             entidad.setObjProductoTerminado(objProductoTerminado);
-            
+            entidad.setId_det_paleta(Integer.parseInt(request.getParameter("IdDetPaleta")));
+            entidad.setId_paleta(Integer.parseInt(request.getParameter("IdPaleta")));
             boolean valida=false;
             boolean completo=true;
             
