@@ -28,7 +28,7 @@ public class CargarCamposBDExternaDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select EMPLEADO,NOMBRE,APELLIDO_PATERNO+EMPLEADO_MATERNO from PER_TRABAJADOR";
+            String sql="select EMPLEADO,NOMBRE,APELLIDO_PATERNO+' '+APELLIDO_MATERNO from PER_TRABAJADOR";
 
             conn = ConexionDAO.getConnectionBdExterna();
             stmt = conn.prepareCall(sql);
