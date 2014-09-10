@@ -788,9 +788,9 @@ public class clsGestor {
 //    {
 //        return PaletaDAO.Listar(activo);
 //    }
-    public static List<entPaleta> ListarPackingPaleta() throws Exception
+    public static List<entPaleta> ListarPackingPaleta(boolean incompleto) throws Exception
     {
-        return PaletaDAO.ListarPacking();
+        return PaletaDAO.ListarPacking(incompleto);
     }
     
     public  static int insertarPaleta(entPaleta entidad) throws Exception
@@ -808,6 +808,14 @@ public class clsGestor {
     public static boolean actualizarDetalleMovimientosPaleta(entDetallePaleta entidad) throws Exception
     {
         return PaletaDAO.actualizarDetalleMovimientos(entidad);
+    }
+    public static entPaleta buscarxCodigoPaleta(String Codigo) throws Exception
+    {
+        return PaletaDAO.buscarxCodigo(Codigo);
+    }
+    public static boolean actualizarMovimientosPaleta(entPaleta entidad) throws Exception
+    {
+        return PaletaDAO.actualizarMovimientos(entidad);
     }
 //    
 //    public static boolean actualizarPaleta(entPaleta entidad) throws Exception

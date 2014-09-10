@@ -115,7 +115,7 @@ var validGrabaDetalle=true;
 var paleta= {
      'entidad': [ 
     <%
-    List<entPaleta> listPaleta = clsGestor.ListarPackingPaleta();
+    List<entPaleta> listPaleta = clsGestor.ListarPackingPaleta(false);
     if(listPaleta!=null)
     {
       size=listPaleta.size();
@@ -174,7 +174,7 @@ $("#txtCodigo").keyup(function(){
 function otraBusqueda(codigo)
 {
     $.ajax({
-            url: 'operaciones/paleta/data_paleta.jsp',
+            url: 'operaciones/paleta/data_paleta.jsp?cocmpleto=0',
             type: 'POST',
             success: function (data) {     
                     $('#data_paleta').html(data);
@@ -350,21 +350,32 @@ function removerItem(pos,codigo)
  
 
 function clear_all()
-{
-     $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>'); 
+{   
+    $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>'); 
     $.ajax({
-        url: 'operaciones/carga_tunel/editar/cargar.jsp?id=0',
+        url: 'operaciones/paleta/data_paleta.jsp?completo=0',
         type: 'POST',
-        success: function () {     
-            $('input#idTunel').val("");
-            $('#cTunel').val("");                                             
-            $('#Tunel').html("<di id='Tunel'><blockquote><p>Cliente  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
-            $('#txtCodigo').attr('disabled', true);
-            tabla();
+        success: function (data) {     
+                $('#data_paleta').html(data);     
+                $.ajax({
+                    url: 'operaciones/carga_tunel/editar/cargar.jsp?id=0',
+                    type: 'POST',
+                    success: function () {     
+                        $('input#idTunel').val("");
+                        $('#cTunel').val("");                                             
+                        $('#Tunel').html("<di id='Tunel'><blockquote><p>Cliente  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
+                        $('#txtCodigo').attr('disabled', true);
+                        tabla();
+                    },
+                    contentType: false,
+                    processData: false
+            });        
+                 
         },
         contentType: false,
         processData: false
-    });        
+    });
+     
        
     
 };

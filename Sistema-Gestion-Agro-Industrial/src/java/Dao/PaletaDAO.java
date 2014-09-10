@@ -13,6 +13,7 @@ import Entidades.entDetallePaleta;
 import Entidades.entLote;
 import Entidades.entPaleta;
 import Entidades.entProductoTerminado;
+import Entidades.entVariedad;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -227,7 +228,7 @@ public class PaletaDAO {
                     psEstadoProducto.execute();
                     psEstadoProducto.close();
                     
-                    sql="update DET_PALETA set ESTADO=5 where ID_DET_PALETA=?;";
+                    sql="update DET_PALETA set ESTADO=5,FECHA_MODIFICACION=GETDATE() where ID_DET_PALETA=?;";
                     PreparedStatement psEstadoDetPaleta = conn.prepareStatement(sql);
                     psEstadoDetPaleta.setInt(1, detalle.getId_det_paleta());
                     psEstadoDetPaleta.execute();
@@ -255,7 +256,65 @@ public class PaletaDAO {
         }
         return rpta;
     } 
-    
+       public static boolean actualizarMovimientos(entPaleta entidad) throws Exception
+    {
+        boolean rpta1 = false;
+        Connection conn =null;
+        CallableStatement stmt1 = null;
+        try {
+             String sql="UPDATE paleta SET estado_paleta= ?,usuario_responsable = ?,fecha_modificacion = GETDATE() "
+                     + " WHERE id_paleta = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt1 = conn.prepareCall(sql); 
+            stmt1.setInt(1, entidad.getEstado_paleta());
+            stmt1.setString(2, entidad.getUsuario_responsable());
+            stmt1.setInt(3,entidad.getId_paleta());                
+            rpta1 = stmt1.executeUpdate() == 1;
+            if(rpta1)
+            {   
+                for(entDetallePaleta detalle : entidad.getListaDetallePaleta())
+                {
+                    sql="UPDATE DET_PALETA SET ESTADO= ?,FECHA_MODIFICACION=GETDATE() "
+                         + " WHERE ID_DET_PALETA = ?;";
+                    CallableStatement csDetalle = conn.prepareCall(sql);    
+                    csDetalle.setInt(1, entidad.getEstado_paleta());
+                    csDetalle.setInt(2, detalle.getId_det_paleta());
+                    csDetalle.execute();
+                    csDetalle.close();
+                    
+                     sql="update PRODUCTO_TERMINADO set ESTADO=? where ID_PRODUCTO_TERMINADO=?;";
+                    CallableStatement csEstadoProducto = conn.prepareCall(sql);
+                    csEstadoProducto.setInt(1, entidad.getEstado_paleta());            
+                    csEstadoProducto.setInt(2,detalle.getObjProductoTerminado().getId_producto_terminado());
+                    csEstadoProducto.execute();
+                    csEstadoProducto.close();
+                } 
+                sql="INSERT INTO det_estado_paleta(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
+                       + " VALUES(?,?,GETDATE());";
+                PreparedStatement psDetalleEstado = conn.prepareStatement(sql);
+                psDetalleEstado.setInt(1, entidad.getId_paleta());
+                psDetalleEstado.setInt(2, entidad.getEstado_paleta());
+                psDetalleEstado.execute();
+                
+            }
+           conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt1.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta1;
+    }   
     public static boolean actualizarDetalleMovimientos(entDetallePaleta entidad) throws Exception
     {
         boolean rpta1 = false;
@@ -286,7 +345,7 @@ public class PaletaDAO {
                     psEstado.execute();
                     psEstado.close();
                 }
-                 sql="update DET_PALETA set ESTADO=? where ID_DET_PALETA=?;";
+                 sql="update DET_PALETA set ESTADO=?,FECHA_MODIFICACION=GETDATE() where ID_DET_PALETA=?;";
                     PreparedStatement psEstadoProducto = conn.prepareCall(sql);
                     psEstadoProducto.setInt(1, entidad.getEstado());            
                     psEstadoProducto.setInt(2,entidad.getId_det_paleta() );
@@ -311,16 +370,20 @@ public class PaletaDAO {
         return rpta1;
     }
    
-    public static List<entPaleta> ListarPacking() throws Exception
+    public static List<entPaleta> ListarPacking(boolean incompleto) throws Exception
     {
         List<entPaleta> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-                    String sql="select P.ID_PALETA,P.CODIGO_CONTROL,P.FECHA_PRODUCCION,p.ESTADO_PALETA,P.POSICION_PALETA,C.NOMBRE from \n" +
-                                "PALETA P JOIN CLIENTE C ON P.ID_CLIENTE=C.ID_CLIENTE where POSICION_PALETA!=2 and POSICION_PALETA!=4"; 
-                    
+                    String sql="select P.ID_PALETA,P.CODIGO_CONTROL,P.FECHA_PRODUCCION,p.ESTADO_PALETA,P.POSICION_PALETA,\n" +
+                                "C.NOMBRE from PALETA P JOIN CLIENTE C ON P.ID_CLIENTE=C.ID_CLIENTE where POSICION_PALETA!=2\n" +
+                                "and POSICION_PALETA!=4 "; 
+                                if(incompleto)
+                                sql+="and ESTADO_PALETA=2";
+                                else
+                                  sql+="and ESTADO_PALETA<3";  
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
@@ -391,45 +454,50 @@ public class PaletaDAO {
                 entidad.setCodigo_control(dr.getString(6)); 
                 entidad.setUsuario_responsable(dr.getString(7)); 
                 entidad.setFecha_modificacion(dr.getTimestamp(8));      
+                entidad.setObjCliente(objCliente);  
                 
-                
-                sql="select DP.ID_DET_PALETA,DP.ID_PALETA,PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.ID_LOTE,\n" +
-                "C.NOMBRE,E.CANT_CAJAS_PALETA from PALETA P JOIN DET_PALETA  DP ON P.ID_PALETA=DP.ID_PALETA \n" +
-                "JOIN PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO join CALIBRE C \n" +
-                "ON PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE where DP.ID_PALETA="+entidad.getId_paleta();
-                
+                sql="select DP.ID_DET_PALETA,DP.ID_PALETA,PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.ID_LOTE,L.NOMBRE,\n" +
+                    "L.CODIGO_CONTROL,V.NOMBRE,C.NOMBRE from PALETA P JOIN DET_PALETA DP ON P.ID_PALETA=DP.ID_PALETA JOIN \n" +
+                    "PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO join CALIBRE C ON \n" +
+                    "PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE JOIN LOTE L ON L.ID_LOTE=PT.ID_LOTE \n" +
+                    "JOIN VARIEDAD V ON L.ID_VARIEDAD=V.ID_VARIEDAD where DP.ESTADO=1 AND DP.ID_PALETA="+entidad.getId_paleta();
+
                 CallableStatement csDetalle = conn.prepareCall(sql);
                 ResultSet rsDetalle = csDetalle.executeQuery();
-                 List<entDetallePaleta> lista=null;
+                List<entDetallePaleta> lista=new ArrayList<entDetallePaleta>();
                  
                 while (rsDetalle.next()){
-                    if(entDetallePaleta==null)
-                        lista = new ArrayList<entDetallePaleta>();
-
+                   
+                    
+                    
+                    entVariedad objVariedad = new entVariedad();
+                    objVariedad.setNombre(rsDetalle.getString(8));
+                    
                     entCalibre objCalibre = new entCalibre();
-                    objCalibre.setNombre(dr.getString(6));
-//                    
+                    objCalibre.setNombre(rsDetalle.getString(9));
+                   
                     entLote objLote = new entLote();
-                    objLote.setId_lote(dr.getInt(5));
+                    objLote.setId_lote(rsDetalle.getInt(5));
+                    objLote.setNombre(rsDetalle.getString(6)); 
+                    objLote.setCodigo_control(rsDetalle.getString(7)); 
+                    objLote.setObjVariedad(objVariedad);
                     
                     entProductoTerminado objProductoTerminado = new entProductoTerminado();
-                    objProductoTerminado.setId_producto_terminado(dr.getInt(3));
-                    objProductoTerminado.setCodigo_control(dr.getString(4)); 
+                    objProductoTerminado.setId_producto_terminado(rsDetalle.getInt(3));
+                    objProductoTerminado.setCodigo_control(rsDetalle.getString(4)); 
                     objProductoTerminado.setObjLote(objLote);
                     objProductoTerminado.setObjCalibre(objCalibre);
-                    objProductoTerminado.setId_dia_recepcion(dr.getInt(7));
                     
                     entDetallePaleta objDetallePaleta = new entDetallePaleta();
-                    objDetallePaleta.setId_det_paleta(dr.getInt(1));
-                    objDetallePaleta.setId_paleta(dr.getInt(2));
+                    objDetallePaleta.setId_det_paleta(rsDetalle.getInt(1));
+                    objDetallePaleta.setId_paleta(rsDetalle.getInt(2));
                     objDetallePaleta.setObjProductoTerminado(objProductoTerminado);
-                    
+       
                     lista.add(objDetallePaleta);
                 }
                 csDetalle.close();
                 rsDetalle.close();
                 entidad.setListaDetallePaleta(lista);
-                entidad.setObjCliente(objCliente);
             }
 
         conn.commit();

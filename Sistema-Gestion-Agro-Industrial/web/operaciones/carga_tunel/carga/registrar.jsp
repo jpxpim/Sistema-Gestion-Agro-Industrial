@@ -131,7 +131,7 @@ var validGrabaDetalle=true;
 var paleta= {
      'entidad': [ 
     <%
-    List<entPaleta> listPaleta = clsGestor.ListarPackingPaleta();
+    List<entPaleta> listPaleta = clsGestor.ListarPackingPaleta(false);
     if(listPaleta!=null)
     {
       size=listPaleta.size();
@@ -220,7 +220,7 @@ $("#txtCodigo").keyup(function(){
 function otraBusqueda(codigo)
 {
     $.ajax({
-            url: 'operaciones/paleta/data_paleta.jsp',
+            url: 'operaciones/paleta/data_paleta.jsp?completo=0',
             type: 'POST',
             success: function (data) {     
                     $('#data_paleta').html(data);
@@ -435,7 +435,7 @@ function grabar_data()
 function clear_all()
 {
     $.ajax({
-        url: 'operaciones/paleta/data_paleta.jsp',
+        url: 'operaciones/paleta/data_paleta.jsp?completo=0',
         type: 'POST',
         success: function (data) {     
                   $('#data_paleta').html(data);     

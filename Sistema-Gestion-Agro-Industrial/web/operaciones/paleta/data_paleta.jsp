@@ -5,13 +5,19 @@
 <%
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
+ if(request.getParameter("completo") != null && request.getParameter("completo") != "")
 {%>
 <div id="data_paleta">
 <script type="text/javascript">
 paleta= {
      'entidad': [ 
     <%
-    List<entPaleta> listPaleta = clsGestor.ListarPackingPaleta();
+    List<entPaleta> listPaleta = null;
+    if(request.getParameter("completo").equals("1"))
+    listPaleta = clsGestor.ListarPackingPaleta(true);
+    else
+       listPaleta = clsGestor.ListarPackingPaleta(false);
+    
     if(listPaleta!=null)
     {
       int size=listPaleta.size();
