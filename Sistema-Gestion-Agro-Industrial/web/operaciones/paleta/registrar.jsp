@@ -179,7 +179,7 @@ objSession.setObjPaleta(new entPaleta());
 <div class="modal hide fade" id="ModalCliente" >
     <div class="modal-header">
         <button class="close" data-dismiss="modal">×</button>
-        <h3>Buscar Campaña de un Lote</h3>
+        <h3>Buscar Cliente</h3>
     </div>
     <div class="modal-body">
         <table id="tablaCliente" class="table table-striped location_table">
@@ -373,6 +373,11 @@ var producto= {
 };
 
 $(document).ready(function() {  
+$('#tablaCliente').dataTable({
+    "sPaginationType": "bootstrap",
+    "bDestroy": true,
+    "bDeferRender": true
+}); 
 $('#buscar').click(function(){
     $('#origen').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
                        

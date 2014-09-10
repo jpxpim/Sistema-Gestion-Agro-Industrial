@@ -55,7 +55,7 @@ public class Probadorxxx {
 //            
 //        }
         
-        System.out.print(""+PaletaDAO.buscarxCodigo("1409848018251").getListaDetallePaleta().size());
+        System.out.print(""+OperadorLogisticoDAO.Listar(true).size());
         ;
     }
     
