@@ -28,7 +28,6 @@ import java.util.List;
  */
 public class PaletaDAO {
     
-        
     public static boolean actualizar(entPaleta entidad) throws Exception
     {
         boolean rpta1 = false;
@@ -84,7 +83,7 @@ public class PaletaDAO {
             }
         }
         return rpta1;
-    }
+    }   
     
     public  static int insertar(entPaleta entidad) throws Exception
     {
@@ -165,9 +164,9 @@ public class PaletaDAO {
             }
         }
         return rpta;
-    } 
+    }   
     
-     public  static int insertarRepaletizado(entPaleta entidad) throws Exception
+    public  static int insertarRepaletizado(entPaleta entidad) throws Exception
     {
         int rpta = 0;
         Connection conn =null;
@@ -256,8 +255,8 @@ public class PaletaDAO {
         }
         return rpta;
     } 
-     
-      public static boolean actualizarDetalleMovimientos(entDetallePaleta entidad) throws Exception
+    
+    public static boolean actualizarDetalleMovimientos(entDetallePaleta entidad) throws Exception
     {
         boolean rpta1 = false;
         Connection conn =null;
@@ -299,7 +298,6 @@ public class PaletaDAO {
         } catch (Exception e) {
              if (conn != null) {
                     conn.rollback();
-                      throw new Exception("Insertar"+e.getMessage(), e);
                 }
             throw new Exception("Insertar"+e.getMessage(), e);
         }
@@ -308,14 +306,12 @@ public class PaletaDAO {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                  throw new Exception("Insertar"+e.getMessage(), e);
             }
         }
         return rpta1;
     }
    
-         
-     public static List<entPaleta> ListarPacking() throws Exception
+    public static List<entPaleta> ListarPacking() throws Exception
     {
         List<entPaleta> lista = null;
         Connection conn =null;
@@ -356,8 +352,105 @@ public class PaletaDAO {
             }
         }
         return lista;
-    }       
-     public static List<entDetallePaleta> ListarPorProductoTerminadoMovimientos(boolean incompleto) throws Exception
+    } 
+     
+    public static entPaleta buscarxCodigo(String Codigo) throws Exception
+    {
+        entPaleta entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="SELECT P.ID_PALETA,P.ID_DIA_RECEPCION,P.FECHA_PRODUCCION,P.POSICION_PALETA,P.ESTADO_PALETA,\n" +
+                                "P.CODIGO_CONTROL,P.USUARIO_RESPONSABLE,P.FECHA_MODIFICACION,C.ID_CLIENTE,C.NOMBRE,C.RUC,\n" +
+                                "C.DIRECCION,C.ESTADO,C.USUARIO_RESPONSABLE,C.FECHA_MODIFICACION FROM PALETA P JOIN CLIENTE C \n" +
+                                "ON P.ID_CLIENTE=C.ID_CLIENTE WHERE P.CODIGO_CONTROL='"+Codigo+"'"; 
+                    
+            conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                entCliente objCliente = new entCliente();
+                objCliente.setId_cliente(dr.getInt(9));
+                objCliente.setNombre(dr.getString(10)); 
+                objCliente.setRuc(dr.getString(11)); 
+                objCliente.setDireccion(dr.getString(12)); 
+                objCliente.setEstado(dr.getBoolean(13)); 
+                objCliente.setUsuario_responsable(dr.getString(14)); 
+                objCliente.setFecha_modificacion(dr.getTimestamp(15));     
+                
+                entidad = new entPaleta();
+                entidad.setId_paleta(dr.getInt(1));
+                entidad.setId_dia_recepcion(dr.getInt(2));                
+                entidad.setFecha_produccion(dr.getTimestamp(3));                
+                entidad.setPosicion_paleta(dr.getInt(4));
+                entidad.setEstado_paleta(dr.getInt(5));
+                entidad.setCodigo_control(dr.getString(6)); 
+                entidad.setUsuario_responsable(dr.getString(7)); 
+                entidad.setFecha_modificacion(dr.getTimestamp(8));      
+                
+                
+                sql="select DP.ID_DET_PALETA,DP.ID_PALETA,PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.ID_LOTE,\n" +
+                "C.NOMBRE,E.CANT_CAJAS_PALETA from PALETA P JOIN DET_PALETA  DP ON P.ID_PALETA=DP.ID_PALETA \n" +
+                "JOIN PRODUCTO_TERMINADO PT ON PT.ID_PRODUCTO_TERMINADO=DP.ID_PRODUCTO_TERMINADO join CALIBRE C \n" +
+                "ON PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON PT.ID_ENVASE=E.ID_ENVASE where DP.ID_PALETA="+entidad.getId_paleta();
+                
+                CallableStatement csDetalle = conn.prepareCall(sql);
+                ResultSet rsDetalle = csDetalle.executeQuery();
+                 List<entDetallePaleta> lista=null;
+                 
+                while (rsDetalle.next()){
+                    if(entDetallePaleta==null)
+                        lista = new ArrayList<entDetallePaleta>();
+
+                    entCalibre objCalibre = new entCalibre();
+                    objCalibre.setNombre(dr.getString(6));
+//                    
+                    entLote objLote = new entLote();
+                    objLote.setId_lote(dr.getInt(5));
+                    
+                    entProductoTerminado objProductoTerminado = new entProductoTerminado();
+                    objProductoTerminado.setId_producto_terminado(dr.getInt(3));
+                    objProductoTerminado.setCodigo_control(dr.getString(4)); 
+                    objProductoTerminado.setObjLote(objLote);
+                    objProductoTerminado.setObjCalibre(objCalibre);
+                    objProductoTerminado.setId_dia_recepcion(dr.getInt(7));
+                    
+                    entDetallePaleta objDetallePaleta = new entDetallePaleta();
+                    objDetallePaleta.setId_det_paleta(dr.getInt(1));
+                    objDetallePaleta.setId_paleta(dr.getInt(2));
+                    objDetallePaleta.setObjProductoTerminado(objProductoTerminado);
+                    
+                    lista.add(objDetallePaleta);
+                }
+                csDetalle.close();
+                rsDetalle.close();
+                entidad.setListaDetallePaleta(lista);
+                entidad.setObjCliente(objCliente);
+            }
+
+        conn.commit();
+        } catch (Exception e) {
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
+    }   
+    
+    public static List<entDetallePaleta> ListarPorProductoTerminadoMovimientos(boolean incompleto) throws Exception
     {
         List<entDetallePaleta> lista = null;
         Connection conn =null;
@@ -416,8 +509,4 @@ public class PaletaDAO {
         }
         return lista;
     }   
-     
-     
-  
-  
 }
