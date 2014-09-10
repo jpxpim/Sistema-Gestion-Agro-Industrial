@@ -224,7 +224,7 @@ if(objSession!=null)
 
 	  
                            <script src="lib/jquery-ui/jquery-ui-1.8.20.custom.min.js"></script>
-                           
+                           <script src="js/gebo_common.js"></script>
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->

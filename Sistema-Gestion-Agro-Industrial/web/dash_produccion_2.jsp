@@ -257,7 +257,7 @@ if(objSession!=null)
 			<script src="lib/antiscroll/jquery-mousewheel.js"></script>
                         <!-- enhanced select (chosen) -->
                         <script src="lib/chosen/chosen.jquery.min.js"></script>
-
+                        <script src="js/gebo_common.js"></script>
 	  
                            <script src="lib/jquery-ui/jquery-ui-1.8.20.custom.min.js"></script>
                            

@@ -61,10 +61,10 @@ if(objSession!=null)
                                              <div class="accordion-group">
                                                     <div class="accordion-heading">
                                                             <a href="#collapseCalculador" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-                                                               <i class="icon-th"></i> Calculador
+                                                               <i class="icon-th"></i> Calculadora
                                                             </a>
                                                     </div>
-                                                    <div class="accordion-body collapse in" id="collapseCalculador">
+                                                    <div class="accordion-body collapse" id="collapseCalculador">
                                                             <div class="accordion-inner">
                                                                     <form name="Calc" id="calc">
                                                                             <div class="formSep control-group input-append">
