@@ -888,21 +888,57 @@ public class clsGestor {
          return CargaTunelDAO.actualizarCarga(entidad);
 }
 // </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entOperadorLogistico">
+    public static List<entOperadorLogistico> ListarOperadorLogistico(boolean activo) throws Exception
+    {
+        return OperadorLogisticoDAO.Listar(activo);
+    }
+    
+    public  static int insertarOperadorLogistico(entOperadorLogistico entidad) throws Exception
+    {
+        return OperadorLogisticoDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarOperadorLogistico(entOperadorLogistico entidad) throws Exception
+    {
+        return OperadorLogisticoDAO.actualizar(entidad);
+    }
 
+// </editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="entContenedor">
+    public static List<entContenedor> ListarContenedor(boolean activo) throws Exception
+    {
+        return ContenedorDAO.Listar(activo);
+    }
+    
+    public  static int insertarContenedor(entContenedor entidad) throws Exception
+    {
+        return ContenedorDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarContenedor(entContenedor entidad) throws Exception
+    {
+        return ContenedorDAO.actualizar(entidad);
+    }
+    
+    // </editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Ubigeo">
-   public List<entDepartamento> listarDepartamento() throws Exception
+   public static List<entDepartamento> listarDepartamento() throws Exception
    {
        return DepartamentoDAO.listarDepartamento();
    }
-     public List<entDistrito> listarDistritoXProvincia(int IdProvincia) throws Exception
+     public static List<entDistrito> listarDistritoXProvincia(int IdProvincia) throws Exception
      {
          return DistritoDAO.listarDistritoXProvincia(IdProvincia);
      }
-     public List<entProvincia> listarProvinciaXDepartamento(int IdDepartamento) throws Exception
+     public static List<entProvincia> listarProvinciaXDepartamento(int IdDepartamento) throws Exception
      {
          return ProvinciaDAO.listarProvinciaXDepartamento(IdDepartamento);
      }
-     public  entDistrito buscarIdProvincia (int idDistrito) throws Exception
+     public static entDistrito buscarIdProvincia (int idDistrito) throws Exception
      {
          return DistritoDAO.buscarId(idDistrito);
      }
