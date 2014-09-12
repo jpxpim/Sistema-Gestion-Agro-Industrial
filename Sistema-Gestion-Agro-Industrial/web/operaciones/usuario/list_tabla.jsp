@@ -60,8 +60,8 @@ if(list!=null)
 
             </td>
             <td>
-                <a href='javascript:void(0)' onclick='edit_form(<%=entidad.getId_usuario()%>,"<%=entidad.getNombre()%>","<%=entidad.getApellido()%>","<%=entidad.getEmail()%>","<%=entidad.getTelefono()%>","<%=entidad.getCelular()%>","<%=fecha.format(entidad.getFecha_nacimiento())%>","<%=entidad.getLogin()%>","<%=entidad.getCodigo_erp()%>","<%=entidad.getEstado()%>")' class="comp_edit btn btn-primary btn-mini">Editar</a>
-                <a href='javascript:void(0)' onclick='restablecer(<%=entidad.getId_usuario()%>,"<%=entidad.getNombre()%> <%=entidad.getApellido()%>")' class="comp_edit btn btn-inverse btn-mini">Restablecer</a>
+     <center><a href='javascript:void(0)' onclick='edit_form(<%=entidad.getId_usuario()%>,"<%=entidad.getNombre()%>","<%=entidad.getApellido()%>","<%=entidad.getEmail()%>","<%=entidad.getTelefono()%>","<%=entidad.getCelular()%>","<%=fecha.format(entidad.getFecha_nacimiento())%>","<%=entidad.getLogin()%>","<%=entidad.getCodigo_erp()%>","<%=entidad.getEstado()%>")' class="comp_edit btn btn-primary btn-mini">Editar</a></center>
+     <br> <center><a href='javascript:void(0)' onclick='restablecer(<%=entidad.getId_usuario()%>,"<%=entidad.getNombre()%> <%=entidad.getApellido()%>")' class="comp_edit btn btn-inverse btn-mini">Restablecer</a></center>
 
                 
             </td>

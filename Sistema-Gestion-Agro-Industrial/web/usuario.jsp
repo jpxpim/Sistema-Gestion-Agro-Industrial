@@ -122,8 +122,8 @@ if(objSession!=null)
 					<div class="row-fluid">
 						<div class="span12">							
 							<div class="row-fluid">
-								<div class="span3"></div>
-								<div class="span7">
+								<div class="span2"></div>
+								<div class="span8">
 									<form id="validate_wizard" class="stepy-wizzard form-horizontal">
                                                                             
 										<fieldset title="Información Personal">

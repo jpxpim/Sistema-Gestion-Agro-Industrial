@@ -362,6 +362,23 @@ public class clsGestor {
     }
 // </editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="entViaEmbarque">
+    public static List<entViaEmbarque> ListarViaEmbarque(boolean activo) throws Exception
+    {
+        return ViaEmbarqueDAO.Listar(activo);
+    }
+    
+    public  static int insertarViaEmbarque(entViaEmbarque entidad) throws Exception
+    {
+        return ViaEmbarqueDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarViaEmbarque(entViaEmbarque entidad) throws Exception
+    {
+        return ViaEmbarqueDAO.actualizar(entidad);
+    }
+// </editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="entAnalisisYemas">
    
     public static List<entAnalisisYemas> ListarAnalisisYemas(boolean activo) throws Exception
@@ -537,6 +554,24 @@ public class clsGestor {
     public static boolean actualizarJaba(entJaba entidad) throws Exception
     {
         return JabaDAO.actualizar(entidad);
+    }
+    
+    // </editor-fold>
+      
+    //<editor-fold defaultstate="collapsed" desc="entLineaNaviera">
+    public static List<entLineaNaviera> ListarLineaNaviera(boolean activo) throws Exception
+    {
+        return LineaNavieraDAO.Listar(activo);
+    }
+    
+    public  static int insertarLineaNaviera(entLineaNaviera entidad) throws Exception
+    {
+        return LineaNavieraDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarLineaNaviera(entLineaNaviera entidad) throws Exception
+    {
+        return LineaNavieraDAO.actualizar(entidad);
     }
     
     // </editor-fold>

@@ -256,6 +256,49 @@ public class LoteDAO
         }
         return lista;
     }
+     public static List<entLote> ListarDiaRecepccion(int idDiaRecepcion) throws Exception
+    {
+        List<entLote> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select DISTINCT L.ID_LOTE,L.NOMBRE,L.CODIGO_CONTROL from RECEPCION R JOIN \n" +
+                            "DET_RECEPCION DR ON R.ID_RECEPCION=DR.ID_RECEPCION JOIN LOTE L ON \n" +
+                            "DR.ID_LOTE=L.ID_LOTE where R.ID_DIA_RECEPCION="+idDiaRecepcion;
+
+
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entLote>();
+               
+                //Lote
+                entLote entidad = new entLote();
+                entidad.setId_lote(dr.getInt(1));                
+                entidad.setNombre(dr.getString(2)); 
+                entidad.setCodigo_control(dr.getString(3));
+                lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }
+    
     
     public  static int insertar(entLote entidad) throws Exception
     {

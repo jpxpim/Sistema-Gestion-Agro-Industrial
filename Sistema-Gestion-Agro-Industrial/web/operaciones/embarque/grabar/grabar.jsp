@@ -1,3 +1,5 @@
+<%@page import="Entidades.entLineaNaviera"%>
+<%@page import="Entidades.entViaEmbarque"%>
 <%@page import="Entidades.entContenedor"%>
 <%@page import="Entidades.entDepartamento"%>
 <%@page import="Entidades.entOperadorLogistico"%>
@@ -99,6 +101,26 @@ objSession.setObjPaleta(new entPaleta());
                                         <input type="hidden" id="YContenedor"  name="YContenedor" value="" />
                                         <input type="hidden" id="idContenedor"  name="idContenedor" value="" />
                                 </div>
+                                <div class="input-prepend">
+                                    <label><span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalViaEmbarque'><i class='splashy-zoom'></i></a></span> Vía de Embarque </label>
+                                    <di id='nViaEmbarque'>
+                                    <blockquote >
+                                    <p>Esperando Selección</p>
+                                    </blockquote>
+                                    </di>
+                                        <input type="hidden" id="idViaEmbarque"  name="idViaEmbarque" value="" />
+                                </div>
+                                <div class="input-prepend">
+                                    <label><span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalLineaNaviera'><i class='splashy-zoom'></i></a></span> Linea Naviera </label>
+                                    <di id='nLineaNaviera'>
+                                    <blockquote >
+                                    <p>Esperando Selección</p>
+                                    </blockquote>
+                                    </di>
+                                        <input type="hidden" id="idLineaNaviera"  name="idLineaNaviera" value="" />
+                                </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -408,7 +430,90 @@ objSession.setObjPaleta(new entPaleta());
         <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
     </div>
 </div>              
- 
+   <!-- Modal LineaNavieraFacturable -->	
+<div class="modal hide fade" id="ModalLineaNaviera" >
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Buscar Linea Naviera </h3>
+    </div>
+    <div class="modal-body">
+        <table id="tablaLineaNaviera" class="table table-striped location_table">
+            <thead>
+                    <tr>
+                           <th>Id</th>
+                           <th>Nombre</th>
+                           <th>Acciones</th>
+                    </tr>
+            </thead> 
+            <tbody>    
+            <%            
+            List<entLineaNaviera> listLineaNaviera=clsGestor.ListarLineaNaviera(true);
+            if(listLineaNaviera!=null)
+            for(entLineaNaviera entidad : listLineaNaviera)
+            {
+            %>
+
+                <tr>
+                    <td><%=entidad.getId_linea_naviera()%></td>
+                    <td><%=entidad.getNombre()%></td>               
+                    <td>
+                        <a href="javascript:void(0)" data-dismiss="modal" onclick="selectLineaNaviera(<%=entidad.getId_linea_naviera()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-success btn-mini">Seleccionar</a>
+
+                    </td>
+                </tr>                                                            
+            <%
+            }
+            %>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+    </div>
+</div>         
+  <!-- Modal ViaEmbarqueFacturable -->	
+<div class="modal hide fade" id="ModalViaEmbarque" >
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Buscar Vía de Embarque </h3>
+    </div>
+    <div class="modal-body">
+        <table id="tablaViaEmbarque" class="table table-striped location_table">
+            <thead>
+                    <tr>
+                           <th>Id</th>
+                           <th>Nombre</th>
+                           <th>Acciones</th>
+                    </tr>
+            </thead> 
+            <tbody>    
+            <%
+            List<entViaEmbarque> listViaEmbarque=clsGestor.ListarViaEmbarque(true);
+            if(listViaEmbarque!=null)
+            for(entViaEmbarque entidad : listViaEmbarque)
+            {
+            %>
+
+                <tr>
+                    <td><%=entidad.getId_via_embarque()%></td>
+                    <td><%=entidad.getNombre()%></td>               
+                    <td>
+                        <a href="javascript:void(0)" data-dismiss="modal" onclick="selectViaEmbarque(<%=entidad.getId_via_embarque()%>,'<%=entidad.getNombre()%>')" class="comp_edit btn btn-success btn-mini">Seleccionar</a>
+
+                    </td>
+                </tr>                                                            
+            <%
+            }
+            %>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
+    </div>
+</div>              
   
    <!-- Modal Contednedor -->	
 <div class="modal hide fade" id="ModalContenedor" >
@@ -540,6 +645,18 @@ function selectContenedor(id,nombre,posX,posY)
     $('#idContenedor').val(id);                                           
     $('#nContenedor').html("<di id='nContenedor'><blockquote><p>"+nombre+"</p></blockquote></di>");  
 };
+function selectViaEmbarque(id,nombre)
+{
+    $('#idViaEmbarque').val(id);                                           
+    $('#nViaEmbarque').html("<di id='nViaEmbarque'><blockquote><p>"+nombre+"</p></blockquote></di>");  
+};
+function selectLineaNaviera(id,nombre)
+{
+    $('#idLineaNaviera').val(id);                                           
+    $('#nLineaNaviera').html("<di id='nLineaNaviera'><blockquote><p>"+nombre+"</p></blockquote></di>");  
+};
+
+
 $(document).ready(function() {  
     $('#tablaClienteClienteFacturable').dataTable({
         "sPaginationType": "bootstrap",
@@ -567,6 +684,16 @@ $(document).ready(function() {
         "bDeferRender": true
     }); 
     $('#tablaContenedor').dataTable({
+        "sPaginationType": "bootstrap",
+        "bDestroy": true,
+        "bDeferRender": true
+    }); 
+    $('#tablaViaEmbarque').dataTable({
+        "sPaginationType": "bootstrap",
+        "bDestroy": true,
+        "bDeferRender": true
+    }); 
+    $('#tablaLineaNaviera').dataTable({
         "sPaginationType": "bootstrap",
         "bDestroy": true,
         "bDeferRender": true
