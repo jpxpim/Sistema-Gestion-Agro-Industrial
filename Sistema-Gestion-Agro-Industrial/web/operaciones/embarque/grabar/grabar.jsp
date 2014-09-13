@@ -642,6 +642,15 @@ function selectOperadorLogistico(id,nombre)
 };
 function selectContenedor(id,nombre,posX,posY)
 {
+    $.ajax({
+                url: 'operaciones/contenedor/contenedor_filas.jsp?XContenedor='+posX+'&YContenedor='+posY,
+                type: 'POST',
+                success: function (data) {     
+                         $('#ContenedorFilas').html(data);
+                },
+                contentType: false,
+                processData: false
+            });  
     $('#idContenedor').val(id);                                           
     $('#nContenedor').html("<di id='nContenedor'><blockquote><p>"+nombre+"</p></blockquote></di>");  
 };
@@ -750,7 +759,7 @@ $(document).ready(function() {
     });
     $('#prueba').click(function(){
          $.ajax({
-                url: 'operaciones/contenedor/contenedor_filas.jsp?XContenedor=10&YContenedor=4',
+                url: 'operaciones/contenedor/contenedor_filas.jsp?XContenedor=10&YContenedor=2',
                 type: 'POST',
                 success: function (data) {     
                          $('#ContenedorFilas').html(data);
