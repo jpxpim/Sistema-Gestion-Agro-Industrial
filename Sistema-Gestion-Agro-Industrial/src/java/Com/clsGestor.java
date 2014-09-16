@@ -960,6 +960,24 @@ public class clsGestor {
     
     // </editor-fold>
     
+    
+    //<editor-fold defaultstate="collapsed" desc="entPuerto">
+    public static List<entPuerto> ListarPuerto(boolean activo) throws Exception
+    {
+        return PuertoDAO.Listar(activo);
+    }
+    
+    public  static int insertarPuerto(entPuerto entidad) throws Exception
+    {
+        return PuertoDAO.insertar(entidad);
+    }
+    
+    public static boolean actualizarPuerto(entPuerto entidad) throws Exception
+    {
+        return PuertoDAO.actualizar(entidad);
+    }
+    // </editor-fold> 
+    
     //<editor-fold defaultstate="collapsed" desc="Ubigeo">
    public static List<entDepartamento> listarDepartamento() throws Exception
    {

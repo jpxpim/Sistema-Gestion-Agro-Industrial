@@ -130,6 +130,8 @@ var paleta= {
     }%>
      ]
 };
+
+
 $(document).ready(function() {  
 $("#txtCodigo").keyup(function(){   
 
@@ -363,7 +365,7 @@ function clear_all()
                     success: function () {     
                         $('input#idTunel').val("");
                         $('#cTunel').val("");                                             
-                        $('#Tunel').html("<di id='Tunel'><blockquote><p>Cliente  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
+                        $('#Tunel').html("<di id='Tunel'><blockquote><p>Tunel  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalTunel'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Capacidad</p></blockquote></blockquote></di>");  
                         $('#txtCodigo').attr('disabled', true);
                         tabla();
                     },

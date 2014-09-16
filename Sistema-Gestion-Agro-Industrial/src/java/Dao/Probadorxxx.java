@@ -55,7 +55,7 @@ public class Probadorxxx {
 //            
 //        }
         
-        System.out.print(""+LineaNavieraDAO.Listar(true).size());
+        System.out.print(""+PuertoDAO.Listar(true).size());
         ;
     }
     

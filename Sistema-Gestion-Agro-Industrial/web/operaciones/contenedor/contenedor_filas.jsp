@@ -12,7 +12,7 @@ if(objSession!=null)
  int posY=Integer.parseInt(request.getParameter("YContenedor"));
  int ids=1;
 %>
-<div id="ContenedorFilas">
+<div id="listContenedor">
     
     <table>
         <%for(int i=0;i<posX;i++){%>

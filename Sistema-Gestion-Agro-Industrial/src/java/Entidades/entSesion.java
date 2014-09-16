@@ -27,6 +27,7 @@ public class entSesion {
     private entConfiguracion objConfiguracion;
     private entPaleta objPaleta;
     private entCargaTunel objCargaTunel;
+    private entEmbarque objEmbarque;
     List<entModulo> listModulos;
     List<entDetalleReceta> listDetalleReceta;
     public entSesion() {
@@ -39,7 +40,8 @@ public class entSesion {
         this.objUsuario=null;
         this.objConfiguracion=null;
         this.objPaleta=null;
-         this.objCargaTunel=null;
+        this.objCargaTunel=null;
+        this.objEmbarque=null;
     }
 
     public List<entDetalleReceta> getListDetalleReceta() {
@@ -163,6 +165,14 @@ public class entSesion {
 
     public void setObjCargaTunel(entCargaTunel objCargaTunel) {
         this.objCargaTunel = objCargaTunel;
+    }
+
+    public entEmbarque getObjEmbarque() {
+        return objEmbarque;
+    }
+
+    public void setObjEmbarque(entEmbarque objEmbarque) {
+        this.objEmbarque = objEmbarque;
     }
 
 }
