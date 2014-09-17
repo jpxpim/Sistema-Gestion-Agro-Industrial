@@ -223,18 +223,28 @@ objSession.setObjEmbarque(new entEmbarque());
                                     <label>Booking</label>
                                     <input type="text" class="span12" id="txtBooking"  name="txtBooking" />
                                  </div>  
-                                 <div class="input-prepend">
-                                    <label>Hora de Inicio</label>
-                                    <input type="text" class="span12" id="txtHoraInicio"  name="txtHoraInicio" />
-                                 </div>  
-                                 <div class="input-prepend">
-                                    <label>Hora de Fin</label>
-                                    <input type="text" class="span12" id="txtHoraFin"  name="txtHoraFin" />
-                                 </div>  
-                                
+                                <div class="input-prepend">
+                                    <label for="txtHoraInicio" class="col-md-2 control-label">Hora de Inicio</label>
+                                        <div class="input-group date form_datetime_inicio col-md-5"  data-link-field="txtHoraInicio">
+                                            <input class="form-control span10" size="16" type="text" id="textHoraInicio" name="textHoraInicio" value="" readonly>
+                                            <span class="input-group-addon"></span>
+                                            <span class="input-group-addon add-on"><span class="glyphicon-th splashy-calendar_day_down"></span></span>
+                                        </div>
+                                    <input type="hidden" id="txtHoraInicio" name="txtHoraInicio" value="" /><br/>
+                                </div> 
+                                <div class="input-prepend">
+                                    <label for="txtHoraFin" class="col-md-2 control-label">Hora de Fin</label>
+                                        <div class="input-group date form_datetime_fin col-md-5"  data-link-field="txtHoraFin">
+                                            <input class="form-control span10" size="16" type="text" id="textHoraFin" name="textHoraFin" value="" readonly>
+                                            <span class="input-group-addon"></span>
+                                            <span class="input-group-addon add-on"><span class="glyphicon-th splashy-calendar_day_down"></span></span>
+                                        </div>
+                                    <input type="hidden" id="txtHoraFin" name="txtHoraFin" value="" /><br/>
+                                </div> 
+                               
                             </div>
                                 <button class="btn btn-invert" type="submit">Grabar</button>
-                                <button class="btn btn-invert" id="prueba"  type="button">Limpiar Lista</button>
+                                <button class="btn btn-invert" id="limpiar"  type="button">Limpiar</button>
                         </div>
                     </div>
                 </div>
@@ -930,6 +940,40 @@ function selectPuertoDestino(id,nombre)
     $('#nPuertoDestino').html("<di id='nPuertoDestino'><blockquote><p>"+nombre+"</p></blockquote></di>");  
 };
 $(document).ready(function() {  
+     $('.form_datetime_inicio').datetimepicker({
+        language:  'es',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        format: 'yyyy-mm-dd hh:ii'
+    });
+     $('.form_datetime_fin').datetimepicker({
+        language:  'es',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        format: 'yyyy-mm-dd hh:ii'
+    });
+    $('#txtFechaTraslado').datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'es'
+    });
+    $('#txtFechaPartida').datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'es'
+    });
+    $('#txtFechaArribo').datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'es'
+    });
      $('#sensor').hide();
     $('input[name="rbColdTreat"]').change(function() { 
         if($(this).val()==1)
@@ -944,8 +988,15 @@ $(document).ready(function() {
         errorClass: 'error',
         validClass: 'valid',
         ignore: "input[type='text']:hidden",
-            submitHandler: function() {       
-                    var url = "operaciones/embarque/grabar/add_list_tabla_temp.jsp"; 
+            submitHandler: function() {      
+                var inicio = new Date( $('input#textHoraInicio').val());
+                var fin = new Date( $('input#textHoraFin').val());
+                if(inicio<fin)
+                {
+                    $('input#txtHoraInicio').val(inicio.getTime());
+                    $('input#txtHoraFin').val(fin.getTime()); 
+                    
+                    var url = "operaciones/embarque/grabar/insert.jsp"; 
                     $.ajax({
                            type: "POST",
                            url: url,
@@ -963,7 +1014,10 @@ $(document).ready(function() {
                                 }
                            }
                          });    
-           
+                }
+                else
+                    $.sticky("<center><h1>La fecha de Inicio debe ser menor a la fecha de Fin</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+    
             },
         rules: {
                 idClienteFacturable: { required: true},
@@ -989,11 +1043,11 @@ $(document).ready(function() {
                 txtFechaPartida: { required: true },
                 txtFechaArribo: { required: true },
                 txtPackingList: { required: true },
-                txtTSetPoint: { required: true },
-                txtTDespacho: { required: true },
-                txtVentilacion: { required: true },
-                txtHumedad: { required: true },
-                txtCantidadFiltros: { required: true },
+                txtTSetPoint: { required: true, number: true},
+                txtTDespacho: { required: true, number: true},
+                txtVentilacion: { required: true, number: true},
+                txtHumedad: { required: true, number: true},
+                txtCantidadFiltros: { required: true, number: true},
                 txtBooking: { required: true },
                 txtHoraInicio: { required: true },
                 txtHoraFin: { required: true },
@@ -1001,7 +1055,7 @@ $(document).ready(function() {
                 rbColdTreat: { required: true }
         }, 
          messages: {
-             'totalPalet'	: { required:  'Por favor Seleccione un Container', max:'Todos los espacios deben ser ocupados'},
+             'totalPalet' : { required:  'Por favor Seleccione un Container', max:'Todos los espacios deben ser ocupados'},
 	},
         highlight: function(element) {
                 $(element).closest('div').addClass("f_error");
@@ -1045,8 +1099,7 @@ $(document).ready(function() {
             },
         rules: {
                 txtCodigo: { required: true, minlength: 13, maxlength: 13 },
-                rbSensor: { required: true },
-                txtThermoregistro: { required: true, minlength: 2 }
+                rbSensor: { required: true }
         },
         highlight: function(element) {
                 $(element).closest('div').addClass("f_error");
@@ -1194,16 +1247,8 @@ $(document).ready(function() {
             
            // 
     });
-    $('#prueba').click(function(){
-         $.ajax({
-                url: 'operaciones/contenedor/contenedor_filas.jsp?XContenedor=10&YContenedor=2',
-                type: 'POST',
-                success: function (data) {     
-                         $('#listContenedor').html(data);
-                },
-                contentType: false,
-                processData: false
-            });      
+    $('#limpiar').click(function(){
+        
     });
 });
  function clear_detalle()
