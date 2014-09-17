@@ -66,7 +66,9 @@ if(objSession!=null)
 	
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
-		
+	<!-- datepicker -->
+            <link rel="stylesheet" href="lib/datepicker/bootstrap-datetimepicker.min.css" />
+            <link rel="stylesheet" href="lib/datepicker/datepicker.css" />
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="css/ie.css" />
             <script src="js/ie/html5.js"></script>
@@ -160,8 +162,12 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
-	  
-
+                          <!-- timepicker -->
+                        <script src="lib/datepicker/bootstrap-datetimepicker.min.js"></script>
+                        <script src="lib/datepicker/bootstrap-datetimepicker.es.js"></script>
+                        <script src="lib/datepicker/bootstrap-datepicker.min.js"></script>
+                        <script src="lib/datepicker/locales/bootstrap-datepicker.es.js"></script>
+                        
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
                          <!-- smoke_js -->
