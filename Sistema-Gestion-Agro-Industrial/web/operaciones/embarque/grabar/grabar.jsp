@@ -185,15 +185,18 @@ objSession.setObjEmbarque(new entEmbarque());
                                  </div>  
                                 <div class="input-prepend">
                                     <label>Fecha de Traslado</label>
-                                    <input type="text" class="span12" id="txtFechaTraslado"  name="txtFechaTraslado" />
+                                    <input type="text" class="span12" id="textFechaTraslado"  name="textFechaTraslado" />
+                                    <input type="hidden" class="span12" id="txtFechaTraslado"  name="txtFechaTraslado" />
                                  </div>  
                                 <div class="input-prepend">
                                     <label>Fecha de Partida</label>
-                                    <input type="text" class="span12" id="txtFechaPartida"  name="txtFechaPartida" />
+                                    <input type="text" class="span12" id="textFechaPartida"  name="textFechaPartida" />
+                                    <input type="hidden" class="span12" id="txtFechaPartida"  name="txtFechaPartida" />
                                  </div>  
                                 <div class="input-prepend">
                                     <label>Fecha de Arribo</label>
-                                    <input type="text" class="span12" id="txtFechaArribo"  name="txtFechaArribo" />
+                                    <input type="text" class="span12" id="textFechaArribo"  name="textFechaArribo" />
+                                    <input type="hidden" class="span12" id="txtFechaArribo"  name="txtFechaArribo" />
                                  </div>  
                                 <div class="input-prepend">
                                     <label>Packing List</label>
@@ -244,7 +247,6 @@ objSession.setObjEmbarque(new entEmbarque());
                                
                             </div>
                                 <button class="btn btn-invert" type="submit">Grabar</button>
-                                <button class="btn btn-invert" id="limpiar"  type="button">Limpiar</button>
                         </div>
                     </div>
                 </div>
@@ -962,16 +964,16 @@ $(document).ready(function() {
         showMeridian: 1,
         format: 'yyyy-mm-dd hh:ii'
     });
-    $('#txtFechaTraslado').datepicker({
-        format: 'dd-mm-yyyy',
+    $('#textFechaTraslado').datepicker({
+        format: 'yyyy-mm-dd',
         language: 'es'
     });
-    $('#txtFechaPartida').datepicker({
-        format: 'dd-mm-yyyy',
+    $('#textFechaPartida').datepicker({
+        format: 'yyyy-mm-dd',
         language: 'es'
     });
-    $('#txtFechaArribo').datepicker({
-        format: 'dd-mm-yyyy',
+    $('#textFechaArribo').datepicker({
+        format: 'yyyy-mm-dd',
         language: 'es'
     });
      $('#sensor').hide();
@@ -991,11 +993,19 @@ $(document).ready(function() {
             submitHandler: function() {      
                 var inicio = new Date( $('input#textHoraInicio').val());
                 var fin = new Date( $('input#textHoraFin').val());
+                
+                var traslado = new Date( $('input#textFechaTraslado').val());
+                var partida = new Date( $('input#textFechaPartida').val());
+                var arribo = new Date( $('input#textFechaArribo').val());
                 if(inicio<fin)
                 {
+                    $("#abrirCarga").click();
                     $('input#txtHoraInicio').val(inicio.getTime());
                     $('input#txtHoraFin').val(fin.getTime()); 
                     
+                    $('input#txtFechaTraslado').val(traslado.getTime()); 
+                    $('input#txtFechaPartida').val(partida.getTime()); 
+                    $('input#txtFechaArribo').val(arribo.getTime()); 
                     var url = "operaciones/embarque/grabar/insert.jsp"; 
                     $.ajax({
                            type: "POST",
@@ -1005,13 +1015,12 @@ $(document).ready(function() {
                            {
                                if(data==0)
                                  $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
-                                else if(data==1)
-                                {
-                                    $("#CerraDetalle").trigger("click");                                    
-                                     lista();
-                                     clear_detalle();
+                                else if(data>0)
+                                {                                 
+                                  clear_all();
                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                 }
+                                 $("#cerrarCarga").trigger("click");
                            }
                          });    
                 }
@@ -1039,9 +1048,9 @@ $(document).ready(function() {
                 txtContainer: { required: true },
                 txtPlacaContainer: { required: true },
                 txtPlacaCarreta: { required: true },
-                txtFechaTraslado: { required: true },
-                txtFechaPartida: { required: true },
-                txtFechaArribo: { required: true },
+                textFechaTraslado: { required: true },
+                textFechaPartida: { required: true },
+                textFechaArribo: { required: true },
                 txtPackingList: { required: true },
                 txtTSetPoint: { required: true, number: true},
                 txtTDespacho: { required: true, number: true},
@@ -1088,7 +1097,7 @@ $(document).ready(function() {
                                     $("#CerraDetalle").trigger("click");                                    
                                      lista();
                                      clear_detalle();
-                                   $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
+                                   $.sticky("La Paleta se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                 }
                            }
                          });    
@@ -1251,6 +1260,83 @@ $(document).ready(function() {
         
     });
 });
+ function clear_all()
+{
+    $('#idClienteFacturable').val("");
+    $('#nClienteFacturable').html("<di id='nClienteFacturable'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idExportador').val("");
+    $('#nExportador').html("<di id='nExportador'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idConsignatario').val("");
+    $('#nConsignatario').html("<di id='nConsignatario'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idChofer').val("");
+    $('#nChofer').html("<di id='nChofer'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idOperadorLogistico').val("");
+    $('#nOperadorLogistico').html("<di id='nOperadorLogistico'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idDistrito').val("");
+    $('#nDistrito').html("<di id='nDistrito'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idContenedor').val("");
+    $('#nContenedor').html("<di id='nContenedor'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idViaEmbarque').val("");
+    $('#nViaEmbarque').html("<di id='nViaEmbarque'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idLineaNaviera').val("");
+    $('#nLineaNaviera').html("<di id='nLineaNaviera'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idPuertoEmbarque').val("");
+    $('#nPuertoEmbarque').html("<di id='nPuertoEmbarque'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+    $('#idPuertoDestino').val("");
+    $('#nPuertoDestino').html("<di id='nPuertoDestino'><blockquote><p>Esperando Selección</p></blockquote></di>");  
+    
+        
+    $('#txtPrecOpLogistico').val("");
+    $('#txtPrecSenasa').val("");
+    $('#txtPrecAduanas').val("");
+    $('#txtPrecLineaNaviera').val("");
+    $('#txtVapor').val("");
+    $('#txtContainer').val("");
+    $('#txtPlacaContainer').val("");
+    $('#txtPlacaCarreta').val("");
+    $('#txtFechaTraslado').val("");
+    $('#txtFechaPartida').val("");
+    $('#txtFechaArribo').val("");
+    $('#txtPackingList').val("");
+    $('#txtTSetPoint').val("");
+    $('#txtTDespacho').val("");
+    $('#txtVentilacion').val("");
+    $('#txtHumedad').val("");
+    $('#txtCantidadFiltros').val("");
+    $('#txtBooking').val("");
+    $('#txtHoraInicio').val("");
+    $('#txtHoraFin').val("");    
+    $('#textFechaTraslado').val("");
+    $('#textFechaPartida').val("");
+    $('#textFechaArribo').val("");
+    $('#textHoraInicio').val("");
+    $('#textHoraFin').val("");
+    $('#totalPalet').val("");    
+    $('input:radio[name=rbColdTreat]')[1].checked = true;
+  
+    $('#listContenedor').html("<div id='listContenedor'></div>");  
+    $.ajax({
+            url: 'operaciones/paleta/data_paleta.jsp?cocmpleto=0',
+            type: 'POST',
+            success: function (data) {     
+                    $('#data_paleta').html(data);                    
+                      
+            },
+            contentType: false,
+            processData: false
+    });
+       
+};
  function clear_detalle()
 {
     $('#IdPaleta').val("");

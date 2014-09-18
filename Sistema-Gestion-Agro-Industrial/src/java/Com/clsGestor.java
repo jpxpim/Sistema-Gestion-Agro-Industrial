@@ -960,7 +960,6 @@ public class clsGestor {
     
     // </editor-fold>
     
-    
     //<editor-fold defaultstate="collapsed" desc="entPuerto">
     public static List<entPuerto> ListarPuerto(boolean activo) throws Exception
     {
@@ -977,6 +976,24 @@ public class clsGestor {
         return PuertoDAO.actualizar(entidad);
     }
     // </editor-fold> 
+    
+    //<editor-fold defaultstate="collapsed" desc="entEmbarque">
+//    public static List<entEmbarque> ListarEmbarque(boolean activo) throws Exception
+//    {
+//        return EmbarqueDAO.Listar(activo);
+//    }
+    
+    public  static int insertarEmbarque(entEmbarque entidad) throws Exception
+    {
+        return EmbarqueDAO.insertar(entidad);
+    }
+    
+//    public static boolean actualizarEmbarque(entEmbarque entidad) throws Exception
+//    {
+//        return EmbarqueDAO.actualizar(entidad);
+//    }
+    // </editor-fold> 
+    
     
     //<editor-fold defaultstate="collapsed" desc="Ubigeo">
    public static List<entDepartamento> listarDepartamento() throws Exception

@@ -9,6 +9,10 @@ public class entDistrito {
     public entDistrito() {
     }
 
+    public entDistrito(int id_istrito) {
+        this.id_istrito = id_istrito;
+    }
+
     public int getId_istrito() {
         return id_istrito;
     }

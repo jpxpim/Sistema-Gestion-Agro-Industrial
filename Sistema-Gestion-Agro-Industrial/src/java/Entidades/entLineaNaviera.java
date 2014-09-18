@@ -21,6 +21,10 @@ public class entLineaNaviera {
     
     public entLineaNaviera(){}
 
+    public entLineaNaviera(int id_linea_naviera) {
+        this.id_linea_naviera = id_linea_naviera;
+    }
+
     public int getId_linea_naviera() {
         return id_linea_naviera;
     }

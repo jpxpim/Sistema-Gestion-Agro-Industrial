@@ -52,6 +52,7 @@ private Date fecha_modificacion;
 private List<entDetalleEmbarque> list;
 
     public entEmbarque() {
+        this.cold_treat=false;
     }
 
     public int getId_embarque() {

@@ -21,6 +21,11 @@ public class entViaEmbarque {
     private Boolean estado;
 
     public entViaEmbarque (){}
+
+    public entViaEmbarque(int id_via_embarque) {
+        this.id_via_embarque = id_via_embarque;
+    }
+    
     public int getId_via_embarque() {
         return id_via_embarque;
     }

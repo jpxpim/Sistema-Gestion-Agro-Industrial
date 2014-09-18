@@ -21,6 +21,10 @@ public class entOperadorLogistico {
     private Boolean estado;
 
     public entOperadorLogistico(){}
+
+    public entOperadorLogistico(int id_operador_logistico) {
+        this.id_operador_logistico = id_operador_logistico;
+    }
     
     public int getId_operador_logistico() {
         return id_operador_logistico;

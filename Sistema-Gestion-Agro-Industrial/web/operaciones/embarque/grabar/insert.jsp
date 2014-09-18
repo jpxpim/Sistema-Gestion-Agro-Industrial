@@ -1,7 +1,15 @@
 
+<%@page import="java.util.Date"%>
+<%@page import="Entidades.entPuerto"%>
+<%@page import="Entidades.entLineaNaviera"%>
+<%@page import="Entidades.entViaEmbarque"%>
+<%@page import="Entidades.entDistrito"%>
+<%@page import="Entidades.entOperadorLogistico"%>
+<%@page import="Entidades.entChofer"%>
+<%@page import="Entidades.entCliente"%>
+<%@page import="Entidades.entEmbarque"%>
 <%@page import="Entidades.entSesion"%>
 <%@page import="Com.clsGestor"%>
-<%@page import="Entidades.entVivero"%>
 <%  
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
@@ -39,36 +47,69 @@ if(objSession!=null)
                 request.getParameter("txtHoraInicio") != null && request.getParameter("txtHoraInicio") != "" &&
                 request.getParameter("txtHoraFin") != null && request.getParameter("txtHoraFin") != "" )
         {
-            entVivero entidad = new entVivero();
-            entidad.setNombre(request.getParameter("txtNombre"));
-            entidad.setDescripcion(request.getParameter("txtDescripcion"));
-            entidad.setCodigo_control(request.getParameter("txtCodigo"));
+            entEmbarque entidad = objSession.getObjEmbarque();
+            entidad.setObjClienteFacturable(new entCliente(Integer.parseInt(request.getParameter("idClienteFacturable"))));
+            entidad.setObjClienteExportador(new entCliente(Integer.parseInt(request.getParameter("idExportador"))));
+            entidad.setObjClienteConsignatario(new entCliente(Integer.parseInt(request.getParameter("idConsignatario"))));
+            entidad.setObjChofer(new entChofer(Integer.parseInt(request.getParameter("idChofer"))));
+            entidad.setObjOperadorLogistico(new entOperadorLogistico(Integer.parseInt(request.getParameter("idOperadorLogistico"))));
+            entidad.setObjDistrito(new entDistrito(Integer.parseInt(request.getParameter("idDistrito"))));
+            entidad.setObjViaEmbarque(new entViaEmbarque(Integer.parseInt(request.getParameter("idViaEmbarque"))));
+            entidad.setObjLineaNaviera(new entLineaNaviera(Integer.parseInt(request.getParameter("idLineaNaviera"))));
+            entidad.setObjPuertoEmabarque(new entPuerto(Integer.parseInt(request.getParameter("idPuertoEmbarque"))));
+            entidad.setObjPuertoDestino(new entPuerto(Integer.parseInt(request.getParameter("idPuertoDestino"))));
+            entidad.setPrec_op_logistico(request.getParameter("txtPrecOpLogistico"));
+            entidad.setPrec_senasa(request.getParameter("txtPrecSenasa"));
+            entidad.setPrec_aduanas(request.getParameter("txtPrecAduanas"));
+            entidad.setPrec_linea_nav(request.getParameter("txtPrecLineaNaviera"));
+            entidad.setVapor(request.getParameter("txtVapor"));
+            entidad.setContainer(request.getParameter("txtContainer"));
+            entidad.setPlaca_container(request.getParameter("txtPlacaContainer"));
+            entidad.setPlaca_carreta(request.getParameter("txtPlacaCarreta"));
+            entidad.setFecha_traslado(new Date(Long.parseLong(request.getParameter("txtFechaTraslado"))));
+            entidad.setFecha_partida(new Date(Long.parseLong(request.getParameter("txtFechaPartida"))));
+            entidad.setFecha_arribo(new Date(Long.parseLong(request.getParameter("txtFechaArribo"))));
+            entidad.setPacking_list(request.getParameter("txtPackingList"));
+            entidad.setT_set_point(Double.parseDouble(request.getParameter("txtTSetPoint")));
+            entidad.setT_despacho(Double.parseDouble(request.getParameter("txtTDespacho")));
+            entidad.setVentilacion(Double.parseDouble(request.getParameter("txtVentilacion")));
+            entidad.setHumedad(Double.parseDouble(request.getParameter("txtHumedad")));
+            entidad.setCant_filtros(Double.parseDouble(request.getParameter("txtCantidadFiltros")));
+            entidad.setBooking(request.getParameter("txtBooking"));
+            entidad.setHora_inicio(new Date(Long.parseLong(request.getParameter("txtHoraInicio"))));
+            entidad.setHora_fin(new Date(Long.parseLong(request.getParameter("txtHoraFin"))));
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
-            entidad.setEstado(true);
-            if(request.getParameter("rbEstado").equals("0"))
-                 entidad.setEstado(false);
-
             
-            if(!request.getParameter("IdVivero").equals("0") )
+            if(request.getParameter("rbColdTreat").equals("1"))
+                 entidad.setCold_treat(true);
+
+         
+            if(entidad.getId_embarque()>0)
             {
-                entidad.setId_vivero(Integer.parseInt(request.getParameter("IdVivero")));
-                 if(clsGestor.actualizarVivero(entidad))
+                //entidad.setId_vivero(Integer.parseInt(request.getParameter("IdVivero")));
+                 //if(clsGestor.actualizarVivero(entidad))
                  {
                      out.print(0);
                  }
-                 else
+                // else
                      out.print(-1);
             }
              else
-             {
-                 int id=clsGestor.insertarVivero(entidad);
-                    if(id>0)
-                    {
-                        out.print(id);
-                    }
-                    else
-                        out.print(-1);
-             }
+            {
+                int id=clsGestor.insertarEmbarque(entidad);
+                if(id>0)
+                {
+                    out.print(id);
+                    objSession.setObjEmbarque(new entEmbarque());
+                    HttpSession sesion = request.getSession();
+                    sesion.setAttribute("SessionUsuario", objSession);
+                    sesion.setMaxInactiveInterval(-1);
+                }
+                else
+                    out.print(0);
+            }
+        
+     
             
         }
 }

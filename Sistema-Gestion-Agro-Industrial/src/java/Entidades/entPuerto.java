@@ -25,6 +25,10 @@ public class entPuerto {
         return id_puerto;
     }
 
+    public entPuerto(int id_puerto) {
+        this.id_puerto = id_puerto;
+    }
+
     public void setId_puerto(int id_puerto) {
         this.id_puerto = id_puerto;
     }
