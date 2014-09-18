@@ -107,7 +107,7 @@ public class OperadorLogisticoDAO
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE cultivo SET nombre = ?,estado= ?,"
+             String sql="UPDATE operador_logistico SET nombre = ?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_operador_logistico = ?;";
              
             conn = ConexionDAO.getConnection();

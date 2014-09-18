@@ -107,7 +107,7 @@ public class ViaEmbarqueDAO {
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE cultivo SET nombre = ?,estado= ?,"
+             String sql="UPDATE via_embarque SET nombre = ?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_via_embarque = ?;";
              
             conn = ConexionDAO.getConnection();

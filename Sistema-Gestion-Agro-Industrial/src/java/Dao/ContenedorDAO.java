@@ -112,7 +112,7 @@ public class ContenedorDAO
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE cultivo SET nombre = ?,estado= ?,pos_x=?,pos_y=? "
+             String sql="UPDATE contenedor SET nombre = ?,estado= ?,pos_x=?,pos_y=?, "
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_contenedor = ?;";
              
             conn = ConexionDAO.getConnection();

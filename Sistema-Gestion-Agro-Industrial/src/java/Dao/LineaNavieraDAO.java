@@ -107,7 +107,7 @@ public class LineaNavieraDAO
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE cultivo SET nombre = ?,estado= ?,"
+             String sql="UPDATE linea_naviera SET nombre = ?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_linea_naviera = ?;";
              
             conn = ConexionDAO.getConnection();
