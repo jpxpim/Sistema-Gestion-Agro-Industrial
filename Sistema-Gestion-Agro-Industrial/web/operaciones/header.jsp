@@ -20,7 +20,7 @@ if(objSession!=null)
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=objSession.getObjUsuario().getNombre()%> <%=objSession.getObjUsuario().getApellido()%> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                   
+                                    <li><a href="perfil.jsp">Mi Perfil</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:void(0)" onclick="cerrarSesion()" >Cerrar Sesión</a></li>
                                     </ul>

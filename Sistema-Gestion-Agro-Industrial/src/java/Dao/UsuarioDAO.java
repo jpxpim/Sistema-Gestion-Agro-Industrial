@@ -198,6 +198,31 @@ public class UsuarioDAO {
         return rpta;
     }
     
+     public static boolean contrasena(int IdUsuario,String contrasena) throws Exception
+    {
+        boolean rpta = false;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        try {
+             String sql="UPDATE usuario SET contrasena = ? WHERE id_usuario = ?;";
+             
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);             
+            stmt.setString(1, contrasena);
+            stmt.setInt(2,IdUsuario);  
+           rpta = stmt.executeUpdate() == 1;
+        } catch (Exception e) {
+            throw new Exception("Error Actualizar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return rpta;
+    }
      public static boolean restablecer(int Id,String Contrasena) throws Exception
     {
         boolean rpta = false;

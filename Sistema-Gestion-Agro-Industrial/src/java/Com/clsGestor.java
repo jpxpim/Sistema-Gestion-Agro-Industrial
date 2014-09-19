@@ -145,6 +145,10 @@ public class clsGestor {
     {
         return UsuarioDAO.restablecer(Id, Contrasena);
     }
+    public static boolean contrasenaUsuario(int IdUsuario,String contrasena) throws Exception
+    {
+         return UsuarioDAO.contrasena(IdUsuario, contrasena);
+    }
     
 // </editor-fold>
     
