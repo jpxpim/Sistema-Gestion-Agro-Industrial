@@ -143,9 +143,9 @@ if(list!=null)
             <td>
                  <%
                    if(entidad.getEstado()==1)
-                   out.print(" <span class='label label-success'>Activado</span>");
+                   out.print(" <span class='label label-success'>Activo</span>");
                    else
-                       out.print(" <span class='label label-important'>Inactivado</span>");
+                       out.print(" <span class='label label-important'>Inactivo</span>");
                 %>
 
 
