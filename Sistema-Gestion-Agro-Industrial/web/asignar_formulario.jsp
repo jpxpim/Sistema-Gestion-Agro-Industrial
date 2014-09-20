@@ -143,8 +143,8 @@ if(objSession!=null)
 										<a class="dropdown-toggle" data-toggle="dropdown" href="#">Mostrar <b class="caret"></b></a>
 										<ul class="dropdown-menu filter">
 											<li class="active"><a href="javascript:void(0)" id="filter-none">Todos</a></li>
-											<li><a href="javascript:void(0)" id="filter-online">Activados</a></li>
-											<li><a href="javascript:void(0)" id="filter-offline">Desactivados</a></li>
+											<li><a href="javascript:void(0)" id="filter-online">Activos</a></li>
+											<li><a href="javascript:void(0)" id="filter-offline">Inactivos</a></li>
 										</ul>
 									</li>
                                                                         

@@ -144,7 +144,7 @@ if(objSession!=null)
                                                                                              </label>
                                                                                              <label class="radio inline">
                                                                                                     <input type="radio" value="0" id="rbEstado" name="rbEstado" />
-                                                                                                    Desactivado
+                                                                                                    Inactivo
                                                                                              </label>
                                                                                           </div>
                                                                                                     <input type="hidden" id="IdEvaluador"  name="IdEvaluador" value="0" />

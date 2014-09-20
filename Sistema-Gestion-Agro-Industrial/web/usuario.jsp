@@ -199,10 +199,10 @@ if(objSession!=null)
 												<label class="control-label">Estado:</label>
 												<div class="controls">
 													<label class="radio inline" for="rbEstado_Activado">
-														<input type="radio" value="1" id="newsletter_yes" id="rbEstado" name="rbEstado"> Activado
+														<input type="radio" value="1" id="newsletter_yes" id="rbEstado" name="rbEstado"> Activo
 													</label>
 													<label class="radio inline" for="rbEstado_Desactivado">
-														<input type="radio" value="0" id="newsletter_no" id="rbEstado" name="rbEstado"> Desactivado
+														<input type="radio" value="0" id="newsletter_no" id="rbEstado" name="rbEstado"> Inactivo
 													</label>
 												</div>
 											</div>
