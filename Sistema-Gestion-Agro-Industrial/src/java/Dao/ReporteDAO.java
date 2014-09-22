@@ -87,4 +87,41 @@ public class ReporteDAO {
         }
         return listReporte;
     } 
+     
+      public static List<entReporte> listarCajasSeleccionadasXTrabajador(int Operacion, String Inicio, String Fin) throws Exception {
+        List<entReporte> listReporte = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql=" exec SP_reporte_cajas_embaladas_por_trabajador "+Operacion+",'"+Inicio+"','"+Fin+"'";
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                 if(listReporte == null)
+                    listReporte = new ArrayList<entReporte>();
+                    entReporte Reporte = new entReporte();
+                    Reporte.setParametro_1(dr.getString(1));
+                    Reporte.setParametro_2(dr.getString(2));
+                    Reporte.setParametro_3(dr.getString(3));
+                    Reporte.setParametro_4(""+dr.getInt(4));
+                    listReporte.add(Reporte);
+            }
+        } catch (Exception e) {
+            throw new Exception("Listar Reporte "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+        return listReporte;
+    } 
+
 }
