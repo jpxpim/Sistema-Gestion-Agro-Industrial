@@ -1017,4 +1017,15 @@ public class clsGestor {
          return DistritoDAO.buscarId(idDistrito);
      }
         // </editor-fold> 
+     
+    //<editor-fold defaultstate="collapsed" desc="Reporte">
+     public static List<entReporte> listarStockResumenReporte(int Posicion, int Estado) throws Exception 
+     {
+         return ReporteDAO.listarStockResumen(Posicion, Estado);
+     }
+     public static List<entReporte> listarCajasEmbaladasXTrabajadorReporte(int Operacion, String Inicio, String Fin) throws Exception 
+     {
+         return ReporteDAO.listarCajasEmbaladasXTrabajador(Operacion, Inicio, Fin);
+     }
+      // </editor-fold> 
 }
