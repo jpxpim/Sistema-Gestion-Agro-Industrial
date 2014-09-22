@@ -55,7 +55,7 @@ public class Probadorxxx {
 //            
 //        }
         
-        System.out.print(""+PuertoDAO.Listar(true).size());
+//        System.out.print(""+ReporteDAO.listarReporte(1,1).size());
         ;
     }
     
