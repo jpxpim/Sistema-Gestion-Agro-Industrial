@@ -1,0 +1,14 @@
+Modulo Produccion / Producto Terminado / Gestion Producto Terminado:
+Orco-Envase sea leido por codigo de barras
+Orco-Categoria sea leido por codigo de barras
+Orco-Guardar backup del formularioo antes de las modificaciones mencionadas arriba.
+
+
+Modulo Recepcion / Recepcion /Gestion Descarte y Gestion Recepcion
+Pim- Procedure listar las recepciones con filtro de Lote/Variedad/Envase/Calibre/Cliente/Categoria/Productor
+ORco- Reporte Web
+Modulo Paletizaje / Reportes / Stock Resumen
+Pim- Procedure listar Stock Resumen con filtro de Lote/Variedad/Cliente/Categoria/Productor
+Orco - Reporte Web
+
+
