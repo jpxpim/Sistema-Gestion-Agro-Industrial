@@ -14,8 +14,7 @@
 ALTER PROCEDURE SP_reporte_stock_resumen
 (
 	@POSICION INT,
-	@ESTADO INT,
-	@RPTA INT
+	@ESTADO INT
 )
 AS     
 BEGIN
@@ -212,5 +211,4 @@ BEGIN
 		END
 	END
 
-	SELECT @RPTA=1
 END
