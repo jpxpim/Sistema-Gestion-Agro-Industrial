@@ -1027,5 +1027,9 @@ public class clsGestor {
      {
          return ReporteDAO.listarCajasEmbaladasXTrabajador(Operacion, Inicio, Fin);
      }
+      public static List<entReporte> listarCajasSeleccionadasXTrabajadorReporte(int Operacion, String Inicio, String Fin) throws Exception
+      {
+         return ReporteDAO.listarCajasSeleccionadasXTrabajador(Operacion, Inicio, Fin);
+     }
       // </editor-fold> 
 }
