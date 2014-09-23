@@ -20,22 +20,19 @@ if(objSession!=null)
         response.sendRedirect("intranet.jsp");
     
     entFormulario formHijo=null;
-    boolean pagina=false;
-
-        int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
+    int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
         {
             if(22==objSession.getListModulos().get(objSession.getPosicion()).getList().get(j).getControl_form())
             {
                 formHijo=objSession.getListModulos().get(objSession.getPosicion()).getList().get(j);
                 formHijo.setObjModulo(objSession.getListModulos().get(objSession.getPosicion()));
-                pagina=true;
                 j=posJ;
             }
         }
-        
-    if(!pagina)
-        response.sendRedirect("intranet.jsp");
+if(formHijo==null)
+    response.sendRedirect("intranet.jsp");
+else{
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -555,5 +552,5 @@ function selectCampaniaLote(id,nombre)
 		</div>
 	</body>
 </html>
-<%}else  
+<%}}else  
     response.sendRedirect("index.jsp");%> 
