@@ -81,6 +81,11 @@ if(objSession!=null)
                             </ul>
                         </div>
                     </nav>
+                     <div class="row-fluid">
+                         <div class="span12">
+                             <h3 class="heading">Modulo Paletizado</h3>  
+                         </div>
+                    </div>
                  <div class="row-fluid">
 						<div class="span12">
 							<div class="row-fluid">
@@ -191,8 +196,8 @@ function getMododulos(posicion)
     $.ajax({
             url: 'operaciones/modulos.jsp?posicion='+posicion,
             type: 'POST',
-            success: function () {     
-                     modulos();
+            success: function (data) {  
+                     window.location=data;
             },
             contentType: false,
             processData: false

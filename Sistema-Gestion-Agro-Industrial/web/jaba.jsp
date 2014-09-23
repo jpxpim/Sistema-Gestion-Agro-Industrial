@@ -97,7 +97,7 @@ if(objSession!=null)
                                     <a href="intranet.jsp"><i class="icon-home"></i></a>
                                 </li>                                
                                  <li>
-                                    <a href="#"><%=formHijo.getObjModulo().getEtiqueta()%></a>
+                                    <a href="<%=formHijo.getObjModulo().getUrl()%>"><%=formHijo.getObjModulo().getEtiqueta()%></a>
                                 </li>
                                 <%
                                     if(formPadre==null)
@@ -246,8 +246,8 @@ function getMododulos(posicion)
     $.ajax({
             url: 'operaciones/modulos.jsp?posicion='+posicion,
             type: 'POST',
-            success: function () {     
-                     modulos();
+            success: function (data) {  
+                     window.location=data;
             },
             contentType: false,
             processData: false

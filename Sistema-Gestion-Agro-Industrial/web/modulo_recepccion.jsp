@@ -191,8 +191,8 @@ function getMododulos(posicion)
     $.ajax({
             url: 'operaciones/modulos.jsp?posicion='+posicion,
             type: 'POST',
-            success: function () {     
-                     modulos();
+            success: function (data) {  
+                     window.location=data;
             },
             contentType: false,
             processData: false
