@@ -10,5 +10,3 @@ ORco- Reporte Web
 Modulo Paletizaje / Reportes / Stock Resumen
 Pim- Procedure listar Stock Resumen con filtro de Lote/Variedad/Cliente/Categoria/Productor
 Orco - Reporte Web
-
-

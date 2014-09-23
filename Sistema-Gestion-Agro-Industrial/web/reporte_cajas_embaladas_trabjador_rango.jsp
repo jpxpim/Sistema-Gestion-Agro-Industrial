@@ -63,7 +63,7 @@ if(objSession!=null)
             <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
              	<!-- smoke_js -->
             <link rel="stylesheet" href="lib/smoke/themes/gebo.css" />
-	
+	  <link rel="stylesheet" href="lib/datepicker/datepicker.css" />
         <!-- Favicon -->
             <link rel="shortcut icon" href="favicon.ico" />
 		
@@ -114,7 +114,39 @@ if(objSession!=null)
                             </ul>
                         </div>
                     </nav>
-
+                     <div class="row-fluid">
+                        <div class="span2"></div>
+                        <form  method="get" id="reg_form">
+                            <div class="span8">
+                                <table class="table table-striped table_vam" >
+                                <tr>
+                                    <td >
+                                       Fecha de Inicio
+                                    </td>
+                                    <td >
+                                        <div class="input-prepend">
+                                           <input type="text" class="span6" id="inicio"  name="inicio" />
+                                        </div>  
+                                    </td>
+                                    <td >
+                                       Fecha de Fin
+                                    </td>
+                                    <td >
+                                        <div class="input-prepend">
+                                           <input type="text" class="span6" id="fin"  name="fin" />
+                                        </div>                                          
+                                    </td>
+                                    <td width="50px">
+                                         <button class="btn btn-invert" type="submit">Buscar</button>
+                                         <input type="hidden" id="operacion" name="operacion" value="1" />
+                                    </td>
+                                </tr>
+                            </table>
+                                                                           
+                            </div>
+                        </form>
+                         <div class="span2"></div>
+                    </div>        
                     <div class="row-fluid">
                         <div class="span2"></div>
                             <div class="span8">
@@ -166,7 +198,8 @@ if(objSession!=null)
             <script src="lib/colorbox/jquery.colorbox.min.js"></script>
             <!-- common functions -->
 			<script src="js/gebo_common.js"></script>
-	  
+                        <script src="lib/datepicker/bootstrap-datepicker.min.js"></script>
+                        <script src="lib/datepicker/locales/bootstrap-datepicker.es.js"></script>
 
 			<!-- maps functions -->
                         <script src="lib/validation/jquery.validate.min.js"></script>
@@ -175,7 +208,7 @@ if(objSession!=null)
                         <!-- datatable -->
 			<script src="lib/datatables/jquery.dataTables.min.js"></script>
 	
-			<script>
+<script>
 
  function modulos()
 {
@@ -199,6 +232,8 @@ if(objSession!=null)
             processData: false
         });
 };
+
+
 function getMododulos(posicion)
 {
     $.ajax({
@@ -211,36 +246,70 @@ function getMododulos(posicion)
             processData: false
         });
 };                           
-function tabla()
-{
-     $.ajax({
-        url: 'operaciones/reporte/cajas_embaladas_trabjador.jsp?operacion=3',
-        type: 'POST',
-        success: function (data) {     
-                 $('#tabla').html(data);
-        },
-        contentType: false,
-        processData: false
-    });          
- };
+
  function getReporte()
 {
      window.location='operaciones/vivero/reporte.jsp';
  };
                               
                            modulos(); 
-                                       tabla();
-                            
-				$(document).ready(function() {
-					//* show all elements & remove preloader
-                                        
-                                        setTimeout('$("html").removeClass("js")',1000);
-                                        
-                               
-                                   
-                                        
-				});
-			</script>
+
+$(document).ready(function() {
+//* show all elements & remove preloader
+
+setTimeout('$("html").removeClass("js")',1000);
+
+$('#reg_form').validate({
+        lang: 'es',
+        onkeyup: false,
+        errorClass: 'error',
+        validClass: 'valid',
+        ignore: "input[type='text']:hidden",
+            submitHandler: function() {      
+                
+                  $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+    
+                    var url = "operaciones/reporte/cajas_embaladas_trabjador.jsp"; 
+                    $.ajax({
+                           type: "POST",
+                           url: url,
+                           data: $("#reg_form").serialize(), 
+                           success: function(data)
+                           {
+                               $('#tabla').html(data);
+                           }
+                         });    
+     
+              
+            },
+        rules: {
+                inicio: { required: true},
+                fin: { required: true }
+        }, 
+         messages: {
+             'totalPalet' : { required:  'Por favor Seleccione un Container', max:'Todos los espacios deben ser ocupados'},
+	},
+        highlight: function(element) {
+                $(element).closest('div').addClass("f_error");
+        },
+        unhighlight: function(element) {
+                $(element).closest('div').removeClass("f_error");
+        },
+        errorPlacement: function(error, element) {
+                $(element).closest('div').append(error);
+        }
+    });
+$('#inicio').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'es'
+});
+$('#fin').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'es'
+});
+
+});
+</script>
 		
 		</div>
 	</body>

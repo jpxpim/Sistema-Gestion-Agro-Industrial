@@ -12,7 +12,7 @@ if(request.getParameter("operacion") != null && request.getParameter("operacion"
     if(request.getParameter("inicio") != null && request.getParameter("inicio") != "")
         inicio=request.getParameter("inicio");
     if(request.getParameter("fin") != null && request.getParameter("fin") != "")
-        inicio=request.getParameter("fin");
+        fin=request.getParameter("fin");
 List<entReporte> list=clsGestor.listarCajasEmbaladasXTrabajadorReporte(Integer.parseInt(request.getParameter("operacion")),inicio,fin);
 if(list!=null)
 {%>
@@ -52,7 +52,7 @@ $(function () {
 
    $('#lista').dataTable({
                                            "sPaginationType": "bootstrap",
-                                           "sScrollY": "210px",
+                                           "sScrollY": "300px",
                                             "bDestroy": true,
                                             "bDeferRender": true
                                                     }); 
@@ -60,7 +60,7 @@ $(function () {
 });
 </script>
 
-<%} }%>  
+<%}else out.print("<center><H3>No se encontraron datos</H3></center>"); }%>  
                                                                         
                                                                        
                                                                             

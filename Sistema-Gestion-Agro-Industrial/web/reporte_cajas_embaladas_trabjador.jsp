@@ -114,7 +114,19 @@ if(objSession!=null)
                             </ul>
                         </div>
                     </nav>
-
+                    <div class="row-fluid">
+                        <div class="span2"></div>
+                            <div class="span8">
+                              <select id="cbOperacion" name="cbOperacion" class="span5" >
+                                            <option value="5">Todos los días de Recepcción</option>
+                                            <option value="4">Todos los días de Recepcción Cerrados</option>                                            
+                                            <option value="2">Ultimo día de Recepción Cerrado</option>
+                                            <option value="3">Ultimo día de Recepción Abierto</option>
+                               </select>
+                                                                           
+                            </div>
+                         <div class="span2"></div>
+                    </div>
                     <div class="row-fluid">
                         <div class="span2"></div>
                             <div class="span8">
@@ -211,10 +223,12 @@ function getMododulos(posicion)
             processData: false
         });
 };                           
-function tabla()
+function tabla(operacion)
 {
+    $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+   
      $.ajax({
-        url: 'operaciones/reporte/cajas_embaladas_trabjador.jsp?operacion=3',
+        url: 'operaciones/reporte/cajas_embaladas_trabjador.jsp?operacion='+operacion,
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -228,19 +242,20 @@ function tabla()
      window.location='operaciones/vivero/reporte.jsp';
  };
                               
-                           modulos(); 
-                                       tabla();
-                            
-				$(document).ready(function() {
-					//* show all elements & remove preloader
-                                        
-                                        setTimeout('$("html").removeClass("js")',1000);
-                                        
-                               
-                                   
-                                        
-				});
-			</script>
+modulos(); 
+
+$(document).ready(function() {
+//* show all elements & remove preloader
+
+setTimeout('$("html").removeClass("js")',1000);
+
+$('#cbOperacion').on('change', function() {
+         tabla($(this).val());
+});
+$("#cbOperacion").change();
+
+});
+</script>
 		
 		</div>
 	</body>
