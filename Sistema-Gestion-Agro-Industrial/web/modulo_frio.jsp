@@ -7,8 +7,26 @@
 <%   
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
-{     
-%>
+{
+    if(objSession.getListModulos()==null)
+        response.sendRedirect("intranet.jsp");
+    
+
+    int posJ=objSession.getListModulos().size();
+    int pos=-1;
+        for(int j=0;j<posJ;j++)
+        {
+            if(8==objSession.getListModulos().get(j).getId_modulo())
+            {
+                pos=j;
+                j=posJ;
+            }
+        }
+if(pos==-1)
+    response.sendRedirect("intranet.jsp");
+else{
+%>   
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -74,10 +92,10 @@ if(objSession!=null)
                     <nav>
                         <div id="jCrumbs" class="breadCrumb module">
                               <ul>
-                                <li>
-                                   <i class="icon-home"></i>
-                                </li>                                
-                               
+                               <li>
+                                    <a href="intranet.jsp"><i class="icon-home"></i></a>
+                                </li>     
+                                <li><%=objSession.getListModulos().get(pos).getEtiqueta()%></li>
                             </ul>
                         </div>
                     </nav>
@@ -245,5 +263,5 @@ $(document).ready(function() {
 		</div>
 	</body>
 </html>
-<%}else  
+<%}}else  
     response.sendRedirect("index.jsp");%>     

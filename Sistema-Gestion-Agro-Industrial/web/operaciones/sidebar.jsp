@@ -33,7 +33,7 @@ if(objSession!=null)
                                                                                 out.print("<li class='divider'></li>");
                                                                                 if(i==objSession.getPosicion())
                                                                                 {
-                                                                                 out.print("<li class='active'><a href='#'>"+list.get(i).getEtiqueta()+"</a></li>");
+                                                                                 out.print("<li class='active'><a onclick='getMododulos("+i+")'>"+list.get(i).getEtiqueta()+"</a></li>");
                                                                                 }
                                                                                 else
                                                                                     out.print("<li><a onclick='getMododulos("+i+")'>"+list.get(i).getEtiqueta()+"</a></li>");
