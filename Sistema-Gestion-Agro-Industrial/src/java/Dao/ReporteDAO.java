@@ -94,7 +94,7 @@ public class ReporteDAO {
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql=" exec SP_reporte_cajas_embaladas_por_trabajador "+Operacion+",'"+Inicio+"','"+Fin+"'";
+            String sql=" exec SP_reporte_cajas_seleccionadas_por_trabajador "+Operacion+",'"+Inicio+"','"+Fin+"'";
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
