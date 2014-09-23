@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entidades.entModulo"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -52,7 +53,16 @@ if(objSession!=null)
                                                     <div class="accordion-body collapse" id="collapseHerramientas">
                                                             <div class="accordion-inner">
                                                                   <ul class="nav nav-list">
+                                                                       <%if(objSession.getObjDiaRecepcion()!=null)
+                                                                            if(objSession.getObjUsuario().isEs_administrador()||
+                                                                             objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_1() ||
+                                                                             objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_2() ||
+                                                                             objSession.getObjUsuario().getId_usuario()==objSession.getObjConfiguracion().getUsuario_cierre_recepcion_3())
+                                                                             {%>
+                                                                                <li><a onclick="cerrarRecepccion()" href="javascript:void(0)">Cerrar Día de Producción</a></li>
+                                                                             <%}%>
                                                                       <li><a onclick="getReporte()" href="javascript:void(0)">Generar Excel</a></li>
+                                                                     
                                                                 </ul> 
                                                             </div>
                                                      </div>
@@ -106,5 +116,31 @@ if(objSession!=null)
                     </div>
             </div>
     </div>
-</div>                                                                                               
-<%}%>           
+</div>   
+ <%if(objSession.getObjDiaRecepcion()!=null){
+ SimpleDateFormat e=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
+ %>                                                                      
+<script>
+function cerrarRecepccion()
+{
+    var texto="Desea cerrar el día de Producción\nInicado <%=e.format(objSession.getObjDiaRecepcion().getHora_inicio())%>";
+    smoke.confirm(texto,function(e){
+                if (e){
+                       $.ajax({
+                        url: 'operaciones/dia_recepcion/gestionar.jsp?parametro=1',
+                        type: 'POST',
+                        success: function (data) { 
+                                if(data==1)
+                                window.location.reload();
+                        },
+                        contentType: false,
+                        processData: false
+                        });
+                }
+        },{cancel:"No",ok:"Si"});
+    
+    
+  
+};
+</script>  
+<%}}%>           

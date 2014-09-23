@@ -220,6 +220,7 @@ function SetRecepccion(parametro)
                                 type: 'POST',
                                 success: function (data) {     
                                          $('#frame').html(data);
+                                         modulos();
                                 },
                                 contentType: false,
                                 processData: false
