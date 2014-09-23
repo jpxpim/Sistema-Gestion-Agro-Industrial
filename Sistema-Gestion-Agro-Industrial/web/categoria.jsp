@@ -13,7 +13,6 @@ if(objSession!=null)
         response.sendRedirect("intranet.jsp");
     
     entFormulario formHijo=null;
-    entFormulario formPadre=null;
     boolean pagina=false;
     int posJ=objSession.getListModulos().get(objSession.getPosicion()).getList().size();
         for(int j=0;j<posJ;j++)
@@ -99,18 +98,7 @@ if(objSession!=null)
                                  <li>
                                     <a href="<%=formHijo.getObjModulo().getUrl()%>"><%=formHijo.getObjModulo().getEtiqueta()%></a>
                                 </li>
-                                <%
-                                    if(formPadre==null)
-                                    {
-                                        out.print("<li><a href='#'>"+formHijo.getEtiqueta()+"</a></li>");
-                                        
-                                    }
-                                    else
-                                    {
-                                        out.print("<li><a href="+formPadre.getUrl()+">"+formPadre.getEtiqueta()+"</a></li>");
-                                        out.print("<li>"+formHijo.getEtiqueta()+"</li>");
-                                    }
-                                %>     
+                                <li><%=formHijo.getEtiqueta()%></li>   
                             </ul>
                         </div>
                     </nav>

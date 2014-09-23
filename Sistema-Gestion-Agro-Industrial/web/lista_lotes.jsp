@@ -13,7 +13,6 @@ if(objSession!=null)
         response.sendRedirect("intranet.jsp");
     
     entFormulario formHijo=null;
-    entFormulario formPadre=null;
     boolean pagina=false;
     
     
@@ -29,12 +28,7 @@ if(objSession!=null)
                 j=posJ;
             }
         }
-        if(formHijo!=null)
-        for(entFormulario padre : formHijo.getObjModulo().getList())
-        {
-            if(padre.getId_formulario()==formHijo.getPadre())
-            formPadre=padre;
-        }
+        
         
     if(!pagina)
         response.sendRedirect("intranet.jsp");
@@ -109,18 +103,7 @@ if(objSession!=null)
                                  <li>
                                     <a href="<%=formHijo.getObjModulo().getUrl()%>"><%=formHijo.getObjModulo().getEtiqueta()%></a>
                                 </li>
-                                <%
-                                    if(formPadre==null)
-                                    {
-                                        out.print("<li><a href='#'>"+formHijo.getEtiqueta()+"</a></li>");
-                                        
-                                    }
-                                    else
-                                    {
-                                        out.print("<li><a href="+formPadre.getUrl()+">"+formPadre.getEtiqueta()+"</a></li>");
-                                        out.print("<li>"+formHijo.getEtiqueta()+"</li>");
-                                    }
-                                %>     
+                                <li><%=formHijo.getEtiqueta()%></li>
                             </ul>
                         </div>
                     </nav>
