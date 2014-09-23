@@ -30,7 +30,7 @@ public class ModuloDAO
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select distinct M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion "
+            String sql="select distinct M.id_modulo,M.etiqueta,M.estado,M.usuario_responsable,M.fecha_modificacion,M.url "
                     + "from modulo M inner join FORMULARIO F on M.ID_MODULO=F.ID_MODULO inner join FORMULARIO_USUARIO "
                     + "FU on FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.ID_USUARIO="+idUsuario;
 
@@ -50,6 +50,7 @@ public class ModuloDAO
                     entidad.setEstado(dr.getInt(3)); 
                     entidad.setUsuario_responsable(dr.getString(4)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(5)); 
+                    entidad.setUrl(dr.getString(6)); 
                         List<entFormulario> listaFormulario = null;
                         sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,F.control_form "
                             + "from formulario F join modulo M on F.id_modulo=M.id_modulo inner join FORMULARIO_USUARIO FU on "
@@ -104,7 +105,7 @@ public class ModuloDAO
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select id_modulo,etiqueta,estado,usuario_responsable,fecha_modificacion"
+            String sql="select id_modulo,etiqueta,estado,usuario_responsable,fecha_modificacion,url"
                     + " from modulo ";
             if(activo)
                         sql+=" where estado=1"; 
@@ -124,6 +125,7 @@ public class ModuloDAO
                     entidad.setEstado(dr.getInt(3)); 
                     entidad.setUsuario_responsable(dr.getString(4)); 
                     entidad.setFecha_modificacion(dr.getTimestamp(5)); 
+                    entidad.setUrl(dr.getString(6)); 
                     lista.add(entidad);
             }
 
@@ -148,14 +150,15 @@ public class ModuloDAO
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO modulo(etiqueta,estado,usuario_responsable,fecha_modificacion)"
+           String sql="INSERT INTO modulo(etiqueta,url,estado,usuario_responsable,fecha_modificacion)"
                    + " VALUES(?,?,?,GETDATE());";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, entidad.getEtiqueta());
-            stmt.setInt(2, entidad.getEstado());
-            stmt.setString(3, entidad.getUsuario_responsable());
+            stmt.setString(2, entidad.getUrl());
+            stmt.setInt(3, entidad.getEstado());
+            stmt.setString(4, entidad.getUsuario_responsable());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             
@@ -182,15 +185,16 @@ public class ModuloDAO
         Connection conn =null;
         CallableStatement stmt = null;
         try {
-             String sql="UPDATE modulo SET etiqueta = ?,estado= ?,"
+             String sql="UPDATE modulo SET etiqueta = ?,url= ?,estado= ?,"
                      + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_modulo = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
             stmt.setString(1, entidad.getEtiqueta());
-            stmt.setInt(2, entidad.getEstado());
-            stmt.setString(3, entidad.getUsuario_responsable());
-            stmt.setInt(4,entidad.getId_modulo());
+            stmt.setString(2, entidad.getUrl());
+            stmt.setInt(3, entidad.getEstado());
+            stmt.setString(4, entidad.getUsuario_responsable());
+            stmt.setInt(5,entidad.getId_modulo());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {

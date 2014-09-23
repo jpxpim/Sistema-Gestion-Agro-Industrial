@@ -60,7 +60,7 @@ public class SesionDAO {
                     List<entModulo> listaModulos = null;
                     if(objUsuario.getEstado())
                     {
-                        sql="select distinct M.id_modulo,M.etiqueta,M.estado from modulo M inner join FORMULARIO F on M.ID_MODULO=F.ID_MODULO inner join FORMULARIO_USUARIO "
+                        sql="select distinct M.id_modulo,M.etiqueta,M.url,M.estado from modulo M inner join FORMULARIO F on M.ID_MODULO=F.ID_MODULO inner join FORMULARIO_USUARIO "
                             + "FU on FU.ID_FORMULARIO=F.ID_FORMULARIO where FU.ID_USUARIO="+objUsuario.getId_usuario();
                         
                         CallableStatement csModulo = conn.prepareCall(sql);
@@ -73,7 +73,8 @@ public class SesionDAO {
                             entModulo objModulo = new entModulo();
                             objModulo.setId_modulo(rsModulo.getInt(1));
                             objModulo.setEtiqueta(rsModulo.getString(2)); 
-                            objModulo.setEstado(rsModulo.getInt(3)); 
+                            objModulo.setUrl(rsModulo.getString(3)); 
+                            objModulo.setEstado(rsModulo.getInt(4)); 
                              List<entFormulario> listaFormulario = null;
                             sql="select F.id_formulario,F.url,F.etiqueta,F.padre,F.estado,F.usuario_responsable,F.fecha_modificacion,F.control_form "
                                 + "from formulario F join modulo M on F.id_modulo=M.id_modulo inner join FORMULARIO_USUARIO FU on "

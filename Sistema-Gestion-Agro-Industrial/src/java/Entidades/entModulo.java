@@ -17,6 +17,7 @@ public class entModulo {
     
     private int id_modulo;
     private String etiqueta;
+    private String url;
     private int estado;
     private boolean selecion;
     private String usuario_responsable;
@@ -87,6 +88,14 @@ public class entModulo {
 
     public void setSelecion(boolean selecion) {
         this.selecion = selecion;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
     
 }
