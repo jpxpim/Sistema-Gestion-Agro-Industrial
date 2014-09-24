@@ -43,7 +43,7 @@ if(objSession!=null)
                                             </div>
                             <div class="span9">
                                         <div id="tabla"> </div>
-                                         <center> <button id="grabar" class="btn btn-gebo"  type="button">Baja por Frio</button></center>
+                                         <center> <button id="grabar" class="btn btn-info"  type="button">Reenpacado</button></center>
                                    </div>
               </form>
 
