@@ -21,7 +21,7 @@ if(objSession!=null)
             
             entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
-            
+            entidad.setPosicion_paleta(1);
 
             int id=clsGestor.insertarPaleta(entidad);
             if(id>0)

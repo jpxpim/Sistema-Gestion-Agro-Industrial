@@ -38,8 +38,8 @@ if(list!=null)
             <td><%=entidad.getObjLineaProduccion().getNombre()%></td>
              <td><%=entidad.getCodigo_control()%></td>           
             
-            <td><%=entidad.getObjEnvase().getNombre()%></td>
-            <td><%=entidad.getObjCategoria().getNombre()%></td>
+            <td><%=entidad.getObjEnvase().getCodigo_control()%></td>
+            <td><%=entidad.getObjCategoria().getCodigo_control()%></td>
             <td><%=entidad.getObjLote().getCodigo_control()%></td>
             <td><%=entidad.getObjCalibre().getCodigo_control()%></td>
             <td><%=entidad.getObjColor().getCodigo_control()%></td>
@@ -47,7 +47,7 @@ if(list!=null)
             <td><%=entidad.getEmbalador()%></td>
            
             <td>
-                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_producto_terminado()%>,<%=entidad.getObjLineaProduccion().getId_linea_produccion()%>,'<%=entidad.getObjLineaProduccion().getNombre()%>',<%=entidad.getObjEnvase().getId_envase()%>,'<%=entidad.getObjEnvase().getNombre()%>',<%=entidad.getObjCategoria().getId_categoria()%>,'<%=entidad.getObjCategoria().getNombre()%>',<%=entidad.getObjLote().getId_lote()%>,'<%=entidad.getObjLote().getCodigo_control()%>',<%=entidad.getObjCalibre().getId_calibre()%>,<%=entidad.getObjColor().getId_color()%>,'<%=entidad.getObjCalibre().getCodigo_control()%>-<%=entidad.getObjColor().getCodigo_control()%>','<%=entidad.getSeleccionador()%>','<%=entidad.getEmbalador()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
+                <a href="javascript:void(0)" onclick="edit_form(<%=entidad.getId_producto_terminado()%>,<%=entidad.getObjLineaProduccion().getId_linea_produccion()%>,'<%=entidad.getObjLineaProduccion().getNombre()%>',<%=entidad.getObjEnvase().getId_envase()%>,'<%=entidad.getObjEnvase().getCodigo_control()%>',<%=entidad.getObjCategoria().getId_categoria()%>,'<%=entidad.getObjCategoria().getCodigo_control()%>',<%=entidad.getObjLote().getId_lote()%>,'<%=entidad.getObjLote().getCodigo_control()%>',<%=entidad.getObjCalibre().getId_calibre()%>,<%=entidad.getObjColor().getId_color()%>,'<%=entidad.getObjCalibre().getCodigo_control()%>-<%=entidad.getObjColor().getCodigo_control()%>','<%=entidad.getSeleccionador()%>','<%=entidad.getEmbalador()%>')" class="comp_edit btn btn-primary btn-mini">Editar</a>
 
             </td>
         </tr>

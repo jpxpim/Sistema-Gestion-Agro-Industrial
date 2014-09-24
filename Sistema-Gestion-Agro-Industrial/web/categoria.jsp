@@ -307,7 +307,7 @@ function tabla()
                                             },
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
-                                                txtCodigo: { required: true, minlength: 3 },
+                                                txtCodigo: { required: true, minlength: 6 , maxlength: 6  },
                                                 rbEstado: { required: true }
 					},
 					highlight: function(element) {

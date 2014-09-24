@@ -60,7 +60,47 @@ public class DiaRecepcionDAO
         }
         return entidad;
     }
+    
+      public static entDiaRecepcion ultimo() throws Exception
+    {
+        entDiaRecepcion entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select top 1 ID_DIA_RECEPCION,HORA_INICIO,HORA_FIN,ES_CERRADO,USUARIO_RESPONSABLE_INICIO,\n" +
+                        "USUARIO_RESPONSABLE_FIN,FECHA_MODIFICACION from DIA_RECEPCION order by ID_DIA_RECEPCION DESC";
 
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                
+                    entidad = new entDiaRecepcion();
+                    entidad.setId_dia_recepcion(dr.getInt(1));
+                    entidad.setHora_inicio(dr.getTimestamp(2)); 
+                    entidad.setHora_fin(dr.getTimestamp(3)); 
+                    entidad.setEs_cerrado(dr.getBoolean(4)); 
+                    entidad.setUsuario_responsable_inicio(dr.getString(5)); 
+                    entidad.setUsuario_responsable_fin(dr.getString(6)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(7)); 
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
+    }
       public  static int insertar(entDiaRecepcion entidad) throws Exception
     {
         int rpta = 0;

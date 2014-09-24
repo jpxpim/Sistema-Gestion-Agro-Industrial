@@ -11,7 +11,7 @@ if(objSession!=null)
     SimpleDateFormat e=new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat fecha=new SimpleDateFormat("dd - MM - yyyy : HH:mm a");
 
-List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(false);
+List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(false,true);
 if(list!=null)
 {%>
 <%response.setHeader("Content-Disposition", "attachment; filename=\"Reporte Linea Produccion "+e.format(new Date())+".xls\"");%>

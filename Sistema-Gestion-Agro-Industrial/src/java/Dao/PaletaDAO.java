@@ -105,7 +105,7 @@ public class PaletaDAO {
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, entidad.getId_dia_recepcion());
             stmt.setInt(2, entidad.getObjCliente().getId_cliente());
-            stmt.setInt(3, 1);
+            stmt.setInt(3, entidad.getPosicion_paleta());
             stmt.setInt(4, estado);
             stmt.setString(5, Operaciones.getCodigoControl(false, 0));
             stmt.setString(6, entidad.getUsuario_responsable());
@@ -124,9 +124,10 @@ public class PaletaDAO {
                 psPosicion.close();
                 
                 sql="INSERT INTO DET_POSICION_PALETA(ID_PALETA,ESTADO_NUEVO,FECHA_REGISTRO)"
-                    + " VALUES(?,1,GETDATE());";
+                    + " VALUES(?,?,GETDATE());";
                 PreparedStatement psEstado = conn.prepareStatement(sql);
                 psEstado.setInt(1, rpta);
+                psEstado.setInt(2, entidad.getPosicion_paleta());                
                 psEstado.execute();
                 psEstado.close();
                 

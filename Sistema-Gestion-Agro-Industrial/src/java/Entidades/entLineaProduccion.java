@@ -16,6 +16,7 @@ public class entLineaProduccion {
     private int id_linea_produccion;
     private String nombre;
     private boolean estado;
+    private boolean reempaque;
     private String usuario_responsable;
     private Date fecha_modificacion;
 
@@ -64,6 +65,14 @@ public class entLineaProduccion {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public boolean isReempaque() {
+        return reempaque;
+    }
+
+    public void setReempaque(boolean reempaque) {
+        this.reempaque = reempaque;
     }
     
 }

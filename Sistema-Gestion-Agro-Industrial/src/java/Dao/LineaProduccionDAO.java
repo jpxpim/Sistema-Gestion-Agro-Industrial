@@ -7,7 +7,6 @@
 package Dao;
 
 import Entidades.entLineaProduccion;
-import Entidades.entCultivo;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,17 +22,63 @@ import java.util.List;
  */
 public class LineaProduccionDAO {
 
-    public static List<entLineaProduccion> Listar(boolean activo) throws Exception
+     public static entLineaProduccion buscarReempaque() throws Exception
+    {
+        entLineaProduccion entidad = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+            String sql="select top 1 ID_LINEA_PRODUCCION,NOMBRE,ESTADO,REEMPAQUE,USUARIO_RESPONSABLE,FECHA_MODIFICACION\n" +
+                        "from LINEA_PRODUCCION where reempaque=1 order by ID_LINEA_PRODUCCION asc"; 
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            if(dr.next())
+            {
+                entidad = new entLineaProduccion();
+                entidad.setId_linea_produccion(dr.getInt(1));
+                entidad.setNombre(dr.getString(2));  
+                entidad.setEstado(dr.getBoolean(3)); 
+                entidad.setReempaque(dr.getBoolean(4));                     
+                entidad.setUsuario_responsable(dr.getString(5)); 
+                entidad.setFecha_modificacion(dr.getTimestamp(6)); 
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return entidad;
+    }
+    public static List<entLineaProduccion> Listar(boolean activo,boolean reempaque) throws Exception
     {
         List<entLineaProduccion> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql="select ID_LINEA_PRODUCCION,NOMBRE,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION from LINEA_PRODUCCION";
-            if(activo)
-                        sql+=" where ESTADO=1"; 
-
+            String sql="select ID_LINEA_PRODUCCION,NOMBRE,ESTADO,REEMPAQUE,USUARIO_RESPONSABLE,FECHA_MODIFICACION from LINEA_PRODUCCION";
+                if(activo)
+                {
+                    sql+=" where ESTADO=1"; 
+                        if(!reempaque)
+                            sql+=" and reempaque=0"; 
+                }
+                else
+                {
+                    if(!reempaque)
+                        sql+=" where reempaque=0"; 
+                }
+                
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
@@ -47,8 +92,9 @@ public class LineaProduccionDAO {
                     entidad.setId_linea_produccion(dr.getInt(1));
                     entidad.setNombre(dr.getString(2));  
                     entidad.setEstado(dr.getBoolean(3)); 
-                    entidad.setUsuario_responsable(dr.getString(4)); 
-                    entidad.setFecha_modificacion(dr.getTimestamp(5)); 
+                    entidad.setReempaque(dr.getBoolean(4));                     
+                    entidad.setUsuario_responsable(dr.getString(5)); 
+                    entidad.setFecha_modificacion(dr.getTimestamp(6)); 
                     lista.add(entidad);
             }
 
@@ -72,8 +118,8 @@ public class LineaProduccionDAO {
         PreparedStatement  stmt = null;
         try {
             
-           String sql="INSERT INTO LINEA_PRODUCCION(NOMBRE,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION)"
-                   + " VALUES(?,?,?,GETDATE());";
+           String sql="INSERT INTO LINEA_PRODUCCION(NOMBRE,ESTADO,USUARIO_RESPONSABLE,FECHA_MODIFICACION,REEMPAQUE)"
+                   + " VALUES(?,?,?,GETDATE(),0);";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

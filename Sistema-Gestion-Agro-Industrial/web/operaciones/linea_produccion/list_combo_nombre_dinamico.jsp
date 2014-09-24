@@ -14,7 +14,7 @@ if(request.getParameter("nombre") != null && request.getParameter("nombre") != "
    <option value="">Selecione una Opción</option>
 <%
   
-    List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(true);
+    List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(true,true);
     if(list!=null)
         for(entLineaProduccion entidad : list)
               out.print("<option value='"+entidad.getId_linea_produccion()+"'>"+entidad.getNombre()+"</option>");

@@ -660,6 +660,10 @@ public class clsGestor {
     {
         return DiaRecepcionDAO.pediente();
     }
+     public static entDiaRecepcion ultimoDiaRecepcion() throws Exception
+    {
+        return DiaRecepcionDAO.ultimo();
+    }
   
     // </editor-fold>
     
@@ -753,11 +757,14 @@ public class clsGestor {
     // </editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="entLineaProduccion">
-    public static List<entLineaProduccion> ListarLineaProduccion(boolean activo) throws Exception
+    public static List<entLineaProduccion> ListarLineaProduccion(boolean activo,boolean reempaque) throws Exception
     {
-        return LineaProduccionDAO.Listar(activo);
+        return LineaProduccionDAO.Listar(activo,reempaque);
     }
-    
+    public static entLineaProduccion buscarReempaqueLineaProduccion() throws Exception
+    {
+        return LineaProduccionDAO.buscarReempaque();
+    }
     public  static int insertarLineaProduccion(entLineaProduccion entidad) throws Exception
     {
         return LineaProduccionDAO.insertar(entidad);
@@ -786,6 +793,10 @@ public class clsGestor {
     public static List<entProductoTerminado> ListarPorDiaRecepccionProductoTerminado(int id_dia_recepcion) throws Exception
     {
         return ProductoTerminadoDAO.ListarPorDiaRecepccion(id_dia_recepcion);
+    }
+    public static List<entProductoTerminado> ListarReempacadoProductoTerminado() throws Exception
+    {
+        return ProductoTerminadoDAO.ListarReempacado();
     }
     public static entProductoTerminadoTemp buscarOrigenProductoTerminado(String Codigo) throws Exception
     {
@@ -819,7 +830,10 @@ public class clsGestor {
     {
       return ProductoTerminadoDAO.GraficoEmbalador();  
     } 
-    
+    public static List<entProductoTerminado> ListarReempaqueProductoTerminado(int idLineaProduccion) throws Exception
+    {   
+        return ProductoTerminadoDAO.ListarReempaque(idLineaProduccion);
+    }
     // </editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="entPaleta">

@@ -1,0 +1,41 @@
+
+
+<%@page import="Entidades.entCliente"%>
+<%@page import="Entidades.entSesion"%>
+<%@page import="Com.clsGestor"%>
+<%@page import="Entidades.entPaleta"%>
+<%  
+entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
+if(objSession!=null)
+{
+        if(request.getParameter("idCliente") != null && request.getParameter("idCliente") != "" &&
+            request.getParameter("rbEstado") != null && request.getParameter("rbEstado") != "" &&
+                request.getParameter("idDiaRecepcion") != null && request.getParameter("idDiaRecepcion") != "")
+        {
+            entPaleta entidad = objSession.getObjPaleta();
+            entidad.setObjCliente(new entCliente(Integer.parseInt(request.getParameter("idCliente"))));            
+            if(!entidad.isCompleto())
+            {
+                if(request.getParameter("idCliente").equals("1"))
+                    entidad.setCompleto(true);
+            }
+            
+             entidad.setId_dia_recepcion(Integer.parseInt(request.getParameter("idDiaRecepcion")));
+            entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
+            entidad.setPosicion_paleta(3);
+
+            int id=clsGestor.insertarPaleta(entidad);
+            if(id>0)
+            {
+                out.print(id);
+            }
+            else
+                out.print(0);
+      
+           
+                 
+            
+            
+        }
+}
+ %>

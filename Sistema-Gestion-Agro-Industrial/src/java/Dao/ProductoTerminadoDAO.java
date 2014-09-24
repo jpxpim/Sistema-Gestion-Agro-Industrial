@@ -33,8 +33,56 @@ import java.util.List;
  */
 public class ProductoTerminadoDAO {
     
-     public static entProductoTerminadoTemp buscarOrigen(String Codigo) throws Exception
-    {
+public static List<entProductoTerminado> ListarReempacado() throws Exception
+{
+        List<entProductoTerminado> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="SELECT PT.ID_PRODUCTO_TERMINADO,PT.CODIGO_CONTROL,PT.ID_LOTE,C.NOMBRE,E.CANT_CAJAS_PALETA \n" +
+                            "FROM PRODUCTO_TERMINADO PT join CALIBRE C ON PT.ID_CALIBRE=C.ID_CALIBRE JOIN ENVASE E ON \n" +
+                            "PT.ID_ENVASE=E.ID_ENVASE where PT.ESTADO=0 AND PT.REEMPAQUE=1"; 
+                    
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entProductoTerminado>();                    
+                    entProductoTerminado entidad = new entProductoTerminado();
+                    
+                    entCalibre objCalibre = new entCalibre();
+                    objCalibre.setNombre(dr.getString(4));
+                    
+                    entLote objLote = new entLote();
+                    objLote.setId_lote(dr.getInt(3));
+                    
+                    entidad.setId_producto_terminado(dr.getInt(1));
+                    entidad.setCodigo_control(dr.getString(2)); 
+                    entidad.setObjLote(objLote);
+                    entidad.setObjCalibre(objCalibre);
+                    entidad.setId_dia_recepcion(dr.getInt(5));
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }     
+public static entProductoTerminadoTemp buscarOrigen(String Codigo) throws Exception
+{
         entProductoTerminadoTemp entidad = null;
         Connection conn =null;
         CallableStatement stmt = null;
@@ -82,15 +130,15 @@ public class ProductoTerminadoDAO {
         }
         return entidad;
     }  
-    public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLineaProduccion) throws Exception
-    {
+public static List<entProductoTerminado> Listar(int id_dia_recepcion,int idLineaProduccion) throws Exception
+{
         List<entProductoTerminado> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
                     String sql=" SELECT TOP 30 P.ID_PRODUCTO_TERMINADO,P.ID_DIA_RECEPCION,P.SELECCIONADOR,P.EMBALADOR,P.CODIGO_CONTROL,"
-                            + "E.ID_ENVASE,E.NOMBRE,C.ID_CALIBRE,C.CODIGO_CONTROL,CAT.ID_CATEGORIA,CAT.NOMBRE,COL.ID_COLOR,COL.CODIGO_CONTROL,"
+                            + "E.ID_ENVASE,E.NOMBRE,E.CODIGO_CONTROL,C.ID_CALIBRE,C.CODIGO_CONTROL,CAT.ID_CATEGORIA,CAT.NOMBRE,CAT.CODIGO_CONTROL,COL.ID_COLOR,COL.CODIGO_CONTROL,"
                             + "L.ID_LOTE,L.CODIGO_CONTROL,LP.ID_LINEA_PRODUCCION,LP.NOMBRE FROM PRODUCTO_TERMINADO P JOIN ENVASE E ON P.ID_ENVASE=E.ID_ENVASE "
                             + "JOIN CALIBRE C ON P.ID_CALIBRE=C.ID_CALIBRE JOIN CATEGORIA CAT ON P.ID_CATEGORIA=CAT.ID_CATEGORIA JOIN COLOR COL "
                             + "ON P.ID_COLOR=COL.ID_COLOR JOIN LOTE L ON P.ID_LOTE=L.ID_LOTE JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION "
@@ -111,27 +159,29 @@ public class ProductoTerminadoDAO {
                     entEnvase objEnvase = new entEnvase();
                     objEnvase.setId_envase(dr.getInt(6));
                     objEnvase.setNombre(dr.getString(7));
+                    objEnvase.setCodigo_control(dr.getString(8));
                     //Calibre
                     entCalibre objCalibre = new entCalibre();
-                    objCalibre.setId_calibre(dr.getInt(8));
-                    objCalibre.setCodigo_control(dr.getString(9));
+                    objCalibre.setId_calibre(dr.getInt(9));
+                    objCalibre.setCodigo_control(dr.getString(10));
                     //Categoria
                     entCategoria objCategoria = new entCategoria();
-                    objCategoria.setId_categoria(dr.getInt(10));
-                    objCategoria.setNombre(dr.getString(11));
+                    objCategoria.setId_categoria(dr.getInt(11));
+                    objCategoria.setNombre(dr.getString(12));
+                    objCategoria.setCodigo_control(dr.getString(13));
                     //Color
                     entColor objColor = new entColor();
-                    objColor.setId_color(dr.getInt(12));
-                    objColor.setCodigo_control(dr.getString(13));
+                    objColor.setId_color(dr.getInt(14));
+                    objColor.setCodigo_control(dr.getString(15));
                     //lote
                     //"L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,L.ESTADO,\n" +
                     entLote objLote = new entLote();
-                    objLote.setId_lote(dr.getInt(14));
-                    objLote.setCodigo_control(dr.getString(15));
+                    objLote.setId_lote(dr.getInt(16));
+                    objLote.setCodigo_control(dr.getString(17));
                     //linea produccion
                     entLineaProduccion objLineaProduccion = new entLineaProduccion();
-                    objLineaProduccion.setId_linea_produccion(dr.getInt(16));
-                    objLineaProduccion.setNombre(dr.getString(17));
+                    objLineaProduccion.setId_linea_produccion(dr.getInt(18));
+                    objLineaProduccion.setNombre(dr.getString(19));
                     //entidad
                     entidad.setId_producto_terminado(dr.getInt(1));
                     entidad.setId_dia_recepcion(dr.getInt(2));
@@ -159,10 +209,88 @@ public class ProductoTerminadoDAO {
             }
         }
         return lista;
-    }        
-   
- public static List<entProductoTerminado> ListarPorDiaRecepccion(int id_dia_recepcion) throws Exception
-    {
+    }          
+public static List<entProductoTerminado> ListarReempaque(int idLineaProduccion) throws Exception
+{
+        List<entProductoTerminado> lista = null;
+        Connection conn =null;
+        CallableStatement stmt = null;
+        ResultSet dr = null;
+        try {
+                    String sql="SELECT TOP 30 P.ID_PRODUCTO_TERMINADO,P.ID_DIA_RECEPCION,P.SELECCIONADOR,P.EMBALADOR,P.CODIGO_CONTROL,\n" +
+                        "E.ID_ENVASE,E.NOMBRE,E.CODIGO_CONTROL,C.ID_CALIBRE,C.CODIGO_CONTROL,CAT.ID_CATEGORIA,CAT.NOMBRE,CAT.CODIGO_CONTROL,COL.ID_COLOR,COL.CODIGO_CONTROL,\n" +
+                        "L.ID_LOTE,L.CODIGO_CONTROL,LP.ID_LINEA_PRODUCCION,LP.NOMBRE FROM PRODUCTO_TERMINADO P JOIN ENVASE E ON P.ID_ENVASE=E.ID_ENVASE \n" +
+                        "JOIN CALIBRE C ON P.ID_CALIBRE=C.ID_CALIBRE JOIN CATEGORIA CAT ON P.ID_CATEGORIA=CAT.ID_CATEGORIA JOIN COLOR COL \n" +
+                        "ON P.ID_COLOR=COL.ID_COLOR JOIN LOTE L ON P.ID_LOTE=L.ID_LOTE JOIN LINEA_PRODUCCION LP ON P.ID_LINEA_PRODUCCION=LP.ID_LINEA_PRODUCCION \n" +
+                        " where P.REEMPAQUE=1 and P.ESTADO=0 and LP.ID_LINEA_PRODUCCION="+idLineaProduccion+" order by P.ID_PRODUCTO_TERMINADO desc"; 
+            conn = ConexionDAO.getConnection();
+            stmt = conn.prepareCall(sql);
+            dr = stmt.executeQuery();
+
+            while(dr.next())
+            {
+                if(lista==null)
+                    lista= new ArrayList<entProductoTerminado>();                    
+                    entProductoTerminado entidad = new entProductoTerminado();
+                    //Receta
+
+                    //Envase
+                    entEnvase objEnvase = new entEnvase();
+                    objEnvase.setId_envase(dr.getInt(6));
+                    objEnvase.setNombre(dr.getString(7));
+                    objEnvase.setCodigo_control(dr.getString(8));
+                    //Calibre
+                    entCalibre objCalibre = new entCalibre();
+                    objCalibre.setId_calibre(dr.getInt(9));
+                    objCalibre.setCodigo_control(dr.getString(10));
+                    //Categoria
+                    entCategoria objCategoria = new entCategoria();
+                    objCategoria.setId_categoria(dr.getInt(11));
+                    objCategoria.setNombre(dr.getString(12));
+                    objCategoria.setCodigo_control(dr.getString(13));
+                    //Color
+                    entColor objColor = new entColor();
+                    objColor.setId_color(dr.getInt(14));
+                    objColor.setCodigo_control(dr.getString(15));
+                    //lote
+                    //"L.ID_LOTE,L.CODIGO_CONTROL,L.NOMBRE,L.ESTADO,\n" +
+                    entLote objLote = new entLote();
+                    objLote.setId_lote(dr.getInt(16));
+                    objLote.setCodigo_control(dr.getString(17));
+                    //linea produccion
+                    entLineaProduccion objLineaProduccion = new entLineaProduccion();
+                    objLineaProduccion.setId_linea_produccion(dr.getInt(18));
+                    objLineaProduccion.setNombre(dr.getString(19));
+                    //entidad
+                    entidad.setId_producto_terminado(dr.getInt(1));
+                    entidad.setId_dia_recepcion(dr.getInt(2));
+                    entidad.setSeleccionador(dr.getString(3));
+                    entidad.setEmbalador(dr.getString(4));  
+                    entidad.setCodigo_control(dr.getString(5)); 
+                    entidad.setObjCalibre(objCalibre);                    
+                    entidad.setObjCategoria(objCategoria);
+                    entidad.setObjColor(objColor);
+                    entidad.setObjEnvase(objEnvase);
+                    entidad.setObjLineaProduccion(objLineaProduccion);
+                    entidad.setObjLote(objLote);
+                    lista.add(entidad);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Listar "+e.getMessage(), e);
+        }
+        finally{
+            try {
+                dr.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return lista;
+    }     
+public static List<entProductoTerminado> ListarPorDiaRecepccion(int id_dia_recepcion) throws Exception
+{
         List<entProductoTerminado> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
@@ -212,11 +340,8 @@ public class ProductoTerminadoDAO {
         }
         return lista;
     }    
- 
- 
- 
 public static List<entProductoTerminado> ListarA(int id_dia_recepcion,int idLineaProduccion) throws Exception
-    {
+{
         List<entProductoTerminado> lista = null;
         Connection conn =null;
         CallableStatement stmt = null;
@@ -326,9 +451,8 @@ public static List<entProductoTerminado> ListarA(int id_dia_recepcion,int idLine
         }
         return lista;
     }        
-    
 public  static int insertar(entProductoTerminado entidad) throws Exception
-    {
+{
         int rpta = 0;
         Connection conn =null;
         PreparedStatement  stmt = null;
@@ -336,8 +460,8 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             
            String sql="INSERT INTO producto_terminado(id_dia_recepcion,id_envase,id_calibre,id_categoria"
                    + ",id_color,id_lote,id_linea_produccion,seleccionador,embalador"
-                   + ",fecha_produccion,estado,usuario_responsable,fecha_modificacion,CODIGO_CONTROL)"
-                   + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,GETDATE(),?);";
+                   + ",fecha_produccion,estado,usuario_responsable,fecha_modificacion,CODIGO_CONTROL,reempaque)"
+                   + " VALUES(?,?,?,?,?,?,?,?,?,GETDATE(),?,?,GETDATE(),?,?);";
            
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -350,10 +474,10 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
             stmt.setInt(7, entidad.getObjLineaProduccion().getId_linea_produccion());
             stmt.setString(8, entidad.getSeleccionador());
             stmt.setString(9, entidad.getEmbalador());
-            stmt.setTimestamp(10, new Timestamp(entidad.getFecha_produccion().getTime()));
-            stmt.setInt(11, 0);
-            stmt.setString(12, entidad.getUsuario_responsable());
-            stmt.setString(13, Operaciones.getCodigoControl(true,entidad.getObjLineaProduccion().getId_linea_produccion()));
+            stmt.setInt(10, 0);
+            stmt.setString(11, entidad.getUsuario_responsable());
+            stmt.setString(12, Operaciones.getCodigoControl(true,entidad.getObjLineaProduccion().getId_linea_produccion()));
+            stmt.setBoolean(13, entidad.isReempaque());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();            
             if (rs.next()){
@@ -372,11 +496,8 @@ public  static int insertar(entProductoTerminado entidad) throws Exception
         }
         return rpta;
     } 
-    
-
-
 public static boolean actualizar(entProductoTerminado entidad) throws Exception
-    {
+{
         boolean rpta = false;
         Connection conn =null;
         CallableStatement stmt = null;
@@ -384,7 +505,7 @@ public static boolean actualizar(entProductoTerminado entidad) throws Exception
              String sql="UPDATE producto_terminado SET ID_DIA_RECEPCION = ?,ID_ENVASE= ?,ID_CALIBRE=?,ID_CATEGORIA= ?,"
                      + "ID_COLOR = ?,ID_LOTE= ?,ID_LINEA_PRODUCCION=?,SELECCIONADOR= ?,"
                      + "EMBALADOR = ?,ESTADO= ?,"
-                     + "usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_producto_terminado = ?;";
+                     + "usuario_responsable = ?,fecha_modificacion = GETDATE(),reempaque = ? WHERE id_producto_terminado = ?;";
              
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);             
@@ -399,7 +520,8 @@ public static boolean actualizar(entProductoTerminado entidad) throws Exception
             stmt.setString(9, entidad.getEmbalador());
             stmt.setInt(10, entidad.getEstado());            
             stmt.setString(11, entidad.getUsuario_responsable());
-            stmt.setInt(12,entidad.getId_producto_terminado());
+            stmt.setBoolean(12, entidad.isReempaque());
+            stmt.setInt(13,entidad.getId_producto_terminado());
                 
            rpta = stmt.executeUpdate() == 1;
         } catch (Exception e) {
@@ -414,10 +536,6 @@ public static boolean actualizar(entProductoTerminado entidad) throws Exception
         }
         return rpta;
     }
-
-
-
-
 public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion(int idLinea,int tiempo,boolean acumulativo)throws Exception
 {
         List<entProductoTerminado> lista = null;
@@ -496,8 +614,7 @@ public static List<entProductoTerminado> GraficoAcumulativoDiaProduccion(int idL
              lista.get(0).setId_dia_recepcion(contador); 
          
         return lista;
-    }
-     
+    }  
 public static List<entProductoTerminado> GraficoEnvasexLineaProduccion(int idLineaProduccion) throws Exception
 {
     List<entProductoTerminado> lista = null;
@@ -540,7 +657,6 @@ public static List<entProductoTerminado> GraficoEnvasexLineaProduccion(int idLin
     }
     return lista;
 }  
-
  public static List<entProductoTerminado> GraficoVariedadxLineaProduccion(int idLineaProduccion) throws Exception
 {
     List<entProductoTerminado> lista = null;
@@ -584,7 +700,6 @@ public static List<entProductoTerminado> GraficoEnvasexLineaProduccion(int idLin
     }
     return lista;
 }  
-
 public static List<entProductoTerminado> GraficoCalibredxLineaProduccion(int idLineaProduccion) throws Exception
 {
     List<entProductoTerminado> lista = null;
@@ -627,8 +742,6 @@ public static List<entProductoTerminado> GraficoCalibredxLineaProduccion(int idL
     }
     return lista;
 }
-
-
 public static List<entProductoTerminado> GraficoCategoriaxLineaProduccion(int idLineaProduccion) throws Exception
 {
     List<entProductoTerminado> lista = null;
@@ -671,7 +784,6 @@ public static List<entProductoTerminado> GraficoCategoriaxLineaProduccion(int id
     }
     return lista;
 }
-
 public static List<entProductoTerminado> GraficoSelecionador() throws Exception
 {
     List<entProductoTerminado> lista = null;
@@ -750,6 +862,5 @@ public static List<entProductoTerminado> GraficoEmbalador() throws Exception
     }
     return lista;
 }  
- 
 
 }

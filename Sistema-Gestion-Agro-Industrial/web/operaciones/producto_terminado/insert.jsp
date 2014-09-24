@@ -15,28 +15,31 @@ entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsua
 if(objSession!=null)
 {
         if(request.getParameter("cbLineaProduccion") != null && request.getParameter("cbLineaProduccion") != "" &&
-                request.getParameter("cbEnvase") != null && request.getParameter("cbEnvase") != "" &&
-                request.getParameter("cbCategoria") != null && request.getParameter("cbCategoria") != "" &&
+                request.getParameter("idEnvase") != null && request.getParameter("idEnvase") != "" &&
+                request.getParameter("idCategoria") != null && request.getParameter("idCategoria") != "" &&
                 request.getParameter("idLote") != null && request.getParameter("idLote") != "" &&
                 request.getParameter("idCalibre") != null && request.getParameter("idCalibre") != "" &&
                 request.getParameter("idColor") != null && request.getParameter("idColor") != "" &&
                 request.getParameter("idSeleccionador") != null && request.getParameter("idSeleccionador") != "" &&
-                request.getParameter("idEmpaquetador") != null && request.getParameter("idEmpaquetador") != "" )
+                request.getParameter("idEmpaquetador") != null && request.getParameter("idEmpaquetador") != "" &&
+                request.getParameter("idDiaRecepcion") != null && request.getParameter("idDiaRecepcion") != "" &&
+                request.getParameter("reempaque") != null && request.getParameter("reempaque") != "" )
         {
             entProductoTerminado entidad = new entProductoTerminado();
             entidad.setObjLineaProduccion(new entLineaProduccion(Integer.parseInt(request.getParameter("cbLineaProduccion"))));
-            entidad.setObjEnvase(new entEnvase(Integer.parseInt(request.getParameter("cbEnvase"))));
-            entidad.setObjCategoria(new entCategoria(Integer.parseInt(request.getParameter("cbCategoria"))));
+            entidad.setObjEnvase(new entEnvase(Integer.parseInt(request.getParameter("idEnvase"))));
+            entidad.setObjCategoria(new entCategoria(Integer.parseInt(request.getParameter("idCategoria"))));
             entidad.setObjLote(new entLote(Integer.parseInt(request.getParameter("idLote"))));           
             entidad.setObjCalibre(new entCalibre(Integer.parseInt(request.getParameter("idCalibre"))));            
             entidad.setObjColor(new entColor(Integer.parseInt(request.getParameter("idColor"))));
             entidad.setEstado(0);
             entidad.setSeleccionador(request.getParameter("idSeleccionador"));
             entidad.setEmbalador(request.getParameter("idEmpaquetador"));
-            entidad.setId_dia_recepcion(objSession.getObjDiaRecepcion().getId_dia_recepcion());
+            entidad.setId_dia_recepcion(Integer.parseInt(request.getParameter("idDiaRecepcion")));
            
             entidad.setUsuario_responsable(objSession.getObjUsuario().getApellido()+", "+objSession.getObjUsuario().getNombre());
-            
+            if(request.getParameter("reempaque").equals("1"))
+                entidad.setReempaque(true);
 
             if(!request.getParameter("IdProductoTerminado").equals("0") )
             {

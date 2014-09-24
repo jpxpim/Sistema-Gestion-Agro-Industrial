@@ -1,4 +1,5 @@
 
+<%@page import="Entidades.entDiaRecepcion"%>
 <%@page import="Entidades.entLineaProduccion"%>
 <%@page import="Entidades.entEmpleado"%>
 <%@page import="Entidades.entLote"%>
@@ -14,6 +15,7 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
+    entDiaRecepcion objDiaRecepcion=objSession.getObjDiaRecepcion();
     int size=0;
 if(!objSession.isDia_recepcion())
 {
@@ -21,6 +23,7 @@ if(!objSession.isDia_recepcion())
     if(objSession.getObjDiaRecepcion()==null)
     {
         objSession.setObjDiaRecepcion(clsGestor.verificarDiaRecepcion());
+        
     }
 
      if(objSession.getObjDiaRecepcion()==null)
@@ -107,7 +110,7 @@ else
 <div id="frame">
  <div class="row-fluid">
       <form  method="get" id="reg_form">
-             <div class="span4">
+             <div class="span3">
                                                     <div class="row-fluid" id="g-map-top">
                                                             <div class="span12">
                                                                      
@@ -115,65 +118,61 @@ else
                                                                             <div class="formSep">
                                                                                     <div class="input-prepend">
                                                                                     <label>Linea Producción</label>
-                                                                                    <select id="cbLineaProduccion" name="cbLineaProduccion" >
+                                                                                    <select id="cbLineaProduccion"  class="span12" name="cbLineaProduccion" >
                                                                                         <option value="">Selecione una Opción</option>
-                                                                                        <%List<entLineaProduccion> listLineaProduccion=clsGestor.ListarLineaProduccion(true);
+                                                                                        <%List<entLineaProduccion> listLineaProduccion=clsGestor.ListarLineaProduccion(true,false);
                                                                                             if(listLineaProduccion!=null)
                                                                                                 for(entLineaProduccion entidad : listLineaProduccion)
                                                                                                     out.print("<option value='"+entidad.getId_linea_produccion()+"'>"+entidad.getNombre()+"</option>");                                         
                                                                                          %>
                                                                                         </select>
                                                                                     </div>
-                                                                                    <div class="input-prepend">
-                                                                                        <label>Envase</label>
-                                                                                        <select id="cbEnvase" name="cbEnvase" >
-                                                                                        <option value="">Selecione una Opción</option>
-                                                                                        <%List<entEnvase> listEnvase=clsGestor.ListarEnvase(true);
-                                                                                            if(listEnvase!=null)
-                                                                                                for(entEnvase entidad : listEnvase)
-                                                                                                    out.print("<option value='"+entidad.getId_envase()+"'>"+entidad.getNombre()+"</option>");                                         
-                                                                                         %>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                      <div class="input-prepend">
-                                                                                        <label>Categoria</label>
-                                                                                        <select id="cbCategoria" name="cbCategoria">
-                                                                                        <option value="">Selecione una Opción</option>
-                                                                                        <%List<entCategoria> listCategoria=clsGestor.ListarCategoria(true);
-                                                                                            if(listCategoria!=null)
-                                                                                                for(entCategoria entidad : listCategoria)
-                                                                                                    out.print("<option value='"+entidad.getId_categoria()+"'>"+entidad.getNombre()+"</option>");                                         
-                                                                                         %>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <div class="input-prepend">
-                                                                                    <label>Lote</label>
+                                                                                     <div class="input-prepend">
+                                                                                         <label id="contadorEnvase" >Envase (6 digitos de <span class="label label-warning">0</span>)</label>
                                                                                         <div class="input-prepend">
-                                                                                            <input type="text" id="txtLote" name="txtLote" /><span id="validLote" class="add-on"><i class="splashy-pencil"/></span>
+                                                                                            <input type="text" id="txtEnvase" class="span10"  name="txtEnvase" /><span id="validEnvase" class="add-on"><i  class="splashy-pencil"/></span>
+                                                                                        </div>
+                                                                                    <input type="hidden" id="idEnvase"  name="idEnvase" />
+                                                                                    </div>                                                                                  
+                                                                                    <div class="input-prepend">
+                                                                                     <label id="contadorCategoria" >Categoria (6 digitos de <span class="label label-warning">0</span>)</label>
+                                                                                        <div class="input-prepend">
+                                                                                            <input type="text" id="txtCategoria" class="span10" name="txtCategoria" /><span id="validCategoria" class="add-on"><i  class="splashy-pencil"/></span>
+                                                                                        </div>
+                                                                                    <input type="hidden" id="idCategoria"  name="idCategoria" />
+                                                                                    </div>
+                                                                                    
+                                                                                    <div class="input-prepend">
+                                                                                    <label id="contadorLote" >Lote (6 digitos de <span class="label label-warning">0</span>)</label>
+                                                                                        <div class="input-prepend">
+                                                                                            <input type="text" id="txtLote" class="span10" name="txtLote" /><span id="validLote" class="add-on"><i class="splashy-pencil"/></span>
                                                                                         </div>         
                                                                                     <input type="hidden" id="idLote"  name="idLote" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Calibre + Color</label>
+                                                                                    <label id="contadorColor" >Calibre + Color (9 digitos de <span class="label label-warning">0</span>)</label>
                                                                                         <div class="input-prepend">
-                                                                                            <input type="text" id="txtColor" name="txtColor" /><span id="validColor" class="add-on"><i class="splashy-pencil"/></span>
+                                                                                            <input type="text" id="txtColor" class="span10" name="txtColor" /><span id="validColor" class="add-on"><i class="splashy-pencil"/></span>
                                                                                         </div>
                                                                                     <input type="hidden" id="idCalibre"  name="idCalibre" />
                                                                                     <input type="hidden" id="idColor"  name="idColor" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Seleccionador</label>
+                                                                                    <label id="contadorSeleccionador" >Seleccionador(8 digitos de <span class="label label-warning">0</span>)</label>                                                                                    
                                                                                         <div class="input-prepend">
-                                                                                            <input type="text" id="txtSeleccionador" name="txtSeleccionador" /><span id="validSeleccionador" class="add-on"><i  class="splashy-pencil"/></span>
+                                                                                            <input type="text" id="txtSeleccionador" class="span10" name="txtSeleccionador" /><span id="validSeleccionador" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
                                                                                     <input type="hidden" id="idSeleccionador"  name="idSeleccionador" />
                                                                                     </div>
                                                                                     <div class="input-prepend">
-                                                                                    <label>Empaquetador</label>
+                                                                                    <label id="contadorEmpaquetador" >Empaquetador(8 digitos de <span class="label label-warning">0</span>)</label>                                                                                    
                                                                                         <div class="input-prepend">
-                                                                                            <input type="text" id="txtEmpaquetador" name="txtEmpaquetador" /><span id="validEmpaquetador" class="add-on"><i  class="splashy-pencil"/></span>
+                                                                                            <input type="text" id="txtEmpaquetador" class="span10" name="txtEmpaquetador" /><span id="validEmpaquetador" class="add-on"><i  class="splashy-pencil"/></span>
                                                                                         </div>
                                                                                     <input type="hidden" id="idEmpaquetador"  name="idEmpaquetador" />
+                                                                                    <input type="hidden" id="reempaque"  name="reempaque"  value="0" /> 
+                                                                                    <input type="hidden" id="idDiaRecepcion"  name="idDiaRecepcion"  value="<%=objDiaRecepcion.getId_dia_recepcion()%>" /> 
+                                                                                    
                                                                                     </div>                                                                                   
 
                                                                             </div>
@@ -187,7 +186,7 @@ else
                                                             </div>
                                                     </div>
                                             </div>
-                            <div class="span8">
+                            <div class="span9">
                                         <div id="tabla"> </div>
                                    </div>
               </form>
@@ -219,6 +218,8 @@ function tabla()
 
 var actulizar=false;   
 var validGrabar=true; 
+var validEnvase=false;
+var validCategoria=false;
 var validLote=false;
 var validColor=false;
 var validSeleccionador=false;
@@ -228,30 +229,25 @@ $(document).ready(function() {
 $('#cbLineaProduccion').on('change', function() {
     if(this.value!="")
     {
-        $("#txtLote").select(); 
+        $("#txtEnvase").select(); 
         tabla();
-    }
-});
-$('#cbCategoria').on('change', function() {
-    if(this.value!="")
-    {
-        $("#txtLote").select(); 
-    }
-});
-$('#cbEnvase').on('change', function() {
-    if(this.value!="")
-    {
-        $("#txtLote").select(); 
     }
 });
 $("#txtLote").keyup(function(){
         $(this).val($(this).val().trim());
     validLote=false;
     $("#idLote").val(''); 
+    if(6>$(this).val().length)
+   {
+       $('#contadorLote').html('<label id="contadorLote" >Lote (6 digitos de <span class="label label-warning">'+$(this).val().length+'</span>)</label>');
+       $('#validLote').html('<i id="validLote" class="splashy-pencil"/>');
+   }
    if(6==$(this).val().length)
    {
+       $('#contadorLote').html('<label id="contadorLote" >Lote (6 digitos de <span class="label label-success">'+$(this).val().length+'</span>)</label>');
+        
         for (i = 0; i <lote.entidad.length; i++) { 
-            if(lote.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
+            if(lote.entidad[i].codigo_control.toUpperCase().trim()==$(this).val().toUpperCase())
             {
                 $("#idLote").val(lote.entidad[i].id_lote); 
                 validLote=true;
@@ -269,6 +265,11 @@ $("#txtLote").keyup(function(){
               
         }
    }
+   else if(6<$(this).val().length)
+   {
+       $('#contadorLote').html('<label id="contadorLote" >Lote (6 digitos de <span class="label label-important">'+$(this).val().length+'</span>)</label>');
+       $('#validCategoria').html('<i id="validCategoria" class="splashy-thumb_down"/>');
+   }
      
 });
 
@@ -279,8 +280,15 @@ $("#txtColor").keyup(function(){
     validColor=false;
     $("#idCalibre").val(''); 
     $("#idColor").val(''); 
+   if(9>$(this).val().length)
+   {
+       $('#contadorColor').html('<label id="contadorColor" >Calibre + Color (9 digitos de <span class="label label-warning">'+$(this).val().length+'</span>)</label>');
+       $('#validColor').html('<i id="validColor" class="splashy-pencil"/>');
+   }
    if(9==$(this).val().length)
    {
+        $('#contadorColor').html('<label id="contadorColor" >Calibre + Color (9 digitos de <span class="label label-success">'+$(this).val().length+'</span>)</label>');
+       
        $(this).val($(this).val().replace(/"/g, '-'));
        $(this).val($(this).val().replace(/'/g, '-'));
 
@@ -289,14 +297,14 @@ $("#txtColor").keyup(function(){
             var elem =$(this).val().split('-');
 
            for (i = 0; i <calibre.entidad.length; i++) { 
-               if(calibre.entidad[i].codigo_control.toUpperCase()==elem[0].toUpperCase())
+               if(calibre.entidad[i].codigo_control.toUpperCase().trim()==elem[0].toUpperCase())
                {
                    $("#idCalibre").val(calibre.entidad[i].id_calibre); 
                    calibreEstado=true;
                }
            }
            for (i = 0; i <color.entidad.length; i++) { 
-               if(color.entidad[i].codigo_control.toUpperCase()==elem[1].toUpperCase())
+               if(color.entidad[i].codigo_control.toUpperCase().trim()==elem[1].toUpperCase())
                {
                    $("#idColor").val(color.entidad[i].id_color);
                    colorEstado=true;
@@ -320,6 +328,11 @@ $("#txtColor").keyup(function(){
         }
         
    }
+   else if(9<$(this).val().length)
+   {
+       $('#contadorColor').html('<label id="contadorColor" >Calibre + Color (9 digitos de <span class="label label-important">'+$(this).val().length+'</span>)</label>');
+       $('#validColor').html('<i id="validColor" class="splashy-thumb_down"/>');
+   }
      
 });
 
@@ -327,10 +340,17 @@ $("#txtSeleccionador").keyup(function(){
     $(this).val($(this).val().trim());
     validSeleccionador=false;
     $("#idSeleccionador").val(''); 
+     if(8>$(this).val().length)
+   {
+       $('#contadorSeleccionador').html('<label id="contadorSeleccionador" >Seleccionador (8 digitos de <span class="label label-warning">'+$(this).val().length+'</span>)</label>');
+       $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-pencil"/>');
+   }
    if(8==$(this).val().length)
    {
+        $('#contadorSeleccionador').html('<label id="contadorSeleccionador" >Seleccionador (8 digitos de <span class="label label-success">'+$(this).val().length+'</span>)</label>');
+       
         for (i = 0; i <empleado.entidad.length; i++) { 
-            if(empleado.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
+            if(empleado.entidad[i].codigo_control.toUpperCase().trim()==$(this).val().toUpperCase())
             {
                 $("#idSeleccionador").val(empleado.entidad[i].codigo_control); 
                 validSeleccionador=true;
@@ -347,6 +367,11 @@ $("#txtSeleccionador").keyup(function(){
             $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-thumb_down"/>');
         }
    }
+   else if(8<$(this).val().length)
+   {
+       $('#contadorSeleccionador').html('<label id="contadorSeleccionador" >Seleccionador (8 digitos de <span class="label label-important">'+$(this).val().length+'</span>)</label>');
+       $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-thumb_down"/>');
+   }
      
 });
 
@@ -354,10 +379,17 @@ $("#txtEmpaquetador").keyup(function(){
     $(this).val($(this).val().trim());
     validEmpaquetador=false;
     $("#idEmpaquetador").val(''); 
+     if(8>$(this).val().length)
+   {
+       $('#contadorEmpaquetador').html('<label id="contadorEmpaquetador" >Empaquetador (8 digitos de <span class="label label-warning">'+$(this).val().length+'</span>)</label>');
+       $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-pencil"/>');
+   }
    if(8==$(this).val().length)
    {
+       $('#contadorEmpaquetador').html('<label id="contadorEmpaquetador" >Empaquetador (8 digitos de <span class="label label-success">'+$(this).val().length+'</span>)</label>');
+       
         for (i = 0; i <empleado.entidad.length; i++) { 
-            if(empleado.entidad[i].codigo_control.toUpperCase()==$(this).val().toUpperCase())
+            if(empleado.entidad[i].codigo_control.toUpperCase().trim()==$(this).val().toUpperCase())
             {
                 $("#idEmpaquetador").val(empleado.entidad[i].codigo_control); 
                 validEmpaquetador=true;
@@ -374,8 +406,90 @@ $("#txtEmpaquetador").keyup(function(){
             $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_down"/>');
         }
    }
+   else if(8<$(this).val().length)
+   {
+       $('#contadorEmpaquetador').html('<label id="contadorEmpaquetador" >Empaquetador (8 digitos de <span class="label label-important">'+$(this).val().length+'</span>)</label>');
+       $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-thumb_down"/>');
+   }
      
 });
+
+$("#txtEnvase").keyup(function(){    
+    $(this).val($(this).val().trim());
+    validEnvase=false;
+    $("#idEnvase").val(''); 
+    if(6>$(this).val().length)
+   {
+       $('#contadorEnvase').html('<label id="contadorEnvase" >Envase (6 digitos de <span class="label label-warning">'+$(this).val().length+'</span>)</label>');
+       $('#validEnvase').html('<i id="validEnvase" class="splashy-pencil"/>');
+   }
+   if(6==$(this).val().length)
+   {
+        $('#contadorEnvase').html('<label id="contadorEnvase" >Envase (6 digitos de <span class="label label-success">'+$(this).val().length+'</span>)</label>');
+        for (i = 0; i <envase.entidad.length; i++) { 
+            if(envase.entidad[i].codigo_control.toUpperCase().trim()==$(this).val().toUpperCase())
+            {
+                $("#idEnvase").val(envase.entidad[i].id_envase); 
+                validEnvase=true;
+            }   
+        }
+        if(validEnvase)
+        {
+            $("#txtCategoria").focus();   
+            $('#validEnvase').html('<i id="validEnvase" class="splashy-thumb_up"/>');
+        }
+        else
+        {
+            $.sticky("<center><h1>Error de lectura del Envase</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+            $('#validEnvase').html('<i id="validEnvase" class="splashy-thumb_down"/>');
+        }
+   }
+    else if(6<$(this).val().length)
+   {
+       $('#contadorEnvase').html('<label id="contadorEnvase" >Envase (6 digitos de <span class="label label-important">'+$(this).val().length+'</span>)</label>');
+       $('#validEnvase').html('<i id="validEnvase" class="splashy-thumb_down"/>');
+   }
+     
+});
+
+$("#txtCategoria").keyup(function(){    
+    $(this).val($(this).val().trim());
+    validCategoria=false;
+    $("#idCategoria").val(''); 
+     if(6>$(this).val().length)
+   {
+       $('#contadorCategoria').html('<label id="contadorCategoria" >Categoria (6 digitos de <span class="label label-warning">'+$(this).val().length+'</span>)</label>');
+       $('#validCategoria').html('<i id="validCategoria" class="splashy-pencil"/>');
+   }
+   if(6==$(this).val().length)
+   {
+       $('#contadorCategoria').html('<label id="contadorCategoria" >Categoria (6 digitos de <span class="label label-success">'+$(this).val().length+'</span>)</label>');
+        for (i = 0; i <categoria.entidad.length; i++) { 
+            if(categoria.entidad[i].codigo_control.toUpperCase().trim()==$(this).val().toUpperCase())
+            {
+                $("#idCategoria").val(categoria.entidad[i].id_categoria); 
+                validCategoria=true;
+            }   
+        }
+        if(validCategoria)
+        {
+            $('#validCategoria').html('<i id="validCategoria" class="splashy-thumb_up"/>');
+            $("#txtLote").focus();   
+        }
+        else
+        {
+            $.sticky("<center><h1>Error de lectura de la Categoria</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+            $('#validCategoria').html('<i id="validCategoria" class="splashy-thumb_down"/>');
+        }
+   }
+   else if(6<$(this).val().length)
+   {
+       $('#contadorCategoria').html('<label id="contadorCategoria" >Categoria (6 digitos de <span class="label label-important">'+$(this).val().length+'</span>)</label>');
+       $('#validCategoria').html('<i id="validCategoria" class="splashy-thumb_down"/>');
+   }
+     
+});
+
 });
 
 function comprobar()
@@ -385,13 +499,17 @@ function comprobar()
         {
              $.sticky("Selecione una Linea de Porducción", {autoclose : 5000, position: "top-center", type: "st-error" });
         }
-        else if($("#cbCategoria :selected").val()=="")
+        else if(!validEnvase)
         {
-             $.sticky("Selecione una Categoria", {autoclose : 5000, position: "top-center", type: "st-error" });
+            $("#txtEnvase").select(); 
+             $.sticky("<center><h1>Error de lectura del Envase</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+             
         }
-         else if($("#cbEnvase :selected").val()=="")
+        else if(!validCategoria)
         {
-             $.sticky("Selecione un Envase", {autoclose : 5000, position: "top-center", type: "st-error" });
+            $("#txtCategoria").select(); 
+             $.sticky("<center><h1>Error de lectura del Envase</h1></center>", {autoclose : 5000, position: "top-right", type: "st-error" });
+             
         }
         else if(!validLote)
         {
@@ -443,6 +561,8 @@ validLote=true;
 validColor=true;
 validSeleccionador=true;
 validEmpaquetador=true;
+validEnvase=true;
+validCategoria=true;
      $("#btnGrabar").show(); 
     actulizar=true;
      $("#txtLote").val(nLote); 
@@ -461,8 +581,13 @@ validEmpaquetador=true;
     $("#IdProductoTerminado").val(id);  
     
     $("select#cbLineaProduccion").val(idLinea); 
-    $("select#cbCategoria").val(idCategoria); 
-    $("select#cbEnvase").val(idEnvase); 
+    
+    $("#txtCategoria").val(nCategoria); 
+    $("#idCategoria").val(idCategoria); 
+    
+    $("#txtEnvase").val(nEnvase); 
+    $("#idEnvase").val(idEnvase); 
+    
     
 };
 function grabar(){
@@ -501,6 +626,8 @@ validLote=false;
 validColor=false;
 validSeleccionador=false;
 validEmpaquetador=false;
+validCategoria=false;
+validEnvase=false;
      $("#btnGrabar").hide(); 
     actulizar=false;
      validGrabar=true;
@@ -517,13 +644,28 @@ validEmpaquetador=false;
     $("#txtEmpaquetador").val(""); 
     $("#idEmpaquetador").val(""); 
     
+    $("#txtEnvase").val(""); 
+    $("#idEnvase").val(""); 
+    
+    $("#txtCategoria").val(""); 
+    $("#idCategoria").val(""); 
+    
     $("#IdProductoTerminado").val("0");  
     
     $('#validLote').html('<i id="validLote" class="splashy-pencil"/>');
     $('#validColor').html('<i id="validColor" class="splashy-pencil"/>');
     $('#validSeleccionador').html('<i id="validSeleccionador" class="splashy-pencil"/>');
     $('#validEmpaquetador').html('<i id="validEmpaquetador" class="splashy-pencil"/>');
-    $("#txtLote").select(); 
+    $('#validEnvase').html('<i id="validEnvase" class="splashy-pencil"/>');
+    $('#validCategoria').html('<i id="validCategoria" class="splashy-pencil"/>');
+    $("#txtEnvase").select();     
+    $('#contadorEnvase').html('<label id="contadorEnvase" >Envase (6 digitos de <span class="label label-warning">0</span>)</label>');
+    $('#contadorCategoria').html('<label id="contadorCategoria" >Categoria (6 digitos de <span class="label label-warning">0</span>)</label>');
+    $('#contadorLote').html('<label id="contadorLote" >Lote (6 digitos de <span class="label label-warning">0</span>)</label>');
+    $('#contadorColor').html('<label id="contadorColor" >Calibre + Color (9 digitos de <span class="label label-warning">0</span>)</label>');
+    $('#contadorSeleccionador').html('<label id="contadorSeleccionador" >Seleccionador (8 digitos de <span class="label label-warning">0</span>)</label>');
+    $('#contadorEmpaquetador').html('<label id="contadorEmpaquetador" >Empaquetador (8 digitos de <span class="label label-warning">0</span>)</label>');
+       
 };
 var calibre = {
      'entidad': [ 
@@ -595,6 +737,44 @@ var empleado= {
         }else
         {
              out.print("{'id_empleado': "+listEmpleado.get(i).getId_empleado()+",'nombre': '"+listEmpleado.get(i).getNombre()+" "+listEmpleado.get(i).getApellido()+"','codigo_control': '"+listEmpleado.get(i).getDni()+"'},");
+        }
+    }%>
+     ]
+};
+
+var envase= {
+     'entidad': [ 
+    <%
+    List<entEnvase> listEnvase = clsGestor.ListarEnvase(true);
+    if(listEnvase!=null)
+    {
+      size=listEnvase.size();
+     for(int i=0;i<size;i++)
+        if(i==(size-1))
+        {
+            out.print("{'id_envase': "+listEnvase.get(i).getId_envase()+",'nombre': '"+listEnvase.get(i).getNombre()+"','codigo_control': '"+listEnvase.get(i).getCodigo_control()+"'}");
+        }else
+        {
+             out.print("{'id_envase': "+listEnvase.get(i).getId_envase()+",'nombre': '"+listEnvase.get(i).getNombre()+"','codigo_control': '"+listEnvase.get(i).getCodigo_control()+"'},");
+        }
+    }%>
+     ]
+};
+
+var categoria= {
+     'entidad': [ 
+    <%
+    List<entCategoria> listCategoria = clsGestor.ListarCategoria(true);
+    if(listCategoria!=null)
+    {
+      size=listCategoria.size();
+     for(int i=0;i<size;i++)
+        if(i==(size-1))
+        {
+            out.print("{'id_categoria': "+listCategoria.get(i).getId_categoria()+",'nombre': '"+listCategoria.get(i).getNombre()+"','codigo_control': '"+listCategoria.get(i).getCodigo_control()+"'}");
+        }else
+        {
+             out.print("{'id_categoria': "+listCategoria.get(i).getId_categoria()+",'nombre': '"+listCategoria.get(i).getNombre()+"','codigo_control': '"+listCategoria.get(i).getCodigo_control()+"'},");
         }
     }%>
      ]

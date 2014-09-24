@@ -288,7 +288,10 @@ function tabla()
                                         
                                         setTimeout('$("html").removeClass("js")',1000);
 
-                                       
+                                        $("#txtCodigo").keyup(function(){
+                                                $(this).val($(this).val().toUpperCase());
+                                        });
+                               
                                         
                                         
                                       $('#reg_form').validate({
@@ -329,7 +332,7 @@ function tabla()
 					rules: {
 						txtNombre: { required: true, minlength: 3 },
                                                 txtCarga: { required: true, number:true },
-                                                txtCodigo: { required: true, minlength: 3 },
+                                                txtCodigo: { required: true, minlength: 6 , maxlength: 6  },
                                                 txtPeso: { required: true, number:true },
                                                 txtCajas: { required: true, digits:true },
                                                 rbEstado: { required: true }

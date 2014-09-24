@@ -29,9 +29,12 @@ public class entProductoTerminado
     private int estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
+    private boolean reempaque;
     
 
-    public entProductoTerminado (){}
+    public entProductoTerminado (){
+        this.reempaque=false;
+    }
 
     public int getEstado() {
         return estado;
@@ -151,7 +154,13 @@ public class entProductoTerminado
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
     }
-    
-    
+
+    public boolean isReempaque() {
+        return reempaque;
+    }
+
+    public void setReempaque(boolean reempaque) {
+        this.reempaque = reempaque;
+    }
     
 }

@@ -195,40 +195,6 @@ function getMododulos(posicion)
             processData: false
         });
 };                           
-function SetRecepccion(parametro)
-{
-    var texto="Desea iniciar un dia de Producción ";
-    if(parametro==1)
-    texto="Desea cerrar el dia de Producción ";
-    else if(parametro==2)
-    texto="Desea continuar con el dia de Producción ";
-    smoke.confirm(texto,function(e){
-                if (e){
-                       $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
-                        $.ajax({
-                        url: 'operaciones/dia_recepcion/gestionar.jsp?parametro='+parametro,
-                        type: 'POST',
-                        success: function () {     
-                                $.ajax({
-                                url: 'operaciones/paleta/baja_frio_producto/registrar.jsp',
-                                type: 'POST',
-                                success: function (data) {     
-                                         $('#frame').html(data);
-                                         modulos();
-                                },
-                                contentType: false,
-                                processData: false
-                                });
-                        },
-                        contentType: false,
-                        processData: false
-                        });
-                }
-        }, {cancel:"No",ok:"Si"});
-    
-    
-  
-};
 
  function getion()
 {    $('#frame').html('<center><h3 id="frame"><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');

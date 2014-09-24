@@ -9,7 +9,7 @@
     entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {   
-    List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(true);
+    List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(true,false);
     if(list!=null)
 
         for(entLineaProduccion entidad : list)

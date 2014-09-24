@@ -6,7 +6,7 @@
 entSesion objSession =(entSesion) request.getSession().getAttribute("SessionUsuario");
 if(objSession!=null)
 {
-List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(false);
+List<entLineaProduccion> list=clsGestor.ListarLineaProduccion(false,false);
 if(list!=null)
 {%>
 <div id="tabla">
