@@ -127,6 +127,8 @@ public class LoteDAO
                         " JOIN CULTIVO C ON VA.ID_CULTIVO=C.ID_CULTIVO ";
             if(activo)
                         sql+=" where L.ESTADO=1"; 
+            
+                        sql+=" order by  L.nombre"; 
 
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);

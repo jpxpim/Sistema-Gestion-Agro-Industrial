@@ -1033,9 +1033,9 @@ public class clsGestor {
         // </editor-fold> 
      
     //<editor-fold defaultstate="collapsed" desc="Reporte">
-     public static List<entReporte> listarStockResumenReporte(int Posicion, int Estado) throws Exception 
+     public static List<entReporte> listarStockResumenReporte(int Posicion, int Estado,int idLote,int idVariedad,int idEnvase,int idCalibre,int idCliente,int idCategoria,int idProductor) throws Exception 
      {
-         return ReporteDAO.listarStockResumen(Posicion, Estado);
+         return ReporteDAO.listarStockResumen(Posicion, Estado, idLote, idVariedad, idEnvase, idCalibre, idCliente, idCategoria, idProductor);
      }
      public static List<entReporte> listarCajasEmbaladasXTrabajadorReporte(int Operacion, String Inicio, String Fin) throws Exception 
      {

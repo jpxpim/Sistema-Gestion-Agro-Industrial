@@ -108,18 +108,59 @@ else{
                                 <table class="table table-striped table_vam" >
                                 <tr>
                                     <td >
-                                         <select id="cbLineaProduccionProducto" name="cbLineaProduccionProducto" title="Por favor selecione una Linea de Produccion!" required>
-                                            <option value="0">Stock Total</option>
-                                            <option value="1">Paletizado</option>
-                                            <option value="3">Tunel</option>
-                                            <option value="4">Camara</option>
+                                         <select id="cbPosicion" name="cbPosicion" required>
+                                            <option value="0">Paletas(Paletizado,Tunel y Camara)</option>
+                                            <option value="1">Paletas en Paletizado</option>
+                                            <option value="2">Paletas en Tunel</option>
+                                            <option value="3">Paletas en Camara</option>
                                        </select>
                                     </td>
                                     <td >
-                                         <select id="cbLineaProduccionProducto" name="cbLineaProduccionProducto" title="Por favor selecione una Linea de Produccion!" required>
-                                            <option value="0">Paletas Totales</option>
+                                         <select id="cbEstado" name="cbEstado" required>
+                                            <option value="0">Paletas(Completas e Incompletas)</option>
                                             <option value="1">Paletas Completas</option>
                                             <option value="2">Paletas Incompletas</option>
+                                       </select>
+                                    </td>
+                                    <td >
+                                         <select id="cbLote" name="cbLote" required>
+                                            <option value="0"></option>
+                                       </select>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td >
+                                       <select id="cbVariedad" name="cbVariedad" required>
+                                           <option value="0"></option>
+                                       </select>
+                                    </td>
+                                    <td >
+                                         <select id="cbEnvase" name="cbEnvase" required>
+                                             <option value="0"></option>
+                                       </select>
+                                    </td>
+                                    <td >
+                                         <select id="cbCalibre" name="cbCalibre" required>
+                                           <option value="0"></option>
+                                       </select>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td >
+                                         <select id="cbCliente" name="cbCliente" required>
+                                             <option value="0"></option>
+                                       </select>
+                                    </td>
+                                    <td >
+                                         <select id="cbCategoria" name="cbCategoria" required>
+                                             <option value="0"></option>
+                                       </select>
+                                    </td>
+                                    <td >
+                                         <select id="cbProductor" name="cbProductor" required>
+                                           <option value="0"></option>
                                        </select>
                                     </td>
                                 </tr>
@@ -222,11 +263,123 @@ function getMododulos(posicion)
             contentType: false,
             processData: false
         });
-};                           
-function tabla()
+}; 
+comboLote();
+ function comboLote()
 {
      $.ajax({
-        url: 'operaciones/reporte/stock_resumen.jsp?posicion=0&estado=0',
+        url: 'operaciones/lote/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbLote').html(data);
+                 $('#cbLote option[value=]').text('Todas los Lotes');
+                 $('#cbLote option[value=]').val(0);
+                 
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+ comboVariedad();
+  function comboVariedad()
+{
+     $.ajax({
+        url: 'operaciones/variedad/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbVariedad').html(data);
+                 $('#cbVariedad option[value=]').text('Todas las Variedades');
+                 $('#cbVariedad option[value=]').val(0);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+comboEnvase();
+function comboEnvase()
+{
+     $.ajax({
+        url: 'operaciones/envase/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbEnvase').html(data);
+                 $('#cbEnvase option[value=]').text('Todos los Envases');
+                 $('#cbEnvase option[value=]').val(0);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+ comboCalibre();
+function comboCalibre()
+{
+     $.ajax({
+        url: 'operaciones/calibre/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbCalibre').html(data);
+                 $('#cbCalibre option[value=]').text('Todos los Calibres');
+                 $('#cbCalibre option[value=]').val(0);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+  comboCliente();
+function comboCliente()
+{
+     $.ajax({
+        url: 'operaciones/cliente/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbCliente').html(data);
+                 $('#cbCliente option[value=]').text('Todos los Clientes');
+                 $('#cbCliente option[value=]').val(0);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+   comboCategoria();
+function comboCategoria()
+{
+     $.ajax({
+        url: 'operaciones/categoria/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbCategoria').html(data);
+                 $('#cbCategoria option[value=]').text('Todas las Categorias');
+                 $('#cbCategoria option[value=]').val(0);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+   comboProductor();
+function comboProductor()
+{
+     $.ajax({
+        url: 'operaciones/productor/list_combo.jsp',
+        type: 'POST',
+        success: function (data) {     
+                 $('#cbProductor').html(data);
+                 $('#cbProductor option[value=]').text('Todos los Productores');
+                 $('#cbProductor option[value=]').val(0);
+        },
+        contentType: false,
+        processData: false
+    });          
+ };
+function tabla()
+{
+    $('#tabla').html('<center id="tabla"><h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3></center>');
+   
+     $.ajax({
+       url: 'operaciones/reporte/stock_resumen.jsp?cbPosicion='+$("select#cbPosicion").val()
+                +'&cbEstado='+$("select#cbEstado").val()+'&cbLote='+$("select#cbLote").val()
+                +'&cbVariedad='+$("select#cbVariedad").val()+'&cbEnvase='+$("select#cbEnvase").val()
+                +'&cbCalibre='+$("select#cbCalibre").val()+'&cbCliente='+$("select#cbCliente").val()
+                +'&cbCategoria='+$("select#cbCategoria").val()+'&cbProductor='+$("select#cbProductor").val(),
         type: 'POST',
         success: function (data) {     
                  $('#tabla').html(data);
@@ -249,6 +402,33 @@ function tabla()
                                         setTimeout('$("html").removeClass("js")',1000);
                                         
                                
+                                $('#cbPosicion').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbEstado').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbLote').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbVariedad').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbEnvase').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbCalibre').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbCliente').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbCategoria').on('change', function() {
+                                        tabla();
+                                });
+                                $('#cbProductor').on('change', function() {
+                                        tabla();
+                                });
                                    
                                         
 				});

@@ -124,7 +124,6 @@ public class UsuarioDAO {
                    + " foto,estado,usuario_responsable,fecha_modificacion,es_administrador)"
                    + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,GETDATE(),0);";
            
-            DateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, entidad.getLogin());

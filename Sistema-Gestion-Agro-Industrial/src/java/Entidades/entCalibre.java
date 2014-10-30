@@ -20,8 +20,10 @@ public class entCalibre {
     private boolean estado;
     private String usuario_responsable;
     private Date fecha_modificacion;
+    private boolean parametro;
 
     public entCalibre() {
+        this.parametro=false;
     }
 
     public entCalibre(String nombre) {
@@ -86,6 +88,14 @@ public class entCalibre {
 
     public void setFecha_modificacion(Date fecha_modificacion) {
         this.fecha_modificacion = fecha_modificacion;
+    }
+
+    public boolean isParametro() {
+        return parametro;
+    }
+
+    public void setParametro(boolean parametro) {
+        this.parametro = parametro;
     }
     
 }

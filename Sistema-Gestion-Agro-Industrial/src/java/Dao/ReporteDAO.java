@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReporteDAO {    
-    public static List<entReporte> listarStockResumen(int Posicion, int Estado) throws Exception {
+    public static List<entReporte> listarStockResumen(int Posicion, int Estado,int idLote,int idVariedad,int idEnvase,int idCalibre,int idCliente,int idCategoria,int idProductor) throws Exception {
         List<entReporte> listReporte = null;
         Connection conn =null;
         CallableStatement stmt = null;
         ResultSet dr = null;
         try {
-            String sql=" exec SP_reporte_stock_resumen "+Posicion+","+Estado;
+            String sql=" exec SP_reporte_stock_resumen "+Posicion+","+Estado+","+idLote+","+idVariedad+","+idEnvase+","+idCalibre+","+idCliente+","+idCategoria+","+idProductor;
             conn = ConexionDAO.getConnection();
             stmt = conn.prepareCall(sql);
             dr = stmt.executeQuery();
