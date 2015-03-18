@@ -149,9 +149,7 @@ else{
                                                     </div>
                                             </div>	
                                             <div class="span8">
-                                                <div id="tabla">
-                                                  
-                                                </div>
+                                                <div id="tabla"></div>
                                             </div>
                                     </div>
                                             </div>
