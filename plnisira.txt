@@ -1,0 +1,325 @@
+ALTER PROCEDURE [dbo].[RPT_PACKINGLIST_PALETIZADO_MANU] 
+	@EMPRESA CHAR(3),
+	@ID      CHAR(15),
+	@TIPO    CHAR(1) -- (L) CALIBRES, (D) DETALLE
+	
+AS
+  BEGIN
+      IF @TIPO = 'L'
+        BEGIN
+            SELECT DISTINCT PR.IDTALLA,
+                            T.CALIBRE,
+                            PR.IDCOLOR,
+                            C.NOMBRE_CORTO COLOR,
+                            DR.TALLA_EQUIV
+            FROM   PACKINGLIST P
+                   INNER JOIN DDPACKINGLIST D
+                     ON P.IDPACKINGLIST = D.IDPACKINGLIST
+                        AND P.IDEMPRESA = D.IDEMPRESA
+                   INNER JOIN DREGISTROPALETA DR
+                     ON D.IDREFERENCIA = DR.IDREGISTROPALETA
+                        AND D.ITEMREF = DR.ITEM
+                        AND D.IDEMPRESA = DR.IDEMPRESA
+                   LEFT JOIN PRODUCTOS PR
+                     ON D.IDPRODUCTO = PR.IDPRODUCTO
+                        AND D.IDEMPRESA = PR.IDEMPRESA
+                   LEFT JOIN TALLAS T
+                     ON PR.IDTALLA = T.IDTALLA
+                        AND PR.IDEMPRESA = T.IDEMPRESA
+                   LEFT JOIN COLORES C
+                     ON PR.IDCOLOR = C.IDCOLOR
+            WHERE  P.IDPACKINGLIST = @ID
+                   AND P.IDEMPRESA = @EMPRESA
+        END
+
+      IF @TIPO = 'D'
+        BEGIN
+            SELECT P.FECHA,
+                   P.IDCLIEPROV,
+                   P.IDDOCUMENTO,
+                   P.SERIE,
+                   P.NUMERO,
+                   CC.RAZON_SOCIAL                                                    CLIENTE,
+                   P.IDEXPORTADOR,
+                   CE.RAZON_SOCIAL                                                    EXPORTADOR,
+                   P.IDPRODUCTOR,
+                   CP.RAZON_SOCIAL                                                    PRODUCTOR,
+                   P.IDFLETE,
+                   F.DESCRIPCION                                                      FLETE,
+                   P.IDDOCORIGEN2 + ' ' + P.SERIEDOCORIGEN2 + ' - ' + P.NUMDOCORIGEN2 INVOICE,
+                   P.IDDOCORIGEN + ' ' + P.SERIEDOCORIGEN + ' - ' + P.NUMDOCORIGEN    REMISION,
+                   P.CONTAINER,
+                   P.FITOSANITARIO,
+                   P.PRECINTOADUANA,
+                   P.PRECINTOSENASA,
+                   P.THERMOREGISTRO,
+                   P.FECHATRASLADO,
+                   P.FECHAEMBARQUE,
+                   P.FECHAARRIBO,
+                   P.CIUDADORIGEN,
+                   P.IDPUERTOORIGEN,
+                   PO.DESCRIPCION                                                     PTOORIGEN,
+                   P.CIUDADDESTINO,
+                   P.IDPUERTODESTINO,
+                   PDE.DESCRIPCION                                                    PTODESTINO,
+                   P.IDTRANSPORTISTA,
+                   CT.RAZON_SOCIAL                                                    TRANSPORTISTA,
+                   P.CHOFER,
+                   P.BREVETE,
+                   P.PLACA,
+                   P.PLACA1,
+                   D.IDPRODUCTO,
+                   PD.DESCRIPCION,
+                   T.DESCORTA                                                         IDTALLA,
+                   SUM(D.CANTIDAD) AS CANTIDAD,
+                   C.DESCRIPCION                                                      CULTIVO,
+                   V.DESCRIPCION                                                      VARIEDAD,
+                   EN.DESCRIPCION                                                     PESO,
+                   D.NUMPALETA,
+                   R.nromanual,
+                   DR.FECHA                                                           F_PALETA,
+                   DR.IDCOLOR,
+                   PL.IDPROVLOTE                                                      IDPRODUCTOR_DET,
+                   PL.NOMCORTO                                                        DSC_PRODUCTOR_DET,
+                   DR.IDETIQUETA,
+                   E.NOMBRE_CORTO                                                     ETIQUETA,
+                   D.CODIGOCLIENTE,
+                   DR.TALLA_EQUIV,
+                   --MCHCL
+                   T.CALIBRE, CL.NOMBRE_CORTO COLOR,
+                   --FEM
+                   CMP.IDCONDICION, CMP.NOMBRE_CORTO CONDICION,D.FECHA AS FECHA_EMBALAJE                   
+                   --INTO #TMPLISTA                   
+            FROM   PACKINGLIST P INNER JOIN DDPACKINGLIST D ON P.IDPACKINGLIST = D.IDPACKINGLIST AND P.IDEMPRESA = D.IDEMPRESA
+                   INNER JOIN DREGISTROPALETA DR ON D.IDREFERENCIA = DR.IDREGISTROPALETA AND D.ITEMREF = DR.ITEM AND D.IDEMPRESA = DR.IDEMPRESA
+                   INNER JOIN REGISTROPALETA R ON DR.IDREGISTROPALETA = R.IDREGISTROPALETA AND DR.IDEMPRESA = R.IDEMPRESA
+                   --EFL
+                   INNER JOIN MOTIVOPALETA MP ON R.IDMOTIVOPALETA=MP.IDMOTIVOPALETA AND R.IDEMPRESA=MP.IDEMPRESA
+                   LEFT JOIN PROVEEDORLOTE PL ON DR.IDCLIEPROV = PL.IDCLIEPROV AND DR.IDEMPRESA = PL.IDEMPRESA
+                   LEFT JOIN PRODUCTOS PD ON D.IDPRODUCTO = PD.IDPRODUCTO AND D.IDEMPRESA = PD.IDEMPRESA
+                   LEFT JOIN TALLAS T ON PD.IDTALLA = T.IDTALLA AND PD.IDEMPRESA = T.IDEMPRESA
+                   LEFT JOIN CULTIVOS C ON PD.IDCULTIVO = C.IDCULTIVO AND PD.IDEMPRESA = C.IDEMPRESA
+                   LEFT JOIN VARIEDADES_CULTIVOS V ON PD.IDCULTIVO = V.IDCULTIVO AND PD.IDVARIEDAD = V.IDVARIEDAD AND PD.IDEMPRESA = V.IDEMPRESA
+                   LEFT JOIN TIPO_INSUMOS E ON DR.IDETIQUETA = E.IDINSUMO AND DR.IDEMPRESA = E.IDEMPRESA
+                   LEFT JOIN TIPO_INSUMOS EN ON R.IDENVASE = EN.IDINSUMO AND R.IDEMPRESA = EN.IDEMPRESA
+                   LEFT JOIN CLIEPROV CC ON P.IDCLIEPROV = CC.IDCLIEPROV AND P.IDEMPRESA = CC.IDEMPRESA
+                   LEFT JOIN CLIEPROV CE ON P.IDEXPORTADOR = CE.IDCLIEPROV AND P.IDEMPRESA = CE.IDEMPRESA
+                   LEFT JOIN CLIEPROV CP ON P.IDPRODUCTOR = CP.IDCLIEPROV AND P.IDEMPRESA = CP.IDEMPRESA
+                   LEFT JOIN FLETES F ON P.IDFLETE = F.IDFLETE
+                   LEFT JOIN PUERTO_EMBARQUE PO ON P.IDPUERTOORIGEN = PO.ITEM AND P.IDEMPRESA = PO.IDEMPRESA
+                   LEFT JOIN PUERTO_EMBARQUE PDE ON P.IDPUERTODESTINO = PDE.ITEM AND P.IDEMPRESA = PDE.IDEMPRESA
+                   LEFT JOIN CLIEPROV CT ON P.IDTRANSPORTISTA = CT.IDCLIEPROV AND P.IDEMPRESA = CT.IDEMPRESA
+                   LEFT JOIN COLORES CL ON PD.IDCOLOR = CL.IDCOLOR
+                   LEFT JOIN CONDICIONMP CMP ON PD.IDCONDICION = CMP.IDCONDICION 
+            WHERE  P.IDPACKINGLIST = @ID AND P.IDEMPRESA = @EMPRESA AND (ISNULL(MP.TIPO_TARJA,0)<>3 AND ISNULL(MP.TIPO_TARJA,0)<>1)
+            GROUP BY P.FECHA,
+                   P.IDCLIEPROV,
+                   P.IDDOCUMENTO,
+                   P.SERIE,
+                   P.NUMERO,
+                   CC.RAZON_SOCIAL                                                    ,
+                   P.IDEXPORTADOR,
+                   CE.RAZON_SOCIAL                                                    ,
+                   P.IDPRODUCTOR,
+                   CP.RAZON_SOCIAL                                                    ,
+                   P.IDFLETE,
+                   F.DESCRIPCION                                                      ,
+                   P.IDDOCORIGEN2 + ' ' + P.SERIEDOCORIGEN2 + ' - ' + P.NUMDOCORIGEN2 ,
+                   P.IDDOCORIGEN + ' ' + P.SERIEDOCORIGEN + ' - ' + P.NUMDOCORIGEN    ,
+                   P.CONTAINER,
+                   P.FITOSANITARIO,
+                   P.PRECINTOADUANA,
+                   P.PRECINTOSENASA,
+                   P.THERMOREGISTRO,
+                   P.FECHATRASLADO,
+                   P.FECHAEMBARQUE,
+                   P.FECHAARRIBO,
+                   P.CIUDADORIGEN,
+                   P.IDPUERTOORIGEN,
+                   PO.DESCRIPCION                                                     ,
+                   P.CIUDADDESTINO,
+                   P.IDPUERTODESTINO,
+                   PDE.DESCRIPCION                                                    ,
+                   P.IDTRANSPORTISTA,
+                   CT.RAZON_SOCIAL                                                    ,
+                   P.CHOFER,
+                   P.BREVETE,
+                   P.PLACA,
+                   P.PLACA1,
+                   D.IDPRODUCTO,
+                   PD.DESCRIPCION,
+                   T.DESCORTA                                                         ,
+                   C.DESCRIPCION                                                      ,
+                   V.DESCRIPCION                                                      ,
+                   EN.DESCRIPCION                                                     ,
+                   D.NUMPALETA,
+                   R.nromanual,
+                   DR.FECHA                                                           ,
+                   DR.IDCOLOR,
+                   PL.IDPROVLOTE                                                      ,
+                   PL.NOMCORTO                                                        ,
+                   DR.IDETIQUETA,
+                   E.NOMBRE_CORTO                                                     ,
+                   D.CODIGOCLIENTE,
+                   DR.TALLA_EQUIV,
+                   --MCHCL
+                   T.CALIBRE, CL.NOMBRE_CORTO ,
+                   CMP.IDCONDICION, CMP.NOMBRE_CORTO,D.FECHA   
+            
+			UNION
+			
+			
+			SELECT 
+				     P.FECHA,
+                   P.IDCLIEPROV,
+                   P.IDDOCUMENTO,
+                   P.SERIE,
+                   P.NUMERO,
+                   CC.RAZON_SOCIAL                                                    CLIENTE,
+                   P.IDEXPORTADOR,
+                   CE.RAZON_SOCIAL                                                    EXPORTADOR,
+                   P.IDPRODUCTOR,
+                   CP.RAZON_SOCIAL                                                    PRODUCTOR,
+                   P.IDFLETE,
+                   F.DESCRIPCION                                                      FLETE,
+                   P.IDDOCORIGEN2 + ' ' + P.SERIEDOCORIGEN2 + ' - ' + P.NUMDOCORIGEN2 INVOICE,
+                   P.IDDOCORIGEN + ' ' + P.SERIEDOCORIGEN + ' - ' + P.NUMDOCORIGEN    REMISION,
+                   P.CONTAINER,
+                   P.FITOSANITARIO,
+                   P.PRECINTOADUANA,
+                   P.PRECINTOSENASA,
+                   P.THERMOREGISTRO,
+                   P.FECHATRASLADO,
+                   P.FECHAEMBARQUE,
+                   P.FECHAARRIBO,
+                   P.CIUDADORIGEN,
+                   P.IDPUERTOORIGEN,
+                   PO.DESCRIPCION                                                     PTOORIGEN,
+                   P.CIUDADDESTINO,
+                   P.IDPUERTODESTINO,
+                   PDE.DESCRIPCION                                                    PTODESTINO,
+                   P.IDTRANSPORTISTA,
+                   CT.RAZON_SOCIAL                                                    TRANSPORTISTA,
+                   P.CHOFER,
+                   P.BREVETE,
+                   P.PLACA,
+                   P.PLACA1,
+                   D.IDPRODUCTO,
+                   PD.DESCRIPCION,
+                   T.DESCORTA                                                         IDTALLA,
+                   SUM(ISNULL(D.CANTIDAD,0)) AS CANTIDAD,
+                   C.DESCRIPCION                                                      CULTIVO,
+                   V.DESCRIPCION                                                      VARIEDAD,
+                   EN.DESCRIPCION                                                     PESO,
+                   R.NROPALETA,
+                   R.NROMANUAL,
+                   R.FECHA                                                           F_PALETA,
+                   DR.IDCOLOR,
+                   PL.IDPROVLOTE                                                      IDPRODUCTOR_DET,
+                   PL.NOMCORTO                                                        DSC_PRODUCTOR_DET,
+                   DR.IDETIQUETA,
+                   E.NOMBRE_CORTO                                                     ETIQUETA,
+                   D.CODIGOCLIENTE,
+                   DR.TALLA_EQUIV,
+                   T.CALIBRE, CL.NOMBRE_CORTO COLOR,
+                   CMP.IDCONDICION, CMP.NOMBRE_CORTO CONDICION,R.FECHA AS FECHA_EMBALAJE      
+            FROM   PACKINGLIST P INNER JOIN DDPACKINGLIST D ON P.IDPACKINGLIST = D.IDPACKINGLIST AND P.IDEMPRESA = D.IDEMPRESA
+                   INNER JOIN REGISTROPALETA R ON D.NUMPALETA=R.NROPALETA AND D.IDEMPRESA=R.IDEMPRESA AND D.IDREFERENCIA=R.IDREGISTROPALETA
+				   INNER JOIN DREGISTROPALETA DR ON DR.IDREGISTROPALETA = R.IDREGISTROPALETA AND DR.IDEMPRESA = R.IDEMPRESA AND D.ITEMREF=DR.ITEM
+                   --EFL
+                   INNER JOIN MOTIVOPALETA MP ON R.IDMOTIVOPALETA=MP.IDMOTIVOPALETA AND R.IDEMPRESA=MP.IDEMPRESA
+                   LEFT JOIN PROVEEDORLOTE PL ON DR.IDCLIEPROV = PL.IDCLIEPROV AND DR.IDEMPRESA = PL.IDEMPRESA
+                   LEFT JOIN PRODUCTOS PD ON D.IDPRODUCTO = PD.IDPRODUCTO AND D.IDEMPRESA = PD.IDEMPRESA
+                   LEFT JOIN TALLAS T ON PD.IDTALLA = T.IDTALLA AND PD.IDEMPRESA = T.IDEMPRESA
+                   LEFT JOIN CULTIVOS C ON PD.IDCULTIVO = C.IDCULTIVO AND PD.IDEMPRESA = C.IDEMPRESA
+                   LEFT JOIN VARIEDADES_CULTIVOS V ON PD.IDCULTIVO = V.IDCULTIVO AND PD.IDVARIEDAD = V.IDVARIEDAD AND PD.IDEMPRESA = V.IDEMPRESA
+                   LEFT JOIN TIPO_INSUMOS E ON DR.IDETIQUETA = E.IDINSUMO AND DR.IDEMPRESA = E.IDEMPRESA
+                   LEFT JOIN TIPO_INSUMOS EN ON R.IDENVASE = EN.IDINSUMO AND R.IDEMPRESA = EN.IDEMPRESA
+                   LEFT JOIN CLIEPROV CC ON P.IDCLIEPROV = CC.IDCLIEPROV AND P.IDEMPRESA = CC.IDEMPRESA
+                   LEFT JOIN CLIEPROV CE ON P.IDEXPORTADOR = CE.IDCLIEPROV AND P.IDEMPRESA = CE.IDEMPRESA
+                   LEFT JOIN CLIEPROV CP ON P.IDPRODUCTOR = CP.IDCLIEPROV AND P.IDEMPRESA = CP.IDEMPRESA
+                   LEFT JOIN FLETES F ON P.IDFLETE = F.IDFLETE
+                   LEFT JOIN PUERTO_EMBARQUE PO ON P.IDPUERTOORIGEN = PO.ITEM AND P.IDEMPRESA = PO.IDEMPRESA
+                   LEFT JOIN PUERTO_EMBARQUE PDE ON P.IDPUERTODESTINO = PDE.ITEM AND P.IDEMPRESA = PDE.IDEMPRESA
+                   LEFT JOIN CLIEPROV CT ON P.IDTRANSPORTISTA = CT.IDCLIEPROV AND P.IDEMPRESA = CT.IDEMPRESA
+                   --MCHCL
+                   LEFT JOIN COLORES CL ON PD.IDCOLOR = CL.IDCOLOR
+                    --FEM
+                   LEFT JOIN CONDICIONMP CMP ON PD.IDCONDICION = CMP.IDCONDICION 
+            WHERE  P.IDPACKINGLIST = @ID AND 
+            P.IDEMPRESA = @EMPRESA AND (ISNULL(MP.TIPO_TARJA,0) IN (3,1))
+            GROUP BY P.FECHA,
+                   P.IDCLIEPROV,
+                   P.IDDOCUMENTO,
+                   P.SERIE,
+                   P.NUMERO,
+                   CC.RAZON_SOCIAL,
+                   P.IDEXPORTADOR,
+                   CE.RAZON_SOCIAL,
+                   P.IDPRODUCTOR,
+                   CP.RAZON_SOCIAL,
+                   P.IDFLETE,
+                   F.DESCRIPCION,
+                   P.IDDOCORIGEN2 + ' ' + P.SERIEDOCORIGEN2 + ' - ' + P.NUMDOCORIGEN2,
+                   P.IDDOCORIGEN + ' ' + P.SERIEDOCORIGEN + ' - ' + P.NUMDOCORIGEN,
+                   P.CONTAINER,
+                   P.FITOSANITARIO,
+                   P.PRECINTOADUANA,
+                   P.PRECINTOSENASA,
+                   P.THERMOREGISTRO,
+                   P.FECHATRASLADO,
+                   P.FECHAEMBARQUE,
+                   P.FECHAARRIBO,
+                   P.CIUDADORIGEN,
+                   P.IDPUERTOORIGEN,
+                   PO.DESCRIPCION,
+                   P.CIUDADDESTINO,
+                   P.IDPUERTODESTINO,
+                   PDE.DESCRIPCION,
+                   P.IDTRANSPORTISTA,
+                   CT.RAZON_SOCIAL,
+                   P.CHOFER,
+                   P.BREVETE,
+                   P.PLACA,
+                   P.PLACA1,
+                   D.IDPRODUCTO,
+                   PD.DESCRIPCION,
+                   T.DESCORTA,
+                   C.DESCRIPCION,
+                   V.DESCRIPCION,
+                   EN.DESCRIPCION,
+                   R.NROPALETA,
+                   R.NROMANUAL,
+                   R.FECHA,
+                   DR.IDCOLOR,
+                   PL.IDPROVLOTE,
+                   PL.NOMCORTO,
+                   DR.IDETIQUETA,
+                   E.NOMBRE_CORTO,
+                   D.CODIGOCLIENTE,
+                   DR.TALLA_EQUIV,
+                   T.CALIBRE, 
+                   CL.NOMBRE_CORTO,
+                   CMP.IDCONDICION, 
+                   CMP.NOMBRE_CORTO,
+                   R.FECHA  
+                   
+        ORDER  BY D.NUMPALETA,D.FECHA          
+            
+        END
+  END 
+
+
+-----------------------
+
+select dr.*
+--update dr set idclieprov = 'EXT0000087'
+from REGISTROPALETA r
+join DREGISTROPALETA  dr
+on r.IDREGISTROPALETA = dr.IDREGISTROPALETA
+where NROPALETA = 'SASPA150300031' and dr.ITEM > '001'
+go
+
+
+select *
+from PROVEEDORLOTE
