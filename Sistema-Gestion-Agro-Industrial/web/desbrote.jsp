@@ -102,18 +102,7 @@ else{
                         </div>
                     </nav>
                             <div id="frane"></div>
-             <!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
-
-                         <h3><img src="img/ajax-loader.gif" alt="" /> 
-                       Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>     
-
+    
                 </div>
             </div>
             
@@ -194,7 +183,7 @@ function getMododulos(posicion)
 };
 function editar(id,tipo)
 {
-     $("#abrirCarga").click();
+     $("#myModal").modal('show'); 
      $.ajax({
             url: 'operaciones/desbrote/buscar.jsp?id='+id+"&tipo="+tipo,
             type: 'POST',
@@ -234,7 +223,7 @@ function editar(id,tipo)
  };
 function tablaTemp(pos)
 {
-    $("#abrirCarga").click(); 
+    $("#myModal").modal('show');  
      $.ajax({
         url: 'operaciones/desbrote/list_tabla_temp.jsp?posicion='+pos,
         type: 'POST',
@@ -247,7 +236,7 @@ function tablaTemp(pos)
  };
  function vertablaTemp()
 {
-    $("#abrirCarga").click(); 
+    $("#myModal").modal('show');  
      $.ajax({
         url: 'operaciones/desbrote/ver_list_tabla_temp.jsp',
         type: 'POST',
@@ -266,7 +255,7 @@ function tablaTemp(pos)
         type: 'POST',
         success: function (data) {     
                  $('#frane').html(data);
-                 $("#cerrarCarga").trigger("click");
+                 $('#myModal').modal('hide');
         },
         contentType: false,
         processData: false

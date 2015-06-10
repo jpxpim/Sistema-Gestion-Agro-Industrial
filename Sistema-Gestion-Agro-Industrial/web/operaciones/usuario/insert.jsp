@@ -35,12 +35,16 @@ if(objSession!=null)
         entidad.setEstado(true);
         if(request.getParameter("rbEstado").equals("0"))
              entidad.setEstado(false);
-
-        foto=request.getParameter("txtFoto");
-        foto=foto.replace("data:image/png;base64,", "");
-        BASE64Decoder decoder = new BASE64Decoder();
-        entidad.setFoto(decoder.decodeBuffer(foto));
-
+        
+        if(!request.getParameter("txtFoto").equals("null"))
+        {
+            foto=request.getParameter("txtFoto");
+            foto=foto.replace("data:image/png;base64,", "");
+            BASE64Decoder decoder = new BASE64Decoder();
+            entidad.setFoto(decoder.decodeBuffer(foto));
+        }
+        else
+            entidad.setFoto(null);
         if(!request.getParameter("idUsuario").equals("0") )
         {
             entidad.setId_usuario(Integer.parseInt(request.getParameter("idUsuario")));

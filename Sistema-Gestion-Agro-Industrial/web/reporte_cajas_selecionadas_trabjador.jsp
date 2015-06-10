@@ -105,8 +105,8 @@ else{
                         <div class="span2"></div>
                             <div class="span8">
                               <select id="cbOperacion" name="cbOperacion" class="span5" >
-                                            <option value="5">Todos los días de Recepcción</option>
-                                            <option value="4">Todos los días de Recepcción Cerrados</option>                                            
+                                            <option value="5">Todos los días de Recepción</option>
+                                            <option value="4">Todos los días de Recepción Cerrados</option>                                            
                                             <option value="2">Ultimo día de Recepción Cerrado</option>
                                             <option value="3">Ultimo día de Recepción Abierto</option>
                                </select>
@@ -123,17 +123,7 @@ else{
             </div>
         </div>
 	
-               <!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
-
-                         <h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>     
-
+            
                 </div>
             </div>
             
@@ -225,7 +215,7 @@ function tabla(operacion)
  };
  function getReporte()
 {
-     window.location='operaciones/vivero/reporte.jsp';
+     window.location='operaciones/reporte/reporte_cajas_seleccionador_trabajador.jsp?operacion='+$("select#cbOperacion").val(); ;
  };
 
 modulos(); 

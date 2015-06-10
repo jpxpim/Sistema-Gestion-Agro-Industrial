@@ -1263,7 +1263,7 @@ function restaurar(id)
 };
 function clear()
 {
-    $("#abrirCarga").click();                
+    $("#myModal").modal('show');                 
   $.ajax({
             url: 'operaciones/brotacion/limpiar_tabla_temp.jsp',
             type: 'POST',
@@ -1296,7 +1296,7 @@ function selectCampaniaLote(id,lote,campania)
  $('#CampaniaLote').html("<di id='CampaniaLote'><blockquote><p>Lote: "+lote+"  <span class='add-on'><a data-toggle='modal' data-backdrop='static' href='#ModalCampaniaLote'><i class='splashy-zoom'></i></a></span></p><blockquote><p>Campaña: "+campania+"</p></blockquote> </blockquote></di>");  
 };
 $(function () { 
-  $("#cerrarCarga").trigger("click");
+  $('#myModal').modal('hide');
   $( "#idEvaluador" ).hide();
   $( "#idLoteCanpania" ).hide();
   
@@ -1622,7 +1622,7 @@ success: $.noop // Odd workaround for errorPlacement not firing!
                 
                 smoke.confirm('Desea <%=Titulo%> ',function(e){
                 if (e){   
-                    $("#abrirCarga").click();                    
+                    $("#myModal").modal('show');                     
                     var url = "operaciones/brotacion/insert.jsp"; 
 
                     $.ajax({
@@ -1644,7 +1644,7 @@ success: $.noop // Odd workaround for errorPlacement not firing!
                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
 
                                 }
-                               $("#cerrarCarga").trigger("click");
+                               $('#myModal').modal('hide');
                            }
                          });    
                                          }

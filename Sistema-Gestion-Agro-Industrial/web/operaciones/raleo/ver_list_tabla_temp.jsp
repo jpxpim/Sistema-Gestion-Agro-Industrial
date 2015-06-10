@@ -404,7 +404,7 @@ function clear_all()
 
 function clear()
 {
-    $("#abrirCarga").click();                
+    $("#myModal").modal('show');                 
   $.ajax({
             url: 'operaciones/raleo/limpiar_tabla_temp.jsp',
             type: 'POST',
@@ -417,7 +417,7 @@ function clear()
 };
 
 $(function () { 
-  $("#cerrarCarga").trigger("click");
+  $('#myModal').modal('hide');
   
     $.ajax({
             url: 'operaciones/graficos/pie_raleo_cumplimineto_calidad.jsp?s1=<%=rrPorctaje%>&s2=<%=rbPorctaje%>&s3=<%=raPorctaje%>',

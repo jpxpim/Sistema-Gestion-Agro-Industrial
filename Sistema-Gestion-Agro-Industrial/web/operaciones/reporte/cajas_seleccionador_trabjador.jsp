@@ -23,7 +23,7 @@ if(list!=null)
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Envase</th>
-                    <th>Cajas Embaladas</th>
+                    <th>Cajas Seleccionadas</th>
                     
             </tr>
     </thead> 

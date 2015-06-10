@@ -771,7 +771,7 @@ function clear_all()
 
 function clear()
 {
-    $("#abrirCarga").click();                
+    $("#myModal").modal('show');                 
   $.ajax({
             url: 'operaciones/desbrote/limpiar_tabla_temp.jsp',
             type: 'POST',
@@ -784,7 +784,7 @@ function clear()
 };
 
 $(function () { 
-  $("#cerrarCarga").trigger("click");
+  $('#myModal').modal('hide');
 
 
 $('#lista').dataTable({

@@ -269,18 +269,7 @@ else{
                         <a data-dismiss="modal" href="javascript:void(0)" class="btn">Cerrar</a>
                     </div>
                 </div>     
- <!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
 
-                         <h3><img src="img/ajax-loader.gif" alt="" /> 
-                       Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>     
- 
                 </div>
             </div>
             
@@ -375,7 +364,7 @@ function tabla()
  }; 
 function combo(id,idCampania,nCampania)
 {
-    $("#abrirCarga").click();
+    $("#myModal").modal('show'); 
      $.ajax({
         url: 'operaciones/campania/list_combo_lote.jsp?id='+id,
         type: 'POST',
@@ -385,7 +374,7 @@ function combo(id,idCampania,nCampania)
                      $("#cbCampania").append('<option value='+idCampania+'>'+nCampania+'</option>');
                      $("select#cbCampania").val(idCampania);                     
                  } 
-                  $("#cerrarCarga").trigger("click");
+                  $('#myModal').modal('hide');
                  
         },
         contentType: false,
@@ -424,7 +413,7 @@ function combo(id,idCampania,nCampania)
 					validClass: 'valid',
                                         ignore: ".ignore",
                                             submitHandler: function() {       
-                                                   $("#abrirCarga").click();
+                                                   $("#myModal").modal('show'); 
                                                     var url = "operaciones/campania_lote/insert.jsp"; 
 
                                                     $.ajax({
@@ -449,7 +438,7 @@ function combo(id,idCampania,nCampania)
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
-                                                                $("#cerrarCarga").trigger("click");
+                                                                $('#myModal').modal('hide');
                                                            }
                                                          });    
                                             },

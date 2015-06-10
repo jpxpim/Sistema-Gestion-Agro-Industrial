@@ -39,9 +39,6 @@ if(list!=null)
         </td>
     </tr>
     <%
-         
-        
-     
          for(entVivero entidad : list)
         {
         %>

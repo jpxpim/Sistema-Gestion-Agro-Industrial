@@ -425,7 +425,7 @@ function tablaDireccion()
                                                 
                                                 if(0<size)
                                                  {
-                                                       $("#abrirCarga").click();
+                                                       $("#myModal").modal('show'); 
                                                     var url = "operaciones/recepcion/insert.jsp"; 
 
                                                     $.ajax({
@@ -447,7 +447,7 @@ function tablaDireccion()
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
-                                                                 $("#cerrarCarga").trigger("click");
+                                                                 $('#myModal').modal('hide');
                                                            }
                                                          });
                                                      }

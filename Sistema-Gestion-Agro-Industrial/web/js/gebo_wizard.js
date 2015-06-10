@@ -22,8 +22,6 @@
 			$('#validate_wizard').stepy({
 				nextLabel:      'Siguiente <i class="icon-chevron-right icon-white"></i>',
 				backLabel:      '<i id="atraz" class="icon-chevron-left"></i> Atras',
-				block		: true,
-				errorImage	: true,
 				titleClick	: true,
 				validate	: true
 			});
@@ -45,7 +43,7 @@
 					};
 				},
                                 submitHandler: function() {       
-                                            $("#abrirCarga").click();
+                                            $("#myModal").modal('show'); 
                                                     var url = "../operaciones/usuario/insert.jsp"; 
 
                                                     $.ajax({
@@ -53,8 +51,8 @@
                                                            url: url,
                                                            data: $("#validate_wizard").serialize(), 
                                                            success: function(data)
-                                                           {
-                                                             
+                                                           {                                                             
+                                                                $('#myModal').modal('hide');
                                                                if(data==-1)
                                                                  $.sticky("Error al Registrar.", {autoclose : 5000, position: "top-center" });
                                                                 else if(data==0)
@@ -71,7 +69,6 @@
                                                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                                                    
                                                                 }
-                                                                 $("#cerrarCarga").trigger("click");
                                                            }
                                                          });    
                                             },

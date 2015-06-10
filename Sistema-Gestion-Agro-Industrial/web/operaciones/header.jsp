@@ -169,7 +169,13 @@ if(objSession!=null)
                     </div>
                 </div>
 </header>
-
+<div id="myModal" class="modal hide fade" style="width:260px; height:70; margin: 0;position: absolute;top: 40%;left: 40%;"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-body">
+        <div class="row-fluid">
+            <center><h4><img width="60" height="60" src="img/ajax-loader.gif" alt=""/> Espere un Momento..<span class="semi-bold">...</span></h4></center>
+        </div>
+    </div>
+</div>      
 <script>
                             
                             

@@ -212,16 +212,7 @@ else{
                         
                     </div>
                       <!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
-
-                         <h3><img src="img/ajax-loader.gif" alt="" /> 
-                       Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>     
+                      
    
                 </div>
             </div>
@@ -323,7 +314,7 @@ function restablecer(id,nombre)
 {
     smoke.confirm('Desea Restablecer contraseña por defecto al usario: '+nombre,function(e){
         if (e){        
-            $("#abrirCarga").click();
+            $("#myModal").modal('show'); 
             $.ajax({
             url: 'operaciones/usuario/restablecer.jsp?id='+id,
             type: 'POST',
@@ -338,7 +329,7 @@ function restablecer(id,nombre)
 
                    }
                     $('html,body').animate({ scrollTop: $('.main_content').offset().top - 100 }, 'fast');
-                     $("#cerrarCarga").trigger("click");
+                    $('#myModal').modal('hide');
             },
             contentType: false,
             processData: false
@@ -412,7 +403,7 @@ function clear_form() {
 
 };
 function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,codigo,estado) {
-    $("#abrirCarga").click();
+     $("#myModal").modal('show');    
     $('#txtNombres').val(nombres);
     $('#txtApellidos').val(apellidos);
     $('#txtEmail').val(email);
@@ -432,8 +423,8 @@ function edit_form(id,nombres,apellidos,email,telefono,celular,nacimiento,login,
         type: 'POST',
         success: function (data) {     
                  $("#foto").html('<img class="fileupload-preview thumbnail" src="'+data+'">');
-                 $('#txtFoto').val(data);
-                  $("#cerrarCarga").trigger("click");
+                 $('#txtFoto').val("null");
+                  $('#myModal').modal('hide');
         },
         contentType: false,
         processData: false

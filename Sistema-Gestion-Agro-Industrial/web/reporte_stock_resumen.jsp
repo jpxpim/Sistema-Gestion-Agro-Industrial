@@ -177,17 +177,7 @@ else{
             </div>
         </div>
 	
-               <!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
-
-                         <h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>     
-
+              
                 </div>
             </div>
             
@@ -390,7 +380,11 @@ function tabla()
  };
  function getReporte()
 {
-     window.location='operaciones/vivero/reporte.jsp';
+     window.location='operaciones/reporte/reporte_stock_resumen.jsp?cbPosicion='+$("select#cbPosicion").val()
+                +'&cbEstado='+$("select#cbEstado").val()+'&cbLote='+$("select#cbLote").val()
+                +'&cbVariedad='+$("select#cbVariedad").val()+'&cbEnvase='+$("select#cbEnvase").val()
+                +'&cbCalibre='+$("select#cbCalibre").val()+'&cbCliente='+$("select#cbCliente").val()
+                +'&cbCategoria='+$("select#cbCategoria").val()+'&cbProductor='+$("select#cbProductor").val();
  };
                               
                            modulos(); 

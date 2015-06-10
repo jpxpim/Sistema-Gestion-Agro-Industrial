@@ -591,7 +591,7 @@ validCategoria=true;
     
 };
 function grabar(){
-    $("#abrirCarga").click();
+    $("#myModal").modal('show'); 
   var url = "operaciones/producto_terminado/insert.jsp"; 
     $.ajax({
     type: "POST",
@@ -615,7 +615,7 @@ function grabar(){
            $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
 
         }
-         $("#cerrarCarga").trigger("click");
+         $('#myModal').modal('hide');
     }
     }); 
 };

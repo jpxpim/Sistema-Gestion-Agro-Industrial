@@ -71,17 +71,17 @@ if(objSession==null)
 				</div>  
 			</form>
 				<!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
-
-                         <h3><img src="img/ajax-loader.gif" alt="" /> 
-                       Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>    	
+     	
 			
+               <div id="myModal" class="modal hide fade" style="width:260px; height:70; margin: 0;position: absolute;top: 10%;left: 40%;"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-body">
+                        <div class="row-fluid">
+                            <center><h4><img width="60" height="60" src="img/ajax-loader.gif" alt=""/> Espere un Momento..<span class="semi-bold">...</span></h4></center>
+                        </div>
+                    </div>
+                </div>                
+                                
+                                
 		</div>
 		
 
@@ -106,7 +106,7 @@ if(objSession==null)
 						password: { required: true }
 					},
                                         submitHandler: function() {                                        
-                                             $("#abrirCarga").click();
+                                              $("#myModal").modal('show');           
                                             var url = "operaciones/sesion/login.jsp"; 
 
                                             $.ajax({
@@ -115,7 +115,7 @@ if(objSession==null)
                                                    data: $("#login_form").serialize(), 
                                                    success: function(data)
                                                    {
-                                                        $("#cerrarCarga").trigger("click");
+                                                        $('#myModal').modal('hide');
                                                        if(data==2)
                                                        {
                                                             window.location='intranet.jsp'; 

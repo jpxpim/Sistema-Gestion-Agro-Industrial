@@ -165,11 +165,12 @@ public class UsuarioDAO {
         CallableStatement stmt = null;
         try {
              String sql="UPDATE usuario SET login = ?,"
-                     + "codigo_erp= ?,nombre=?,apellido=?,email=?,telefono=?,celular=?,fecha_nacimiento=?,foto=?,"
+                     + "codigo_erp= ?,nombre=?,apellido=?,email=?,telefono=?,celular=?,fecha_nacimiento=?,"
                      + " estado= ?,"
                      + " usuario_responsable = ?,fecha_modificacion = GETDATE() WHERE id_usuario = ?;";
              
             conn = ConexionDAO.getConnection();
+            conn.setAutoCommit(false);
             stmt = conn.prepareCall(sql);             
             stmt.setString(1, entidad.getLogin());
             stmt.setString(2, entidad.getCodigo_erp());
@@ -178,14 +179,27 @@ public class UsuarioDAO {
             stmt.setString(5, entidad.getEmail());
             stmt.setString(6, entidad.getTelefono());
             stmt.setString(7, entidad.getCelular());
-            stmt.setTimestamp(8, new Timestamp(entidad.getFecha_nacimiento().getTime()));
-            stmt.setBytes(9, entidad.getFoto());
-            stmt.setBoolean(10, entidad.getEstado());
-            stmt.setString(11, entidad.getUsuario_responsable());
-            stmt.setInt(12,entidad.getId_usuario());  
-           rpta = stmt.executeUpdate() == 1;
+            stmt.setTimestamp(8, new Timestamp(entidad.getFecha_nacimiento().getTime()));            
+            stmt.setBoolean(9, entidad.getEstado());
+            stmt.setString(10, entidad.getUsuario_responsable());
+            stmt.setInt(11,entidad.getId_usuario());  
+            rpta = stmt.executeUpdate() == 1;
+            if(entidad.getFoto()!=null)
+            {
+                sql="UPDATE usuario SET foto=? WHERE id_usuario = ?;";
+                CallableStatement stmtFoto = conn.prepareCall(sql);
+                stmtFoto.setBytes(1, entidad.getFoto());
+                stmtFoto.setInt(2,entidad.getId_usuario()); 
+                stmtFoto.executeUpdate();
+            }
+            
+            conn.commit();
+            
         } catch (Exception e) {
-            throw new Exception("Error Actualizar "+e.getMessage(), e);
+             if (conn != null) {
+                    conn.rollback();
+                }
+            throw new Exception("Insertar"+e.getMessage(), e);
         }
         finally{
             try {

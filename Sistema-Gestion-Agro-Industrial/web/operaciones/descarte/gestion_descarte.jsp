@@ -320,7 +320,7 @@ errorClass: 'error',
 validClass: 'valid',
 ignore: ".ignore",
     submitHandler: function() {       
-               $("#abrirCarga").click();
+               $("#myModal").modal('show'); 
             var url = "operaciones/descarte/insert.jsp"; 
 
             $.ajax({
@@ -345,7 +345,7 @@ ignore: ".ignore",
                            $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
 
                         }
-                         $("#cerrarCarga").trigger("click");
+                         $('#myModal').modal('hide');
                    }
                  });    
     },

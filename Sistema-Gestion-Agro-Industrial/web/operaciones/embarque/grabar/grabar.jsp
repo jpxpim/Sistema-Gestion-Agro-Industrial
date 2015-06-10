@@ -999,7 +999,7 @@ $(document).ready(function() {
                 var arribo = new Date( $('input#textFechaArribo').val());
                 if(inicio<fin)
                 {
-                    $("#abrirCarga").click();
+                    $("#myModal").modal('show'); 
                     $('input#txtHoraInicio').val(inicio.getTime());
                     $('input#txtHoraFin').val(fin.getTime()); 
                     
@@ -1020,7 +1020,7 @@ $(document).ready(function() {
                                   clear_all();
                                    $.sticky("Se Registro Correctamente.", {autoclose : 5000, position: "top-center" });  
                                 }
-                                 $("#cerrarCarga").trigger("click");
+                                 $('#myModal').modal('hide');
                            }
                          });    
                 }

@@ -275,17 +275,7 @@ else{
                             </div>
                         </div>
 	
-               <!-- Modal Cargando -->	
-               <div class="modal hide fade" id="ModalCarga" style="width: 310px; height: 100px;position: fixed;top: 50%;left: 50%;">
-                
-                     <div class="modal-body">
-
-                         <h3><img src="img/ajax-loader.gif" alt="" /> Espere un Momento ...</h3>
-                        <button id="cerrarCarga" style="display: none;" class="close" data-dismiss="modal"/>
-                         <a id="abrirCarga" style="display: none;" data-toggle="modal" data-backdrop="static" href="#ModalCarga"/>
-                     </div>
-                </div>     
-
+        
                 </div>
             </div>
             
@@ -440,7 +430,7 @@ function getMododulos(posicion)
 					validClass: 'valid',
                                         ignore: ":hidden:not(select)",
                                             submitHandler: function() {       
-                                                       $("#abrirCarga").click();
+                                                       $("#myModal").modal('show'); 
                                                     var url = "operaciones/configuracion/insert.jsp"; 
 
                                                     $.ajax({
@@ -457,7 +447,7 @@ function getMododulos(posicion)
                                                                     
                                                                }
                                                                
-                                                                 $("#cerrarCarga").trigger("click");
+                                                                 $('#myModal').modal('hide');
                                                            }
                                                          });    
                                             },
